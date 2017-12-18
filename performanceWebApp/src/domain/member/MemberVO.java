@@ -13,11 +13,10 @@ public class MemberVO {
 	String withdrawal;
 	String wdDate;
 	String wdReason;
-	
+
 	public MemberVO() {
 		super();
 	}
-	
 
 	public MemberVO(String mId, String mPw, String mName, String birthday, String email, String address, int rankNo) {
 		super();
@@ -29,7 +28,6 @@ public class MemberVO {
 		this.address = address;
 		this.rankNo = rankNo;
 	}
-
 
 	public MemberVO(String mNo, String mId, String mPw, String mName, String birthday, String email, String address,
 			int score, int rankNo, String withdrawal, String wdDate, String wdReason) {
@@ -47,8 +45,6 @@ public class MemberVO {
 		this.wdDate = wdDate;
 		this.wdReason = wdReason;
 	}
-
-
 
 	public String getmNo() {
 		return mNo;
@@ -118,6 +114,10 @@ public class MemberVO {
 		return rankNo;
 	}
 
+	public void setRankNo(int rankNo) {
+		this.rankNo = rankNo;
+	}
+
 	public void setrName(int rankNo) {
 		this.rankNo = rankNo;
 	}
@@ -152,7 +152,5 @@ public class MemberVO {
 				+ ", email=" + email + ", address=" + address + ", score=" + score + ", rankNo=" + rankNo
 				+ ", withdrawal=" + withdrawal + ", wdDate=" + wdDate + ", wdReason=" + wdReason + "]";
 	}
-	
-	
-		
+
 }
