@@ -12,7 +12,6 @@ public class DBConn {
 		Context envContext  = (Context)initContext.lookup("java:/comp/env");
 		DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
 		Connection conn = ds.getConnection();
-		
 		return conn;
 	}
 }
