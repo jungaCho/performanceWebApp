@@ -9,6 +9,8 @@ import java.util.List;
 
 import conn.DBConn;
 import domain.reservation.ReservationVO;
+import domain.reservation.ReservedSeatVO;
+import domain.reservation.SeatVO;
 import domain.reservation.TotalInfoVO;
 
 public class ReservationDAO {
@@ -268,11 +270,10 @@ public class ReservationDAO {
 		}
 		
 		//검색조건에 해당하는 회원의 예매 내역을 조회한다.
-		public List<TotalInfoVO> selectReservationListByMember(String keyfield, String keyword, String mNo, int startRow, int endRow ) throws Exception{
+		public List<TotalInfoVO> selectReservationListByMember(String keyfield, String keyword, String mNo, int startRow, int endRow, Connection conn ) throws Exception{
 			
 			List<TotalInfoVO> total = new ArrayList<TotalInfoVO>();
 			PreparedStatement pstmt = null;
-			Connection conn = null;
 			ResultSet rs = null;
 			
 			try {
@@ -327,7 +328,6 @@ public class ReservationDAO {
 				
 				
 			} finally {
-				if(conn != null) conn.close();
 				if(pstmt != null) pstmt.close();
 				if(rs != null) rs.close();
 			}
@@ -336,5 +336,41 @@ public class ReservationDAO {
 			
 		}
 		
-
+		public List<ReservedSeatVO> selectReservedSeat(String oNo, Connection conn) throws Exception{
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<ReservedSeatVO> rSeats = new ArrayList<ReservedSeatVO>();
+			
+			try {
+				StringBuffer sql = new StringBuffer();
+				sql.append("select rs.r_no, rs.seat_no, o.o_no               ");
+				sql.append("from reservation_seat  rs , reservation r , orders o                                                 ");
+				sql.append("where rs.r_no = r.r_no                                   ");
+				sql.append("and r.o_no = o.o_no                                                                  ");
+				sql.append("and r.o_no = ?                                                  ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, oNo);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					ReservedSeatVO rSeat = new ReservedSeatVO();
+					rSeat.setrNo(rs.getString(1));
+					rSeat.setSeatNo(rs.getString(2));
+					rSeat.setoNo(rs.getString(3));
+					rSeats.add(rSeat);
+				}
+				
+				
+				
+			} finally {
+				if(pstmt != null) pstmt.close();
+			}
+			
+			return rSeats;
+			
+		}
+			
 }
