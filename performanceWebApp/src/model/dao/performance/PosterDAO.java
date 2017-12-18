@@ -45,6 +45,59 @@ public class PosterDAO {
 		
 	}
 	
+	//공연 포스터를 삭제한다.
+	public void deletePoster(Connection conn,String poster_no) throws Exception{
+		PreparedStatement pstmt=null;
+		try {
+			StringBuilder sql=new StringBuilder();
+			sql.append("delete from poster     ");
+			sql.append("where poster_no=?   " );
+			
+			pstmt=conn.prepareStatement(sql.toString());
+			pstmt.setString(1, poster_no);
+			
+			pstmt.executeUpdate();
+			
+		} finally {
+			if(pstmt!=null) pstmt.close();
+		}
+	}
 	
+	//공연 포스터를 일괄 삭제한다.
+	public void deletePosterList(Connection conn, String p_no) throws Exception{
+		PreparedStatement pstmt=null;
+		try {
+			StringBuilder sql=new StringBuilder();
+			sql.append("delete from poster     ");
+			sql.append("where p_no=?   " );
+			
+			pstmt=conn.prepareStatement(sql.toString());
+			pstmt.setString(1, p_no);
+			
+			pstmt.executeUpdate();
+			
+		} finally {
+			if(pstmt!=null) pstmt.close();
+		}
+	}
+	
+	//공연 포스터 정보를 수정한다.
+	public void updatePoster(Connection conn,PosterVO poster) throws Exception{
+		PreparedStatement pstmt=null;
+		try {
+			StringBuffer sql=new StringBuffer();
+			sql.append("update poster    ");
+			sql.append("set main_Poster=?   ");
+			sql.append("where poster_no=?    ");
+			pstmt=conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1,poster.getMainPoster() );
+			pstmt.setString(2, poster.getPosterNo());
+			
+			pstmt.executeUpdate();
+		} finally {
+			if(pstmt!=null) pstmt.close();
+		}
+	}
 	
 }
