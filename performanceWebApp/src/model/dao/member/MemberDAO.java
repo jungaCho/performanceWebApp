@@ -124,7 +124,7 @@ public class MemberDAO {
 	 * 
 	 * }
 	 */
-	public boolean deleteMember(MemberVO member) throws Exception {
+	public void deleteMember(MemberVO member) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -148,7 +148,6 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
-		return true;
 	}
 
 	public boolean loginMember(String mId, String mPw) throws Exception {
@@ -167,13 +166,9 @@ public class MemberDAO {
 
 			rs = pstmt.executeQuery();
 
-			MemberVO member = new MemberVO();
-			member.setmNo(rs.getString(1));
-
-			if (member.getmNo() != null) {
+			if (rs.getString(1) != null) {
 				return true;
-			}
-
+			}			
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
@@ -217,10 +212,7 @@ public class MemberDAO {
 						return false; // false
 					}
 				}
-
 			}
-
-			return true;
 
 		} finally {
 
@@ -229,7 +221,7 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
-
+		return true;
 	}
 
 	public boolean checkOverLapEmail(String email) throws Exception {
@@ -260,14 +252,13 @@ public class MemberDAO {
 					}
 				}
 			}
-			return true;
-
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
 			if (conn != null)
 				conn.close();
 		}
+		return true;
 	}
 
 	/*
@@ -311,15 +302,13 @@ public class MemberDAO {
 			pstmt.setString(2, email);
 
 			rs = pstmt.executeQuery();
-
+			
 			MemberVO member = new MemberVO();
 			member.setmId(rs.getString(1));
 			
 			if(member.getmId() == null) {
 				return false; 
-			}
-			return true;
-			
+			}			
 		} finally {
 			if (rs != null)
 				rs.close();
@@ -328,6 +317,7 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
+		return true;
 	}
 
 	public String searchPwd(String mId, String mName, String email) throws Exception {
@@ -416,9 +406,7 @@ public class MemberDAO {
 				member.setWdReason(rs.getString(11));
 				member.setRankNo(rs.getInt(12));
 				members.add(member);
-			}
-			return members;
-			
+			}			
 		} finally {
 			if (rs != null)
 				rs.close();
@@ -427,9 +415,110 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
+		return members;
 	}
 	
 	public MemberVO selectMemberDetail(String mNo) throws Exception {
-		return null;
+		MemberVO member = new MemberVO();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
+			sql.append("from member															");
+			sql.append("where m_no = ?														");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, mNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member.setmNo(rs.getString(1));
+				member.setmId(rs.getString(2));
+				member.setmPw(rs.getString(3));
+				member.setmName(rs.getString(4));
+				member.setBirthday(rs.getString(5));
+				member.setEmail(rs.getString(6));
+				member.setAddress(rs.getString(7));
+				member.setScore(rs.getInt(8));
+				member.setWithdrawal(rs.getString(9));
+				member.setWdDate(rs.getString(10));
+				member.setWdReason(rs.getString(11));
+				member.setRankNo(rs.getInt(12));
+			}
+		} finally {
+			if(pstmt!=null) conn.close();
+			if(conn!=null) conn.close();
+		}
+		return member;
+	}
+	
+	public List<MemberVO> searchByMember(String keyfield, String keyword, int startRow, int endRow) throws Exception {
+		List<MemberVO> members = new ArrayList<MemberVO>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
+			sql.append("from (select rownum as rn, member1.*								");
+			sql.append("		from(select * from member									");
+			sql.append("                order by m_no desc)member1)							");
+			if(keyfield.equals("m_no")) {
+				sql.append("where m_no like '%' || ? || '%'									");
+			} else if (keyfield.equals("m_id")) {
+				sql.append("where m_id like '%' || ? || '%'									");
+			} else if (keyfield.equals("m_name")) {
+				sql.append("where m_name like '%' || ? || '%'								");
+			} else if (keyfield.equals("birthday")) {
+				sql.append("where m_id like '%' || ? || '%'									");
+			} else if (keyfield.equals("rank_no")) {
+				sql.append("where rank_no like '%' || ? || '%'								");
+			} else if (keyfield.equals("withdrawal")) {
+				sql.append("where withdrawal like '%' || ? || '%'							");
+			}
+			sql.append("	and rn >= ? and rn =< ?											");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, keyword);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberVO member = new MemberVO();
+				member.setmNo(rs.getString(1));
+				member.setmId(rs.getString(2));
+				member.setmPw(rs.getString(3));
+				member.setmName(rs.getString(4));
+				member.setBirthday(rs.getString(5));
+				member.setEmail(rs.getString(6));
+				member.setAddress(rs.getString(7));
+				member.setScore(rs.getInt(8));
+				member.setWithdrawal(rs.getString(9));
+				member.setWdDate(rs.getString(10));
+				member.setWdReason(rs.getString(11));
+				member.setRankNo(rs.getInt(12));
+				members.add(member);
+			}
+			
+		} finally {
+			if(rs!=null) rs.close();
+			if(pstmt!=null) pstmt.close();
+			if(conn!=null) conn.close();
+		}
+		return members;
+		
 	}
 }
