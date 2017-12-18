@@ -7,15 +7,34 @@ public class ReservationVO {
 	String rDate;
 	String cardNumber;
 	String approveNumber;
-	int totalPrive;
+	int totalPrice;
 	String cancelDate;
 	int cardCoNo;
 	String mNo;
 	String oNo;
 	
 	public ReservationVO() {
-		super();
+		
 	}
+	
+	
+
+	public ReservationVO(String rNo, String rStatus, String rDate, String cardNumber, String approveNumber,
+			int totalPrice, String cancelDate, int cardCoNo, String mNo, String oNo) {
+		super();
+		this.rNo = rNo;
+		this.rStatus = rStatus;
+		this.rDate = rDate;
+		this.cardNumber = cardNumber;
+		this.approveNumber = approveNumber;
+		this.totalPrice = totalPrice;
+		this.cancelDate = cancelDate;
+		this.cardCoNo = cardCoNo;
+		this.mNo = mNo;
+		this.oNo = oNo;
+	}
+
+
 
 	public String getrNo() {
 		return rNo;
@@ -58,11 +77,11 @@ public class ReservationVO {
 	}
 
 	public int getTotalPrive() {
-		return totalPrive;
+		return totalPrice;
 	}
 
 	public void setTotalPrive(int totalPrive) {
-		this.totalPrive = totalPrive;
+		this.totalPrice = totalPrive;
 	}
 
 	public String getCancelDate() {
@@ -100,7 +119,7 @@ public class ReservationVO {
 	@Override
 	public String toString() {
 		return "ReservationVO [rNo=" + rNo + ", rStatus=" + rStatus + ", rDate=" + rDate + ", cardNumber=" + cardNumber
-				+ ", approveNumber=" + approveNumber + ", totalPrive=" + totalPrive + ", cancelDate=" + cancelDate
+				+ ", approveNumber=" + approveNumber + ", totalPrive=" + totalPrice + ", cancelDate=" + cancelDate
 				+ ", cardCoNo=" + cardCoNo + ", mNo=" + mNo + ", oNo=" + oNo + "]";
 	}
 	
