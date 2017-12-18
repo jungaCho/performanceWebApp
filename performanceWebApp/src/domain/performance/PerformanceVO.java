@@ -9,7 +9,7 @@ public class PerformanceVO {
 	private String startDate; //시작일
 	private String endDate;//종료일
 	private String production; //제작사
-	private String contackName; //공연 담당자
+	private String contactName; //공연 담당자
 	private String contactNumber; //공연 담당자 연락처
 	private int runningTime; //러닝타임
 	private String note; //비고
@@ -39,7 +39,7 @@ public class PerformanceVO {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.production = production;
-		this.contackName = contackName;
+		this.contactName = contackName;
 		this.contactNumber = contactNumber;
 		this.runningTime = runningTime;
 		this.note = note;
@@ -102,12 +102,12 @@ public class PerformanceVO {
 		this.production = production;
 	}
 
-	public String getContackName() {
-		return contackName;
+	public String getContactName() {
+		return contactName;
 	}
 
-	public void setContackName(String contackName) {
-		this.contackName = contackName;
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
 	}
 
 	public String getContactNumber() {
@@ -209,7 +209,7 @@ public class PerformanceVO {
 	@Override
 	public String toString() {
 		return "PerformanceVO [pNo=" + pNo + ", title=" + title + ", video=" + video + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", production=" + production + ", contackName=" + contackName
+				+ ", endDate=" + endDate + ", production=" + production + ", contactName=" + contactName
 				+ ", contactNumber=" + contactNumber + ", runningTime=" + runningTime + ", note=" + note + ", price="
 				+ price + ", viewNo=" + viewNo + ", viewClass=" + viewClass + ", genreNo=" + genreNo + ", genre="
 				+ genre + ", tName=" + tName + ", schedules=" + schedules + ", posters=" + posters + ", detaileFiles="
