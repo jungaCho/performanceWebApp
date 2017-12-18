@@ -3,10 +3,12 @@ package model.dao.reservation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import conn.DBConn;
+import domain.reservation.ReservationVO;
 import domain.reservation.TotalInfoVO;
 
 public class ReservationDAO {
@@ -178,5 +180,161 @@ public class ReservationDAO {
 			return totalInfos;
 		}
 	
+		
+		//예매정보를 등록한다.
+		public String insertReservation(ReservationVO reservation, Connection conn) throws Exception{
+			
+			PreparedStatement pstmt = null;
+			String rNo = "";
+			Statement stmt = null;
+			
+			try {
+				StringBuffer sql = new StringBuffer();
+				sql.append("insert into reservation(r_no , r_date , card_number , total_price , approve_number , m_no , o_no , cardCo_no)                           ");
+				sql.append("values('R'||to_char(sysdate,'YYYY/MM/DD') || lpad(reservation_seq.nextval,6,'0'), to_char(sysdate,'YYYY/MM/DD')),                   ");
+				sql.append("? , ? , lpad(round(dbms_random.value(0,999999),0),6,'0'), ? , ?, ?                                  ");
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, reservation.getCardNumber());
+				pstmt.setInt(2, reservation.getTotalPrive());
+				pstmt.setString(3, reservation.getmNo());
+				pstmt.setString(4, reservation.getoNo());
+				
+				pstmt.executeUpdate();
+				pstmt.close();
+				
+				stmt = conn.createStatement();
+				
+				sql.delete(0, sql.length());
+				sql.append("select ('R'||to_char(sysdate,'YYYY/MM/DD') || lpad(reservation_seq.currval,6,'0') from dual                                                         ");			
+				
+				ResultSet rs = stmt.executeQuery(sql.toString());
+				if(rs.next()) {
+					rNo = rs.getString(1);
+				}
+				
+						
+			} finally {
+				if(pstmt != null) pstmt.close();
+			}
+			
+			return rNo;
+		}
+		
+		//환불 정보를 등록한다.
+		public void updateReservation(String rNo, Connection conn) throws Exception{
+			
+			PreparedStatement pstmt = null;
+			
+			try {
+				StringBuffer sql = new StringBuffer();
+				sql.append("update reservation                                                                                                    ");
+				sql.append("set r_Status = '0'  ,  cancel_date = to_char(sysdate,'YYYY/MM/DD')                                  ");
+				sql.append("where r_no = ?                                                                                                         ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, rNo);
+				
+				pstmt.executeUpdate();
+				
+				
+			} finally {
+				if(pstmt != null) pstmt.close();
+			}
+			
+		}
+		
+		//예매된 좌석 정보를 일괄 삭제한다.
+		public void deleteReservedSeat(String rNo, Connection conn) throws Exception{
+		
+			PreparedStatement pstmt = null;
+			
+			try {
+				StringBuffer sql = new StringBuffer();
+				sql.append("delete from reserved_seat                                            ");
+				sql.append("where r_No = ?                                                           ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, rNo);
+				
+				pstmt.executeUpdate();
+					
+			} finally {
+				if(pstmt != null) pstmt.close();
+			}
+			
+		}
+		
+		//검색조건에 해당하는 회원의 예매 내역을 조회한다.
+		public List<TotalInfoVO> selectReservationListByMember(String keyfield, String keyword, String mNo, int startRow, int endRow ) throws Exception{
+			
+			List<TotalInfoVO> total = new ArrayList<TotalInfoVO>();
+			PreparedStatement pstmt = null;
+			Connection conn = null;
+			ResultSet rs = null;
+			
+			try {
+				conn = DBConn.getConnection();
+				StringBuffer sql = new StringBuffer();
+				sql.append("select r.r_no , r.r_status, to_char(r.r_date,'YYYY/MM/DD'), r.card_number, r.approve_number, r.total_price,                                          ");
+				sql.append("c.cardCo_name,m.m_id, p.title, to_char(s.s_date,'YYYY/MM/DD'), to_char(o.o_time,'HH24:MI') , t.t_name                       ");
+				sql.append("from reservation r, card_company c, member m , performance p, schedule s, orders o , theater t,  reserved_seat rs                      ");
+				sql.append("where r.o_no = o.o_no                                                                                                                                                            ");
+				sql.append("and r.cardCo_no = c.cardCo_no                                                                                                                                                ");
+				sql.append("and r.m_no = m.m_no                                                                                                                                                              ");
+				sql.append("and o.s_no = s.s_no                                                                                                                                                                ");			
+				sql.append("and s.p_no = p.p_no                                                                                                                                                                ");			
+				sql.append("and s.t_no = t.t_no                                                                                                                                                                 ");			
+				sql.append("and rs.seat_no = st.seat_no                                                                                                                                                     ");			
+				sql.append("and r.r_no = rs.r_no                                                                                                                                                                ");			
+				if(keyfield.equals("title")) {
+					sql.append("where title like '%' || ? || '%'                                                     ");
+				}else if(keyfield.equals("sDate")){
+					sql.append("and s_date = ?                                                                         ");
+				}else if(keyfield.equals("rStatus")) {
+					sql.append("and r_status = ?                                                                        ");
+				}
+				
+				sql.append("order by r.r_no desc                                                                                                   ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, keyword);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					TotalInfoVO totalInfo = new TotalInfoVO();
+					
+					
+					totalInfo.setrNo(rs.getString(1));
+					totalInfo.setrStatus(rs.getString(2));
+					totalInfo.setrDate(rs.getString(3));
+					totalInfo.setCardNumber(rs.getString(4));
+					totalInfo.setApproveNumber(rs.getString(5));
+					totalInfo.setTotalPrice(rs.getInt(6));
+					totalInfo.setCardCoName(rs.getString(7));
+					totalInfo.setmId(rs.getString(8));
+					totalInfo.setTitle(rs.getString(9));
+					totalInfo.setsDate(rs.getString(10));
+					totalInfo.setoTime(rs.getString(11));
+					totalInfo.settName(rs.getString(12));
+					total.add(totalInfo);
+		
+				}
+				
+				
+			} finally {
+				if(conn != null) conn.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}
+			
+			return total;
+			
+		}
+		
 
 }
