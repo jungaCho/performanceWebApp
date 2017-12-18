@@ -1,5 +1,7 @@
 package domain.reservation;
 
+import java.util.List;
+
 public class TotalInfoVO {
 	private String rNo;				//예매번호
 	private String rStatus;
@@ -13,15 +15,21 @@ public class TotalInfoVO {
 	private String sDate;
 	private String oTime;
 	private String tName;
-	private String[] seatNumber;
+	private List<SeatVO> seatNumber;
 	
 	public TotalInfoVO() {
 		
 	}
 	
+	
+
+	
+
+
+
 	public TotalInfoVO(String rNo, String rStatus, String rDate, String cardNumber, String approveNumber,
 			int totalPrice, String cardCoName, String mId, String title, String sDate, String oTime, String tName,
-			String[] seatNumber) {
+			List<SeatVO> seatNumber) {
 		super();
 		this.rNo = rNo;
 		this.rStatus = rStatus;
@@ -37,6 +45,12 @@ public class TotalInfoVO {
 		this.tName = tName;
 		this.seatNumber = seatNumber;
 	}
+
+
+
+
+
+
 
 	public String getrNo() {
 		return rNo;
@@ -134,15 +148,26 @@ public class TotalInfoVO {
 		this.tName = tName;
 	}
 
-	public String[] getSeatNumber() {
+
+
+
+
+
+
+	public List<SeatVO> getSeatNumber() {
 		return seatNumber;
 	}
 
-	public void setSeatNumber(String[] seatNumber) {
+
+
+
+
+
+
+	public void setSeatNumber(List<SeatVO> seatNumber) {
 		this.seatNumber = seatNumber;
 	}
-	
-	
-	
-	
+
+
+
 }
