@@ -8,7 +8,7 @@
 <body>
 
 	아이디 : <input type="text" name="id" sizes="20" placeholder="아이디를 입력해주세요" autofocus></input><br>
-	비밀번호 : <input type="password" name="pwd" sizes="20"></input><br>
+	비밀번호 : <input type="password" name="pwd" sizes="20" placeholder="비밀번호를 입력해주세요"></input><br>
 	
 	<a href="#">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
 	
