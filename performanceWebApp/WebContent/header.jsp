@@ -23,10 +23,12 @@
 </c:url>
 
 <nav>
-	<a href ="#"><h1 style="float:left; width:100px; margin-left:30px; color:#f25c5c">로고</h1></a>
+	<a href ="#"><h1>로고</h1></a>
 	<ul style="float:right; margin-right:30px;">
 		<li><a href="${pageScope.url1 }">공연정보</a></li>
 		<li><a href="#">예매</a></li>
 		<li><a href="#">마이페이지</a></li>
+		<li><span id="loginm">로그인이 필요합니다.</span></li>
+		<li><a href="#"><span id="loginm2">로그인</span></a><li>
 	</ul>
 </nav>
