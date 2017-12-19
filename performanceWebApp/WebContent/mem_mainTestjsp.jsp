@@ -119,7 +119,7 @@ a:hover {
 <body>
 
 	<header>
-		<jsp:include page="header.jsp" />
+		<jsp:include page="member_header.jsp" />
 	</header>
 
 	<section>

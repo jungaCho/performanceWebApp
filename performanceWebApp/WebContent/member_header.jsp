@@ -13,7 +13,7 @@
 </c:url>
 
 <c:url var="url3" value="/member_m_layout.jsp" scope="page">
-	<c:param name="nav" value="member_m_menu" />
+	<c:param name="nav" value="member_menu" />
 	<c:param name="article" value="member_welcome" />
 </c:url>
 
