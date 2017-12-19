@@ -1,4 +1,4 @@
-<%-- member_layout.jsp --%>
+<%-- admin_layout.jsp --%>
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <%
@@ -10,6 +10,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="Generator" content="EditPlus®">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
 <title>2단 Layout</title>
 <style>
 body, a {
@@ -39,7 +43,7 @@ section article {
 	width: 100%;
 	height: 600px;
 	background-color: #ebebeb;
-	float: left;
+	/* float: left; */
 }
 
 footer {
@@ -54,8 +58,21 @@ header nav {
 	padding-top: 10px;
 }
 
+#loginm {
+	
+	font-weight: none;
+
+}
+
 nav ul {
 	list-style-type: none;
+}
+
+#loginm2 {
+	
+	text-decoration: bolder;
+	color: #f03535;
+
 }
 
 header nav ul li {
@@ -63,8 +80,23 @@ header nav ul li {
 	margin: 10px;
 }
 
+
+
+header nav h1 {
+	float: left;
+	width: 100px;
+	margin-left: 30px;
+	color: #f25c5c;
+}
+
 nav ul a {
 	text-decoration: none;
+}
+
+section article {
+	width: 100%;
+	height: 600px;
+	background-color: #ebebeb;
 }
 
 header nav ul a:hover {
@@ -75,27 +107,30 @@ section nav ul li {
 	margin: 30px 0px;
 }
 
-header nav h1 {
-	
-	float:left; 
-	width:100px; 
-	margin-left:30px; 
-	color:#f25c5c;
-
-}
 a:hover {
 	color: #607d8b;
 }
 </style>
 </head>
 <body>
+
 	<header>
 		<jsp:include page="header.jsp" />
 	</header>
+
 	<section>
+
 		<nav><jsp:include page="<%=nav%>" /></nav>
-		<article><jsp:include page="<%=article%>" /></article>
+
 	</section>
+
+	<section>
+
+		<article><jsp:include page="<%=article%>" /></article>
+
+	</section>
+
+
 	<footer>Footer</footer>
 </body>
 </html>
