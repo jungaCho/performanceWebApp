@@ -2,6 +2,7 @@ package model.dao.performance;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -61,4 +62,33 @@ public class ScheduleDAO {
 		
 		
 	}
+	
+	//공연번호에 해당하는 회차번호 조회
+		public String[] selectSchedule(Connection conn, String pNo) throws Exception{
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			try {
+				StringBuffer sql=new StringBuffer();
+				
+				sql.append("select s_no    ");
+				sql.append("from schedule   ");
+				sql.append("where p_no=?    ");
+				
+				pstmt=conn.prepareStatement(sql.toString());
+				pstmt.setString(1,pNo);
+				
+				rs=pstmt.executeQuery(sql.toString());
+				String[] sNos=null;
+				int i=0;
+				while(rs.next()) {
+					String sNo=rs.getString(1);
+					sNos[i]=sNo;
+					i++;
+				}
+				return sNos;	
+				
+			} finally {
+				if(pstmt!=null) pstmt.close();
+			}
+		}
 }

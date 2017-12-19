@@ -4,17 +4,16 @@ public class ReservedSeatVO {
 	
 	private String rNo;
 	private String seatNo;
-	private String oNo;
+
 	
 	public ReservedSeatVO() {
 		super();
 	}
 
-	public ReservedSeatVO(String rNo, String seatNo, String oNo) {
+	public ReservedSeatVO(String rNo, String seatNo) {
 		super();
 		this.rNo = rNo;
 		this.seatNo = seatNo;
-		this.oNo = oNo;
 	}
 
 	public String getrNo() {
@@ -33,14 +32,5 @@ public class ReservedSeatVO {
 		this.seatNo = seatNo;
 	}
 
-	public String getoNo() {
-		return oNo;
-	}
-
-	public void setoNo(String oNo) {
-		this.oNo = oNo;
-	}
-	
-	
 
 }
