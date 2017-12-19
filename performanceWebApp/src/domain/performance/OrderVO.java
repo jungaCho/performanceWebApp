@@ -44,7 +44,7 @@ public class OrderVO {
 	@Override
 	public String toString() {
 		return "OrderVO [oNo=" + oNo + ", oTime=" + oTime + ", sNo=" + sNo + "]";
-	}
+	}	
 	
 	
 }
