@@ -16,9 +16,11 @@
 <meta name="Description" content="">
 <title>2단 Layout</title>
 <style>
+
 body, a {
+	
 	font: 20px '돋움';
-	color: white;
+	color : #ebebeb;
 	font-weight: bolder;
 }
 
@@ -93,7 +95,7 @@ header nav h1 {
 }
 
 header nav ul a:hover {
-	color: #607d8b;
+	color: #ffffff;
 }
 
 
