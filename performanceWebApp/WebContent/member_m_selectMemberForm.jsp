@@ -23,8 +23,6 @@
 		width: 400px;
 		height: 500px;
 		margin-right: 20px;
-		
-		
 	
 	}
 	

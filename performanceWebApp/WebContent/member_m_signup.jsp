@@ -57,7 +57,7 @@
 		이름<br>
 		<input type="text" name="name" size="40" placeholder="이름을 입력해주세요"/><br>
 		이메일<br>
-		<input type="email" name="email" size="40" placeholder="이메일을 입력해주세요"/>&nbsp;
+		<input type="text" name="email" size="40" placeholder="이메일을 입력해주세요"/>&nbsp;
 		<button type="button">이메일 인증</button><br>
 		주소<br>
 		<input type="text" name="address" size="40" placeholder="주소를 입력해주세요"/>
