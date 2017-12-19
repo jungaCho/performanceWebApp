@@ -16,7 +16,6 @@
 	text-align : center;
 
 }
-
 button {
 
 	width: 80px;
