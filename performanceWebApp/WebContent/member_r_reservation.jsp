@@ -98,7 +98,7 @@
 		</div>
 		<!-- /reservation -->
 		<!-- reservation -->
-		<div class="reservation">
+		<div class="reservation" style="margin-bottom:50px;">
 			<!-- r_img -->
 			<div class="r_img"><a href="#">포스터</a></div>
 			<!-- r_text -->
