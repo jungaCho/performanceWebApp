@@ -126,7 +126,7 @@ public class MemberDAO {
 	 */
 	public void deleteMember(MemberVO member) throws Exception {
 
-		//test 1
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
