@@ -12,9 +12,9 @@
 	<c:param name="article" value="welcome1" />
 </c:url>
 
-<c:url var="url3" value="/member_layout.jsp" scope="page">
-	<c:param name="nav" value="menu1" />
-	<c:param name="article" value="welcome1" />
+<c:url var="url3" value="/member_m_layout.jsp" scope="page">
+	<c:param name="nav" value="member_menu" />
+	<c:param name="article" value="member_welcome" />
 </c:url>
 
 <c:url var="urlHome" value="/member_layout.jsp" scope="page">
@@ -27,7 +27,7 @@
 	<ul style="float:right; margin-right:30px;">
 		<li><a href="${pageScope.url1 }">공연정보</a></li>
 		<li><a href="#">예매</a></li>
-		<li><a href="#">마이페이지</a></li>
+		<li><a href="${pageScope.url3 }">마이페이지</a></li>
 		<li><span id="loginm">로그인이 필요합니다.</span></li>
 		<li><a href="#"><span id="loginm2">로그인</span></a><li>
 	</ul>

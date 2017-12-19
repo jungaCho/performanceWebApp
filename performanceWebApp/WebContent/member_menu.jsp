@@ -7,3 +7,9 @@
 	<c:param name="article" value="member_welcome" />
 </c:url>
 
+
+<ul>
+	<li><a style="color:#f25c5c" href="${pageScope.url1 }">서브메뉴1</a></li>
+	<li><a style="color:#a69bd4" href="#">서브메뉴2</a></li>
+	<li><a style="color:#a69bd4" href="#">서브메뉴3</a></li>
+</ul>
