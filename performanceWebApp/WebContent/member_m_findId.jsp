@@ -6,6 +6,7 @@
 <title>아이디 찾기</title>
 </head>
 <body>
+
 	이름과 연락처를 입력해주세요!<br>
 	<input type="text" name="name" size="30"/><br>
 	<input type="email" name="email" size="30"/><br>
