@@ -8,8 +8,8 @@
 <body>
 	<form>
 		<div id="box">
-			이름과 연락처를 입력해주세요!<br>
-			ID<br>
+			이름과 이메일를 입력해주세요!<br>
+			이름<br>
 			<input type="text" name="name" size="30" placeholder="이름을 입력해주세요"/><br>
 			Email<br>
 			<input type="email" name="email" size="30" placeholder="이메일을 입력해주세요"/><br>
