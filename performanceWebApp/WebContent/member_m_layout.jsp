@@ -23,13 +23,13 @@ section {
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: #8BC34A;
+	background-color: #4C566E;
 	overflow: hidden;
 }
 
 section article {
 	width: 100%;
-	height: 600px;
+	height: 100%
 	background-color: #ebebeb;
 	float: left;
 }
@@ -52,7 +52,7 @@ nav ul a {
 
 section nav {
 	width: 25%;
-	height: 600px;
+	height: 100%;
 	background-color: #4C566E;
 	float: left;
 }
