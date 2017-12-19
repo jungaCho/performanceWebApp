@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <%
-	String nav = request.getParameter("nav") + ".jsp";
+	
 	String article = request.getParameter("article") + ".jsp";
 %>
 
@@ -29,7 +29,7 @@ section {
 
 section article {
 	width: 100%;
-	height: 100%
+	height: 600px;
 	background-color: #ebebeb;
 	float: left;
 }
@@ -59,8 +59,8 @@ section nav {
 
 section article {
 	color: black;
-	width: 75%;
-	height: 600px;
+	width: 100%;
+	height: 100%;
 	background-color: #ebebeb;
 	float: left;
 }
@@ -121,7 +121,7 @@ a:hover {
 		<jsp:include page="member_header.jsp" />
 	</header>
 	<section>
-		<nav><jsp:include page="<%=nav%>" /></nav>
+		
 		<article><jsp:include page="<%=article%>" /></article>
 	</section>
 	<footer>Footer</footer>

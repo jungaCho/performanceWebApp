@@ -1,5 +1,6 @@
 package domain.reservation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TotalInfoVO {
@@ -15,21 +16,15 @@ public class TotalInfoVO {
 	private String sDate;
 	private String oTime;
 	private String tName;
-	private List<SeatVO> seatNumber;
+	private List<ReservedSeatVO> seats = new ArrayList<ReservedSeatVO>();
 	
 	public TotalInfoVO() {
 		
 	}
-	
-	
-
-	
-
-
 
 	public TotalInfoVO(String rNo, String rStatus, String rDate, String cardNumber, String approveNumber,
 			int totalPrice, String cardCoName, String mId, String title, String sDate, String oTime, String tName,
-			List<SeatVO> seatNumber) {
+			List<ReservedSeatVO> seats) {
 		super();
 		this.rNo = rNo;
 		this.rStatus = rStatus;
@@ -43,14 +38,8 @@ public class TotalInfoVO {
 		this.sDate = sDate;
 		this.oTime = oTime;
 		this.tName = tName;
-		this.seatNumber = seatNumber;
+		this.seats = seats;
 	}
-
-
-
-
-
-
 
 	public String getrNo() {
 		return rNo;
@@ -148,26 +137,18 @@ public class TotalInfoVO {
 		this.tName = tName;
 	}
 
-
-
-
-
-
-
-	public List<SeatVO> getSeatNumber() {
-		return seatNumber;
+	public List<ReservedSeatVO> getSeats() {
+		return seats;
 	}
 
-
-
-
-
-
-
-	public void setSeatNumber(List<SeatVO> seatNumber) {
-		this.seatNumber = seatNumber;
+	public void setSeats(List<ReservedSeatVO> seats) {
+		this.seats = seats;
 	}
-
-
-
-}
+	
+	public void addSeats(ReservedSeatVO seat) {
+		this.seats.add(seat);
+	}
+	
+	
+	
+}	
