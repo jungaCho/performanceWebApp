@@ -92,7 +92,7 @@
 		</div>
 		<br>
 		<button type="button" id="btn1">확인</button>
-		<button type="button" id="btn1">취소</button>
+		<button type="button" id="btn2">취소</button>
 	
 	
 	</form>
