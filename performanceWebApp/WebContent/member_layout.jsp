@@ -71,10 +71,6 @@ header nav ul a:hover {
 	color: #607d8b;
 }
 
-section nav ul li {
-	margin: 30px 0px;
-}
-
 header nav h1 {
 	
 	float:left; 
@@ -90,10 +86,9 @@ a:hover {
 </head>
 <body>
 	<header>
-		<jsp:include page="header.jsp" />
+		<jsp:include page="member_header.jsp" />
 	</header>
 	<section>
-		<nav><jsp:include page="<%=nav%>" /></nav>
 		<article><jsp:include page="<%=article%>" /></article>
 	</section>
 	<footer>Footer</footer>
