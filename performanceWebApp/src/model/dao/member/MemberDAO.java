@@ -372,7 +372,7 @@ public class MemberDAO {
 		}
 	}
 
-	public List<MemberVO> selectMemberList(int startRow, int endRow) throws Exception {
+	public List<MemberVO> selectMemberList(String sortkey, int startRow, int endRow) throws Exception {
 		List<MemberVO> members = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -385,7 +385,17 @@ public class MemberDAO {
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from (select rownum as rn, member1.*								");
 			sql.append("		from(select * from member									");
-			sql.append("                order by m_no desc)member1)							");
+			if(sortkey.equals("m_no")) {
+				sql.append("                order by m_no desc)member1)							");
+			} else if (sortkey.equals("m_id")) {
+				sql.append("                order by m_id desc)member1)							");
+			} else if (sortkey.equals("m_name")) {
+				sql.append("                order by m_name desc)member1)							");
+			} else if (sortkey.equals("rank_no")) {
+				sql.append("                order by rank_no desc)member1)							");
+			} else if (sortkey.equals("withdrawal")) {
+				sql.append("                order by withdrawal asc)member1)							");
+			}
 			sql.append("where rn>= ? and rn<= ?												");
 
 			pstmt = conn.prepareStatement(sql.toString());
@@ -463,7 +473,8 @@ public class MemberDAO {
 		return member;
 	}
 	
-	public List<MemberVO> searchByMember(String keyfield, String keyword, int startRow, int endRow) throws Exception {
+	public List<MemberVO> searchByMember(String sortkey, String keyfield, 
+											String keyword, int startRow, int endRow) throws Exception {
 		List<MemberVO> members = new ArrayList<MemberVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -476,7 +487,18 @@ public class MemberDAO {
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from (select rownum as rn, member1.*								");
 			sql.append("		from(select * from member									");
-			sql.append("                order by m_no desc)member1)							");
+			if(sortkey.equals("m_no")) {
+				sql.append("                order by m_no desc)member1)							");
+			} else if (sortkey.equals("m_id")) {
+				sql.append("                order by m_id desc)member1)							");
+			} else if (sortkey.equals("m_name")) {
+				sql.append("                order by m_name desc)member1)							");
+			} else if (sortkey.equals("rank_no")) {
+				sql.append("                order by rank_no desc)member1)							");
+			} else if (sortkey.equals("withdrawal")) {
+				sql.append("                order by withdrawal asc)member1)							");
+			}
+			
 			if(keyfield.equals("m_no")) {
 				sql.append("where m_no like '%' || ? || '%'									");
 			} else if (keyfield.equals("m_id")) {

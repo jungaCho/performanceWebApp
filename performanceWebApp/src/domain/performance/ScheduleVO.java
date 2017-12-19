@@ -70,5 +70,8 @@ public class ScheduleVO {
 				+ "]";
 	}
 	
+	public void addOrders(OrderVO order) {
+		this.orders.add(order);
+	}
 	
 }

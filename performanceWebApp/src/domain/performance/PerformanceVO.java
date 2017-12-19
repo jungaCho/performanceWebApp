@@ -1,5 +1,6 @@
 package domain.performance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PerformanceVO {
@@ -19,9 +20,9 @@ public class PerformanceVO {
 	private String genreNo;//장르번호
 	private String genre;//장르
 	private String tName;//공연장 이름
-	private List<ScheduleVO> schedules;//공연 일정 목록
-	private List<PosterVO> posters;//포스터 파일 목록
-	private List<DetailFileVO> detaileFiles;//상세설명 이미지 목록
+	private List<ScheduleVO> schedules = new ArrayList<ScheduleVO>();//공연 일정 목록
+	private List<PosterVO> posters = new ArrayList<PosterVO>();//포스터 파일 목록
+	private List<DetailFileVO> detailFiles = new ArrayList<DetailFileVO>();//상세설명 이미지 목록
 	
 	public PerformanceVO() {
 		super();
@@ -31,7 +32,7 @@ public class PerformanceVO {
 	public PerformanceVO(String pNo, String title, String video, String startDate, String endDate, String production,
 			String contackName, String contactNumber, int runningTime, String note, int price, String viewNo,
 			String viewClass, String genreNo, String genre, String tName, List<ScheduleVO> schedules,
-			List<PosterVO> posters, List<DetailFileVO> detaileFiles) {
+			List<PosterVO> posters, List<DetailFileVO> detailFiles) {
 		super();
 		this.pNo = pNo;
 		this.title = title;
@@ -51,7 +52,7 @@ public class PerformanceVO {
 		this.tName = tName;
 		this.schedules = schedules;
 		this.posters = posters;
-		this.detaileFiles = detaileFiles;
+		this.detailFiles = detailFiles;
 	}
 
 	public String getpNo() {
@@ -199,11 +200,11 @@ public class PerformanceVO {
 	}
 
 	public List<DetailFileVO> getDetaileFiles() {
-		return detaileFiles;
+		return detailFiles;
 	}
 
 	public void setDetaileFiles(List<DetailFileVO> detaileFiles) {
-		this.detaileFiles = detaileFiles;
+		this.detailFiles = detailFiles;
 	}
 
 	@Override
@@ -212,9 +213,33 @@ public class PerformanceVO {
 				+ ", endDate=" + endDate + ", production=" + production + ", contactName=" + contactName
 				+ ", contactNumber=" + contactNumber + ", runningTime=" + runningTime + ", note=" + note + ", price="
 				+ price + ", viewNo=" + viewNo + ", viewClass=" + viewClass + ", genreNo=" + genreNo + ", genre="
-				+ genre + ", tName=" + tName + ", schedules=" + schedules + ", posters=" + posters + ", detaileFiles="
-				+ detaileFiles + "]";
+				+ genre + ", tName=" + tName + ", schedules=" + schedules + ", posters=" + posters + ", detailFiles="
+				+ detailFiles + "]";
 	}
 	
+	public void addPoster(PosterVO poster) {
+		this.posters.add(poster);
+	}
 	
+	public void addSchedule(ScheduleVO schedule) {
+		this.schedules.add(schedule);
+	}
+	
+	public void addDetailFile(DetailFileVO detailFile) {
+		this.detailFiles.add(detailFile);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
