@@ -27,7 +27,7 @@ public class PerformanceDAO {
 	
 	
 	//조회 조건에 해당하는 공연 정보를 목록을 조회하다.(사용자)
-	public List<PerformanceVO> selectPerformanceListByMember(int filter, String keyword, int startRow, int endRow) throws Exception {
+	public List<PerformanceVO> selectPerformanceListByMember(String filter, String keyword, int startRow, int endRow) throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 		Connection conn = null;
 		Statement stmt = null;
@@ -53,7 +53,7 @@ public class PerformanceDAO {
 				if(filter.equals("genre")) {
 					sql.append("and genre like '%' || ? || '%' 																");
 				}
-				sql.append("order by 1 asc;																					");
+				sql.append("order by performance.title asc;																					");
 			}
 			rs = stmt.executeQuery(sql.toString());
 			while(rs.next()) {
@@ -205,7 +205,7 @@ public class PerformanceDAO {
 		}
 		
 	//검색 조건에 해당하는 정보를 조회한다.(관리자)
-	public List<PerformanceVO> searchPerformance(int keyfield, String keyword, int startRow, int endRow) throws Exception {
+	public List<PerformanceVO> searchPerformance(String keyfield, String keyword, int startRow, int endRow) throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 		Connection conn = null;
 		Statement stmt = null;
@@ -222,11 +222,11 @@ public class PerformanceDAO {
 			sql.append("and performance.p_no = schedule.p_no																					");
 			if (keyfield.equals("title")) {
 				sql.append("and title like '%' || ? || '%' 																						");
-				sql.append("order by 1 asc;																										");
+				sql.append("order by performance.title asc;																										");
 			} else if (keyfield.equals("date")) {
 				sql.append("and to_char(performance.start_Date,'MM') <= ? and to_char(performance.start_Date,'MM') >= ?							");
 				sql.append("and to_char(performance.end_Date,'MM') <= ? and to_char(performance.end_Date,'MM') <= ?								");
-				sql.append("order by 1 asc;																										");
+				sql.append("order by performance.start_Date asc;																										");
 			} else if (keyfield.equals("genre")) {
 				sql.append("and genre like '%' || ? || '%' 																						");
 				sql.append("order by 1 asc;																										");
