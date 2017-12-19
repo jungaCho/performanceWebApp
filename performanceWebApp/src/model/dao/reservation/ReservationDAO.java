@@ -9,6 +9,10 @@ import java.util.List;
 
 import conn.DBConn;
 import domain.reservation.ReservationVO;
+
+import domain.reservation.ReservedSeatVO;
+
+import domain.reservation.SeatVO;
 import domain.reservation.TotalInfoVO;
 
 public class ReservationDAO {
@@ -268,15 +272,15 @@ public class ReservationDAO {
 		}
 		
 		//검색조건에 해당하는 회원의 예매 내역을 조회한다.
-		public List<TotalInfoVO> selectReservationListByMember(String keyfield, String keyword, String mNo, int startRow, int endRow ) throws Exception{
-			
+
+
+		public List<TotalInfoVO> selectReservationListByMember(Connection conn, String keyfield, String keyword, String mNo, int startRow, int endRow ) throws Exception{
+		
 			List<TotalInfoVO> total = new ArrayList<TotalInfoVO>();
 			PreparedStatement pstmt = null;
-			Connection conn = null;
 			ResultSet rs = null;
 			
 			try {
-				conn = DBConn.getConnection();
 				StringBuffer sql = new StringBuffer();
 				sql.append("select r.r_no , r.r_status, to_char(r.r_date,'YYYY/MM/DD'), r.card_number, r.approve_number, r.total_price,                                          ");
 				sql.append("c.cardCo_name,m.m_id, p.title, to_char(s.s_date,'YYYY/MM/DD'), to_char(o.o_time,'HH24:MI') , t.t_name                       ");
@@ -327,7 +331,6 @@ public class ReservationDAO {
 				
 				
 			} finally {
-				if(conn != null) conn.close();
 				if(pstmt != null) pstmt.close();
 				if(rs != null) rs.close();
 			}
@@ -336,5 +339,82 @@ public class ReservationDAO {
 			
 		}
 		
+	//특정 공연회차의 예매된 좌석을 조회한다.
+		public List<ReservedSeatVO> selectReservedSeat(String oNo, Connection conn) throws Exception{
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<ReservedSeatVO> rSeats = new ArrayList<ReservedSeatVO>();
+			
+			try {
+				StringBuffer sql = new StringBuffer();
+				sql.append("select rs.r_no, rs.seat_no, o.o_no               ");
+				sql.append("from reservation_seat  rs , reservation r , orders o                                                 ");
+				sql.append("where rs.r_no = r.r_no                                   ");
+				sql.append("and r.o_no = o.o_no                                                                  ");
+				sql.append("and r.o_no = ?                                                  ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, oNo);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					ReservedSeatVO rSeat = new ReservedSeatVO();
+					rSeat.setrNo(rs.getString(1));
+					rSeat.setSeatNo(rs.getString(2));
+					rSeat.setoNo(rs.getString(3));
+					rSeats.add(rSeat);
+				}
+				
+				
+				
+			} finally {
+				if(pstmt != null) pstmt.close();
+			}
+			
+			return rSeats;
+			
+		}
+			
 
+		
+		//특정 공연장의 모든 좌석을 조회한다.
+		public List<SeatVO> selectAllSeat(String tNo) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			List<SeatVO> seats = new ArrayList<>();
+			try {
+				conn = DBConn.getConnection();
+				StringBuffer sql = new StringBuffer();
+				
+				sql.append("select seat_no, seat_number          ");
+				sql.append("from seat                            ");
+				sql.append("where tNo = ?                        ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, tNo);
+				
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					SeatVO seat = new SeatVO();
+					seat.setSeatNo(rs.getString(1));
+					seat.setSeatNumber(rs.getString(2));
+					seats.add(seat);
+					
+				}
+				
+			} finally {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}
+			return seats;
+		}
+		
+
+		
+		
 }

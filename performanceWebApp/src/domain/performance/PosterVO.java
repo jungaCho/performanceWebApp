@@ -9,6 +9,10 @@ public class PosterVO {
 	private String pNo;	//공연번호
 	
 	
+	public PosterVO() {
+		super();
+	}
+
 	public PosterVO(String posterNo, String systemFileName, String originalFileName, int fileSize, String mainPoster,
 			String pNo) {
 		super();

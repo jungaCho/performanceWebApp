@@ -125,6 +125,8 @@ public class MemberDAO {
 	 * }
 	 */
 	public void deleteMember(MemberVO member) throws Exception {
+
+		//test 1
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -132,7 +134,7 @@ public class MemberDAO {
 
 			StringBuffer sql = new StringBuffer();
 			sql.append("update member												");
-			sql.append("set withdrawal = T, wd_date = sysdate, wd_reason = ?		");
+			sql.append("set withdrawal = T, wd_date = sysdate, wd_reason = ?, r_no = null		");
 			sql.append("where m_no = ?												");
 
 			pstmt = conn.prepareStatement(sql.toString());
@@ -149,6 +151,7 @@ public class MemberDAO {
 				conn.close();
 		}
 	}
+
 
 	public boolean loginMember(String mId, String mPw) throws Exception {
 		Connection conn = null;
