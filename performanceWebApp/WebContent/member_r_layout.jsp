@@ -29,7 +29,7 @@ section {
 
 section article {
 	width: 100%;
-	height: 100%
+	height: 600px;
 	background-color: #ebebeb;
 	float: left;
 }
@@ -60,7 +60,7 @@ section nav {
 section article {
 	color: black;
 	width: 75%;
-	height: 600px;
+	height: 100%;
 	background-color: #ebebeb;
 	float: left;
 }
