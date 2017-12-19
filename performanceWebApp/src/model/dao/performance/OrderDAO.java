@@ -2,6 +2,7 @@ package model.dao.performance;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -46,7 +47,7 @@ public class OrderDAO {
 	}
 	
 	//공연 회차 정보를 삭제한다.
-		public void deleteSchedule(Connection conn,String sNo) throws Exception{
+		public void deleteOrder(Connection conn,String sNo) throws Exception{
 			PreparedStatement pstmt=null;
 			Statement stmt=null;
 			try {
@@ -63,4 +64,6 @@ public class OrderDAO {
 				if(pstmt!=null)pstmt.close();
 			}
 		}
+		
+	
 }

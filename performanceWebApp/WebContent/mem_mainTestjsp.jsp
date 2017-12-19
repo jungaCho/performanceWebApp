@@ -22,14 +22,6 @@ body, a {
 	font-weight: bolder;
 }
 
-header {
-	width: 960px;
-	height: 100px;
-	margin-left: auto;
-	margin-right: auto;
-	background-color: #3c394a;
-}
-
 section {
 	width: 960px;
 	height: auto;
@@ -54,18 +46,10 @@ footer {
 	background-color: #f03535;
 }
 
-header nav {
-	padding-top: 10px;
-}
-
 #loginm {
 	
 	font-weight: none;
 
-}
-
-nav ul {
-	list-style-type: none;
 }
 
 #loginm2 {
@@ -73,6 +57,25 @@ nav ul {
 	text-decoration: bolder;
 	color: #f03535;
 
+}
+
+nav ul {
+	list-style-type: none;
+}
+
+
+
+header {
+	width: 960px;
+	height: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #3c394a;
+}
+
+
+header nav {
+	padding-top: 10px;
 }
 
 header nav ul li {
@@ -89,6 +92,11 @@ header nav h1 {
 	color: #f25c5c;
 }
 
+header nav ul a:hover {
+	color: #607d8b;
+}
+
+
 nav ul a {
 	text-decoration: none;
 }
@@ -97,10 +105,6 @@ section article {
 	width: 100%;
 	height: 600px;
 	background-color: #ebebeb;
-}
-
-header nav ul a:hover {
-	color: #607d8b;
 }
 
 section nav ul li {
@@ -115,14 +119,8 @@ a:hover {
 <body>
 
 	<header>
-		<jsp:include page="header.jsp" />
+		<jsp:include page="member_header.jsp" />
 	</header>
-
-	<section>
-
-		<nav><jsp:include page="<%=nav%>" /></nav>
-
-	</section>
 
 	<section>
 
