@@ -66,7 +66,7 @@
 	<form>
 		<div id="div2">
 			<div id="div2-1">
-				<input id="keyword" type="text" placeholder="검색어를 입력하세요" size=60>
+				<input id="keyword" type="search" placeholder="검색어를 입력하세요" size=60>
 				<button id="btn1" type="submit">검색</button>
 			</div>
 			<div id="div2-2">
