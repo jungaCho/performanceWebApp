@@ -91,13 +91,28 @@
 				<th>제작사</th>
 				<td><input type="text" name="production" size="15"></td>
 				<th>공연장소</th>
-				<td><input type="text" name="theater" size="15"></td>
+				<td><select id="theater">
+						<option value="1">소극장</option>
+						<option value="2">대극장</option>
+						<option value="3">콘서트홀1</option>
+						<option value="4">콘서트홀2</option>
+						<option value="5">뮤지컬관</option>
+					</select></td>
 			</tr>
 			<tr>
 				<th>관람등급</th>
-				<td><input type="text" name="view_class" size="15"></td>
+				<td><select id="view_Class">
+						<option value="1">전체관람가</option>
+						<option value="2">12세 이상</option>
+						<option value="3">15세 이상</option>
+						<option value="4">청소년관람불가</option>
+					</select></td>
 				<th>장르</th>
-				<td><input type="text" name="genre" size="15"></td>
+				<td><select id="genre">
+						<option value="1">연극</option>
+						<option value="2">뮤지컬</option>
+						<option value="3">콘서트</option>
+					</select></td>
 			</tr>
 			<tr>
 				<th>담당자</th>

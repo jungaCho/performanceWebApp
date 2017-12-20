@@ -58,7 +58,7 @@
 	#schedule{
 		
 		float: right;
-		margin-right: 100px;
+		margin-right: 235px;
 		
 	}
 
@@ -85,11 +85,11 @@
 		
 		
 		<div id="div1">
-		<h3>공연번호 : 공연번호</h3>
-		<h3>공연제목 : 공연제목</h3>
+		공연번호 : 공연번호<br><br>
+		공연제목 : 공연제목
 		</div>
 
-		<table border="1" width=800>
+		<table border="1" width=670>
 			<tr>
 				<th>동영상</th>
 				<td colspan="3">url</td>

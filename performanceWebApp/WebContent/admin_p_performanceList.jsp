@@ -28,6 +28,12 @@
 		float: right;
 	
 	}
+	
+	#keyfield {
+	
+		float: right;
+	
+	}
 
 	#btn2 {
 
@@ -53,7 +59,7 @@
 	#div1{
 		
 		margin-bottom: 20px;
-		text-align: left;
+		text-align: center;
 				
 	}
 	
@@ -81,31 +87,37 @@
 	
 		<div id="pannel">
 		<h1>공연조회</h1>
+		
 		<button type="button" id="btn1">검색</button><input id="search" type="text" name="keyword" size=10>
+		<select id="keyfield">
+						<option value="1">제목</option>
+						<option value="2">기간</option>
+						<option value="3">장르</option>
+					</select>
 		<br>
 		<button type="button" id="btn2">선택삭제</button>
 		<button type="button" id="btn3">선택해제</button>
 		</div>
 		<div id="div1">
-
-		<table border="1" width=600>
-			<tr>
-				<th>선택</th>
-				<th>공연번호</th>
-				<th>공연제목</th>
-				<th>시작일</th>
-				<th>종료일</th>
-				<th>장르</th>
-			</tr>
-			<tr>
-				<td><input type="checkbox" name="performance" value="공연번호"></td>
-				<td>P00001</td>
-				<td>싸이콘서트</td>
-				<td>2017.10.20</td>
-				<td>2017.10.30</td>
-				<td>콘서트</td>
-			</tr>
-		</table>
+			<table border="1" width=600>
+				<tr>
+					<th>선택</th>
+					<th>공연번호</th>
+					<th>공연제목</th>
+					<th>시작일</th>
+					<th>종료일</th>
+					<th>장르</th>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="performance" value="공연번호"></td>
+					<td>P00001</td>
+					<td>싸이콘서트</td>
+					<td>2017.10.20</td>
+					<td>2017.10.30</td>
+					<td>콘서트</td>
+				</tr>
+			</table>
+		</div>
 	</form>
 </body>
 </html>

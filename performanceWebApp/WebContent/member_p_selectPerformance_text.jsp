@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta  charset=utf-8>
-<title>공연 이미지 조회 페이지</title>
+<title>공연 텍스트 조회 페이지</title>
 <style>
 
 	form {
@@ -53,11 +53,11 @@
 		display:inline-block;
 		float:left;
 	}
-	#div3 {
-		text-align: center;
+	#div3{
+		text-align:center;
 	}
-	#keyword {
-		margin-le
+	#btn2 {
+		width: 80px;
 	}
 </style>
 </head>
@@ -87,14 +87,18 @@
 		<br>
 		<br>
 		<div id="div3">
-		<table border="1" width=180>
+		<table border="1" width=760>
 			<tr>
-				<td>2017/10/20</td>
-				<td><button type="button" id="btn2">예매하기</button>
+				<th>제목</th>
+				<th>기간</th>
+				<th>장소</th>
+				<th>예매하기</th>
 			</tr>
-			<br>
 			<tr>
-				<td colspan='2'>포스터</td>
+				<td>싸이콘서트</td>
+				<td>2017.10.20 ~ 2017.10.30</td>
+				<td>콘서트홀1</td>
+				<td><button type="button" id="btn2">예매하기</button></td>
 			</tr>
 		</table>
 		</div>
