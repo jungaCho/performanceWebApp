@@ -18,28 +18,22 @@ public class LoginFormCommand implements Command {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 
-		// 요청파라미터의 id와 pw를 가져와 세션에 바인딩시키고 다른 페이지로 넘어가게만든다.
-
 		String id = req.getParameter("id");
 		String pwd = req.getParameter("pwd");
 
 		ActionForward forward = new ActionForward();
-
-		// 회원여부를 확인한다.
 
 		try {
 
 			MemberService service = MemberService.getInstance();
 
 			String mNo = service.processLogin(id, pwd);
-			boolean isSuccess = service.checkProcessLogin(id, pwd);
 
-			if (isSuccess) { // 회원이 맞을 경우에
+			if (mNo != null) {
 				// 세션영역에 "userID"라는 속성이름으로 아이디를 바인딩한다.
 				HttpSession session = req.getSession();
 				session.setAttribute("usermNo", mNo);
-				//MemberVO member = new MemberVO();
-				//session.setAttribute("usermNo", member.getmNo()); // 세션영역에 id데이터를 바인딩한다.
+
 				System.out.println("usermNo : " + session.getAttribute("usermNo"));
 				// 로그인 성공 메인화면으로 이동한다.
 				forward.setPath("/member_index.jsp");

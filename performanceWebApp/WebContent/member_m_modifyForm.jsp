@@ -54,8 +54,8 @@
 		</div>
 	
 		<div id="div1">
-		아 이 디 : <input type="text" name="pwd" size="30" value=""readonly></input><br>
-		비밀번호 : <input type="password" name="pwd" size="30" value=""readonly></input><button type="button" id="btn2">변경</button><br>
+		아 이 디 : ${requestScope.member.mId }</input><br>
+		비밀번호 : <input type="password" name="pwd" size="30" value="${requestScope.member.mPw }"readonly></input><button type="button" id="btn2">변경</button><br>
 		
 		</div>
 		
@@ -63,10 +63,10 @@
 		
 		<div id="div2">
 		
-		이  름 : <input type="text" name="name" value="" size="30"/><br>
-		생  일 : <input type="text" name="phone" value="" size="30"/><br>
-		이메일 :<input type="text" name="email" value="" size="30"/><br>
-		주  소 : <input type="text" name="address" value="" size="30"/><br>
+		이  름 : <input type="text" name="name" value="${requestScope.member.mName }" size="30"/><br>
+		생  일 : <input type="text" name="phone" value="${requestScope.member.birthday }" size="30"/><br>
+		이메일 :<input type="text" name="email" value="${requestScope.member.email }" size="30"/><br>
+		주  소 : <input type="text" name="address" value="${requestScope.member.address }" size="30"/><br>
 		
 		</div>
 	

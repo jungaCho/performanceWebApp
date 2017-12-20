@@ -5,10 +5,12 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
 import domain.member.MemberVO;
+import domain.member.RankVO;
 import model.service.member.MemberService;
 
 public class RetrieveMemberCommand implements Command {
@@ -17,14 +19,15 @@ public class RetrieveMemberCommand implements Command {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		String mNo = (String)req.getAttribute("usermNo");
+		HttpSession session = req.getSession();
+		String mNo = (String)session.getAttribute("usermNo");
 		
 		ActionForward forward = new ActionForward();
 		try {
 			MemberVO member = MemberService.getInstance().retrieveMember(mNo);			
-			
+
 			req.setAttribute("member", member);
-			
+			System.out.println("mNo : " + mNo);
 			System.out.println("member : " + req.getAttribute("member"));
 			
 			forward.setPath("/member_m_layout.jsp?nav=member_m_menu&article=member_m_selectMemberForm");
@@ -38,6 +41,5 @@ public class RetrieveMemberCommand implements Command {
 			return forward;
 		}		
 	}
-	
 
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import conn.DBConn;
 import domain.member.MemberVO;
+import domain.member.RankVO;
 
 public class MemberDAO {
 
@@ -54,6 +55,7 @@ public class MemberDAO {
 
 	public MemberVO selectMember(String mNo) throws Exception {
 		MemberVO member = new MemberVO();
+		RankVO rank = new RankVO();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -79,7 +81,7 @@ public class MemberDAO {
 				member.setBirthday(rs.getString(4));
 				member.setEmail(rs.getString(5));
 				member.setAddress(rs.getString(6));
-				member.setrName(rs.getInt(7));
+				rank.setrName(rs.getString(7));
 			}
 			return member;
 
@@ -152,49 +154,6 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
-	}
-
-
-	public boolean checkloginMember(String mId, String mPw) throws Exception {
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String mNo = "";
-		try {
-			
-			conn = DBConn.getConnection();
-
-			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no						");
-			sql.append("from member						");
-			sql.append("where m_id = ? and m_pw = ? 	");
-
-			pstmt = conn.prepareStatement(sql.toString());
-			
-			pstmt.setString(1, mId);
-			pstmt.setString(2, mPw);
-			
-			pstmt.executeUpdate();
-
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				if (rs.getString(1) != null) {
-					mNo = rs.getString(1);
-					return true;
-				}
-			}		
-				
-		} finally {
-			if (rs!=null)
-				rs.close();
-			if (pstmt != null)
-				pstmt.close();
-			if (conn != null)
-				conn.close();
-		}
-		return false;
 	}
 
 	public String loginMember(String mId, String mPw) throws Exception {

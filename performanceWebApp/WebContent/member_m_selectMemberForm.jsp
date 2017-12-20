@@ -14,6 +14,7 @@
 	
 	div{
 		padding: 40px;
+		width: 250px;
 	}
 	
 	#div1{
@@ -27,8 +28,10 @@
 	</style>
 </head>
 <body>
+session : ${not empty sessionScope.usermNo}<br>
 	<form action="${pageContext.request.contextPath }/modifyForm.do" method="post">
 		<div id="pannel">
+		
 		<h2>회원정보조회</h2><button type="submit" id="btn1">수정</button>
 		</div>
 
@@ -39,14 +42,14 @@
 		이름 : ${requestScope.member.mName }<br>
 		생일 : ${requestScope.member.birthday }<br>
 		이메일 : ${requestScope.member.email }<br>
-		주소 : ${requestScope.member.address } <br>
+		주소 : <br>${requestScope.member.address } <br>
 		</div>
 		
 		<div id="div2">
 		
 		<h4>등급 포인트 안내</h4>
 		
-		${request.members.rName }등급이름<br>
+		${request.rank.rName }등급이름<br>
 		예매 공연 횟수 : use el<br>
 		감상평 수 : use el<br>
 		

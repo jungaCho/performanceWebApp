@@ -31,10 +31,6 @@ public class MemberService {
 	public void removeMember(MemberVO member) throws Exception {
 		MemberDAO.getInstance().deleteMember(member);	
 	}
-	
-	public boolean checkProcessLogin(String mId, String mPw) throws Exception {
-		return MemberDAO.getInstance().checkloginMember(mId, mPw);
-	}
 
 	public String processLogin(String mId, String mPw) throws Exception {
 		return MemberDAO.getInstance().loginMember(mId, mPw);

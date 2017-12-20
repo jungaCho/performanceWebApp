@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
@@ -17,11 +18,24 @@ public class ModifyMemberFormCommand implements Command {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 
+		HttpSession session = req.getSession();
+		String mNo = (String) session.getAttribute("usermNo");
+
 		ActionForward forward = new ActionForward();
-		forward.setPath("/member_m_layout.jsp?nav=member_m_menu&article=member_m_modifyForm");
-		forward.setRedirect(false);
-		return forward;
-	
+		try {
+			MemberVO member = MemberService.getInstance().retrieveMember(mNo);
+
+			req.setAttribute("member", member);
+
+			forward.setPath("/member_m_layout.jsp?nav=member_m_menu&article=member_m_modifyForm");
+			forward.setRedirect(false);
+			return forward;
+		} catch (Exception e) {
+			req.setAttribute("exception", e);
+			forward.setPath("/error.jsp");
+			forward.setRedirect(false);
+			return forward;
+		}
 	}
-	
+
 }
