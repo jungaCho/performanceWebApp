@@ -21,7 +21,7 @@
 
 	<servlet>
 		<servlet-name>UploadFile</servlet-name>
-		<servlet-class>controller.UploadFileServlet</servlet-class>
+		<servlet-class>controller.performance.UploadFileServlet</servlet-class>
 		<multipart-config>
 			<location>C:/tempUpload</location>
 			<max-file-size>2000000</max-file-size>

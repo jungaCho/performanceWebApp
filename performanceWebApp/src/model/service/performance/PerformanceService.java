@@ -6,6 +6,7 @@ import java.util.List;
 
 import conn.DBConn;
 import domain.performance.DetailFileVO;
+import domain.performance.OrderVO;
 import domain.performance.PerformanceVO;
 import domain.performance.PosterVO;
 import domain.performance.ScheduleVO;
@@ -107,6 +108,7 @@ public class PerformanceService {
 			}
 			scheduleDao.deleteSchedule(conn, pNo);
 			
+			conn.commit();
 		} catch(Exception e) {
 			conn.rollback();
 			throw e;
@@ -166,9 +168,10 @@ public class PerformanceService {
 			}
 			
 			DetailFileDAO detailFileDao = DetailFileDAO.getInstance();
-			detailFileDao.deleteDetailFile(conn, fileNo);
-			detailFileDao.insertDetailFile(conn, detailFiles);
+			detailFileDao.deleteDetailFileList(conn, performance.getpNo());
+			detailFileDao.insertDetailFile(conn, (ArrayList<DetailFileVO>)performance.getDetaileFiles());
 			
+			conn.commit();
 		} catch(Exception e) {
 			conn.rollback();
 			throw e;	
@@ -179,7 +182,7 @@ public class PerformanceService {
 	}
 	
 	//공연 일정을 등록하다.
-	public void createSchedule(List<ScheduleVO> schedules) throws Exception {
+	public void createSchedule(List<ScheduleVO> schedules,String pNo) throws Exception {
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
@@ -187,9 +190,16 @@ public class PerformanceService {
 			//트랜잭션
 			conn.setAutoCommit(false);
 			
-			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-			performanceDao.insertPerformance(performance)
-			
+			for(ScheduleVO schedule : schedules) {
+				ScheduleDAO dao=ScheduleDAO.getInstance();
+				dao.insertSchedule(conn, schedule);
+				
+				ArrayList<OrderVO> orders=(ArrayList<OrderVO>)schedule.getOrders();
+				OrderDAO dao1=OrderDAO.getInstance();
+				dao1.insertOrder(conn, orders);
+				
+			}
+			conn.commit();
 		} catch(Exception e) {
 			conn.rollback();
 			throw e;	
