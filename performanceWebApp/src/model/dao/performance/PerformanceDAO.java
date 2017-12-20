@@ -255,7 +255,7 @@ public class PerformanceDAO {
 			conn = DBConn.getConnection();
 			
 			sql.append("insert into performance									");
-			sql.append("values(performance_seq.nextVal,?,?,?,?,?,?,?,?,?,?,?,?) ");
+			sql.append("values('p'||lpad(performance_seq.nextVal,5,0),?,?,?,?,?,?,?,?,?,?,?,?) ");
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -277,8 +277,7 @@ public class PerformanceDAO {
 			return performance.getpNo();
 		
 		} finally {
-			if(pstmt != null) pstmt.close();
-			if(conn != null) conn.close();
+			if(pstmt != null) pstmt.close();	
 		}
 	}
 	

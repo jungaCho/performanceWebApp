@@ -35,7 +35,7 @@ section {
 
 section article {
 	width: 100%;
-	height: 600px;
+	height: 100%;
 	background-color: #ebebeb;
 	/* float: left; */
 }
