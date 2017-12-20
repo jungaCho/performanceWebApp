@@ -12,9 +12,9 @@ import domain.performance.PosterVO;
 import domain.performance.ScheduleVO;
 import model.dao.performance.DetailFileDAO;
 import model.dao.performance.OrderDAO;
-import model.dao.performance.PerformanceDAO;
 import model.dao.performance.PosterDAO;
 import model.dao.performance.ScheduleDAO;
+import model.dao.performance.PerformanceDAO;
 
 public class PerformanceService {
 	private static PerformanceService instance = new PerformanceService();
@@ -29,9 +29,11 @@ public class PerformanceService {
 
 	// 공연 목록 조회(사용자)
 	public List<PerformanceVO> retrievePerformanceListByMember(String filter, String keyword, int startRow, int endRow)
-			throws Exception {
+		throws Exception {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-		return performanceDao.selectPerformanceListByMember(filter, keyword, startRow, endRow);
+		// return performanceDao.selectPerformanceListByMember(filter, keyword,
+		// startRow, endRow);
+		return null;
 	}
 
 	// 전체 공연 목록 조회(관리자)
@@ -57,14 +59,13 @@ public class PerformanceService {
 
 	// 공연 정보를 등록하다.
 	public void createPerformance(PerformanceVO performance) throws Exception {
-				
+
 		Connection conn = null;
 		try {
-			conn = DBConn.getConnection();			
+			conn = DBConn.getConnection();
 			System.out.println("conn : " + conn);
 
-		
-			 conn.setAutoCommit(false);
+			conn.setAutoCommit(false);
 
 			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
 			performanceDao.insertPerformance(performance);
@@ -78,13 +79,14 @@ public class PerformanceService {
 			detailfileDao.insertDetailFile(conn, detailFiles);
 
 			conn.commit();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			conn.rollback();
 			throw e;
 		} finally {
-			if (conn != null)		conn.close();
+			if (conn != null)
+				conn.close();
 		}
 	}
 

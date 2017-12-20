@@ -16,12 +16,6 @@
 	
 	}
 	
-	#div1{
-		width:100%;
-		height:35px;
-		background-color:white;	
-		text-align:center;
-	}
 	li{
 		display:inline-block;
 		margin:5px 50px;
@@ -60,23 +54,47 @@
 	#btn2 {
 		width: 80px;
 	}
+	#div1 {
+		float: left;
+		text-align:center;
+	}
+	#div4 {
+		text-align:center;
+
+	}
+
+
 </style>
 </head>
 <body>
 	<form>
 		<div id="div2">
 			<div id="div2-1">
-				<input id="keyword" type="text" placeholder="검색어를 입력하세요" size=60>
+				<input id="keyword" type="search" placeholder="검색어를 입력하세요" size=60>
 				<button id="btn1" type="submit">검색</button>
-			</div>
-			<div id="div2-2">
-				
 			</div>
 		</div>
 		<br>
 		<br>
+		<div id="div1">
+		<table border="1" width=200>
+			<tr>
+				<td colspan='3'>메인포스터</td>
+			</tr>
+			<tr>
+				<td>포스터1</td>
+				<td>포스터2</td>
+				<td>포스터3</td>
+			</tr>
+			<tr>
+				<td colspan='3'><button type="button" id="btn2" type="button">예매하기</button></td>
+			</tr>
+		</table>
+		</div>
 		<div id="div3">
 		<table id="detailPerformance" border="1" width=600>
+			<tr>
+				<td colspan='2'>연극(병동소녀는 집으로, 돌아가지 않는다)</td>
 			<tr>
 				<th>기간</th>
 				<td>2017.10.20 ~ 2017.10.30</td>
@@ -106,7 +124,25 @@
 				<td>120000원</td>
 			</tr>
 		</table>
+		<br>
 		</div>
+		
+		<br>
+		<hr width="800" align = "center" color = "black" size ="1">
+		<br>
+		
+		<div id="div4">
+		<table id="detailFile" border="1" width=800>
+			<tr>
+				<td>할인정보</td>
+			</tr>
+			<tr>
+				<td>상세정보</td>
+			</tr>
+
+		</table>
+		</div>
+		
 	</form>
 </body>
 </html>

@@ -18,26 +18,25 @@ public class MemberVO {
 		super();
 	}
 
-	public MemberVO(String mId, String mPw, String mName, String birthday, String email, String address, int rankNo) {
+	public MemberVO(String mId, String mPw, String mName, String email, String birthday, String address) {
 		super();
 		this.mId = mId;
 		this.mPw = mPw;
 		this.mName = mName;
-		this.birthday = birthday;
 		this.email = email;
+		this.birthday = birthday;
 		this.address = address;
-		this.rankNo = rankNo;
 	}
 
-	public MemberVO(String mNo, String mId, String mPw, String mName, String birthday, String email, String address,
+	public MemberVO(String mNo, String mId, String mPw, String mName, String email, String birthday, String address,
 			int score, int rankNo, String withdrawal, String wdDate, String wdReason) {
 		super();
 		this.mNo = mNo;
 		this.mId = mId;
 		this.mPw = mPw;
-		this.mName = mName;
-		this.birthday = birthday;
+		this.mName = mName;	
 		this.email = email;
+		this.birthday = birthday;
 		this.address = address;
 		this.score = score;
 		this.rankNo = rankNo;

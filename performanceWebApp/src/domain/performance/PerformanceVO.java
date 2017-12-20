@@ -4,26 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PerformanceVO {
-	private String pNo;	//공연번호
-	private String title; //공연명
-	private String video;//동영상
-	private String startDate; //시작일
-	private String endDate;//종료일
-	private String production; //제작사
-	private String contactName; //공연 담당자
-	private String contactNumber; //공연 담당자 연락처
-	private int runningTime; //러닝타임
-	private String note; //비고
-	private int price; //가격
-	private String viewNo;//관람등급번호 
-	private String viewClass;//관람등급
-	private String genreNo;//장르번호
-	private String genre;//장르
-	private String tName;//공연장 이름
-	private List<ScheduleVO> schedules = new ArrayList<ScheduleVO>();//공연 일정 목록
-	private List<PosterVO> posters = new ArrayList<PosterVO>();//포스터 파일 목록
-	private List<DetailFileVO> detailFiles = new ArrayList<DetailFileVO>();//상세설명 이미지 목록
-	
+	private String pNo; // 공연번호
+	private String title; // 공연명
+	private String video;// 동영상
+	private String startDate; // 시작일
+	private String endDate;// 종료일
+	private String production; // 제작사
+	private String contactName; // 공연 담당자
+	private String contactNumber; // 공연 담당자 연락처
+	private int runningTime; // 러닝타임
+	private String note; // 비고
+	private int price; // 가격
+	private String viewNo;// 관람등급번호
+	private String viewClass;// 관람등급
+	private String genreNo;// 장르번호
+	private String genre;// 장르
+	private String tNo; // 공연장 번호
+
+	private String tName;// 공연장 이름
+	private List<ScheduleVO> schedules = new ArrayList<ScheduleVO>();// 공연 일정 목록
+	private List<PosterVO> posters = new ArrayList<PosterVO>();// 포스터 파일 목록
+	private List<DetailFileVO> detailFiles = new ArrayList<DetailFileVO>();// 상세설명 이미지 목록
+
 	public PerformanceVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -207,39 +209,34 @@ public class PerformanceVO {
 		this.detailFiles = detailFiles;
 	}
 
+	public String gettNo() {
+		return tNo;
+	}
+
+	public void settNo(String tNo) {
+		this.tNo = tNo;
+	}
+
+	public void addPoster(PosterVO poster) {
+		this.posters.add(poster);
+	}
+
+	public void addSchedule(ScheduleVO schedule) {
+		this.schedules.add(schedule);
+	}
+
+	public void addDetailFile(DetailFileVO detailFile) {
+		this.detailFiles.add(detailFile);
+	}
+
 	@Override
 	public String toString() {
 		return "PerformanceVO [pNo=" + pNo + ", title=" + title + ", video=" + video + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", production=" + production + ", contactName=" + contactName
 				+ ", contactNumber=" + contactNumber + ", runningTime=" + runningTime + ", note=" + note + ", price="
 				+ price + ", viewNo=" + viewNo + ", viewClass=" + viewClass + ", genreNo=" + genreNo + ", genre="
-				+ genre + ", tName=" + tName + ", schedules=" + schedules + ", posters=" + posters + ", detailFiles="
-				+ detailFiles + "]";
+				+ genre + ", tNo=" + tNo + ", tName=" + tName + ", schedules=" + schedules + ", posters=" + posters
+				+ ", detailFiles=" + detailFiles + "]";
 	}
-	
-	public void addPoster(PosterVO poster) {
-		this.posters.add(poster);
-	}
-	
-	public void addSchedule(ScheduleVO schedule) {
-		this.schedules.add(schedule);
-	}
-	
-	public void addDetailFile(DetailFileVO detailFile) {
-		this.detailFiles.add(detailFile);
-	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
