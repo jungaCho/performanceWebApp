@@ -14,6 +14,7 @@
 	margin-bottom: 10px; /*아래 여백을 10px로 잡아줌 */
 	padding: 20px; /* 안쪽 여백을 20px로 잡아줌 */
 	text-align : center;
+	
 
 }
 button {
@@ -28,13 +29,27 @@ input {
 	text-align : center;
 }
 
+#btn1 {
+	
+	display: inline-block;
+	float : left;
+	margin-left: 60px;
+}
+
+#btn2 {
+	
+	display : inline-block;
+	float : right;
+	margin-right: 60px;
+
+}
 
 </style>
 
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath }/loginForm.do" method="post">
+		<form action="${pageContext.request.contextPath }/loginForm.do" method="post">
 
 		<div id="box">
 
@@ -47,7 +62,12 @@ input {
 			<a href="#">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
 			<br>
 			<button type="submit" id="btn1">로그인</button>
-			<button type="button" id="btn2">회원가입</button>
+		</form>
+			
+		<form action="${pageContext.request.contextPath }/member_m_signup.jsp" method="post">
+			<button type="submit" id="btn2">회원가입</button>
+		</form>
+			
 		</div>
 
 	</form>

@@ -28,8 +28,10 @@ public class MemberDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
+
 			sql.append("insert into member(m_no,m_id,m_pw,m_name,birthday,email,address)				");
 			sql.append("values (to_char(sysdate,'yymmdd')||lpad(member_seq.nextval,4,0), ?,?,?,?,?,?)	");
+
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, member.getmId());

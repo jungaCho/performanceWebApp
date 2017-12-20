@@ -51,10 +51,7 @@
 	#div2{
 		
 		margin-top:20px;
-		text-align: left;
-		
-		
-	
+		text-align: center;
 	}
 	
 	</style>

@@ -30,6 +30,7 @@ public class LoginFormCommand implements Command {
 		try {
 
 			MemberService service = MemberService.getInstance();
+
 			Boolean isSuccess = service.processLogin(id, pwd);
 
 			if (isSuccess) { // 회원이 맞을 경우에
