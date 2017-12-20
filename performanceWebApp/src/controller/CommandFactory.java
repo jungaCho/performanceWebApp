@@ -12,6 +12,7 @@ public class CommandFactory {
 		//클라이언트 요청을 처리하기 위해, 클라이언트 url과 요청을 처리할 command 클래스 매핑
 		
 		map.put("/loginForm.do","controller.member.loginFormCommand");
+		map.put("/SignUp.do","controller.member.SignUpCommand");
 		
 	}
 	
