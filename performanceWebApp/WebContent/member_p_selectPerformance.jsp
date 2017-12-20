@@ -20,6 +20,29 @@
 	a{
 		text-decoration:none;
 	}
+	#div2{
+		overflow:hidden;
+	}
+	#div2-1{
+		margin:15px 5px;
+		text-align:center;
+		float:left;
+		width:65%;
+	}
+	#div2-2{
+	
+		float:right;
+		width:35%;
+		font-size:15px;
+	}
+	#div2-2>ul{
+		
+		overflow:hidden;
+	}
+	#div2-2>ul li{
+	display:inline-block;
+		float:left;
+	}
 </style>
 </head>
 <body>
@@ -31,7 +54,24 @@
 				<li><a href='#'>다음달</a></li>
 			</ul>
 		</div>
-		<input type="text" >
+		<div id="div2">
+		<div id="div2-1">
+			<input type="text" placeholder="검색어를 입력하세요">
+			<button id="btn1" type="submit">검색</button>
+		</div>
+		<div id="div2-2">
+			<ul id="ul1">
+				<li>이미지보기</li>
+				<li>텍스트보기</li>
+				<li>공연장르</li>
+				<ul id="ul2">
+					<li>뮤지컬</li>
+					<li>연극</li>
+					<li>콘서트</li>
+				</ul>
+			</ul>
+		</div>
+		</div>
 	</form>
 </body>
 </html>
