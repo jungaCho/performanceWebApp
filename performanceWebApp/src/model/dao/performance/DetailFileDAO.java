@@ -32,7 +32,7 @@ public class DetailFileDAO {
 				DetailFileVO detailFile=detailFiles.get(i);
 				pstmt.setString(1, detailFile.getSystemFileName());
 				pstmt.setString(2, detailFile.getOriginalFileName());
-				pstmt.setInt(3, detailFile.getFileSize());
+				pstmt.setLong(3, detailFile.getFileSize());
 				pstmt.setString(4, detailFile.getpNo());
 				pstmt.addBatch();
 			}

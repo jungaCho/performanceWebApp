@@ -17,7 +17,7 @@ public class PerformanceDAO {
 	//ΩÃ±€≈Ê ∆–≈œ
 	private static PerformanceDAO instance = new PerformanceDAO();
 	
-	private PerformanceDAO() {
+	public PerformanceDAO() {
 		
 	}
 	

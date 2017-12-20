@@ -65,7 +65,7 @@
 
 </head>
 <body>
-	<form>
+	<form action="${pageContext.request.contextPath}/uploadFile" enctype="multipart/form-data" method="post">
 	
 		<div id="pannel">
 		<h1>공연 등록</h1><input type="file" name="poster" size="20"></input><br>
