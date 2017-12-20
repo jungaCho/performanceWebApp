@@ -1,4 +1,4 @@
-package controller;
+package controller.member;
 
 import java.io.IOException;
 
@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controller.ActionForward;
+import controller.Command;
 import model.service.member.MemberService;
 
 public class loginFormCommand implements Command {

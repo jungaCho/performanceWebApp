@@ -181,9 +181,9 @@ public class MemberDAO {
 			String member ="";
 			
 			while(rs.next()) {
+				member = rs.getString(1);
 				
 				if (member != null) {
-					member = rs.getString(1);
 					return true;
 				}
 				
