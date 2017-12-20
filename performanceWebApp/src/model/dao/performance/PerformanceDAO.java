@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import conn.DBConn;
@@ -26,36 +27,80 @@ public class PerformanceDAO {
 	}
 	
 	
+	
+	/*
+	 *    month  :   null,   1
+	 *    mode : image, text
+	 *    genre :  뮤지컬, 연극, 콘서트
+	 *    keyword : null, '공연명'
+	 *    startRow : 
+	 *    endRow : 
+	 */
+	
 	//조회 조건에 해당하는 공연 정보를 목록을 조회하다.(사용자)
-	public List<PerformanceVO> selectPerformanceListByMember(String filter, String keyword, int startRow, int endRow) throws Exception {
+	public List<PerformanceVO> selectPerformanceListByMember(HashMap<String, Object> map) throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 			
 		try {
 			conn = DBConn.getConnection();
-			stmt = conn.createStatement();
 			StringBuffer sql = new StringBuffer();
-			if(filter.equals("image")) {
-				sql.append("select poster.system_file_name,performance.start_Date,performance.end_Date				 		");
-				sql.append("from performance,poster																			");
-				sql.append("where performance.p_no=poster.p_no																");
-				sql.append("and to_char(performance.start_Date,'MM') <= ? and to_char(performance.start_Date,'MM') >= ?		");
-				sql.append("and to_char(performance.end_Date,'MM') <= ? and to_char(performance.end_Date,'MM') <= ?			");
-			} else if(filter.equals("text")) {
+			
+			String mode = (String)map.get("mod");
+			
+			if(mode.equals("image")) {
+				sql.append("select perf.title, pos.SYSTEM_FILE_NAME, perf.start_date, perf.end_date		 		");
+				sql.append("from (select rownum as rn, p.*  																	");
+				sql.append(" from(select *   			");
+				sql.append("from performance order by title asc) p) perf , poster pos															");
+				sql.append("where perf.p_no = pos.P_NO 	");
+				sql.append("and perf.rn>=1 and perf.rn<=9 		");
+				sql.append("and to_char(perf.start_Date,'YYMM')<= ?  and to_char(perf.end_Date,'YYMM')>=?     ");
+				sql.append("and pos.main_poster = 1     ");
+			} else if(mode.equals("text")) {
 				sql.append("select distinct performance.title,performance.start_Date,performance.end_Date,theater.t_Name 	");
 				sql.append("from performance, poster, theater, schedule														");
 				sql.append("where schedule.t_no = theater.t_no																");
 				sql.append("and to_char(performance.start_Date,'MM') <= ? and to_char(performance.start_Date,'MM') >= ?		");
 				sql.append("and to_char(performance.end_Date,'MM') <= ? and to_char(performance.end_Date,'MM') <= ?			");
 				sql.append("and performance.p_no = schedule.p_no															");
-				if(filter.equals("genre")) {
-					sql.append("and genre like '%' || ? || '%' 																");
-				}
-				sql.append("order by performance.title asc;																					");
 			}
-			rs = stmt.executeQuery(sql.toString());
+			
+			String genre = (String)map.get("genre");
+			
+			if(genre.equals("뮤지컬")) {
+				sql.append("and perf.genre_no='G002"     );
+				
+			} else if(genre.equals("연극")) {
+				sql.append("and perf.genre_no='G001"     );	
+				
+			} else  if(genre.equals("콘서트")) {				
+				sql.append("and perf.genre_no='G003"     );
+			}
+			
+			
+			String keyword = (String)map.get("keyword");
+			
+			if(keyword != null) {
+				sql.append("and perf.title Like'%'|| ? || '%'  ");
+			} 
+			
+			pstmt=conn.prepareStatement(sql.toString());
+			
+			String month= (String)map.get("month");
+			
+			if(month != null) {
+				pstmt.setString(1, month);
+				
+			} else {
+				
+				
+			}
+			
+
+			rs = pstmt.executeQuery(sql.toString());
 			while(rs.next()) {
 				PerformanceVO performance = new PerformanceVO();
 				performance.setTitle(rs.getString(1));
@@ -69,7 +114,7 @@ public class PerformanceDAO {
 				performances.add(performance);
 			}
 		} finally {
-			if(stmt != null) stmt.close();
+			if(pstmt != null) pstmt.close();
 			if(conn != null) conn.close();
 		}
 		return performances;
@@ -86,7 +131,7 @@ public class PerformanceDAO {
 					
 			StringBuffer sql = new StringBuffer();
 			sql.append("select performance.title,performance.start_date,performance.end_date,theater.t_name,viewclass.view_class,performance.running_time,	");
-			sql.append("performancegenre.genre,performance.price,poster.system_file_name,schedule.s_date,orders.o_time,detailfile.system_file_name			");
+			sql.append("performancegenre.genre,performance.price,poster.system_file_name,schedule.s_date,orders.o_time,detailfile.system_file_name	,performance.t_no		");
 			sql.append("from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile												");
 			sql.append("where poster.p_no=performance.P_NO																									");
 			sql.append("and performance.P_No=schedule.p_no(+)																								");
@@ -117,6 +162,7 @@ public class PerformanceDAO {
 					performance.setRunningTime(rs.getInt(6));
 					performance.setGenre(rs.getString(7));
 					performance.setPrice(rs.getInt(8));
+					performance.settNo(rs.getString(13));
 				}
 				
 				//상세 설명	
