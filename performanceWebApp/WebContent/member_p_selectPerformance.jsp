@@ -6,6 +6,16 @@
 <meta  charset=utf-8>
 <title>공연 이미지 조회 페이지</title>
 <style>
+
+	form {
+	
+		padding : 30px;
+		background-color : gray;
+		width: 800px;
+		height: 750px;
+	
+	}
+	
 	#div1{
 		width:100%;
 		height:35px;
@@ -43,6 +53,9 @@
 	display:inline-block;
 		float:left;
 	}
+	#search {
+		float:center;
+	}
 </style>
 </head>
 <body>
@@ -71,6 +84,19 @@
 				</ul>
 			</ul>
 		</div>
+		</div>
+		<div id="div3">
+		
+		<table border="1" width=180>
+			<tr>
+				<td>2017/10/20</td>
+				<td><button type="button" id="btn2">예매하기</button>
+			</tr>
+			<br>
+			<tr>
+				<td colspan='2'>포스터</td>
+			</tr>
+		</table>
 		</div>
 	</form>
 </body>

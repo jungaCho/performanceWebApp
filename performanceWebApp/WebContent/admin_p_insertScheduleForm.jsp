@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>공연 등록</title>
+<title>일정 등록</title>
 
 	<style>
 	
