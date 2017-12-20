@@ -32,10 +32,14 @@ public class MemberService {
 		MemberDAO.getInstance().deleteMember(member);	
 	}
 	
-	public boolean processLogin(String mId, String mPw) throws Exception {
+	public boolean checkProcessLogin(String mId, String mPw) throws Exception {
+		return MemberDAO.getInstance().checkloginMember(mId, mPw);
+	}
+
+	public String processLogin(String mId, String mPw) throws Exception {
 		return MemberDAO.getInstance().loginMember(mId, mPw);
 	}
-	
+
 	public boolean checkID(String mId) throws Exception {
 		return MemberDAO.getInstance().checkOverLapId(mId);
 	}

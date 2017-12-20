@@ -102,13 +102,15 @@ public class MemberDAO {
 
 			StringBuffer sql = new StringBuffer();
 			sql.append("update member															");
-			sql.append("set m_pw = ? , email = ? , address = ?									");
+			sql.append("set m_pw = ? , m_name = ?, email = ? , address = ?									");
 			sql.append("where m_no = ? 															");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, member.getmPw());
-			pstmt.setString(2, member.getEmail());
-			pstmt.setString(3, member.getAddress());
+			pstmt.setString(2, member.getmName());
+			pstmt.setString(3, member.getEmail());
+			pstmt.setString(4, member.getAddress());
+			pstmt.setString(5, member.getmNo());
 
 			pstmt.executeUpdate();
 
@@ -153,8 +155,50 @@ public class MemberDAO {
 	}
 
 
-	public boolean loginMember(String mId, String mPw) throws Exception {
+	public boolean checkloginMember(String mId, String mPw) throws Exception {
 		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String mNo = "";
+		try {
+			
+			conn = DBConn.getConnection();
+
+			StringBuffer sql = new StringBuffer();
+			sql.append("select m_no						");
+			sql.append("from member						");
+			sql.append("where m_id = ? and m_pw = ? 	");
+
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, mId);
+			pstmt.setString(2, mPw);
+			
+			pstmt.executeUpdate();
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				if (rs.getString(1) != null) {
+					mNo = rs.getString(1);
+					return true;
+				}
+			}		
+				
+		} finally {
+			if (rs!=null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+		return false;
+	}
+
+	public String loginMember(String mId, String mPw) throws Exception {
+		String mNo = "";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -178,12 +222,8 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				if (rs.getString(1) != null) {
-					MemberVO member = new MemberVO();
-					member.setmNo(rs.getString(1));
-					return true;
-				}
-			}		
+				mNo = rs.getString(1);
+			}
 				
 		} finally {
 			if (rs!=null)
@@ -193,7 +233,7 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
-		return false;
+		return mNo;
 	}
 
 	public boolean checkOverLapId(String mId) throws Exception {

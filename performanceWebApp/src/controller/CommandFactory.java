@@ -13,13 +13,13 @@ public class CommandFactory {
 
 		map.put("/loginForm.do","controller.member.LoginFormCommand");
 
-		map.put("/loginForm.do","controller.member.loginFormCommand");
-
 		map.put("/SignUp.do","controller.member.SignUpCommand");
+		
+		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
 
 		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
 
-		
+		map.put("/modifyMember.do","controller.member.ModifyMemberCommand");
 	}
 	
 	public static CommandFactory getInstance() {

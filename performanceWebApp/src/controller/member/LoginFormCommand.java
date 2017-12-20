@@ -31,14 +31,16 @@ public class LoginFormCommand implements Command {
 
 			MemberService service = MemberService.getInstance();
 
-			Boolean isSuccess = service.processLogin(id, pwd);
+			String mNo = service.processLogin(id, pwd);
+			boolean isSuccess = service.checkProcessLogin(id, pwd);
 
 			if (isSuccess) { // 회원이 맞을 경우에
 				// 세션영역에 "userID"라는 속성이름으로 아이디를 바인딩한다.
 				HttpSession session = req.getSession();
-				MemberVO member = new MemberVO();
-				session.setAttribute("usermNo", member.getmNo()); // 세션영역에 id데이터를 바인딩한다.
-
+				session.setAttribute("usermNo", mNo);
+				//MemberVO member = new MemberVO();
+				//session.setAttribute("usermNo", member.getmNo()); // 세션영역에 id데이터를 바인딩한다.
+				System.out.println("usermNo : " + session.getAttribute("usermNo"));
 				// 로그인 성공 메인화면으로 이동한다.
 				forward.setPath("/member_index.jsp");
 				forward.setRedirect(false);

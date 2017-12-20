@@ -14,7 +14,7 @@
 <meta name="Author" content="">
 <meta name="Keywords" content="">
 <meta name="Description" content="">
-<title>2단 Layout</title>
+<title>메인 페이지</title>
 <style>
 
 body, a {

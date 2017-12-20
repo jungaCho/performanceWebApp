@@ -17,6 +17,16 @@ public class MemberVO {
 	public MemberVO() {
 		super();
 	}
+	
+
+	public MemberVO(String mNo,String mPw, String mName, String email, String address) {
+		super();
+		this.mNo = mNo;
+		this.mPw = mPw;
+		this.mName = mName;
+		this.email = email;
+		this.address = address;
+	}
 
 	public MemberVO(String mId, String mPw, String mName, String email, String birthday, String address) {
 		super();
@@ -27,6 +37,7 @@ public class MemberVO {
 		this.birthday = birthday;
 		this.address = address;
 	}
+
 
 	public MemberVO(String mNo, String mId, String mPw, String mName, String email, String birthday, String address,
 			int score, int rankNo, String withdrawal, String wdDate, String wdReason) {
