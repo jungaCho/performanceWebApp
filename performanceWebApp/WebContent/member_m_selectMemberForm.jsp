@@ -13,23 +13,18 @@
 		display: inline-block;
 		margin-right: 10px;
 	}
-
+	
+	div{
+		padding: 40px;
+	}
 	
 	#div1{
-		
-		padding : 40px;
 		float : left;
-		background-color : yellow;
-		width: 300px;
-		height: 500px
 	
 	}
 	
 	#div2{
 		float: left;
-		background-color : yellow;
-		width: 300px;
-		height: 500px;
 		
 	
 	}
@@ -38,9 +33,9 @@
 
 </head>
 <body>
-	<form action="${pageContext.request.contextPath }/memberModifyForm.do" method="post">
+	<form action="${pageContext.request.contextPath }/modifyForm.do" method="post">
 		<div id="pannel">
-		<h2>회원정보조회</h2><button type="button" id="btn1">수정</button>
+		<h2>회원정보조회</h2><button type="submit" id="btn1">수정</button>
 		</div>
 	
 		<div id="div1">
