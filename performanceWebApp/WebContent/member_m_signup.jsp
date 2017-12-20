@@ -38,10 +38,49 @@
 	}
 	
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
 <script>
-	$(document).ready(function) {
+
+	$(document).ready(function(){
 		
-	}
+		$('#btn2').click(function(){
+			
+			$.ajax({
+				
+
+				url: "${pageContext.request.contextPath}/SignUp.do"
+				,
+				method: 'POST' 
+				,
+				async: true
+				,
+				
+				dataType : 'json'
+				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. 
+				
+				data : $('form').serialize() //ajax는 부메랑. 
+				,
+					
+				success : function(data){ //부메랑이니까 다시 돌아와 이 데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
+					
+					if(data.success  == true) { //data에 있는 successs 에 대한 값이 true라면 밑 명령수행
+						alert("회원가입에 성공하셨습니다!!");
+						location.href = "${pageContext.request.contextPath}/member_index.jsp";
+					}
+					
+				},
+				
+				error : function(jqXHR){
+					alert('Error: ' + jqXHR.status );
+					
+				}
+				
+			});
+			
+		});
+		
+	});
+
 </script>
 </head>
 <body>
@@ -59,6 +98,9 @@
 		이메일<br>
 		<input type="text" name="email" size="40" placeholder="이메일을 입력해주세요"/>&nbsp;
 		<button type="button">이메일 인증</button><br>
+		생일<br>
+		<input type="date" name="birthday">
+		<br> 
 		주소<br>
 		<input type="text" name="address" size="40" placeholder="주소를 입력해주세요"/>
 		<br>
