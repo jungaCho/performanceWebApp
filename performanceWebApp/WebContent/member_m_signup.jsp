@@ -58,11 +58,12 @@
 				dataType : 'json'
 				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. 
 				
-				data : $('form').serialize()
+				data : $('form').serialize() //ajax는 부메랑. 
 				,
 					
-				success : function(data){
-					if(data.success  == true) {
+				success : function(data){ //부메랑이니까 다시 돌아와 이 데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
+					
+					if(data.success  == true) { //data에 있는 successs 에 대한 값이 true라면 밑 명령수행
 						alert("회원가입에 성공하셨습니다!!");
 						location.href = "${pageContext.request.contextPath}/member_index.jsp";
 					}
