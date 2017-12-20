@@ -104,16 +104,16 @@
 			<tr>
 				<th>관람등급</th>
 				<td><select id="view_Class"  name="viewClass">
-						<option value="전체관람가">전체관람가</option>
-						<option value="12세 이상">12세 이상</option>
-						<option value="15세 이상">15세 이상</option>
-						<option value="청소년관람불가">청소년관람불가</option>
+						<option value="V001">전체관람가</option>
+						<option value="V002">12세 이상</option>
+						<option value="V003">15세 이상</option>
+						<option value="V004">청소년관람불가</option>
 					</select></td>
 				<th>장르</th>
 				<td><select id="genre" name="genre">
-						<option value="연극">연극</option>
-						<option value="뮤지컬">뮤지컬</option>
-						<option value="콘서트">콘서트</option>
+						<option value="G001">연극</option>
+						<option value="G002">뮤지컬</option>
+						<option value="G003">콘서트</option>
 					</select></td>
 			</tr>
 			<tr>
