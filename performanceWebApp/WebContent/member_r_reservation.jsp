@@ -14,6 +14,7 @@
 	.reservation > .r_text > ul > .r_text_date{margin-top:15px; color:#5D5D5D;}
 	.reservation > .r_text > ul > .r_text_title{font-weight:bold;}
 	.reservation > .r_text > ul > .r_text_button{margin-top:19px;}
+	
 </style>
 </head>
 <body>
@@ -111,7 +112,9 @@
 						가격 : 30,000원
 					</li>
 					<!-- r_text_button -->
-					<li class="r_text_button"><button>예매하기</button></li>
+					<li class="r_text_button"><button type="button" id="rBtn">예매하기</button></li>
+					<!-- 팝업 레이아웃 -->
+					<div id ="mask"></div>
 				</ul>
 			</div>
 		</div>
