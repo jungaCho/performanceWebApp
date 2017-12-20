@@ -12,7 +12,7 @@ body {
 }
 
 .title_bg {
-	width: 600px;
+	width: 700px;
 	height: 40px;
 	font-size: 25px;
 	color: #fff;
@@ -32,7 +32,7 @@ body {
 }
 
 .reservation_content01>dl {
-	width: 290px;
+	width: 350px;
 }
 
 .reservation_content01>dl>dt {
@@ -93,7 +93,7 @@ a:hover{color:#fff;}
 			<div class="reservation_content01">
 				<dl>
 					<dt>포스터</dt>
-					<dd class="reservation_title">공연명</dd>
+					<dd class="reservation_title">${requestScope.performance.title}</dd>
 					<dd class="reservation_text">※만석일 경우, 공연시간이 선택되지 않습니다.</dd>
 				</dl>
 			</div>
@@ -121,7 +121,11 @@ a:hover{color:#fff;}
 					</tr>
 					<tr>
 						<td><a href="#" id="closeBtn">닫기</a></td>
-						<td><a href="${pageContext.request.contextPath}/member_r_reservationStart2.jsp" id="selectBtn">좌석선택</a></td>
+						<td>
+ 							<c:param name="tNo" value="${requestScope.performance.tNo}"/>
+							<a href="${pageContext.request.contextPath}/member_r_reservationStart2.do?tNo=${requestScope.seats.tNo}" id="selectBtn">좌석선택
+							</a>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -129,3 +133,13 @@ a:hover{color:#fff;}
 	</form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

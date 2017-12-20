@@ -12,7 +12,7 @@ body {
 }
 
 .title_bg {
-	width: 600px;
+	width: 700px;
 	height: 40px;
 	font-size: 25px;
 	color: #fff;
@@ -32,7 +32,7 @@ body {
 }
 
 .reservation_content01>dl {
-	width: 290px;
+	width: 350px;
 }
 
 .reservation_content01>dl>dt {
@@ -73,6 +73,7 @@ body {
 #closeBtn{width:80px; background:gray; color:#fff; display:inline-block; height:50px; text-align:center; line-height:50px; text-decoration:none; border-radius:5px;}
 #selectBtn{width:80px; background:#368AFF; color:#fff; display:inline-block; height:50px; text-align:center; line-height:50px; text-decoration:none; border-radius:5px;}
 a:hover{color:#fff;}
+label{border:1px solid #000; width:12px; height:12px; display:inline-block;}
 </style>
 
 </head>
@@ -83,7 +84,9 @@ a:hover{color:#fff;}
 		<div class="reservation_padding">
 			<div class="reservation_content01">
 				<dl>
-					<dt></dt>
+					<dt style="padding:10px;">
+						<label></label>
+					</dt>
 					<dd class="reservation_text">※최대 10자리까지 예매 가능합니다.</dd>
 				</dl>
 			</div>
@@ -106,7 +109,10 @@ a:hover{color:#fff;}
 						<td>57,000원</td>
 					</tr>
 					<tr>
-						<td><a href="${pageContext.request.contextPath}/member_r_reservationStart.jsp" id="closeBtn">뒤로가기</a></td>
+						<td>
+							<c:param name="pNo" value="${requestScope.performance.pNo}"/>
+							<a href="${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=${requestScope.seats.pNo}" id="closeBtn">뒤로가기</a>
+						</td>
 						<td><a href="${pageContext.request.contextPath}/member_r_reservationStart3.jsp" id="selectBtn">결제하기</a></td>
 					</tr>
 				</table>

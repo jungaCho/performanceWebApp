@@ -453,7 +453,7 @@ public class ReservationDAO {
 
 			sql.append("select seat_no, seat_number          ");
 			sql.append("from seat                                    ");
-			sql.append("where tNo = ?                              ");
+			sql.append("where t_no = ?                              ");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, tNo);

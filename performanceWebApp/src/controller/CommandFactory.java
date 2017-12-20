@@ -13,6 +13,10 @@ public class CommandFactory {
 		
 		map.put("/loginForm.do","controller.member.loginFormCommand");
 		
+		//¿¹¸Å
+		map.put("/member_r_reservationStart.do","controller.reservation.ReservationStartCommand");
+		map.put("/member_r_reservationStart2.do","controller.reservation.ReservationSeatCommand");
+		
 	}
 	
 	public static CommandFactory getInstance() {

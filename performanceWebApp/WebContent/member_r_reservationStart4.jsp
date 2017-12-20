@@ -13,7 +13,7 @@ body {
 }
 
 .title_bg {
-	width: 600px;
+	width: 700px;
 	height: 40px;
 	font-size: 25px;
 	color: #fff;

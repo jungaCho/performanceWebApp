@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns= {"*.do"})
 public class ControllerServlet extends HttpServlet{
 	
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
