@@ -13,6 +13,7 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>		
@@ -28,6 +29,7 @@
 			<file-size-threshold>100000</file-size-threshold>
 		</multipart-config>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>UploadFile</servlet-name>
 		<url-pattern>/uploadFile</url-pattern>
