@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>공연 등록</title>
+<title>일정 등록</title>
 
 	<style>
 	
@@ -19,8 +19,9 @@
 
 	button {
 
-		width: 100px;
-		height: 50px;
+		width: 80px;
+		height: 40px;
+		margin-left: 50px;
 		margin-right: 120px;
 	}
 	
@@ -85,8 +86,8 @@
 				<th>시간</th>
 			</tr>
 			<tr>
-				<td></td>
-				<td></td>
+				<td>입력하는 일자가 여기에 들어오도록..</td>
+				<td>입력하는 시간이 여기에 들어오도록..</td>
 		</table>
 		
 		</div>

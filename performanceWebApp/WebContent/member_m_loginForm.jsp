@@ -16,7 +16,6 @@
 	text-align : center;
 
 }
-
 button {
 
 	width: 80px;
@@ -31,20 +30,23 @@ input {
 
 
 </style>
+
 </head>
 <body>
 
-	<form>
+<form action="${pageContext.request.contextPath }/loginForm.do" method="post">
 
 		<div id="box">
 
-			아이디 : <input type="text" name="id" sizes="20"
-				placeholder="아이디를 입력해주세요" autofocus></input><br> 비밀번호 : <input
-				type="password" name="pwd" sizes="20" placeholder="비밀번호를 입력해주세요"></input><br>
-
+			아이디 :<br>
+			 <input type="text" name="id" size="20"
+				placeholder="아이디를 입력해주세요" autofocus></input><br> 
+			비밀번호 : <br>
+			<input type="password" name="pwd" size="20" placeholder="비밀번호를 입력해주세요"></input><br>
+			<br>
 			<a href="#">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
-
-			<button type="button" id="btn1">로그인</button>
+			<br>
+			<button type="submit" id="btn1">로그인</button>
 			<button type="button" id="btn2">회원가입</button>
 		</div>
 

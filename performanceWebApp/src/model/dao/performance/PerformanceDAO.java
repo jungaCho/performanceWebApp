@@ -17,7 +17,7 @@ public class PerformanceDAO {
 	//싱글톤 패턴
 	private static PerformanceDAO instance = new PerformanceDAO();
 	
-	private PerformanceDAO() {
+	public PerformanceDAO() {
 		
 	}
 	
@@ -80,8 +80,7 @@ public class PerformanceDAO {
 		PerformanceVO performance = new PerformanceVO();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-				
+		ResultSet rs = null;				
 		try {
 			conn = DBConn.getConnection();
 					
@@ -89,14 +88,15 @@ public class PerformanceDAO {
 			sql.append("select performance.title,performance.start_date,performance.end_date,theater.t_name,viewclass.view_class,performance.running_time,	");
 			sql.append("performancegenre.genre,performance.price,poster.system_file_name,schedule.s_date,orders.o_time,detailfile.system_file_name			");
 			sql.append("from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile												");
-			sql.append("where poster.p_no=performance.P_NO(+)																									");
-			sql.append("and performance.P_No=schedule.p_no(+)																									");
+			sql.append("where poster.p_no=performance.P_NO																									");
+			sql.append("and performance.P_No=schedule.p_no(+)																								");
 			sql.append("and theater.T_NO=schedule.T_NO																										");
 			sql.append("and orders.s_no=schedule.s_no																										");
 			sql.append("and viewclass.VIEW_NO=performance.VIEW_NO																							");
 			sql.append("and performancegenre.GENRE_NO=performance.GENRE_NO																					");
-			sql.append("and detailfile.p_no=performance.p_no(+)																								");
+			sql.append("and detailfile.p_no=performance.p_no																								");
 			sql.append("and performance.p_no=?																												");
+			sql.append(" order by performance.p_no asc,schedule.s_date asc, orders.o_time asc																");
 			pstmt = conn.prepareStatement(sql.toString());
 					
 			pstmt.setString(1, pNo);
@@ -105,12 +105,10 @@ public class PerformanceDAO {
 					
 			int count = 1;
 			String systemFileName = "";
-			String sDate = "";
-			String oTime = "";
 			String posterName = "";
-			
+			String sDate = "";					
 			while(rs.next()) {
-				if(count == 1) {	//게시글 정보가 하나인 경우
+				if(count == 1) {	//공연정보가 하나인 경우
 					performance.setTitle(rs.getString(1));
 					performance.setStartDate(rs.getString(2));
 					performance.setEndDate(rs.getString(3));
@@ -122,45 +120,38 @@ public class PerformanceDAO {
 				}
 				
 				//상세 설명	
-				if(rs.getString(12) != null && !systemFileName.equals(rs.getString(12)))  {
+				if(!systemFileName.equals(rs.getString(12)))  {
 					//업로드된 파일이 여러개인 경우 DB에 한번 접근해서 모든 업로드된 파일 정보를 읽어오도록
 					DetailFileVO detailfile = new DetailFileVO();
-					detailfile.setSystemFileName(rs.getString(12));		
-					systemFileName = rs.getString(12);
+					detailfile.setSystemFileName(rs.getString(12));
 					performance.addDetailFile(detailfile);
+					systemFileName = rs.getString(12);										
 				}
 				
 					
 				//포스터와 관련된 첨부파일이 있는 경우
-				if(rs.getString(9) != null && !posterName.equals(rs.getString(9))) {
+				if(!posterName.equals(rs.getString(9))) {
 					//업로드된 파일이 여러개인 경우 DB에 한번 접근해서 모든 업로드된 파일 정보를 읽어오도록
 					PosterVO poster = new PosterVO();
-					poster.setSystemFileName(rs.getString(9));
-					posterName = rs.getString(9);
+					poster.setSystemFileName(rs.getString(9));					
 					performance.addPoster(poster);
+					posterName = rs.getString(9);
 				}
 				
 				//일정
-				if(rs.getString(11) != null  && !oTime.equals(rs.getString(11))) {
-					
-					ScheduleVO schedule = null;
-					List<ScheduleVO> schedules = performance.getSchedules();
-					if(schedules.size() != 0) {
-						schedule = schedules.get(schedules.size()-1);
-					}
-					
-					if(!sDate.equals(rs.getString(10)) ) {					
-						schedule = new ScheduleVO();
-						schedule.setsDate(rs.getString(10));					
-						performance.addSchedule(schedule);
-					}
-					
-					//회차					
-					//DB에 접근
-					OrderVO order = new OrderVO();
-					order.setoTime(rs.getString(11));
-					schedule.addOrders(order);					
+				ScheduleVO schedule = null;
+				if(rs.getString(10) != null  && !sDate.equals(rs.getString(10))) {					
+					schedule = new ScheduleVO();
+					schedule.setsDate(rs.getString(10));					
+					performance.addSchedule(schedule);
+					sDate = rs.getString(10);
 				}
+				
+				//회차					
+				//DB에 접근
+				OrderVO order = new OrderVO();
+				order.setoTime(rs.getString(11));
+				schedule.addOrders(order);
 				
 				count++;
 			}
@@ -169,9 +160,11 @@ public class PerformanceDAO {
 			if(pstmt == null) pstmt.close();
 			if(conn == null) conn.close();
 		}
+		
 		return performance;			
 	}
 
+	
 
 	//공연 정보를 목록을 조회하다.(관리자)
 	public List<PerformanceVO> selectPerformanceListByAdmin(int startRow, int endRow) throws Exception {

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta  charset=utf-8>
-<title>공연 이미지 조회 페이지</title>
+<title>공연 상세조회 페이지</title>
 <style>
 
 	form {
@@ -53,48 +53,57 @@
 		display:inline-block;
 		float:left;
 	}
-	#div3 {
-		text-align: center;
+	#div3{
+		float:right;
+		text-align:center;
 	}
-	#keyword {
-		margin-le
+	#btn2 {
+		width: 80px;
 	}
 </style>
 </head>
 <body>
 	<form>
-		<div id="div1">
-			<ul>
-				<li><a href='#'>이전달</a></li>
-				<li><a href='#'>현재달</a></li>
-				<li><a href='#'>다음달</a></li>
-			</ul>
-		</div>
 		<div id="div2">
 			<div id="div2-1">
-				<input id="keyword" type="text" placeholder="검색어를 입력하세요">
+				<input id="keyword" type="text" placeholder="검색어를 입력하세요" size=60>
 				<button id="btn1" type="submit">검색</button>
 			</div>
 			<div id="div2-2">
-				<button type="button">이미지보기</button><button type="button">텍스트보기</button>
-				<select id="genre" >
-					<option value="1">뮤지컬</option>
-					<option value="2">연극</option>
-					<option value="3">콘서트</option>
-				</select>
+				
 			</div>
 		</div>
 		<br>
 		<br>
 		<div id="div3">
-		<table border="1" width=180>
+		<table id="detailPerformance" border="1" width=600>
 			<tr>
-				<td>2017/10/20</td>
-				<td><button type="button" id="btn2">예매하기</button>
+				<th>기간</th>
+				<td>2017.10.20 ~ 2017.10.30</td>
 			</tr>
-			<br>
 			<tr>
-				<td colspan='2'>포스터</td>
+				<th>시간</th>
+				<td>오후 8:00</td>
+			</tr>
+			<tr>
+				<th>장소</th>
+				<td>콘서트홀</td>
+			</tr>
+			<tr>
+				<th>관람등급</th>
+				<td>전체관람가</td>
+			</tr>
+			<tr>
+				<th>관람시간</th>
+				<td>120분</td>
+			</tr>
+			<tr>
+				<th>장르</th>
+				<td>콘서트</td>
+			</tr>
+			<tr>
+				<th>가격</th>
+				<td>120000원</td>
 			</tr>
 		</table>
 		</div>

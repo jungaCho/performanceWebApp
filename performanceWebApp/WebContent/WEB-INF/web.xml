@@ -13,6 +13,7 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>		
@@ -20,7 +21,7 @@
 
 	<servlet>
 		<servlet-name>UploadFile</servlet-name>
-		<servlet-class>controller.UploadFileServlet</servlet-class>
+		<servlet-class>controller.performance.UploadFileServlet</servlet-class>
 		<multipart-config>
 			<location>C:/tempUpload</location>
 			<max-file-size>2000000</max-file-size>
@@ -28,6 +29,7 @@
 			<file-size-threshold>100000</file-size-threshold>
 		</multipart-config>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>UploadFile</servlet-name>
 		<url-pattern>/uploadFile</url-pattern>

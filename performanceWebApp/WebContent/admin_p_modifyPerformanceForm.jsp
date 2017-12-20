@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>공연 등록</title>
+<title>공연 수정</title>
 
 	<style>
 	
@@ -13,7 +13,7 @@
 		padding : 30px;
 		background-color : gray;
 		width: 900px;
-		height: 750px;
+		height: 850px;
 	
 	}
 
@@ -65,16 +65,19 @@
 
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/uploadFile" enctype="multipart/form-data" method="post">
+	<form>
 	
 		<div id="pannel">
-		<h1>공연 등록</h1><input type="file" name="poster" size="20"></input><br>
+		<h1>공연 수정</h1><input type="file" name="poster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
 		</div>
 		<div id="div1">
-		<h3>공연제목 : <input type="text" name="title" size="20" placeholder="공연 제목을 입력해주세요!" autofocus></input><h3>
+		<h3>공연번호 : 공연번호</input><h3>
+		<h3>공연제목 : 공연제목</input><h3>
+		<button type="button" id="btn1">확인</button>
+		<button type="button" id="btn2">취소</button>
 
 		<table border="1" width=800>
 			<tr>
@@ -122,14 +125,11 @@
 			</tr>
 			<tr>
 				<th>런닝타임</th>
-				<td><input type="text" name="running_Time" size="15"></td>
+				<td><input type="text" name="runningTime" size="15"></td>
 				<th>비고</th>
 				<td><input type="text" name="note" size="15"></td>
 			</tr>
 		</table>
-		<br>
-		<button type="submit" id="btn1">등록</button>
-		<button type="reset" id="btn2">취소</button>
 
 		<br>
 

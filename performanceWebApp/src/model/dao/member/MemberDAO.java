@@ -155,10 +155,13 @@ public class MemberDAO {
 
 
 	public boolean loginMember(String mId, String mPw) throws Exception {
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
+			
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
@@ -167,19 +170,35 @@ public class MemberDAO {
 			sql.append("where m_id = ? and m_pw = ? 	");
 
 			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, mId);
+			pstmt.setString(2, mPw);
+			
+			pstmt.executeUpdate();
 
 			rs = pstmt.executeQuery();
-
-			if (rs.getString(1) != null) {
-				return true;
-			}			
+			
+			String member ="";
+			
+			while(rs.next()) {
+				member = rs.getString(1);
+				
+				if (member != null) {
+					return true;
+				}
+				
+				
+			}		
+				
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
 			if (conn != null)
 				conn.close();
 		}
+		
 		return false;
+		
 	}
 
 	public boolean checkOverLapId(String mId) throws Exception {
