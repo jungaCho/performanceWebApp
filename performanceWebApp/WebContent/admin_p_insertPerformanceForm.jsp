@@ -74,7 +74,7 @@
 		<input type="file" name="poster" size="20"></input><br>
 		</div>
 		<div id="div1">
-		<h3>공연제목 : <input type="text" name="title" size="20" placeholder="공연 제목을 입력해주세요!" autofocus></input><h3>
+		<h3>공연제목 : <input type="text" name="title" size="20" placeholder="공연 제목을 입력해주세요!" autofocus></input></h3>
 
 		<table border="1" width=600>
 			<tr>
