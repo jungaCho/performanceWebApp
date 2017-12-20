@@ -37,7 +37,7 @@
 		<li><a href="${pageScope.url1 }">공연정보</a></li>
 		<li><a href="${pageScope.url2 }">예매</a></li>
 		<li><a href="${pageScope.url3 }">마이페이지</a></li>
-		<li><span id="loginm">로그인이 필요합니다.</span></li>
-		<li><a href="${pageScope.urlLogin }"><span id="loginm2">로그인</span></a><li>
+		<li><span id="loginm">use사용자이름 님 환영합니다</span></li>
+		<li><a href="${pageScope.urlLogin }"><span id="loginm2">로그아웃</span></a><li>
 	</ul>
 </nav>
