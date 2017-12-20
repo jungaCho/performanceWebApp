@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="domain.performance.PerformanceVO" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -73,7 +77,7 @@ form {
 						<option value="장르">장르</option>
 					</select>
 			<input id="keyword" type="search" placeholder="검색어를 입력하세요">
-			<button type="button" id="btn3">검색</button>
+			<button type="search" id="btn3">검색</button>
 		</div>
 		<br>
 		<br>
@@ -87,14 +91,19 @@ form {
 				<th>종료일</th>
 				<th>장르</th>
 			</tr>
+		<c:forEach var="performance" items="${requestScope.performances }" varStatus="loop">
+			<c:url var="url" value="/admin_p_detailPerformance.jsp" scope="page">
+				<c:param name="no" value="${pageScope.performance.pNo }" />
+			</c:url>
 			<tr>
 				<td><input type="checkbox" name="check"></td>
-				<td>T00001</td>
-				<td>빌리 엘리어트</td>
-				<td>2017/12/20</td>
-				<td>2017/12/30</td>
-				<td>연극</td>
+				<td>${pageScope.performance.pNo }</td>
+				<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
+				<td>${pageScope.performance.startDate }</td>
+				<td>${pageScope.performance.endDate }</td>
+				<td>${pageScope.performance.genre }</td>
 			</tr>
+		</c:forEach>
 		</table>
 		</div>
 		<br>

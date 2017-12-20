@@ -73,8 +73,8 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#open').click(function(){
-			var url = '${pageContext.request.contextPath}/member_r_reservationStart.jsp';
-			window.open(url, "예매확인", "width=600, height=500");
+			var url = '${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=P00001';
+			window.open(url, "예매확인", "width=700, height=600");
 		});
 	});
 </script>
@@ -121,7 +121,7 @@
 							30,000원
 						</li>
 						<!-- r_text_button -->
-						<li class="r_text_button"><a href="#">예매하기</a></li>
+						<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
 					</ul>
 				</div>
 			</div>
@@ -142,7 +142,7 @@
 							30,000원
 						</li>
 						<!-- r_text_button -->
-						<li class="r_text_button"><a href="#">예매하기</a></li>
+						<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
 					</ul>
 				</div>
 			</div>
@@ -163,7 +163,7 @@
 							30,000원
 						</li>
 						<!-- r_text_button -->
-						<li class="r_text_button"><a href="#">예매하기</a></li>
+						<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
 					</ul>
 				</div>
 			</div>
@@ -184,7 +184,7 @@
 							30,000원
 						</li>
 						<!-- r_text_button -->
-						<li class="r_text_button"><a href="#">예매하기</a></li>
+						<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
 					</ul>
 				</div>
 			</div>

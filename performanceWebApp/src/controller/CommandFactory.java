@@ -10,7 +10,7 @@ public class CommandFactory {
 	
 	private CommandFactory() {
 		//클라이언트 요청을 처리하기 위해, 클라이언트 url과 요청을 처리할 command 클래스 매핑
-
+		//회원
 		map.put("/loginForm.do","controller.member.LoginFormCommand");
 
 		map.put("/SignUp.do","controller.member.SignUpCommand");
@@ -20,6 +20,14 @@ public class CommandFactory {
 		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
 
 		map.put("/modifyMember.do","controller.member.ModifyMemberCommand");
+
+		
+		//예매
+		map.put("/member_r_reservationStart.do","controller.reservation.ReservationStartCommand");
+
+		map.put("/member_r_reservationStart2.do","controller.reservation.ReservationSeatCommand");
+		
+
 	}
 	
 	public static CommandFactory getInstance() {
