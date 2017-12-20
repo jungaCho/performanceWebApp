@@ -20,18 +20,15 @@
 		padding : 40px;
 		float : left;
 		background-color : yellow;
-		width: 400px;
-		height: 500px;
-		margin-right: 20px;
+		width: 300px;
+		height: 500px
 	
 	}
 	
 	#div2{
-		
-		padding : 40px;
 		float: left;
 		background-color : yellow;
-		width: 400px;
+		width: 300px;
 		height: 500px;
 		
 	
@@ -41,17 +38,16 @@
 
 </head>
 <body>
-	<form>
-	
+	<form action="${pageContext.request.contextPath }/memberModifyForm.do" method="post">
 		<div id="pannel">
 		<h2>회원정보조회</h2><button type="button" id="btn1">수정</button>
 		</div>
 	
 		<div id="div1">
 		
-		
-		아이디 : <input type="text" name="id"/><br>
-		비밀번호 : <input type="password" name="pwd"/>	<br>
+
+		아이디 : use el<br>
+		비밀번호 : use el<br>
 		
 		이름 : use el<br>
 		연락처 : use el<br>

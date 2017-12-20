@@ -11,7 +11,7 @@ import controller.ActionForward;
 import controller.Command;
 import model.service.member.MemberService;
 
-public class loginFormCommand implements Command {
+public class LoginFormCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
@@ -30,9 +30,9 @@ public class loginFormCommand implements Command {
 		try {
 		
 			MemberService service = MemberService.getInstance();
-			Boolean isSucess = service.processLogin(id,pwd);
+			Boolean isSuccess = service.processLogin(id,pwd);
 			
-		 if(isSucess){ //회원이 맞을 경우에
+		 if(isSuccess){ //회원이 맞을 경우에
 
 			//세션영역에 "userID"라는 속성이름으로 아이디를 바인딩한다.
 
