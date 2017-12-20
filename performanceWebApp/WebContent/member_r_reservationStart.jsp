@@ -96,13 +96,13 @@ a:hover{color:#fff;}
 		<div class="title_bg">예 매</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
-				<forEach var="poster" items="${requestScope.performance.posters }" varStatus ="status">
+				
 					<dl>
 						<dt>포스터</dt>
 						<dd class="reservation_title">${requestScope.performance.title}</dd>
 						<dd class="reservation_text">※만석일 경우, 공연시간이 선택되지 않습니다.</dd>
 					</dl>
-				</forEach>
+
 			</div>
 			<div class="reservation_content02">
 				<table>
