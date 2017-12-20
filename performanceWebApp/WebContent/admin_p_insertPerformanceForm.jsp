@@ -113,8 +113,8 @@
 			</tr>
 		</table>
 		<br>
-		<button type="button" id="btn1">등록</button>
-		<button type="button" id="btn2">취소</button>
+		<button type="submit" id="btn1">등록</button>
+		<button type="reset" id="btn2">취소</button>
 
 		<br>
 
