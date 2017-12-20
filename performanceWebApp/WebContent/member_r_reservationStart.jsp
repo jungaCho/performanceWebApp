@@ -69,25 +69,45 @@ body {
 .reservation_content02 {
 	width: 200px;
 	margin-left: 20px;
-	margin-top:15px;
+	margin-top: 15px;
 }
 
+#closeBtn {
+	width: 80px;
+	background: gray;
+	color: #fff;
+	display: inline-block;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	text-decoration: none;
+	border-radius: 5px;
+}
 
-#closeBtn{width:80px; background:gray; color:#fff; display:inline-block; height:50px; text-align:center; line-height:50px; text-decoration:none; border-radius:5px;}
-#selectBtn{width:80px; background:#368AFF; color:#fff; display:inline-block; height:50px; text-align:center; line-height:50px; text-decoration:none; border-radius:5px;}
-a:hover{color:#fff;}
+#selectBtn {
+	width: 80px;
+	background: #368AFF;
+	color: #fff;
+	display: inline-block;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+a:hover {
+	color: #fff;
+}
 </style>
-<script src="js/jquery-3.2.1.min.js"></script> 
+<script src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#closeBtn').click(function(){
+	$(document).ready(function() {
+		$('#closeBtn').click(function() {
 			close();
 		});
-		
 
 	});
-
-
 </script>
 </head>
 <body>
@@ -96,13 +116,19 @@ a:hover{color:#fff;}
 		<div class="title_bg">예 매</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
-				
-					<dl>
-						<dt>포스터</dt>
-						<dd class="reservation_title">${requestScope.performance.title}</dd>
-						<dd class="reservation_text">※만석일 경우, 공연시간이 선택되지 않습니다.</dd>
-					</dl>
-
+				<c:if test="${fn:length(requestScope.performance.posters) > 0 }" >
+				<dl>
+					<dt>
+						<c:forEach var="poster" items="${requestScope.performance.posters}" varStatus="loop">
+							<c:if test="${loop.first}">
+								${pageScope.poster.systemFileName}
+							</c:if>
+						</c:forEach>
+					</dt>
+					<dd class="reservation_title">${requestScope.performance.title}</dd>
+					<dd class="reservation_text">※만석일 경우, 공연시간이 선택되지 않습니다.</dd>
+				</dl>
+				</c:if>
 			</div>
 			<div class="reservation_content02">
 				<table>
@@ -114,16 +140,20 @@ a:hover{color:#fff;}
 						<td>금 액</td>
 						<td>${requestScope.performance.price}원</td>
 					</tr>
-					<c:forEach var="scheduleSdate" items="${requestScope.performance.schedules }"  varStatus="status" >
-						<c:if  test="${status.first }">
-						<tr>
-							<td>공연일</td>
-							<td><select name="performanceDate" id="sDate">
+
+
+					<tr>
+						<td>공연일</td>
+						<td><select name="performanceDate" id="sDate">
+								<c:forEach var="scheduleSdate"
+									items="${requestScope.performance.schedules }"
+									varStatus="status">
 									<option value="firstDate">${pageScope.scheduleSdate.sDate}</option>
-							</select></td>
-						</tr>
-						</c:if>
-					</c:forEach>
+								</c:forEach>
+						</select></td>
+					</tr>
+
+
 					<tr>
 						<td>공연시간</td>
 						<td><select name="performanceTime">
@@ -132,11 +162,9 @@ a:hover{color:#fff;}
 					</tr>
 					<tr>
 						<td><a href="#" id="closeBtn">닫기</a></td>
-						<%-- <td>
- 							<c:param name="tNo" value="${requestScope.performance.tNo}"/>
-							<a href="${pageContext.request.contextPath}/member_r_reservationStart2.do?tNo=${requestScope.seats.tNo}" id="selectBtn">좌석선택
-							</a>
-						</td> --%>
+						<td>
+							<a href="${pageContext.request.contextPath}/member_r_reservationStart2.do?tNo=${requestScope.performance.tNo}" id="selectBtn">좌석선택</a>
+						</td>
 					</tr>
 				</table>
 			</div>

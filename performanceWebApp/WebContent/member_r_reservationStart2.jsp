@@ -108,13 +108,12 @@ label{border:1px solid #000; width:12px; height:12px; display:inline-block;}
 						<td>최종 결제금액</td>
 						<td>57,000원</td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td>
-							<c:param name="pNo" value="${requestScope.performance.pNo}"/>
-							<a href="${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=${requestScope.seats.pNo}" id="closeBtn">뒤로가기</a>
+							<a href="${pageContext.request.contextPath}/member_r_reservationStart.do?tNo=${requestScope.seats.tNo}" id="closeBtn">뒤로가기</a>
 						</td>
 						<td><a href="${pageContext.request.contextPath}/member_r_reservationStart3.jsp" id="selectBtn">결제하기</a></td>
-					</tr>
+					</tr> --%>
 				</table>
 			</div>
 		</div>
