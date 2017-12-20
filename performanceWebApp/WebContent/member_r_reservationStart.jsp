@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html >
 <html>
 <head>
@@ -101,31 +104,33 @@ a:hover{color:#fff;}
 				<table>
 					<tr>
 						<td>공연장소</td>
-						<td>4관(8층)</td>
+						<td>${requestScope.performance.tName}</td>
 					</tr>
 					<tr>
 						<td>금 액</td>
-						<td>30,000원</td>
+						<td>${requestScope.performance.price}원</td>
 					</tr>
-					<tr>
-						<td>공연일</td>
-						<td><select name="performanceDate">
-								<option value="firstDate">2018/01/01</option>
-						</select></td>
-					</tr>
+					<c:forEach var="scheduleSdate" items="${requestScope.performance.sDate }" varStatus="loop">
+						<tr>
+							<td>공연일</td>
+							<td><select name="performanceDate">
+									<option value="firstDate">${pageScope.scheduleSdate}</option>
+							</select></td>
+						</tr>
+					</c:forEach>
 					<tr>
 						<td>공연시간</td>
 						<td><select name="performanceTime">
-								<option value="firstTime">09:00-12:00</option>
+								<option value="firstTime">${requestScope.performance.runningTime}</option>
 						</select></td>
 					</tr>
 					<tr>
 						<td><a href="#" id="closeBtn">닫기</a></td>
-						<td>
+						<%-- <td>
  							<c:param name="tNo" value="${requestScope.performance.tNo}"/>
 							<a href="${pageContext.request.contextPath}/member_r_reservationStart2.do?tNo=${requestScope.seats.tNo}" id="selectBtn">좌석선택
 							</a>
-						</td>
+						</td> --%>
 					</tr>
 				</table>
 			</div>
