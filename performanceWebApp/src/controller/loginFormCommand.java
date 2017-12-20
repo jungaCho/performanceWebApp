@@ -24,6 +24,7 @@ public class loginFormCommand implements Command {
 		ActionForward forward = new ActionForward();
 		
 		//회원여부를 확인한다.
+		
 		try {
 		
 			MemberService service = MemberService.getInstance();
@@ -43,12 +44,12 @@ public class loginFormCommand implements Command {
 			forward.setRedirect(false);
 			return forward;
 			
-		 }else {
+		 } else {
 			 
 			//로그인 원래화면으로 계속 이동한다. 
 				
 				forward.setPath("/member_m_loginForm.jsp");
-				forward.setRedirect(false);
+				forward.setRedirect(true);
 				return forward;
 			 
 		 }

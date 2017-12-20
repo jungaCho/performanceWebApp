@@ -182,19 +182,23 @@ public class MemberDAO {
 			
 			while(rs.next()) {
 				
-				member = rs.getString(1);
-			}
-
-			if (member != null) {
-				return true;
-			}			
+				if (member != null) {
+					member = rs.getString(1);
+					return true;
+				}
+				
+				
+			}		
+				
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
 			if (conn != null)
 				conn.close();
 		}
+		
 		return false;
+		
 	}
 
 	public boolean checkOverLapId(String mId) throws Exception {
