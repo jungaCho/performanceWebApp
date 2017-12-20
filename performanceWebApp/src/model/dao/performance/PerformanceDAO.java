@@ -58,9 +58,9 @@ public class PerformanceDAO {
 				sql.append(" from(select *   																						");
 				sql.append("from performance order by title asc) p) perf , poster pos															");
 				sql.append("where perf.p_no = pos.P_NO																						 	");
-				sql.append("and perf.rn>=1 and perf.rn<=9 																							");
 				sql.append("and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||?  and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?    ");
 				sql.append("and pos.main_poster = 1    																														 ");
+				sql.append("and perf.rn>=? and perf.rn<=? 																							");
 			} else if(mode.equals("text")) {
 				sql.append("select distinct perf.title,perf.start_Date,perf.end_Date,t.t_Name										");
 				sql.append("from (select rownum as rn, p.*   													");
@@ -68,7 +68,8 @@ public class PerformanceDAO {
 				sql.append("from performance order by title asc) p) perf  , theater t , schedule s		");
 				sql.append("where perf.p_no=s.p_no									");
 				sql.append("and s.t_no=t.t_no															");
-				sql.append("and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||? and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?  "); 
+				sql.append("and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||? and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?  ");
+				sql.append("and perf.rn>=? and perf.rn<=? 																							");
 			}
 			
 			//장르 선택시
@@ -105,6 +106,10 @@ public class PerformanceDAO {
 				pstmt.setString(2, month);
 			}
 			
+			int startRow=(Integer)map.get("startRow");
+			int endRow=(Integer)map.get("endRow");
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow); 
 
 			rs = pstmt.executeQuery(sql.toString());
 			if(mode.equals("image")) {
@@ -245,9 +250,12 @@ public class PerformanceDAO {
 				conn = DBConn.getConnection();
 				stmt = conn.createStatement();
 				StringBuffer sql = new StringBuffer();
-				sql.append("select select performance.p_no,performance.title,performance.start_Date,performance.end_Date,performancegenre.genre	");
-				sql.append("from performance, genre																								");
-				sql.append("where performance.genre_no=performancegenre.genre_no																");
+				sql.append("select p.p_no,p.title,p.start_Date,p.end_Date,g.genre			      					");
+				sql.append("from (select rownum as rn, perf.*															");
+				sql.append("from (select *																					");
+				sql.append("from performance order by p_no desc)perf)p ,performancegenre g 				");
+				sql.append("where p.genre_no=g.GENRE_NO															");
+				sql.append("and p.rn>=1 and p.rn<=8 																	");
 				rs = stmt.executeQuery(sql.toString());
 				while(rs.next()) {
 					PerformanceVO performance = new PerformanceVO();

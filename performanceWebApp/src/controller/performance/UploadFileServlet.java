@@ -110,7 +110,7 @@ public class UploadFileServlet extends HttpServlet {
 			PerformanceService performanceService = PerformanceService.getInstance();	
 			performanceService.createPerformance(performance); 
 			// 게시글 목록 조회 페이지로 이동
-			resp.sendRedirect(req.getContextPath() + "/admin_p_performanceList.jsp");
+			resp.sendRedirect(req.getContextPath() + "/admin_p_selectPerformanceList.jsp");
 
 		} catch (Exception e) {
 			e.printStackTrace();
