@@ -11,12 +11,7 @@
 	form {
 	
 		padding : 30px;
-		background-color : yellow;
-		width: 500px;
-		height: 350px;
-	
 	}
-	
 	#pannel > h2 {
 		
 		display: inline-block;

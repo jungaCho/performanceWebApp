@@ -31,7 +31,6 @@ public class UploadFileServlet extends HttpServlet {
 		PerformanceVO performance = new PerformanceVO();
 		Collection<Part> parts = req.getParts();
 		// 전송된 폼데이터들 (part)들을 구한다. -- 이름, 제목, 내용,비번, 첨부한 파일 다 part.
-		String title,video,startDate,endDate,production,tName,viewClass,genre,contactName,contactNumber,note,runningTime;
 		
 		for (Part part : parts) {
 			if (part.getContentType() == null) { // 일반 데이터는 contentType 을 null값을 가지고, 업로드된파일은 contentType설정되어있음
@@ -39,39 +38,52 @@ public class UploadFileServlet extends HttpServlet {
 				switch (part.getName()) { // 업로드된정보를 가지고있는part객체의 getName()으로 속성이름을 가져온다.
 				case "title": // 속성이름이 "" 인 경우 -> 명령수행
 					performance.setTitle(getStringFromStream(part.getInputStream())); 
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "video":
 					performance.setVideo(getStringFromStream(part.getInputStream()));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
+					
 				case "startDate":
 					performance.setStartDate(getStringFromStream(part.getInputStream())); 
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "endDate":
 					performance.setEndDate(getStringFromStream(part.getInputStream()));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "production":
 					performance.setProduction(getStringFromStream(part.getInputStream()));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "theater":
 					performance.settName(getStringFromStream(part.getInputStream()));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "viewClass":
 					performance.setViewClass(getStringFromStream(part.getInputStream()));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "genre":
 					performance.setGenre(getStringFromStream(part.getInputStream()));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "contactName":
 					performance.setContactName(getStringFromStream(part.getInputStream()));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "contactNumber":
 					performance.setContactNumber(getStringFromStream(part.getInputStream()));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "note":
 					performance.setNote(getStringFromStream(part.getInputStream()));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "runningTime":
 					performance.setRunningTime(Integer.parseInt(getStringFromStream(part.getInputStream())));
+					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				}
 			} else {
@@ -95,13 +107,13 @@ public class UploadFileServlet extends HttpServlet {
 
 		try {
 			// DB에 게시글을 등록
-			PerformanceService performanceService = PerformanceService.getInstance();
+			PerformanceService performanceService = PerformanceService.getInstance();	
 			performanceService.createPerformance(performance); 
-
 			// 게시글 목록 조회 페이지로 이동
-			resp.sendRedirect(req.getContextPath() + "/listArticle.do");
+			resp.sendRedirect(req.getContextPath() + "/admin_p_performanceList.jsp");
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			req.setAttribute("exception", e);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/error.jsp");
 			dispatcher.forward(req, resp);

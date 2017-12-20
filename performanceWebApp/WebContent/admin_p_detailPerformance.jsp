@@ -61,6 +61,15 @@
 		margin-right: 235px;
 		
 	}
+	
+	#div2 {
+		float: right;
+		text-align: center;
+	}
+	
+	#div3 {
+		text-align: center;
+	}
 
 	
 	</style>
@@ -72,7 +81,7 @@
 		<div id="pannel">
 		<h1>공연상세조회</h1>
 		</div>
-		
+		<div id="div2">
 		<table id="schedule" border="1" width=300>
 			<tr>
 				<th>날짜</th>
@@ -82,17 +91,20 @@
 				<td>2017/10/20</td>
 				<td>오후 06:00</td>
 		</table>
+		</div>
 		
 		
 		<div id="div1">
 		공연번호 : 공연번호<br><br>
 		공연제목 : 공연제목
 		</div>
-
+		<div id="div3">
 		<table border="1" width=670>
 			<tr>
 				<th>동영상</th>
-				<td colspan="3">url</td>
+				<td>url</td>
+				<th>가격</th>
+				<td>200000</td>
 			</tr>
 			<tr>
 				<th>시작일</th>
@@ -125,6 +137,7 @@
 				<td></td>
 			</tr>
 		</table>
+		</div>
 		<br>
 		<button type="button" id="btn1">수정</button>
 		<button type="button" id="btn2">삭제</button>

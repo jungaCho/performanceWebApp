@@ -30,10 +30,11 @@ public class LoginFormCommand implements Command {
 		try {
 		
 			MemberService service = MemberService.getInstance();
+
 			Boolean isSucess = service.processLogin(id,pwd);
 			
 		 if(isSucess){ //회원이 맞을 경우에
-
+		
 			//세션영역에 "userID"라는 속성이름으로 아이디를 바인딩한다.
 
 			HttpSession session = req.getSession();
