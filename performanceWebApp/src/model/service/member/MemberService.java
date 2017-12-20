@@ -33,9 +33,7 @@ public class MemberService {
 	}
 	
 	public boolean processLogin(String mId, String mPw) throws Exception {
-		
-		boolean sucess = MemberDAO.getInstance().loginMember(mId, mPw);
-		return sucess;
+		return MemberDAO.getInstance().loginMember(mId, mPw);
 	}
 	
 	public boolean checkID(String mId) throws Exception {

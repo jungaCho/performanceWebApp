@@ -28,9 +28,8 @@ public class MemberDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("insert into member(m_no,m_id,m_pw,m_name,birthday,email,address			");
-			sql.append("values (to_char(sysdate,'yyyymmdd')||lpad(member_seq.nextval,4,0), ?,?,	");
-			sql.append("			?, ?,?,?");
+			sql.append("insert into member(m_no,m_id,m_pw,m_name,birthday,email,address)				");
+			sql.append("values (to_char(sysdate,'yymmdd')||lpad(member_seq.nextval,4,0), ?,?,?,?,?,?)	");
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, member.getmId());
@@ -178,27 +177,23 @@ public class MemberDAO {
 
 			rs = pstmt.executeQuery();
 			
-			String member ="";
-			
 			while(rs.next()) {
-				member = rs.getString(1);
-				
-				if (member != null) {
+				if (rs.getString(1) != null) {
+					MemberVO member = new MemberVO();
+					member.setmNo(rs.getString(1));
 					return true;
 				}
-				
-				
 			}		
 				
 		} finally {
+			if (rs!=null)
+				rs.close();
 			if (pstmt != null)
 				pstmt.close();
 			if (conn != null)
 				conn.close();
 		}
-		
 		return false;
-		
 	}
 
 	public boolean checkOverLapId(String mId) throws Exception {
