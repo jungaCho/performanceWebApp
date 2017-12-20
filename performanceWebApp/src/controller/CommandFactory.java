@@ -19,6 +19,7 @@ public class CommandFactory {
 
 		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
 
+		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
 		
 	}
 	
