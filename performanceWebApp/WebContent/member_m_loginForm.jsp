@@ -16,7 +16,6 @@
 	text-align : center;
 
 }
-
 button {
 
 	width: 80px;
@@ -31,10 +30,36 @@ input {
 
 
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#btn1').on('click', function(){
+			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/member_m_loginForm.do",
+				method: 'POST',
+				async: true,
+				cache: true,
+				data: {
+					id: $(':text[name=id]').val() ,
+					pwd: $(':text[name=pwd]').val()
+				},
+				dataType: 'json',
+				success: function(data, textStatus, jqXHR) {
+					alert("로그인 성공하셨습니다.");
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert('Error : ' + jqXHR.status);
+				}	
+				
+			});
+		});
+	});
+</script>
 </head>
 <body>
 
-	<form>
+	<form action="${pageContext.request.contextPath}/member_m_loginForm.do" method="post">
 
 		<div id="box">
 
@@ -44,7 +69,7 @@ input {
 
 			<a href="#">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
 
-			<button type="button" id="btn1">로그인</button>
+			<button type="submit" id="btn1">로그인</button>
 			<button type="button" id="btn2">회원가입</button>
 		</div>
 
