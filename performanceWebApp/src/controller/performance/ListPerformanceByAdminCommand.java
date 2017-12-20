@@ -24,7 +24,7 @@ public class ListPerformanceByAdminCommand implements Command{
 			
 			int startRow=1;
 			int endRow=10;
-			ArrayList<PerformanceVO>performances=(ArrayList<PerformanceVO>)performs.retrievePerformanceListByAdmin(startRow, endRow);
+			List<PerformanceVO>performances=performs.retrievePerformanceListByAdmin(startRow, endRow);
 			
 			req.setAttribute("performances", performances); 
 			
