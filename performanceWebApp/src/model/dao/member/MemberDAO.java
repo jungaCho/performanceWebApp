@@ -163,7 +163,6 @@ public class MemberDAO {
 		ResultSet rs = null;
 		
 		try {
-			
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
@@ -175,8 +174,6 @@ public class MemberDAO {
 			
 			pstmt.setString(1, mId);
 			pstmt.setString(2, mPw);
-			
-			pstmt.executeUpdate();
 
 			rs = pstmt.executeQuery();
 			

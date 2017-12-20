@@ -23,23 +23,21 @@
 	<c:param name="article" value="member_welcome" />
 </c:url>
 
-<c:url var="urlLogin" value="/member_m_loginForm.jsp" scope="page">
+<c:url var="urlLogin" value="/loginForm.do" scope="page">
 </c:url>
 
 <c:url var="urlLogout" value="/member_m_layout.jsp" scope="page">
 	<c:param name="article" value="member_welcome" />
 </c:url>
-<c:if test="${not empty sessionScope.usermNo}">
+
+<c:if test="${empty sessionScope.usermNo}">
 <script src=js/jquery-3.2.1.min.js></script>
 <script>
 	$(document).ready(function () {
 		$('#loginm').text("로그인이 필요합니다");
 		$('#loginm2').text("로그인");
 	});
-	/*
-	$(document).ready(function() {
-		${'#link'}.
-	});*/
+	
 </script>
 </c:if>
 
@@ -50,7 +48,7 @@
 		<li><a href="${pageScope.url1 }">공연정보</a></li>
 		<li><a href="${pageScope.url2 }">예매</a></li>
 		<li><a href="${pageScope.url3 }">마이페이지</a></li>
-		<li><span id="loginm">${sessionScope.userId } 님 환영합니다</span></li>
+		<li><span id="loginm">${requestScope.userId.id } 님 환영합니다</span></li>
 		<li><a href="${pageScope.urlLogin }" id="link"><span id="loginm2">로그아웃</span></a><li>
 	</ul>
 </nav>
