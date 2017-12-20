@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-import controller.member.DBConn;
+import conn.DBConn;
 import domain.performance.DetailFileVO;
 
 public class DetailFileDAO {

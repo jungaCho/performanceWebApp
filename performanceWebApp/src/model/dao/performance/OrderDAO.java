@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import domain.performance.OrderVO;
-import model.service.performance.DBConn;
+import conn.DBConn;
 
 public class OrderDAO {
 	private static OrderDAO instance =new OrderDAO();
