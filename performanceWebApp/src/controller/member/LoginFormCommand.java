@@ -11,7 +11,7 @@ import controller.ActionForward;
 import controller.Command;
 import model.service.member.MemberService;
 
-public class loginFormCommand implements Command {
+public class LoginFormCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
