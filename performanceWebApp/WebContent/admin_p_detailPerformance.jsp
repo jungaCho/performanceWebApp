@@ -92,7 +92,9 @@
 		<table border="1" width=670>
 			<tr>
 				<th>동영상</th>
-				<td colspan="3">url</td>
+				<td>url</td>
+				<th>가격</th>
+				<td>200000</td>
 			</tr>
 			<tr>
 				<th>시작일</th>

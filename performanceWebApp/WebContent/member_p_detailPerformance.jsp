@@ -70,7 +70,7 @@
 				<button id="btn1" type="submit">검색</button>
 			</div>
 			<div id="div2-2">
-				
+				<
 			</div>
 		</div>
 		<br>

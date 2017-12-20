@@ -76,10 +76,12 @@
 		<div id="div1">
 		<h3>공연제목 : <input type="text" name="title" size="20" placeholder="공연 제목을 입력해주세요!" autofocus></input><h3>
 
-		<table border="1" width=800>
+		<table border="1" width=600>
 			<tr>
 				<th>동영상</th>
-				<td colspan="3"><input type="text" name="video" size="80"></input></td>
+				<td><input type="url" name="video" size="15"></input></td>
+				<th>가격</th>
+				<td><input type="text" name="price" size="15"></input></td>
 			</tr>
 			<tr>
 				<th>시작일</th>

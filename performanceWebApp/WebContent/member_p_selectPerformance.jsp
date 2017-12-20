@@ -72,15 +72,15 @@
 		</div>
 		<div id="div2">
 			<div id="div2-1">
-				<input id="keyword" type="text" placeholder="검색어를 입력하세요">
+				<input id="keyword" type="search" placeholder="검색어를 입력하세요">
 				<button id="btn1" type="submit">검색</button>
 			</div>
 			<div id="div2-2">
 				<button type="button">이미지보기</button><button type="button">텍스트보기</button>
 				<select id="genre" >
-					<option value="1">뮤지컬</option>
-					<option value="2">연극</option>
-					<option value="3">콘서트</option>
+					<option value="뮤지컬">뮤지컬</option>
+					<option value="연극">연극</option>
+					<option value="콘서트">콘서트</option>
 				</select>
 			</div>
 		</div>
