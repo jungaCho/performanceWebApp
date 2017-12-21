@@ -19,21 +19,23 @@ public class ModifyMemberCommand implements Command {
 			throws IOException, ServletException {
 		
 		HttpSession session = req.getSession();
-		String mNo = (String)session.getAttribute("usermNo");
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		String mNo = member.getmNo();
 		
 		String pwd = req.getParameter("pwd");
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		String address = req.getParameter("address");
 		
-		MemberVO member = new MemberVO(mNo,pwd,name,email,address);
+		MemberVO vo = new MemberVO(mNo,pwd,name,email,address);
 
 		ActionForward forward = new ActionForward();
 		try {
 			MemberService service = MemberService.getInstance(); 
-			service.modifyMember(member);
+			service.modifyMember(vo);
 			
-			forward.setPath("/");
+			forward.setPath("/member_m_newMember.jsp");
 			forward.setRedirect(false);
 			return forward;
 			

@@ -7,7 +7,6 @@
 <style>
 	#box {
 		margin-top:100px;
-	
 	}
 </style>
 </head>
