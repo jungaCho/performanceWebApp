@@ -4,6 +4,21 @@
 <head>
 <meta charset="utf-8">
 <title>아이디 찾기</title>
+<script src = "js/jquery-3.2.1.min.js"></script>
+<script>
+
+$(document).ready(function(){
+	
+	$('#findId').click(function(){
+		
+		
+	
+});
+	
+});
+
+
+</script>
 </head>
 <body>
 	<form action="${pageContext.request.contextPath }/findId.do" method="post">
@@ -14,7 +29,7 @@
 			Email<br>
 			<input type="email" name="email" size="30" placeholder="이메일을 입력해주세요"/><br>
 			<br>
-			<button>아이디 찾기</button>&nbsp;
+			<button id ="findId">아이디 찾기</button>&nbsp;
 			<button>취소</button>
 		</div>
 	</form>
