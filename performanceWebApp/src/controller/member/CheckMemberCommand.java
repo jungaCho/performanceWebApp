@@ -28,7 +28,7 @@ public class CheckMemberCommand implements Command {
 			
 			member = MemberService.getInstance().retrieveMember(member.getmNo());
 			
-			if(!pwd.equals(member.getmPw())) {			
+			if(!pwd.equals(member.getmPw())) {
 				forward.setPath("/member_m_layout.jsp?nav=member_m_menu&article=member_m_checkMember");
 				forward.setRedirect(true);
 				return forward;
