@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
@@ -17,18 +18,24 @@ public class ModifyMemberCommand implements Command {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		String pwd = req.getParameter("id");
-		String name = req.getParameter("id");
-		String email = req.getParameter("id");
-		String address = req.getParameter("id");
+		HttpSession session = req.getSession();
+		String mNo = (String)session.getAttribute("usermNo");
 		
+		String pwd = req.getParameter("pwd");
+		String name = req.getParameter("name");
+		String email = req.getParameter("email");
+		String address = req.getParameter("address");
 		
+		MemberVO member = new MemberVO(mNo,pwd,name,email,address);
+
 		ActionForward forward = new ActionForward();
 		try {
-			MemberService service = MemberService.getInstance();
-			MemberVO member = new MemberVO();
-			
+			MemberService service = MemberService.getInstance(); 
 			service.modifyMember(member);
+			
+			forward.setPath("/");
+			forward.setRedirect(false);
+			return forward;
 			
 		} catch(Exception e) {
 			req.setAttribute("exception", e);
@@ -36,8 +43,6 @@ public class ModifyMemberCommand implements Command {
 			forward.setRedirect(false);
 			return forward;
 		}
-		return null;
 	}
 
-	
 }

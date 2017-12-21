@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>2단 Layout</title>
+<title>메인 페이지</title>
 <style>
 body, a {
 	font: 20px '돋움';

@@ -6,7 +6,7 @@
 <title>아이디 찾기</title>
 </head>
 <body>
-	<h3>나의 관람내역</h3>
-
+	<h3>나의 관람내역</h3><br>
+	session : ${not empty sessionScope.usermNo}
 </body>
 </html>

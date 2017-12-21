@@ -3,7 +3,7 @@ package model.service.reservation;
 import java.sql.Connection;
 import java.util.List;
 
-import controller.member.DBConn;
+import conn.DBConn;
 import domain.reservation.ReservationVO;
 import domain.reservation.ReservedSeatVO;
 import domain.reservation.SeatVO;

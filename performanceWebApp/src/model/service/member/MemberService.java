@@ -31,11 +31,11 @@ public class MemberService {
 	public void removeMember(MemberVO member) throws Exception {
 		MemberDAO.getInstance().deleteMember(member);	
 	}
-	
-	public boolean processLogin(String mId, String mPw) throws Exception {
+
+	public String processLogin(String mId, String mPw) throws Exception {
 		return MemberDAO.getInstance().loginMember(mId, mPw);
 	}
-	
+
 	public boolean checkID(String mId) throws Exception {
 		return MemberDAO.getInstance().checkOverLapId(mId);
 	}
