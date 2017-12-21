@@ -93,7 +93,7 @@
 
 </head>
 <body>
-	<form action="<%=request.getContextPath()%>/removePerformance.do"  > 
+	<form > 
 	
 		<div id="pannel">
 		<h1>공연상세조회</h1>
@@ -167,7 +167,12 @@
 		</table>
 		</div>
 		<br>
-		<button type="submit" id="btn1">삭제</button>
+		
+		<c:url var="removeURL" value="/admin_p_removePerformance.do" scope="page">
+			<c:param name="pNo" value="${requestScope.performance.pNo}" />
+		</c:url>
+		<a href="${pageScope.removeURL}">삭제</a>&nbsp;
+		
 		<c:url var="modifyURL" value="/admin_p_modifyPerformanceForm.do" scope="page">
 			<c:param name="pNo" value="${requestScope.performance.pNo}" />
 		</c:url>
