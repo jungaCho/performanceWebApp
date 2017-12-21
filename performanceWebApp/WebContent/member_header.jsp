@@ -28,7 +28,7 @@
 
 <c:url var="urlLogin" value="/loginForm.do" scope="page"/>
 
-<c:url var="urlLogout" value="/member_m_layout.jsp" scope="page">
+<c:url var="urlLogout" value="/logout.do" scope="page">
 	<c:param name="article" value="member_welcome" />
 </c:url>
 
@@ -37,7 +37,7 @@
 <script>
 	$(document).ready(function () {
 		$('#loginm').text("로그인이 필요합니다");
-		$('#loginm2').text("로그인");
+		$('#loginm2').text("로그인").unwrap().wrap('<a href="${pageScope.urlLogin}"></a>');
 	});
  
 </script>
@@ -50,6 +50,6 @@
 		<li><a href="${pageScope.url2 }">예매</a></li>
 		<li><a href="${pageScope.url3 }">마이페이지</a></li>
 		<li><span id="loginm">${sessionScope.member.mId }님 환영합니다</span></li>
-		<li><a href="${pageScope.urlLogin }"><span id="loginm2">로그아웃</span></a><li>
+		<li><a href="${pageScope.urlLogout }"><span id="loginm2">로그아웃</span></a><li>
 	</ul>
 </nav>
