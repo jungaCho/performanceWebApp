@@ -57,6 +57,7 @@ public class DetailFileDAO {
 			pstmt=conn.prepareStatement(sql.toString());
 			pstmt.setString(1, file_no);
 			pstmt.executeUpdate();
+		
 			
 		} finally {
 			if(pstmt!=null) pstmt.close();
