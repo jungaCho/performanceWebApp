@@ -13,13 +13,21 @@ public class CommandFactory {
 
 		//È¸¿ø
 		map.put("/loginForm.do", "controller.member.LoginFormCommand");
+		
 		map.put("/login.do","controller.member.LoginCommand");
-		map.put("/SignUp.do","controller.member.SignUpCommand");		
-		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
+		
+		map.put("/SignUp.do","controller.member.SignUpCommand");
+		
+		map.put("/checkMember.do","controller.member.CheckMemberCommand");
+		
 		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
+		
 		map.put("/modifyMember.do", "controller.member.ModifyMemberCommand");
+		
 		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
+		
 		map.put("/findId.do", "controller.member.FindIdCommand");
+		
 
 
 		
