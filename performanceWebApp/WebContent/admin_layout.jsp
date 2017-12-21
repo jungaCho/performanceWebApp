@@ -104,7 +104,7 @@ section nav {
  </head>
  <body>
 	<header>
-		<jsp:include page="header.jsp" />
+		<jsp:include page="admin_header.jsp" />
 	</header>
 	
 	<section>
