@@ -339,11 +339,18 @@ public class MemberDAO {
 	 * } finally { if(rs!=null) rs.close(); if(pstmt!=null) pstmt.close();
 	 * if(conn!=null) conn.close(); } }
 	 */
-	public boolean searchID(String mName, String email) throws Exception {
+	public MemberVO searchID(String mName, String email) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		try {
+		
+		String mId ="";
+		MemberVO member = new MemberVO();
+		
+		
+		try 
+			{
+			
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
@@ -355,15 +362,23 @@ public class MemberDAO {
 
 			pstmt.setString(1, mName);
 			pstmt.setString(2, email);
-
+			
 			rs = pstmt.executeQuery();
 			
-			MemberVO member = new MemberVO();
-			member.setmId(rs.getString(1));
 			
-			if(member.getmId() == null) {
-				return false; 
-			}			
+			
+			while(rs.next()) {
+				
+				
+				if(rs.getString(1) != null) {
+					mId = rs.getString(1);
+					member.setmId(mId); 
+					return member; 
+					
+				}
+										
+			}	
+						
 		} finally {
 			if (rs != null)
 				rs.close();
@@ -372,7 +387,7 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
-		return true;
+		return null; 
 	}
 
 	public String searchPwd(String mId, String mName, String email) throws Exception {

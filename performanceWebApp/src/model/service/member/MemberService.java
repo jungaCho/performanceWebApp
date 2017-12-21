@@ -48,7 +48,7 @@ public class MemberService {
 		return MemberDAO.getInstance().checkOverLapEmail(email);
 	}
 	
-	public boolean findId(String mName, String email) throws Exception {
+	public MemberVO findId(String mName, String email) throws Exception {
 		return MemberDAO.getInstance().searchID(mName, email);
 	}
 	

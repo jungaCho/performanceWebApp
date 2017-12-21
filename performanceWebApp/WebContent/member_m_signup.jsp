@@ -47,7 +47,7 @@
 			
 			$.ajax({
 				
-
+				//ajax는 부메랑. url에 있는 곳으로 먼저 이동 - 거기선 "/member_m_newMember.jsp"로 이동된다.
 				url: "${pageContext.request.contextPath}/SignUp.do"
 				,
 				method: 'POST' 
@@ -56,12 +56,12 @@
 				,
 				
 				dataType : 'json'
-				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. 
+				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. "/member_m_newMember.jsp"에 있는 json 데이터이다.
 				
-				data : $('form').serialize() //ajax는 부메랑. 
+				data : $('form').serialize() 
 				,
 					
-				success : function(data){ //부메랑이니까 다시 돌아와 이 데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
+				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
 					
 					if(data.success  == true) { //data에 있는 successs 에 대한 값이 true라면 밑 명령수행
 						alert("회원가입에 성공하셨습니다!!");
