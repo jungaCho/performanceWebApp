@@ -24,7 +24,7 @@ public class DetailFileDAO {
 		try {
 			StringBuffer sql=new StringBuffer();
 			
-			sql.append("insert into detailfile    ");
+			sql.append("insert into detailfile(file_no,system_file_name,original_file_name , file_size, p_no )      ");
 			sql.append("values('D'||lpad(detail_seq.nextVal,5,0),?,?,?,?)     ");
 			pstmt=conn.prepareStatement(sql.toString());
 			

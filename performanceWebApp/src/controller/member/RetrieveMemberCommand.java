@@ -12,28 +12,25 @@ import controller.Command;
 import domain.member.MemberVO;
 import model.service.member.MemberService;
 
-public class ModifyMemberCommand implements Command {
+public class RetrieveMemberCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
 		HttpSession session = req.getSession();
-		String mNo = (String)session.getAttribute("usermNo");
+		MemberVO member = (MemberVO)session.getAttribute("member");
 		
-		String pwd = req.getParameter("pwd");
-		String name = req.getParameter("name");
-		String email = req.getParameter("email");
-		String address = req.getParameter("address");
-		
-		MemberVO member = new MemberVO(mNo,pwd,name,email,address);
-
 		ActionForward forward = new ActionForward();
 		try {
-			MemberService service = MemberService.getInstance(); 
-			service.modifyMember(member);
+			MemberVO vo = MemberService.getInstance().retrieveMember(member.getmNo());			
+
+			req.setAttribute("member", vo);
 			
-			forward.setPath("/");
+			System.out.println("session : " + member.getmNo());
+			System.out.println("member : " + req.getAttribute("member"));
+			
+			forward.setPath("/member_m_layout.jsp?nav=member_m_menu&article=member_m_selectMemberForm");
 			forward.setRedirect(false);
 			return forward;
 			
@@ -42,7 +39,7 @@ public class ModifyMemberCommand implements Command {
 			forward.setPath("/error.jsp");
 			forward.setRedirect(false);
 			return forward;
-		}
+		}		
 	}
 
 }

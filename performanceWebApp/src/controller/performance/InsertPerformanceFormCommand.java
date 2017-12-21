@@ -14,7 +14,7 @@ public class InsertPerformanceFormCommand implements Command{
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) {
 		ActionForward forward=new ActionForward();
-		forward.setPath("/admin_layout.jsp?article=admin_p_insertPerformanceForm.jsp");
+		forward.setPath("/admin_layout.jsp?article=admin_p_insertPerformanceForm.do");
 		forward.setRedirect(false);
 		return forward;
 	}

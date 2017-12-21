@@ -13,9 +13,22 @@ public class MemberVO {
 	String withdrawal;
 	String wdDate;
 	String wdReason;
+	
+	RankVO rank = new RankVO();
+	String rName;
+	
 
 	public MemberVO() {
 		super();
+	}
+
+	public MemberVO(String mNo, String mPw, String mName, String email, String address) {
+		super();
+		this.mNo = mNo;
+		this.mPw = mPw;
+		this.mName = mName;
+		this.email = email;
+		this.address = address;
 	}
 
 	public MemberVO(String mId, String mPw, String mName, String email, String birthday, String address) {
@@ -34,7 +47,7 @@ public class MemberVO {
 		this.mNo = mNo;
 		this.mId = mId;
 		this.mPw = mPw;
-		this.mName = mName;	
+		this.mName = mName;
 		this.email = email;
 		this.birthday = birthday;
 		this.address = address;
@@ -143,6 +156,14 @@ public class MemberVO {
 
 	public void setWdReason(String wdReason) {
 		this.wdReason = wdReason;
+	}
+
+	public RankVO getRank() {
+		return rank;
+	}
+
+	public void setRank(RankVO rank) {
+		this.rank = rank;
 	}
 
 	@Override

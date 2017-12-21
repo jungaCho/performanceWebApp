@@ -1,8 +1,6 @@
 package controller.performance;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,22 +11,25 @@ import controller.Command;
 import domain.performance.PerformanceVO;
 import model.service.performance.PerformanceService;
 
-public class ListPerformanceByAdminCommand implements Command {
+//공연 상세조회 요청을 처리할 커맨드 클래스 구현
+public class DetailPerformanceCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
+
+		// 1. 상세히 조회하고자 하는 공연 번호를 구한다.
+		String pNo = req.getParameter("pNo");
+
 		ActionForward forward = new ActionForward();
 		try {
-			PerformanceService performs = PerformanceService.getInstance();
+			PerformanceService performanceService = PerformanceService.getInstance();
 
-			int startRow = 1;
-			int endRow = 10;
-			List<PerformanceVO> performances = performs.retrievePerformanceListByAdmin(startRow, endRow);
-			System.out.println(performances.size());
-			req.setAttribute("performances", performances);
+			PerformanceVO performance = performanceService.retirevePerformance(pNo);
 
-			forward.setPath("/admin_p_selectPerformanceList.jsp");
+			req.setAttribute("performance", performance);
+
+			forward.setPath("admin_p_detailPerformance.do");
 			forward.setRedirect(false);
 			return forward;
 		} catch (Exception e) {
@@ -37,7 +38,5 @@ public class ListPerformanceByAdminCommand implements Command {
 			forward.setRedirect(false);
 			return forward;
 		}
-
 	}
-
 }

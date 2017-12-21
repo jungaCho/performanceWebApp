@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ page import="domain.performance.PerformanceVO" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -88,53 +91,53 @@
 				<th>공연시간</th>
 			</tr>
 			<tr>
-				<td>2017/10/20</td>
-				<td>오후 06:00</td>
+				<td>${requestScope.performance.sDate }</td>
+				<td>${requestScope.performance.oTime }</td>
 		</table>
 		</div>
 		
 		
 		<div id="div1">
-		공연번호 : 공연번호<br><br>
-		공연제목 : 공연제목
+		공연번호 : ${requestScope.performance.pNo }<br><br>
+		공연제목 : ${requestScope.performance.title }
 		</div>
 		<div id="div3">
 		<table border="1" width=670>
 			<tr>
 				<th>동영상</th>
-				<td>url</td>
+				<td>${requestScope.performance.video }</td>
 				<th>가격</th>
-				<td>200000</td>
+				<td>${requestScope.performance.price }</td>
 			</tr>
 			<tr>
 				<th>시작일</th>
-				<td>2017/10/09</td>
+				<td>${requestScope.performance.startDate }</td>
 				<th>종료일</th>
-				<td>2017/10/30</td>
+				<td>${requestScope.performance.endDate }</td>
 			</tr>
 			<tr>
 				<th>제작사</th>
-				<td>바람</td>
+				<td>${requestScope.performance.production }</td>
 				<th>공연장소</th>
-				<td>소극장</td>
+				<td>${requestScope.performance.tName }</td>
 			</tr>
 			<tr>
 				<th>관람등급</th>
-				<td>청소년관람불가</td>
+				<td>${requestScope.performance.viewClass }</td>
 				<th>장르</th>
-				<td>연극</td>
+				<td>${requestScope.performance.genre }</td>
 			</tr>
 			<tr>
 				<th>담당자</th>
-				<td>김길동</td>
+				<td>${requestScope.performance.contactName }</td>
 				<th>담당자 전화번호</th>
-				<td>010-1111-2222</td>
+				<td>${requestScope.performance.contactNumber }</td>
 			</tr>
 			<tr>
 				<th>런닝타임</th>
-				<td>120분</td>
+				<td>${requestScope.performance.runningTime }</td>
 				<th>비고</th>
-				<td></td>
+				<td>${requestScope.performance.note }</td>
 			</tr>
 		</table>
 		</div>

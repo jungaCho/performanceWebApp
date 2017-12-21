@@ -47,17 +47,53 @@ input {
 }
 
 </style>
-
+<%--
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#btn1').click(function() {
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath }/login.do'
+				,
+				method: 'POST'
+				,
+				dataType: 'json'
+				,
+				data: $('form').serialize()
+				,
+				success: function(data) {
+					if(data.success == true) {
+						alert("로그인에 성공하셨습니다!!");
+						location.href="${pageContext.request.contextPath}/member_index.jsp";
+					} else {
+						alert("아이디 혹은 비밀번호를 확인하세요!!");
+						location.href="${pageContext.request.contextPath}/loginForm.do";
+					}
+				}
+				,
+				error: function(jqXHR) {
+					alert("error : " + jqXHR);
+				}
+			});
+			
+		})
+	});
+</script>
+ --%>
 </head>
 <body>
 
+
 		<form>
+
+		<form action="${pageContext.request.contextPath }/login.do" method="POST">
+
 
 		<div id="box">
 
 			아이디 :<br>
-			 <input type="text" name="id" size="20"
-				placeholder="아이디를 입력해주세요" autofocus></input><br> 
+			<input type="text" name="id" size="20" placeholder="아이디를 입력해주세요"></input><br> 
 			비밀번호 : <br>
 			<input type="password" name="pwd" size="20" placeholder="비밀번호를 입력해주세요"></input><br>
 			<br>
