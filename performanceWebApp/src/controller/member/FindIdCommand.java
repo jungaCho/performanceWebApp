@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
+import domain.member.MemberVO;
 import model.service.member.MemberService;
 
 public class FindIdCommand implements Command {
@@ -27,9 +28,9 @@ public class FindIdCommand implements Command {
 		//아이디찾기 관련 메소드를 실행한 결과 = 관련 아이디 반환.
 		
 		MemberService service = MemberService.getInstance();
-		String mId = service.findId(mName, email);
+		MemberVO member = service.findId(mName, email);
 		
-		req.setAttribute("mId", mId);
+		req.setAttribute("mId", member);
 		
 		forward.setPath("/member_m_selectId.jsp");
 		forward.setRedirect(false);
