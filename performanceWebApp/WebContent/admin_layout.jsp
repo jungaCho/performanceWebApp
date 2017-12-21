@@ -75,9 +75,10 @@ section nav {
 
 	section article {
 		width: 75%;
-		height: 100%;
+		height: 800px;
 		background-color: #ebebeb;
 		float: left;
+		
 	}
 
 	  header nav ul a:hover {
