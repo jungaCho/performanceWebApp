@@ -68,7 +68,7 @@
 	<form action="${pageContext.request.contextPath}/uploadFile" enctype="multipart/form-data" method="post">
 	
 		<div id="pannel">
-		<h1>공연 등록</h1><input type="file" name="poster" size="20"></input><br>
+		<h1>공연 등록</h1><input type="file" name="mainPoster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
@@ -96,7 +96,7 @@
 			</tr>
 			<tr>
 				<th>관람등급</th>
-				<td><select id="view_Class"  name="viewClass">
+				<td><select id="view_Class"  name="viewNo">
 						<option value="V001">전체관람가</option>
 						<option value="V002">12세 이상</option>
 						<option value="V003">15세 이상</option>

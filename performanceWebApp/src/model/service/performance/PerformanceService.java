@@ -73,7 +73,7 @@ public class PerformanceService {
 				
 			ArrayList<PosterVO> posters = (ArrayList<PosterVO>) performance.getPosters();
 			for(PosterVO poster : posters) {
-				poster.setPosterNo(pNo);
+				poster.setpNo(pNo); 
 			}
 			PosterDAO posterDao = PosterDAO.getInstance();
 			posterDao.insertPoster(conn, posters);

@@ -18,5 +18,4 @@ public class InsertPerformanceFormCommand implements Command{
 		forward.setRedirect(false);
 		return forward;
 	}
-	
 }

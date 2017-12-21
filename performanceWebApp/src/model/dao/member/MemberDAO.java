@@ -375,8 +375,7 @@ public class MemberDAO {
 				if(rs.getString(1) != null) {
 					mId = rs.getString(1);
 					member.setmId(mId); 
-					return member; 
-					
+					return member;
 				}
 										
 			}	
@@ -613,6 +612,7 @@ public class MemberDAO {
 			if(conn!=null) conn.close();
 		}
 		return members;
+		
 		
 	}
 }

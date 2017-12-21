@@ -25,12 +25,16 @@ public class CommandFactory {
 		map.put("/modifyMember.do", "controller.member.ModifyMemberCommand");
 		
 		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
-		
+
 		map.put("/findId.do", "controller.member.FindIdCommand");
 		
 		map.put("/withdrawalForm.do", "controller.member.WithdrawalFormCommand");
 		
 		map.put("/withdrawal.do", "controller.member.WithdrawalCommand");
+
+		map.put("/findPwd.do", "controller.member.FindPwd");
+
+
 
 		
 		//예매
@@ -43,8 +47,11 @@ public class CommandFactory {
 		//공연
 		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");
 		
-
-
+		map.put("/admin_p_detailPerformance.do","controller.performance.DetailPerformanceCommand");	
+		
+		map.put("/removePerformance.do", "controller.performance.RemovePerformanceCommand");
+		
+		map.put("/admin_p_modifyPerformanceForm.do", "controller.performance.ModifyPerformanceFormCommand");
 	}
 	
 	public static CommandFactory getInstance() {

@@ -8,45 +8,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
-import domain.member.MemberVO;
 import model.service.member.MemberService;
 
-public class FindIdCommand implements Command {
+public class FindPwd implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		ActionForward forward = new ActionForward();
-		
+		String mId = req.getParameter("id");
 		String mName = req.getParameter("name");
 		String email = req.getParameter("email");
 		
+		ActionForward forward = new ActionForward();
+		
 		try {
+		
+			MemberService service = MemberService.getInstance();
+			boolean isExist = service.findPwd(mId, mName, email);
 			
-		
-		//아이디찾기 관련 메소드를 실행한 결과 = 관련 아이디 반환.
-		
-		MemberService service = MemberService.getInstance();
-		MemberVO member = service.findId(mName, email);
-		
-		req.setAttribute("member", member);
-		
-		if(member.getmId() != null) {
-		
-		forward.setPath("/isExistId.jsp");
-		forward.setRedirect(false);
-		return forward;
-		
-		} else {
+			req.setAttribute("name", mName);
 			
-		forward.setPath("/isNotExistId.jsp");
-		forward.setRedirect(false);
-		return forward;
-					
-		}
-		
-		
+			//회원인 경우 -> 서비스에 정의되어있는 javamail API를 호출해준다. 
+			if(isExist) {
+				
+				forward.setPath("member_m_sendSuccess.jsp");
+				forward.setRedirect(false);
+				return forward;
+			}
+			
+			
 		} catch (Exception e) {
 
 			// 모든 에러는 error.jsp에서 잡는다
@@ -56,7 +47,10 @@ public class FindIdCommand implements Command {
 			return forward;
 		}
 		
+		
+		return null;
 	}
-
 	
+	
+
 }
