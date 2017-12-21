@@ -29,6 +29,10 @@ public class CommandFactory {
 
 		map.put("/member_r_reservationStart2.do","controller.reservation.ReservationSeatCommand");
 		
+		
+		//°ø¿¬
+		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");
+		
 
 	}
 	
