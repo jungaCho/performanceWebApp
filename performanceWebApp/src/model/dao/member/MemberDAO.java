@@ -396,7 +396,7 @@ public class MemberDAO {
 
 	}
 
-	public String searchPwd(String mId, String mName, String email) throws Exception {
+	public boolean searchPwd(String mId, String mName, String email) throws Exception {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -407,7 +407,7 @@ public class MemberDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_id, m_email			");
+			sql.append("select m_no			");
 			sql.append("from member    ");
 			sql.append("where m_id = ? and m_name = ? and m_email = ? 		");
 
@@ -421,20 +421,21 @@ public class MemberDAO {
 
 			rs = pstmt.executeQuery();
 
-			String existId = "";
-			String existEmail = "";
+			String existMember = "";
 
 			while (rs.next()) {
 
-				existId = rs.getString(1);
-				existEmail = rs.getString(2);
+				existMember = rs.getString(1);
+				
+				if (existMember != null ) {
+					return true;
+				}
+	
 			}
 
-			if (existId == null) {
-				existEmail = "";
-			}
+		
 
-			return existEmail;
+			return false;
 
 		} finally {
 			if (pstmt != null)
