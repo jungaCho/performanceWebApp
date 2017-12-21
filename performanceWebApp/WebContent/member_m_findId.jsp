@@ -6,7 +6,7 @@
 <title>아이디 찾기</title>
 </head>
 <body>
-	<form>
+	<form action="${pageContext.request.contextPath }/findId.do" method="post">
 		<div id="box">
 			이름과 이메일를 입력해주세요!<br>
 			이름<br>

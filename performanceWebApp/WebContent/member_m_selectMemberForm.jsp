@@ -28,7 +28,7 @@
 	</style>
 </head>
 <body>
-session : ${not empty sessionScope.usermNo}<br>
+session : ${not empty sessionScope.member}<br>
 	<form action="${pageContext.request.contextPath }/modifyForm.do" method="post">
 		<div id="pannel">
 		
@@ -49,9 +49,8 @@ session : ${not empty sessionScope.usermNo}<br>
 		
 		<h4>등급 포인트 안내</h4>
 		
-		${request.rank.rName }등급이름<br>
+		등급이름 : ${requestScope.member.rank.rName }<br>
 		예매 공연 횟수 : use el<br>
-		감상평 수 : use el<br>
 		
 		</div>
 	

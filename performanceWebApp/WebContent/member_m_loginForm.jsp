@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +93,8 @@ input {
 			비밀번호 : <br>
 			<input type="password" name="pwd" size="20" placeholder="비밀번호를 입력해주세요"></input><br>
 			<br>
-			<a href="#">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
+			<c:url var="findIDform" value="/member_m_findId.jsp" scope="page"/>
+			<a href="${pageScope.findIDform }">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
 			<br>
 			<button type="submit" id="btn1">로그인</button>
 		</form>
@@ -102,7 +105,6 @@ input {
 			
 		</div>
 
-	</form>
 
 
 </body>

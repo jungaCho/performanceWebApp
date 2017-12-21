@@ -74,6 +74,20 @@
 		<input type="file" name="poster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
 		</div>
+		<%-- 업로드 된 포스터 목록 조회 --%>
+			<table border="1">
+				<c:forEach var="poster" items="${requestScope.performance.posters }" varStatus="loop">
+					<c:url var="url" value="removePoster.do" scope="page">
+	  					<c:param name="posterNo" value="${pageScope.poster.no }"/>
+	  					<c:param name="pNo" value="${pageScope.performance.pNo }"/>
+	  				</c:url>
+					<tr>
+						<td>포스터${pageScope.loop.count }</td>
+						<td>${pageScope.poster.originalFileName }</td>
+						<td><a href="${pageScope.url }">삭제</a></td>
+					</tr>
+				</c:forEach>
+			</table>
 		<div id="div1">
 		<h3>공연제목 : <input type="text" name="title" size="20" value="${requestScope.performance.title }"></input></h3>
 
@@ -83,7 +97,6 @@
 				<td colspan='2'><input type="url" name="video" size="40" value="${requestScope.performance.video }"></input></td>
 			</tr>
 			<tr>
-				
 				<th>시작일</th>
 				<td><input type="date" name="startDate" size="15" value="${requestScope.performance.startDate }"></td>
 				<th>종료일</th>
@@ -140,6 +153,21 @@
 		
 		</div>
 		<br>	
+		
+		<%-- 업로드 된 상세설명 목록 조회 --%>
+			<table border="1">
+				<c:forEach var="detailFile" items="${requestScope.performance.detailFiles }" varStatus="loop">
+					<c:url var="url" value="removeDetailFile.do" scope="page">
+	  					<c:param name="fileNo" value="${pageScope.detailFile.no }"/>
+	  					<c:param name="pNo" value="${pageScope.performance.pNo }"/>
+	  				</c:url>
+					<tr>
+						<td>상세설명${pageScope.loop.count }</td>
+						<td>${pageScope.detailFile.originalFileName }</td>
+						<td><a href="${pageScope.url }">삭제</a></td>
+					</tr>
+				</c:forEach>
+			</table>
 	</form>
 </body>
 </html>

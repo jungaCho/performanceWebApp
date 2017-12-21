@@ -31,11 +31,15 @@ public class MemberService {
 	public void removeMember(MemberVO member) throws Exception {
 		MemberDAO.getInstance().deleteMember(member);	
 	}
-
+/*
 	public String processLogin(String mId, String mPw) throws Exception {
 		return MemberDAO.getInstance().loginMember(mId, mPw);
 	}
-
+*/
+	public MemberVO processLogin(String mId, String mPw) throws Exception {
+		return MemberDAO.getInstance().loginMember(mId, mPw);
+	}
+	
 	public boolean checkID(String mId) throws Exception {
 		return MemberDAO.getInstance().checkOverLapId(mId);
 	}
@@ -44,7 +48,7 @@ public class MemberService {
 		return MemberDAO.getInstance().checkOverLapEmail(email);
 	}
 	
-	public boolean findId(String mName, String email) throws Exception {
+	public MemberVO findId(String mName, String email) throws Exception {
 		return MemberDAO.getInstance().searchID(mName, email);
 	}
 	
