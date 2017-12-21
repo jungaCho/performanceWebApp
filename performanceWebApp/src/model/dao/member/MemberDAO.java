@@ -132,7 +132,7 @@ public class MemberDAO {
 	 * 
 	 * }
 	 */
-	public void deleteMember(MemberVO member) throws Exception {
+	public void deleteMember(String mNo, String wdReason) throws Exception {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -140,14 +140,14 @@ public class MemberDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("update member												");
-			sql.append("set withdrawal = T, wd_date = sysdate, wd_reason = ?, r_no = null		");
-			sql.append("where m_no = ?												");
+			sql.append("update member															");
+			sql.append("set withdrawal = 'T', wd_date = sysdate, wd_reason = ?, rank_no = null	");
+			sql.append("where m_no = ?															");
 
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setString(1, member.getWdReason());
-			pstmt.setString(2, member.getmNo());
+			pstmt.setString(1, wdReason);
+			pstmt.setString(2, mNo);
 
 			pstmt.executeUpdate();
 
@@ -198,6 +198,7 @@ public class MemberDAO {
 	public MemberVO loginMember(String mId, String mPw) throws Exception {
 		MemberVO member = new MemberVO();
 		String mNo = "";
+		String withdrawal = "";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -206,7 +207,7 @@ public class MemberDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no						");
+			sql.append("select m_no	,withdrawal			");
 			sql.append("from member						");
 			sql.append("where m_id = ? and m_pw = ? 	");
 
@@ -220,8 +221,9 @@ public class MemberDAO {
 			while(rs.next()) {
 				mNo = rs.getString(1);
 				member.setmNo(mNo);
+				withdrawal = rs.getString(2);
+				member.setWithdrawal(withdrawal);
 			}
-				
 		} finally {
 			if (rs!=null)
 				rs.close();

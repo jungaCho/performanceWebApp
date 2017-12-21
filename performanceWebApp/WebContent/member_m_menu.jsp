@@ -12,7 +12,7 @@
 	<c:param name="article" value="member_m_selectMemberForm" />
 </c:url>
 
-<c:url var="url3" value="/member_m_layout.jsp" scope="page">
+<c:url var="url3" value="/withdrawalForm.do" scope="page">
 	<c:param name="nav" value="member_m_menu" />
 	<c:param name="article" value="member_m_withdrawal" />
 </c:url>

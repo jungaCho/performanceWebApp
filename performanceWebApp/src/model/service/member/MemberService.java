@@ -28,8 +28,8 @@ public class MemberService {
 		MemberDAO.getInstance().updateMember(member);
 	}
 	
-	public void removeMember(MemberVO member) throws Exception {
-		MemberDAO.getInstance().deleteMember(member);	
+	public void removeMember(String mNo, String wdReason) throws Exception {
+		MemberDAO.getInstance().deleteMember(mNo,wdReason);	
 	}
 /*
 	public String processLogin(String mId, String mPw) throws Exception {
