@@ -4,6 +4,7 @@ public class ReservedSeatVO {
 	
 	private String rNo;
 	private String seatNo;
+	private String seatNumber;
 
 	
 	public ReservedSeatVO() {
@@ -31,6 +32,17 @@ public class ReservedSeatVO {
 	public void setSeatNo(String seatNo) {
 		this.seatNo = seatNo;
 	}
+
+	public String getSeatNumber() {
+		return seatNumber;
+	}
+
+	public void setSeatNumber(String seatNumber) {
+		this.seatNumber = seatNumber;
+	}
+	
+	
+	
 
 
 }

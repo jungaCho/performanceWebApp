@@ -47,7 +47,6 @@ public class LoginCommand implements Command {
 				}
 				return forward;
 				
-				
 			} else {
 				// 로그인 원래화면으로 계속 이동한다.
 				forward.setPath("/loginForm.do");

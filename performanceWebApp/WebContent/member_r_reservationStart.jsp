@@ -116,18 +116,19 @@ a:hover {
 		<div class="title_bg">예 매</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
-				<c:if test="${fn:length(requestScope.performance.posters) > 0 }" >
-				<dl>
-					<dt>
-						<c:forEach var="poster" items="${requestScope.performance.posters}" varStatus="loop">
-							<c:if test="${loop.first}">
+				<c:if test="${fn:length(requestScope.performance.posters) > 0 }">
+					<dl>
+						<dt>
+							<c:forEach var="poster"
+								items="${requestScope.performance.posters}" varStatus="loop">
+								<c:if test="${loop.first}">
 								${pageScope.poster.systemFileName}
 							</c:if>
-						</c:forEach>
-					</dt>
-					<dd class="reservation_title">${requestScope.performance.title}</dd>
-					<dd class="reservation_text">※만석일 경우, 공연시간이 선택되지 않습니다.</dd>
-				</dl>
+							</c:forEach>
+						</dt>
+						<dd class="reservation_title">${requestScope.performance.title}</dd>
+						<dd class="reservation_text">※만석일 경우, 공연시간이 선택되지 않습니다.</dd>
+					</dl>
 				</c:if>
 			</div>
 			<div class="reservation_content02">
@@ -146,8 +147,7 @@ a:hover {
 						<td>공연일</td>
 						<td><select name="performanceDate" id="sDate">
 								<c:forEach var="scheduleSdate"
-									items="${requestScope.performance.schedules }"
-									varStatus="status">
+									items="${requestScope.performance.schedules }">
 									<option value="firstDate">${pageScope.scheduleSdate.sDate}</option>
 								</c:forEach>
 						</select></td>
@@ -155,16 +155,23 @@ a:hover {
 
 
 					<tr>
-						<td>공연시간</td>
+						<td>공연회차</td>
 						<td><select name="performanceTime">
-								<option value="firstTime">${requestScope.performance.runningTime}</option>
+								<c:forEach var="schedule" items="${requestScope.performance.schedules }" varStatus="loop">
+									<c:if test="${loop.index == 0 }">
+										<c:forEach var="orders" items="${pageScope.schedule.orders}" > 	
+											<option value="firstTime">${pageScope.orders.oTime}</option>
+										</c:forEach>
+									</c:if>
+								</c:forEach>
 						</select></td>
 					</tr>
 					<tr>
 						<td><a href="#" id="closeBtn">닫기</a></td>
-						<td>
-							<a href="${pageContext.request.contextPath}/member_r_reservationStart2.do?tNo=${requestScope.performance.tNo}" id="selectBtn">좌석선택</a>
-						</td>
+						<td><c:url var="url" value="/member_r_reservationStart2.do">
+								<c:param name="tNo" value="${requestScope.performance.tNo}" />
+								<c:param name="pNo" value="${param.pNo }" />
+							</c:url> <a href="${pageScope.url }" id="selectBtn">좌석선택</a></td>
 					</tr>
 				</table>
 			</div>
