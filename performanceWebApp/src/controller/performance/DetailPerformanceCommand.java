@@ -29,7 +29,7 @@ public class DetailPerformanceCommand implements Command {
 
 			req.setAttribute("performance", performance);
 
-			forward.setPath("admin_p_detailPerformance.jsp");
+			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_detailPerformance");
 			forward.setRedirect(false);
 			return forward;
 		} catch (Exception e) {

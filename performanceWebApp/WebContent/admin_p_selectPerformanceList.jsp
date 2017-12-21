@@ -11,13 +11,16 @@
 <title>공연 검색</title>
 
 <style>
-form {
+/* form {
 	padding: 30px;
 	background-color: gray;
 	width: 900px;
 	height: 750px;
 }
-
+ */
+ body{
+ 	color: gray;
+ }
 #btn1 {
 	width: 70px;
 	height: 30px;
@@ -58,27 +61,32 @@ form {
 		float:left;
 		text-align:center;
 	}
+a{
+	color:gray;
+}
 </style>
 
 </head>
 <body>
-	<form>
+	
 
 		<div id="pannel">
 			<h1>공연 조회</h1>
 			<button type="button" id="btn1">선택삭제</button>
 			<button type="button" id="btn2">선택해제</button>
 		</div>
-
-		<div id="search">
+		
+		
+		<form id="search">
 			<select id="keyfield" name="keyfield">
-						<option value="제목">제목</option>
-						<option value="기간">기간</option>
-						<option value="장르">장르</option>
+						<option value="title">제목</option>
+						<option value="date">월</option>
+						<option value="genre">장르</option>
 					</select>
 			<input id="keyword" type="search" placeholder="검색어를 입력하세요">
 			<button type="search" id="btn3">검색</button>
-		</div>
+		</form>
+		
 		<br>
 		<br>
 		<div id="div3">
@@ -107,6 +115,6 @@ form {
 		</table>
 		</div>
 		<br>
-	</form>
+	
 </body>
 </html>

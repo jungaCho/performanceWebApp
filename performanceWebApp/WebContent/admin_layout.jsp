@@ -23,7 +23,7 @@
 	}
 
 	header {
-		width: 960px;
+		width: 100%;
 		height: 100px;
 		margin-left: auto;
 		margin-right: auto;
@@ -31,25 +31,17 @@
 	}
 
 	section {
-		width: 960px;
-		height: auto;
+		width: 100%;
+		height: 100%;
 		margin-left: auto;
 		margin-right: auto;
-		background-color: #8BC34A;
+		background-color: #4C566E;
 		overflow: hidden;
 	}
 
-	
-
-	section article {
-		width: 100%;
-		height: 600px;
-		background-color: #ebebeb;
-		float: left;
-	}
 
 	footer {
-		width: 960px;
+		width: 100%;
 		height: 100px;
 		margin-left: auto;
 		margin-right: auto;
@@ -76,14 +68,14 @@
 
 section nav {
 		width: 25%;
-		height: 600px;
+		
 		background-color: #4C566E;
 		float: left;
 	}
 
 	section article {
 		width: 75%;
-		height: 600px;
+		height: 100%;
 		background-color: #ebebeb;
 		float: left;
 	}
@@ -99,6 +91,13 @@ section nav {
 	  a:hover {
 			color: #607d8b;
       }
+      
+      header nav h1 {
+      	float: left;
+      	width: 100px;
+      	margin-left: 30px;
+      	color:#f25c5c;
+      }
 
   </style>
  </head>
@@ -106,6 +105,7 @@ section nav {
 	<header>
 		<jsp:include page="header.jsp" />
 	</header>
+	
 	<section>
 		<nav><jsp:include page="<%=nav %>" /></nav>
 		<article><jsp:include page="<%=article %>" /></article>

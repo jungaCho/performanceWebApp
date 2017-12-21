@@ -21,6 +21,14 @@ public class MemberVO {
 	public MemberVO() {
 		super();
 	}
+	
+	
+
+	public MemberVO(String mNo, String wdReason) {
+		super();
+		this.mNo = mNo;
+		this.wdReason = wdReason;
+	}
 
 	public MemberVO(String mNo, String mPw, String mName, String email, String address) {
 		super();

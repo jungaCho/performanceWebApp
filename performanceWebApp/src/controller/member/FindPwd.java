@@ -5,45 +5,52 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
-import domain.member.MemberVO;
 import model.service.member.MemberService;
 
-public class ModifyMemberCommand implements Command {
+public class FindPwd implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		HttpSession session = req.getSession();
-		MemberVO member = (MemberVO)session.getAttribute("member");
-		
-		String mNo = member.getmNo();
-		
-		String pwd = req.getParameter("pwd");
-		String name = req.getParameter("name");
+		String mId = req.getParameter("id");
+		String mName = req.getParameter("name");
 		String email = req.getParameter("email");
-		String address = req.getParameter("address");
 		
-		MemberVO vo = new MemberVO(mNo,pwd,name,email,address);
-
 		ActionForward forward = new ActionForward();
+		
 		try {
-			MemberService.getInstance().modifyMember(vo);
+		
+			MemberService service = MemberService.getInstance();
+			boolean isExist = service.findPwd(mId, mName, email);
 			
-			forward.setPath("/member_m_newMember.jsp");
-			forward.setRedirect(false);
-			return forward;
+			req.setAttribute("name", mName);
 			
-		} catch(Exception e) {
+			//회원인 경우 -> 서비스에 정의되어있는 javamail API를 호출해준다. 
+			if(isExist) {
+				
+				forward.setPath("member_m_sendSuccess.jsp");
+				forward.setRedirect(false);
+				return forward;
+			}
+			
+			
+		} catch (Exception e) {
+
+			// 모든 에러는 error.jsp에서 잡는다
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
 			forward.setRedirect(false);
 			return forward;
 		}
+		
+		
+		return null;
 	}
+	
+	
 
 }

@@ -2,8 +2,11 @@ package model.dao.performance;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
+import conn.DBConn;
 import domain.performance.PosterVO;
 
 
@@ -106,4 +109,41 @@ public class PosterDAO {
 		}
 	}
 	
+	//공연에 해당하는 업로드된 포스터 파일 목록을 조회하다.
+		public List<PosterVO> selectPoster(String pNo) throws Exception {
+			ArrayList<PosterVO> posters = new ArrayList<PosterVO>();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				conn = DBConn.getConnection();
+				
+				StringBuilder sql = new StringBuilder();
+				sql.append("select poster_no, System_file_name, original_file_name, file_size, Main_poster, P_no		");
+				sql.append("from poster																					");
+				sql.append("where p_no = ?																				");
+				sql.append("order by 1 asc																				");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, pNo);
+				
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					PosterVO poster = new PosterVO();
+					poster.setPosterNo(rs.getString(1));
+					poster.setSystemFileName(rs.getString(2));
+					poster.setOriginalFileName(rs.getString(3));
+					poster.setFileSize(rs.getLong(4));
+					poster.setpNo(rs.getString(5));
+					
+					posters.add(poster);
+				}	
+			} finally {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+		}
+		return posters;	
+	}
 }
+	
