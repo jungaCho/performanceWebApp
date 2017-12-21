@@ -1,8 +1,6 @@
 package controller.performance;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,31 +11,32 @@ import controller.Command;
 import domain.performance.PerformanceVO;
 import model.service.performance.PerformanceService;
 
-public class ListPerformanceByAdminCommand implements Command{
+//공연 상세조회 요청을 처리할 커맨드 클래스 구현
+public class DetailPerformanceCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		ActionForward forward=new ActionForward();
+
+		// 1. 상세히 조회하고자 하는 공연 번호를 구한다.
+		String pNo = req.getParameter("pNo");
+
+		ActionForward forward = new ActionForward();
 		try {
-			PerformanceService performs=PerformanceService.getInstance();
-			
-			int startRow=1;
-			int endRow=10;
-			List<PerformanceVO>performances=performs.retrievePerformanceListByAdmin(startRow, endRow);
-			
-			req.setAttribute("performances", performances); 
-			
-			forward.setPath("/admin_p_selectPerformanceList.jsp");
-			forward.setRedirect(false); 
+			PerformanceService performanceService = PerformanceService.getInstance();
+
+			PerformanceVO performance = performanceService.retirevePerformance(pNo);
+
+			req.setAttribute("performance", performance);
+
+			forward.setPath("admin_p_detailPerformance.jsp");
+			forward.setRedirect(false);
 			return forward;
-		}catch(Exception e) {
-			req.setAttribute("exception", e); 
+		} catch (Exception e) {
+			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
 			forward.setRedirect(false);
 			return forward;
 		}
-		
 	}
-
 }

@@ -93,14 +93,14 @@ form {
 			</tr>
 		<c:forEach var="performance" items="${requestScope.performances }" varStatus="loop">
 			<c:url var="url" value="/admin_p_detailPerformance.jsp" scope="page">
-				<c:param name="no" value="${pageScope.performance.p_no }" />
+				<c:param name="no" value="${pageScope.performance.pNo }" />
 			</c:url>
 			<tr>
 				<td><input type="checkbox" name="check"></td>
-				<td>${pageScope.performance.p_no }</td>
+				<td>${pageScope.performance.pNo }</td>
 				<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
-				<td>${pageScope.performance.start_date }</td>
-				<td>${pageScope.performance.end_date }</td>
+				<td>${pageScope.performance.startDate }</td>
+				<td>${pageScope.performance.endDate }</td>
 				<td>${pageScope.performance.genre }</td>
 			</tr>
 		</c:forEach>
