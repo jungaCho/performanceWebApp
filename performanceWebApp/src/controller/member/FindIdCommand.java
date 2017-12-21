@@ -32,9 +32,19 @@ public class FindIdCommand implements Command {
 		
 		req.setAttribute("member", member);
 		
-		forward.setPath("/member_m_selectId.jsp");
+		if(member.getmId() != null) {
+		
+		forward.setPath("/isExistId.jsp");
 		forward.setRedirect(false);
 		return forward;
+		
+		} else {
+			
+		forward.setPath("/isNotExistId.jsp");
+		forward.setRedirect(false);
+		return forward;
+					
+		}
 		
 		
 		} catch (Exception e) {

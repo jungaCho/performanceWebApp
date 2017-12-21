@@ -37,6 +37,8 @@ public class LoginCommand implements Command {
 				forward.setPath("/member_index.jsp");
 				forward.setRedirect(false);
 				return forward;
+				
+				
 			} else {
 				// 로그인 원래화면으로 계속 이동한다.
 				forward.setPath("/loginForm.do");

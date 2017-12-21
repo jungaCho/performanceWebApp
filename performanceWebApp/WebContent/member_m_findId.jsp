@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html >
 <html>
 <head>
@@ -11,9 +13,9 @@ $(document).ready(function(){
 	
 	$('#findId').click(function(){
 		
-		
-	
-});
+	location.href("${pageContext.request.contextPath}/FindIdCommand.do");
+
+	}); 
 	
 });
 
@@ -23,7 +25,8 @@ $(document).ready(function(){
 <body>
 	<form action="${pageContext.request.contextPath }/findId.do" method="post">
 		<div id="box">
-			이름과 이메일를 입력해주세요!<br>
+			이름과 이메일을 입력해주세요!<br>
+			<input type="hidden" name="member" value="${requestScope.member }">
 			이름<br>
 			<input type="text" name="name" size="30" placeholder="이름을 입력해주세요"/><br>
 			Email<br>
