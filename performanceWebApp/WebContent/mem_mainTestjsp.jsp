@@ -7,13 +7,10 @@
 %>
 
 <!doctype html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="Generator" content="EditPlus®">
-<meta name="Author" content="">
-<meta name="Keywords" content="">
-<meta name="Description" content="">
+
 <title>메인 페이지</title>
 <style>
 

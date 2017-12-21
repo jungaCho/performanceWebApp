@@ -55,7 +55,6 @@ public class MemberDAO {
 
 	public MemberVO selectMember(String mNo) throws Exception {
 		MemberVO member = new MemberVO();
-		RankVO rank = new RankVO();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -63,7 +62,7 @@ public class MemberDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_id, m_pw, m_name, birthday, email, address, r_name 		");
+			sql.append("select m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address, r_name 		");
 			sql.append("from member m, rank r												");
 			sql.append("where m.rank_no = r.rank_no											");
 			sql.append("	and m_no = ?													");
@@ -74,14 +73,18 @@ public class MemberDAO {
 
 			rs = pstmt.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 				member.setmId(rs.getString(1));
 				member.setmPw(rs.getString(2));
 				member.setmName(rs.getString(3));
 				member.setBirthday(rs.getString(4));
 				member.setEmail(rs.getString(5));
 				member.setAddress(rs.getString(6));
-				rank.setrName(rs.getString(7));
+				if(rs.getString(7) != null) {
+					RankVO rank = new RankVO();
+					rank.setrName(rs.getString(7));
+					member.setRank(rank);
+				}
 			}
 			return member;
 
@@ -155,7 +158,7 @@ public class MemberDAO {
 				conn.close();
 		}
 	}
-
+/*
 	public String loginMember(String mId, String mPw) throws Exception {
 		String mNo = "";
 		Connection conn = null;
@@ -191,7 +194,45 @@ public class MemberDAO {
 		}
 		return mNo;
 	}
+*/
+	public MemberVO loginMember(String mId, String mPw) throws Exception {
+		MemberVO member = new MemberVO();
+		String mNo = "";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBConn.getConnection();
 
+			StringBuffer sql = new StringBuffer();
+			sql.append("select m_no						");
+			sql.append("from member						");
+			sql.append("where m_id = ? and m_pw = ? 	");
+
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, mId);
+			pstmt.setString(2, mPw);
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				mNo = rs.getString(1);
+				member.setmNo(mNo);
+			}
+				
+		} finally {
+			if (rs!=null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+		return member;
+	}
+	
 	public boolean checkOverLapId(String mId) throws Exception {
 
 		// 1. DB에 접속해 회원 아이디를 조회한다.

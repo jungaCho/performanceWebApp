@@ -24,17 +24,18 @@ public class LoginCommand implements Command {
 		ActionForward forward = new ActionForward();
 		try {
 			MemberService service = MemberService.getInstance();
-			String mNo = service.processLogin(id, pwd);
-
-			if (mNo != "") {
+			MemberVO member = service.processLogin(id, pwd);
+			
+			if (member.getmNo() != "") {
 				// 세션영역에 "userID"라는 속성이름으로 아이디를 바인딩한다.
 				HttpSession session = req.getSession();
-				session.setAttribute("usermNo", mNo);
+				session.setAttribute("member", member);
 				
-				System.out.println("usermNo : " + session.getAttribute("usermNo"));
+				System.out.println("member : " + session.getAttribute("member"));
+
 				// 로그인 성공 메인화면으로 이동한다.
 				forward.setPath("/member_index.jsp");
-				forward.setRedirect(true);
+				forward.setRedirect(false);
 				return forward;
 			} else {
 				// 로그인 원래화면으로 계속 이동한다.

@@ -19,13 +19,13 @@ public class ModifyMemberFormCommand implements Command {
 			throws IOException, ServletException {
 
 		HttpSession session = req.getSession();
-		String mNo = (String) session.getAttribute("usermNo");
+		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		ActionForward forward = new ActionForward();
 		try {
-			MemberVO member = MemberService.getInstance().retrieveMember(mNo);
+			MemberVO vo = MemberService.getInstance().retrieveMember(member.getmNo());
 
-			req.setAttribute("member", member);
+			req.setAttribute("member", vo);
 
 			forward.setPath("/member_m_layout.jsp?nav=member_m_menu&article=member_m_modifyForm");
 			forward.setRedirect(false);

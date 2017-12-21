@@ -3,8 +3,6 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-
-
 <c:url var="url1" value="/member_layout.jsp" scope="page">
 	<c:param name="article" value="member_p_selectPerformance" />
 </c:url>
@@ -30,7 +28,7 @@
 	<c:param name="article" value="member_welcome" />
 </c:url>
 
-<c:if test="${empty sessionScope.usermNo}">
+<c:if test="${empty sessionScope.member}">
 <script src=js/jquery-3.2.1.min.js></script>
 <script>
 	$(document).ready(function () {
@@ -48,7 +46,7 @@
 		<li><a href="${pageScope.url1 }">공연정보</a></li>
 		<li><a href="${pageScope.url2 }">예매</a></li>
 		<li><a href="${pageScope.url3 }">마이페이지</a></li>
-		<li><span id="loginm">${requestScope.userId.id } 님 환영합니다</span></li>
+		<li><span id="loginm">${requestScope.member.mId } 님 환영합니다</span></li>
 		<li><a href="${pageScope.urlLogin }" id="link"><span id="loginm2">로그아웃</span></a><li>
 	</ul>
 </nav>
