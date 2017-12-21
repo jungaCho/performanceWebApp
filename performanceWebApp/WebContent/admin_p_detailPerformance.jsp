@@ -50,7 +50,6 @@
 	}
 	
 	
-	
 	#div2{
 		
 		margin-top:20px;
@@ -60,8 +59,13 @@
 	
 	#schedule{
 		
-		float: right;
-		margin-right: 235px;
+		 width: 180px; height:200px;
+   		 display: block;
+   		 overflow: auto;
+   		 float:right;;
+   		 margin-right:150px;
+   		 margin-bottom:20px;
+	}
 		
 	}
 	
@@ -84,15 +88,26 @@
 		<div id="pannel">
 		<h1>공연상세조회</h1>
 		</div>
+		<div>
+			<%-- <c:forEach var ="poster" items="${requestScope.performance.posters}">
+				<img src="C:\eclipse\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\performanceWebApp\upload/${pageScope.poster.systemFileName}">
+			</c:forEach> --%>
+		</div>
 		<div id="div2">
-		<table id="schedule" border="1" width=300>
+		<table id="schedule" border="1"  >
 			<tr>
 				<th>날짜</th>
 				<th>공연시간</th>
 			</tr>
+		<c:forEach var="schedule" items="${requestScope.performance.schedules }" varStatus="loop">
+			<c:forEach var="order" items="${pageScope.schedule.orders}" varStatus="loop">
+			
 			<tr>
-				<td>${requestScope.performance.sDate }</td>
-				<td>${requestScope.performance.oTime }</td>
+				<td>${pageScope.schedule.sDate }</td>
+				<td>${pageScope.order.oTime }</td>
+			</tr>	
+			</c:forEach>
+			</c:forEach>
 		</table>
 		</div>
 		

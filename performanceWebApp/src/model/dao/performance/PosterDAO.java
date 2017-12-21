@@ -24,22 +24,25 @@ public class PosterDAO {
 		try {
 			StringBuffer sql=new StringBuffer();
 			
-			sql.append("insert into poster(poster_no, system_file_name, original_file_name, file_size, main_poster, p_no)   ");
-			sql.append("values ('I'||lpad('image_seq.nextVal,5,0), ? , ? ,? , ?, ? )  ");
+			sql.append("insert into poster(poster_no, system_file_name, original_file_name, file_size, main_poster,  p_no)   ");
+			sql.append("values ('I'||lpad(image_seq.nextVal,5,0), ? , ? ,?, ? , ?)  ");
+			
+			System.out.println(sql.toString());
 			
 			pstmt=conn.prepareStatement(sql.toString());
+			System.out.println("~~~~~~~~~~"+posters.get(0).getOriginalFileName());
 			
-			for(int i=1;i<posters.size();i++) {
+			for(int i=0;i<posters.size();i++) {
 				PosterVO poster=posters.get(i);
+				System.out.println("~~~~~~~~~~"+poster.toString());
 				pstmt.setString(1, poster.getSystemFileName());
 				pstmt.setString(2, poster.getOriginalFileName());
 				pstmt.setLong(3, poster.getFileSize());
-				pstmt.setString(4, poster.getMainPoster());
+				pstmt.setInt(4, poster.getMainPoster());
 				pstmt.setString(5, poster.getpNo());
 				pstmt.addBatch();
 			}
-				pstmt.executeBatch();
-				
+			pstmt.executeBatch();			
 							
 			
 		} finally {
@@ -94,7 +97,7 @@ public class PosterDAO {
 			sql.append("where poster_no=?    ");
 			pstmt=conn.prepareStatement(sql.toString());
 			
-			pstmt.setString(1,poster.getMainPoster() );
+			pstmt.setInt(1,poster.getMainPoster() );
 			pstmt.setString(2, poster.getPosterNo());
 			
 			pstmt.executeUpdate();

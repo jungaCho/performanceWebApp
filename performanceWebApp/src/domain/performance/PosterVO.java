@@ -5,7 +5,7 @@ public class PosterVO {
 	private String systemFileName;	//시스템 파일 이름
 	private String originalFileName;	//원본 파일 이름
 	private long fileSize;	//파일 크기
-	private String mainPoster;	//메인포스터 여부
+	private int mainPoster;	//메인포스터 여부
 	private String pNo;	//공연번호
 	
 	
@@ -13,7 +13,7 @@ public class PosterVO {
 		super();
 	}
 
-	public PosterVO(String posterNo, String systemFileName, String originalFileName, int fileSize, String mainPoster,
+	public PosterVO(String posterNo, String systemFileName, String originalFileName, int fileSize, int mainPoster,
 			String pNo) {
 		super();
 		this.posterNo = posterNo;
@@ -48,10 +48,10 @@ public class PosterVO {
 	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
 	}
-	public String getMainPoster() {
+	public int getMainPoster() {
 		return mainPoster;
 	}
-	public void setMainPoster(String mainPoster) {
+	public void setMainPoster(int mainPoster) {
 		this.mainPoster = mainPoster;
 	}
 	public String getpNo() {

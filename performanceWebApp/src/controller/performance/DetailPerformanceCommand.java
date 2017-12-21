@@ -20,7 +20,7 @@ public class DetailPerformanceCommand implements Command {
 
 		// 1. 상세히 조회하고자 하는 공연 번호를 구한다.
 		String pNo = req.getParameter("pNo");
-
+		System.out.println("pNo :  "+pNo); 
 		ActionForward forward = new ActionForward();
 		try {
 			PerformanceService performanceService = PerformanceService.getInstance();
@@ -29,7 +29,7 @@ public class DetailPerformanceCommand implements Command {
 
 			req.setAttribute("performance", performance);
 
-			forward.setPath("admin_p_detailPerformance.do");
+			forward.setPath("admin_p_detailPerformance.jsp");
 			forward.setRedirect(false);
 			return forward;
 		} catch (Exception e) {

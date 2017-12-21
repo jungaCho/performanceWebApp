@@ -57,6 +57,10 @@ public class UploadFileServlet extends HttpServlet {
 					performance.setProduction(getStringFromStream(part.getInputStream()));
 					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
+				case "price":
+					performance.setPrice(Integer.parseInt(getStringFromStream(part.getInputStream())));
+					System.out.println(getStringFromStream(part.getInputStream()));
+					break;	
 				case "theater":
 					performance.settName(getStringFromStream(part.getInputStream()));
 					System.out.println(getStringFromStream(part.getInputStream()));
@@ -65,7 +69,7 @@ public class UploadFileServlet extends HttpServlet {
 					performance.setViewNo(getStringFromStream(part.getInputStream()));
 					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
-				case "genreNo":
+				case "genre":
 					performance.setGenreNo(getStringFromStream(part.getInputStream()));
 					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
@@ -94,8 +98,12 @@ public class UploadFileServlet extends HttpServlet {
 					
 					//poster 인 경우
 					if(part.getName().equals("poster")) {
-						
 						PosterVO poster = UploadFiles.uploadPosterFile(part,sc);
+						poster.setMainPoster(0); 
+						performance.addPoster(poster);
+					}else if(part.getName().equals("mainPoster")) {
+						PosterVO poster = UploadFiles.uploadPosterFile(part,sc);
+						poster.setMainPoster(1); 
 						performance.addPoster(poster);
 					}else if(part.getName().equals("detailFile")) {
 						//detailFile 인 경우

@@ -34,7 +34,7 @@ public class CommandFactory {
 		//°ø¿¬
 		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");
 		
-
+		map.put("/admin_p_detailPerformance.do","controller.performance.DetailPerformanceCommand");	
 
 	}
 	
