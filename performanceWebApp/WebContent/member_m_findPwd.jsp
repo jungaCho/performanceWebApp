@@ -12,14 +12,13 @@
 	$(document).ready(function(){
 		
 		$('#btn1').click(function(){
-			
-			
-			alert("이메일로 임시비밀번호 발급이 완료되었습니다!");
-			
+		
+			location.href= "${pageContext.request.contextPath}/findPwd.do";
+		
 		});
 		
 	});
-	 
+	  
 
 </script>
 </head>
@@ -34,8 +33,9 @@
 			Email<br>
 			<input type="email" name="email" size="30" placeholder="이메일을 입력해주세요"/><br>
 			<br>
-			<button id="btn1" type="button">임시 비밀번호 받기</button>&nbsp;
-			<button>취소</button>
+			
+			<button id="btn1" type="submit">다음</button>&nbsp;
+			<button id="btn2">취소</button>
 		</div>
 	</form>
 </body>
