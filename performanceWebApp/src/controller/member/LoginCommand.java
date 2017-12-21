@@ -1,6 +1,7 @@
 package controller.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,23 +27,31 @@ public class LoginCommand implements Command {
 			MemberService service = MemberService.getInstance();
 			MemberVO member = service.processLogin(id, pwd);
 			
-			if (member.getmNo() != "") {
+			System.out.println("회원번호 : " + member.getmNo());
+			System.out.println("탈퇴여부 : " + member.getWithdrawal());
+			
+			if (member.getmNo() != null ) {
+				if(member.getWithdrawal().equals("F")) {
 				// 세션영역에 "userID"라는 속성이름으로 아이디를 바인딩한다.
-				HttpSession session = req.getSession();
-				session.setAttribute("member", member);
-				
-				System.out.println("member : " + session.getAttribute("member"));
-
-				// 로그인 성공 메인화면으로 이동한다.
-				forward.setPath("/member_index.jsp");
-				forward.setRedirect(false);
+					HttpSession session = req.getSession();
+					session.setAttribute("member", member);
+	
+					System.out.println("member : " + session.getAttribute("member"));
+		
+					// 로그인 성공 메인화면으로 이동한다.
+					forward.setPath("/member_index.jsp");
+					forward.setRedirect(false); 
+				} else {
+					forward.setPath("/loginForm.do");
+					forward.setRedirect(true);
+				}
 				return forward;
 				
 			} else {
 				// 로그인 원래화면으로 계속 이동한다.
 				forward.setPath("/loginForm.do");
 				forward.setRedirect(true);
-				return forward;
+				return forward;			
 			}
 		} catch (Exception e) {
 			req.setAttribute("exception", e);

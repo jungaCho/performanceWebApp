@@ -7,25 +7,23 @@
 <style>
 	
 	form {
-		background-color: yellow;
+
 		width:400px;
 		height:600px;
 	}
 	#box {
-		background-color: red;
+
 		margin-top:50px;
 		width:auto;
 		height:100px;	
 	}
 	
 	#box1 {
-		background-color:green;
 		width:40%;
 		height:150px;
 		float:left;
 	}
 	#box2 {
-		background-color:brown;
 		width:60%;
 		height:150px;
 		float:left;
@@ -38,18 +36,20 @@
 </style>
 </head>
 <body>
-	<form>
-		<span>회원탈퇴</span>&nbsp;<button>확인</button>&nbsp;<button>취소</button><br>
+	<form action="${pageContext.request.contextPath }/withdrawal.do" method="POST">
+		<span>회원탈퇴</span>&nbsp;
+		<button id="btn1" type="submit">확인</button>&nbsp;
+		<button id="btn2" type="button">취소</button><br>
 		<div id="box">
-			현재 계정 정보 : ***님<br>
-			아이디 : ****님<br>
+			현재 계정 정보 : ${requestScope.member.mName }님<br>
+			아이디 : ${requestScope.member.mId }님<br>
 		</div>
 		<div id="box1">
 			등급 정보 안내
 			<src image=""/>
 		</div>
 		<div id="box2">
-			** 회원<br>
+			${requestScope.member.rank.rName } 회원<br>
 			<br>
 			예매 공연 횟수 :	<br> 
 			총 결제액 : 

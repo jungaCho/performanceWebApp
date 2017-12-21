@@ -12,7 +12,7 @@ import controller.Command;
 import domain.member.MemberVO;
 import model.service.member.MemberService;
 
-public class ModifyMemberCommand implements Command {
+public class WithdrawalCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
@@ -22,28 +22,23 @@ public class ModifyMemberCommand implements Command {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		
 		String mNo = member.getmNo();
-		
-		String pwd = req.getParameter("pwd");
-		String name = req.getParameter("name");
-		String email = req.getParameter("email");
-		String address = req.getParameter("address");
-		
-		MemberVO vo = new MemberVO(mNo,pwd,name,email,address);
-
+		String wdReason = req.getParameter("wdReason");
+				
 		ActionForward forward = new ActionForward();
 		try {
-			MemberService.getInstance().modifyMember(vo);
+			MemberService.getInstance().removeMember(mNo, wdReason);
 			
-			forward.setPath("/member_m_newMember.jsp");
-			forward.setRedirect(false);
+			session.invalidate();
+			
+			forward.setPath("/member_index.jsp");
+			forward.setRedirect(true);
 			return forward;
-			
 		} catch(Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
 			forward.setRedirect(false);
 			return forward;
-		}
+		}		
 	}
-
+	
 }
