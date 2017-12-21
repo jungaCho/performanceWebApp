@@ -18,7 +18,7 @@ public class ControllerServlet extends HttpServlet{
 		String commandURI = requestURI.substring(contextPath.length()); // /writeArticleForm
 		//contextPath 제외한 uri 구하기
 		
-		System.out.println("commandURI : "+commandURI);
+		System.out.println("commandURI : "+commandURI);  ///admin_p_selectPerformanceList.d.do
 		
 		//commandFactory 인스턴스생성
 		CommandFactory factory = CommandFactory.getInstance();
