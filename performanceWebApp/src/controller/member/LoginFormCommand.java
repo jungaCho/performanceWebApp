@@ -18,7 +18,7 @@ public class LoginFormCommand implements Command {
 
 		ActionForward forward = new ActionForward();
 		forward.setPath("/member_m_loginForm.jsp");
-		forward.setRedirect(true);
+		forward.setRedirect(false);
 		return forward;
 
 	}
