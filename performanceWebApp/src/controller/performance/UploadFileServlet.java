@@ -61,12 +61,12 @@ public class UploadFileServlet extends HttpServlet {
 					performance.settName(getStringFromStream(part.getInputStream()));
 					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
-				case "viewClass":
-					performance.setViewClass(getStringFromStream(part.getInputStream()));
+				case "viewNo":
+					performance.setViewNo(getStringFromStream(part.getInputStream()));
 					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
-				case "genre":
-					performance.setGenre(getStringFromStream(part.getInputStream()));
+				case "genreNo":
+					performance.setGenreNo(getStringFromStream(part.getInputStream()));
 					System.out.println(getStringFromStream(part.getInputStream()));
 					break;
 				case "contactName":
@@ -94,6 +94,7 @@ public class UploadFileServlet extends HttpServlet {
 					
 					//poster 인 경우
 					if(part.getName().equals("poster")) {
+						
 						PosterVO poster = UploadFiles.uploadPosterFile(part,sc);
 						performance.addPoster(poster);
 					}else if(part.getName().equals("detailFile")) {
@@ -109,8 +110,9 @@ public class UploadFileServlet extends HttpServlet {
 			// DB에 게시글을 등록
 			PerformanceService performanceService = PerformanceService.getInstance();	
 			performanceService.createPerformance(performance); 
+			
 			// 게시글 목록 조회 페이지로 이동
-			resp.sendRedirect(req.getContextPath() + "/admin_p_selectPerformanceList.jsp");
+			resp.sendRedirect(req.getContextPath() + "/admin_p_selectPerformanceList.do");
 
 		} catch (Exception e) {
 			e.printStackTrace();

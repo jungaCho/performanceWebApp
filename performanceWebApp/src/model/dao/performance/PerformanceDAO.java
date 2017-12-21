@@ -158,7 +158,7 @@ public class PerformanceDAO {
 					
 			StringBuffer sql = new StringBuffer();
 			sql.append("select performance.title,performance.start_date,performance.end_date,theater.t_name,viewclass.view_class,performance.running_time,	");
-			sql.append("performancegenre.genre,performance.price,poster.system_file_name,schedule.s_date,orders.o_time,detailfile.system_file_name	,theater.t_no		");
+			sql.append("performancegenre.genre,performance.price,poster.system_file_name,to_date(schedule.s_date,'YYYY/MM/DD)),orders.o_time,detailfile.system_file_name	,theater.t_no		");
 			sql.append("from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile												");
 			sql.append("where poster.p_no=performance.P_NO																									");
 			sql.append("and performance.P_No=schedule.p_no(+)																								");
@@ -255,7 +255,7 @@ public class PerformanceDAO {
 				sql.append("from (select *																					");
 				sql.append("from performance order by p_no desc)perf)p ,performancegenre g 				");
 				sql.append("where p.genre_no=g.GENRE_NO															");
-				sql.append("and p.rn>=1 and p.rn<=8 																	");
+				sql.append("and p.rn>=1 															");
 				rs = stmt.executeQuery(sql.toString());
 				while(rs.next()) {
 					PerformanceVO performance = new PerformanceVO();
@@ -326,12 +326,13 @@ public class PerformanceDAO {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		StringBuffer sql = new StringBuffer();
 		try {
 			conn = DBConn.getConnection();
 			
-			sql.append("insert into performance									");
-			sql.append("values('p'||lpad(performance_seq.nextVal,5,0),?,?,?,?,?,?,?,?,?,?,?,?) ");
+			sql.append("insert into performance	(p_no,title,video,start_date,end_date,production,contact_name,contact_number, running_time,note,price,view_no,genre_no)								");
+			sql.append("values('P'||lpad(performance_seq.nextVal,5,0),?,?,?,?,?,?,?,?,?,?,?,?) ");
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -349,8 +350,23 @@ public class PerformanceDAO {
 			pstmt.setString(12, performance.getGenreNo());
 			
 			pstmt.executeUpdate();
+		
+			pstmt.close();
 			
-			return performance.getpNo();
+			
+			sql.delete(0, sql.length());
+			
+			stmt = conn.createStatement();
+				
+			sql.append("select 'P'||lpad(performance_seq.currVal,5,0) from dual ");
+			
+			ResultSet rs=stmt.executeQuery(sql.toString());
+		
+			String pNo="";
+			if(rs.next()) {
+				pNo = rs.getString(1);
+			}
+			return pNo;
 		
 		} finally {
 			if(pstmt != null) pstmt.close();	
@@ -377,7 +393,7 @@ public class PerformanceDAO {
 			
 			pstmt.setString(1, pNo);
 			
-			rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery(sql.toString());
 			
 			while(rs.next()) {
 				if(rs.getString(1) != null) {

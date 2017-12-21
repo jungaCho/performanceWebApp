@@ -1,8 +1,6 @@
 package controller.performance;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,31 +11,34 @@ import controller.Command;
 import domain.performance.PerformanceVO;
 import model.service.performance.PerformanceService;
 
-public class ListPerformanceByAdminCommand implements Command {
+public class ModifyPerformanceFormCommand implements Command{
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
+		
+		//공연 번호 가져오기
+		String pNo = req.getParameter("pNo");
+		
 		ActionForward forward = new ActionForward();
 		try {
-			PerformanceService performs = PerformanceService.getInstance();
-
-			int startRow = 1;
-			int endRow = 10;
-			List<PerformanceVO> performances = performs.retrievePerformanceListByAdmin(startRow, endRow);
-			System.out.println(performances.size());
-			req.setAttribute("performances", performances);
-
-			forward.setPath("/admin_p_selectPerformanceList.jsp");
+			PerformanceService service = PerformanceService.getInstance();
+			PerformanceVO performance = service.retirevePerformance(pNo);
+			
+			req.setAttribute("performance", performance);
+			
+			forward.setPath("/admin_p_modifyPerformanceForm.jsp");
 			forward.setRedirect(false);
+			
 			return forward;
-		} catch (Exception e) {
+		} catch(Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
-			forward.setRedirect(false);
+			forward.setRedirect(false);			
 			return forward;
 		}
-
 	}
 
+	
+	
 }

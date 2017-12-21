@@ -68,13 +68,21 @@ public class PerformanceService {
 			 conn.setAutoCommit(false);
 
 			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-			performanceDao.insertPerformance(performance);
-
+			String pNo=performanceDao.insertPerformance(performance);
+			System.out.println("pNO : "+pNo);
+				
 			ArrayList<PosterVO> posters = (ArrayList<PosterVO>) performance.getPosters();
+			for(PosterVO poster : posters) {
+				poster.setPosterNo(pNo);
+			}
 			PosterDAO posterDao = PosterDAO.getInstance();
 			posterDao.insertPoster(conn, posters);
+			
 
 			ArrayList<DetailFileVO> detailFiles = (ArrayList<DetailFileVO>) performance.getDetaileFiles();
+			for(DetailFileVO detialFile : detailFiles) {
+				detialFile.setpNo(pNo);				
+			}
 			DetailFileDAO detailfileDao = DetailFileDAO.getInstance();
 			detailfileDao.insertDetailFile(conn, detailFiles);
 
