@@ -352,7 +352,6 @@ public class MemberDAO {
 		String mId ="";
 		MemberVO member = new MemberVO();
 		
-		
 		try 
 			{
 			
@@ -409,7 +408,7 @@ public class MemberDAO {
 			StringBuffer sql = new StringBuffer();
 			sql.append("select m_no			");
 			sql.append("from member    ");
-			sql.append("where m_id = ? and m_name = ? and m_email = ? 		");
+			sql.append("where m_id = ? and m_name = ? and email = ? 		");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -421,23 +420,18 @@ public class MemberDAO {
 
 			rs = pstmt.executeQuery();
 
-			String existMember = "";
-
 			while (rs.next()) {
 
-				existMember = rs.getString(1);
-				
-				if (existMember != null ) {
+				if(rs.getString(1) != null ) {
 					return true;
 				}
-	
 			}
-
-		
 
 			return false;
 
 		} finally {
+			if (rs != null)
+				rs.close();
 			if (pstmt != null)
 				pstmt.close();
 			if (conn != null)

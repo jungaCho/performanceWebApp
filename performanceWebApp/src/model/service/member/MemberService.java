@@ -54,14 +54,7 @@ public class MemberService {
 	
 	//비밀번호 발급 전에 회원인지 아닌지 체크해줌. 
 	public boolean findPwd(String mId, String mName, String email) throws Exception {
-		
-		boolean isExist = MemberDAO.getInstance().searchPwd(mId, mName, email);
-		
-		if (isExist) {
-			return true;
-		} else {
-			return false;
-		}
+		return MemberDAO.getInstance().searchPwd(mId, mName, email);
 	}
 	
 	public List<MemberVO> retrieveMemberList(String sortkey, int startRow, int endRow) throws Exception {

@@ -8,7 +8,7 @@
 <script>
 
 
-
+/*
 	$(document).ready(function(){
 		
 		$('#btn1').click(function(){
@@ -19,11 +19,11 @@
 		
 	});
 	  
-
+*/
 </script>
 </head>
 <body>
-	<form>
+	<form action="${pageContext.request.contextPath }/findPwd.do" method="POST">
 		<div id="box">
 			아이디와 이름, 이메일을 입력해주세요!<br>
 			ID<br>
