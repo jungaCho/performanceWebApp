@@ -85,11 +85,7 @@ input {
 </head>
 <body>
 
-
-		<form>
-
 		<form action="${pageContext.request.contextPath }/login.do" method="POST">
-
 
 		<div id="box">
 
@@ -111,7 +107,6 @@ input {
 			
 		</div>
 
-	</form>
 
 
 </body>
