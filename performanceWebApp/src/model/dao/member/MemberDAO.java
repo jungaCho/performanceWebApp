@@ -220,6 +220,9 @@ public class MemberDAO {
 			
 			while(rs.next()) {
 				mNo = rs.getString(1);
+				if(mNo!=null) {
+					member.setmId(mId);
+				}
 				member.setmNo(mNo);
 				withdrawal = rs.getString(2);
 				member.setWithdrawal(withdrawal);
