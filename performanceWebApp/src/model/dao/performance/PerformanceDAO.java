@@ -287,45 +287,52 @@ public class PerformanceDAO {
 	public List<PerformanceVO> searchPerformance(String keyfield, String keyword, int startRow, int endRow) throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 	
 		try {
 			conn = DBConn.getConnection();
-			stmt = conn.createStatement();
+			
 			StringBuffer sql = new StringBuffer();
-			sql.append("select distinct performance.title,performance.start_Date,performance.end_Date,theater.t_Name,poster.system_file_name 	");
-			sql.append("from performance, poster, theater, schedule																				");
-			sql.append("where performance.p_no = poster.p_no																					");
-			sql.append("and schedule.t_no = theater.t_no																						");
-			sql.append("and performance.p_no = schedule.p_no																					");
+			sql.append("select distinct perf.p_no, perf.title,perf.start_Date,perf.end_Date,g.genre 	");
+			sql.append("from (select rownum as rn, p.*													");
+			sql.append("from(select *																	");
+			sql.append("from performance order by title asc) p) perf, schedule s, performancegenre g	");
+			sql.append("where perf.p_no=s.p_no															");
+			sql.append("and perf.genre_no=g.genre_no													");
+			//제목 선택시
 			if (keyfield.equals("title")) {
 				sql.append("and title like '%' || ? || '%' 																						");
-				sql.append("order by performance.title asc;																										");
+				sql.append("order by 1 asc																										");
+			//월 선택시
 			} else if (keyfield.equals("date")) {
-				sql.append("and to_char(performance.start_Date,'MM') <= ? and to_char(performance.start_Date,'MM') >= ?							");
-				sql.append("and to_char(performance.end_Date,'MM') <= ? and to_char(performance.end_Date,'MM') <= ?								");
-				sql.append("order by performance.start_Date asc;																										");
+				sql.append("and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||? 				");
+				sql.append("and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?					");
+				sql.append("and perf.rn>=? and perf.rn<=?												");
+				sql.append("order by 1 asc																										");
+			//장르 선택시
 			} else if (keyfield.equals("genre")) {
 				sql.append("and genre like '%' || ? || '%' 																						");
-				sql.append("order by 1 asc;																										");
+				sql.append("order by 1 asc																										");
 			}
+			pstmt = conn.prepareStatement(sql.toString());
 			
-			rs = stmt.executeQuery(sql.toString());
+			pstmt.setString(1, keyword);
+			
+			rs = pstmt.executeQuery();
+			
 			while(rs.next()) {
 				PerformanceVO performance = new PerformanceVO();
-				performance.setTitle(rs.getString(1));
-				performance.setStartDate(rs.getString(2));
-				performance.setEndDate(rs.getString(3));
-				performance.settName(rs.getString(4));
-					
-				PosterVO poster = new PosterVO();
-				poster.setSystemFileName(rs.getString(5));
+				performance.setpNo(rs.getString(1));
+				performance.setTitle(rs.getString(2));
+				performance.setStartDate(rs.getString(3));
+				performance.setEndDate(rs.getString(4));
+				performance.setGenre(rs.getString(5));
 				
 				performances.add(performance);
 			}
 		} finally {
-			if(stmt != null) stmt.close();
+			if(pstmt != null) pstmt.close();
 			if(conn != null) conn.close();
 		}
 		return performances;

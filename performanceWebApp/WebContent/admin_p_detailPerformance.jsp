@@ -10,11 +10,13 @@
 <title>공연상세조회</title>
 
 	<style>
-	
+	body{
+		color:gray;
+	}
 	form {
 	
 		padding : 30px;
-		background-color : gray;
+		
 		width: 900px;
 		height: 750px;
 	
@@ -59,7 +61,7 @@
 	
 	#schedule{
 		
-		 width: 180px; height:200px;
+		 width: 200px; height:200px;
    		 display: block;
    		 overflow: auto;
    		 float:right;;
@@ -77,8 +79,10 @@
 	#div3 {
 		text-align: center;
 	}
-	
-	a { 
+	#btn1{
+		width:118px; height:38px;
+	}
+	a#modify { 
 		display:inline-block; 
 		text-align:center;
 		 vertical-align:middle; 
@@ -86,8 +90,10 @@
 		 font-size:12px; color:#000; 
 		 border:1px solid #000; 
 		 width:118px; height:38px;
-		  line-height:38px; 
-		  }
+		 line-height:38px; 
+		 color:gray;
+		 background-color :#F8E0F1;
+	  }
 
 	</style>
 
@@ -171,7 +177,7 @@
 		<c:url var="modifyURL" value="/admin_p_modifyPerformanceForm.do" scope="page">
 			<c:param name="pNo" value="${requestScope.performance.pNo}" />
 		</c:url>
-		<a href="${pageScope.modifyURL}">수정</a>&nbsp;
+		<a id="modify" href="${pageScope.modifyURL}">수정</a>&nbsp;
 	
 	</form>
 </body>

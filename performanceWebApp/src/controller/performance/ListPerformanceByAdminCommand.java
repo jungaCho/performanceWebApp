@@ -28,7 +28,7 @@ public class ListPerformanceByAdminCommand implements Command {
 			System.out.println(performances.size());
 			req.setAttribute("performances", performances);
 
-			forward.setPath("/admin_p_selectPerformanceList.jsp");
+			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_selectPerformanceList");
 			forward.setRedirect(false);
 			return forward;
 		} catch (Exception e) {
