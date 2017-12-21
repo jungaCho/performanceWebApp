@@ -42,7 +42,10 @@ public class CommandFactory {
 		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");
 		
 		map.put("/admin_p_detailPerformance.do","controller.performance.DetailPerformanceCommand");	
-
+		
+		map.put("/removePerformance.do", "controller.performance.RemovePerformanceCommand");
+		
+		map.put("/admin_p_modifyPerformanceForm.do", "controller.performance.ModifyPerformanceFormCommand");
 	}
 	
 	public static CommandFactory getInstance() {

@@ -77,13 +77,23 @@
 	#div3 {
 		text-align: center;
 	}
-
 	
+	a { 
+		display:inline-block; 
+		text-align:center;
+		 vertical-align:middle; 
+		 text-decoration:none; 
+		 font-size:12px; color:#000; 
+		 border:1px solid #000; 
+		 width:118px; height:38px;
+		  line-height:38px; 
+		  }
+
 	</style>
 
 </head>
 <body>
-	<form>
+	<form action="<%=request.getContextPath()%>/removePerformance.do"  > 
 	
 		<div id="pannel">
 		<h1>공연상세조회</h1>
@@ -157,8 +167,11 @@
 		</table>
 		</div>
 		<br>
-		<button type="button" id="btn1">수정</button>
-		<button type="button" id="btn2">삭제</button>
+		<button type="submit" id="btn1">삭제</button>
+		<c:url var="modifyURL" value="/admin_p_modifyPerformanceForm.do" scope="page">
+			<c:param name="pNo" value="${requestScope.performance.pNo}" />
+		</c:url>
+		<a href="${pageScope.modifyURL}">수정</a>&nbsp;
 	
 	</form>
 </body>
