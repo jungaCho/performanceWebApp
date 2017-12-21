@@ -113,7 +113,11 @@
 
 </head>
 <body>
+<<<<<<< HEAD
 	 
+=======
+	<form > 
+>>>>>>> branch 'master' of https://github.com/jungaCho/performanceWebApp.git
 	
 		<div id="pannel">
 		<h1>공연상세조회</h1>
@@ -191,11 +195,18 @@
 		</div>
 		<br>
 		
+<<<<<<< HEAD
 		<div>
 		<c:url var="deleteURL" value="/removePerformance.do" scope="page">
 			<c:param name="pNo" value="${requestScope.performance.pNo}" />
 		</c:url>
 		<a id="delete" href="${pageScope.deleteURL}">삭제</a>&nbsp;
+=======
+		<c:url var="removeURL" value="/admin_p_removePerformance.do" scope="page">
+			<c:param name="pNo" value="${requestScope.performance.pNo}" />
+		</c:url>
+		<a href="${pageScope.removeURL}">삭제</a>&nbsp;
+>>>>>>> branch 'master' of https://github.com/jungaCho/performanceWebApp.git
 		
 		<c:url var="modifyURL" value="/admin_p_modifyPerformanceForm.do" scope="page">
 			<c:param name="pNo" value="${requestScope.performance.pNo}" />

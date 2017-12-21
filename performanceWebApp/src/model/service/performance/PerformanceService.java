@@ -111,7 +111,8 @@ public class PerformanceService {
 			DetailFileDAO detailfileDao = DetailFileDAO.getInstance();
 			ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
 			OrderDAO orderDao = OrderDAO.getInstance();
-
+			
+			
 			posterDao.deletePosterList(conn, pNo);
 			detailfileDao.deleteDetailFileList(conn, pNo);
 			String[] sNOs = scheduleDao.selectSchedule(conn, pNo);
@@ -119,7 +120,8 @@ public class PerformanceService {
 				orderDao.deleteOrder(conn, sNo);
 			}
 			scheduleDao.deleteSchedule(conn, pNo);
-
+			performanceDao.deletePerformance(pNo); 
+			
 			conn.commit();
 		} catch (Exception e) {
 			conn.rollback();

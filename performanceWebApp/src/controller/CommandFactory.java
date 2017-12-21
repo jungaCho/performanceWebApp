@@ -50,7 +50,7 @@ public class CommandFactory {
 		
 		map.put("/admin_p_detailPerformance.do","controller.performance.DetailPerformanceCommand");	
 		
-		map.put("/removePerformance.do", "controller.performance.RemovePerformanceCommand");
+		map.put("/admin_p_removePerformance.do", "controller.performance.RemovePerformanceCommand");
 		
 		map.put("/admin_p_modifyPerformanceForm.do", "controller.performance.ModifyPerformanceFormCommand");
 	}
