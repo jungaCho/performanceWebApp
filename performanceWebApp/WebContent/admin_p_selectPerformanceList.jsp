@@ -92,8 +92,8 @@ form {
 				<th>장르</th>
 			</tr>
 		<c:forEach var="performance" items="${requestScope.performances }" varStatus="loop">
-			<c:url var="url" value="/admin_p_detailPerformance.jsp" scope="page">
-				<c:param name="no" value="${pageScope.performance.pNo }" />
+			<c:url var="url" value="/admin_p_detailPerformance.do" scope="page">
+				<c:param name="pNo" value="${pageScope.performance.pNo }" />
 			</c:url>
 			<tr>
 				<td><input type="checkbox" name="check"></td>

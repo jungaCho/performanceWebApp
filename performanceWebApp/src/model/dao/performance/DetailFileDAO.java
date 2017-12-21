@@ -2,10 +2,13 @@ package model.dao.performance;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import conn.DBConn;
 import domain.performance.DetailFileVO;
+import domain.performance.PerformanceVO;
 
 public class DetailFileDAO {
 	
@@ -24,7 +27,7 @@ public class DetailFileDAO {
 		try {
 			StringBuffer sql=new StringBuffer();
 			
-			sql.append("insert into detailfile    ");
+			sql.append("insert into detailfile(file_no,system_file_name,original_file_name , file_size, p_no )      ");
 			sql.append("values('D'||lpad(detail_seq.nextVal,5,0),?,?,?,?)     ");
 			pstmt=conn.prepareStatement(sql.toString());
 			
@@ -54,6 +57,7 @@ public class DetailFileDAO {
 			pstmt=conn.prepareStatement(sql.toString());
 			pstmt.setString(1, file_no);
 			pstmt.executeUpdate();
+		
 			
 		} finally {
 			if(pstmt!=null) pstmt.close();
@@ -78,5 +82,41 @@ public class DetailFileDAO {
 	}
 	
 	//공연 상세 설명을 수정한다.-없어도 될것 같음.
-
+	
+	//공연에 해당하는 업로드된 상세설명 파일 목록을 조회하다.
+	public List<DetailFileVO> selectDetailFileList(String pNo) throws Exception {
+		ArrayList<DetailFileVO> detailFiles = new ArrayList<DetailFileVO>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("select file_no, System_file_name, original_file_name, file_size, p_no		");
+			sql.append("from detailFile																");
+			sql.append("where p_no = ?															");
+			sql.append("order by 1 asc																");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, pNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				DetailFileVO detailFile = new DetailFileVO();
+				detailFile.setFileNo(rs.getString(1));
+				detailFile.setSystemFileName(rs.getString(2));
+				detailFile.setOriginalFileName(rs.getString(3));
+				detailFile.setFileSize(rs.getLong(4));
+				detailFile.setFileSize(rs.getLong(5));
+				
+				detailFiles.add(detailFile);
+			}	
+		} finally {
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+		}
+		return detailFiles;	
+	}
 }

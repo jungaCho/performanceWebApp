@@ -68,7 +68,7 @@
 	<form action="${pageContext.request.contextPath}/uploadFile" enctype="multipart/form-data" method="post">
 	
 		<div id="pannel">
-		<h1>공연 등록</h1><input type="file" name="poster" size="20"></input><br>
+		<h1>공연 등록</h1><input type="file" name="mainPoster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
 		<input type="file" name="poster" size="20"></input><br>
@@ -76,14 +76,13 @@
 		<div id="div1">
 		<h3>공연제목 : <input type="text" name="title" size="20" placeholder="공연 제목을 입력해주세요!" autofocus></input></h3>
 
-		<table border="1" width=600>
+		<table border="1" width=550>
 			<tr>
-				<th>동영상</th>
-				<td><input type="url" name="video" size="15"></input></td>
-				<th>가격</th>
-				<td><input type="text" name="price" size="15"></input></td>
+				<th colspan='2'>동영상</th>
+				<td colspan='2'><input type="url" name="video" size="40"></input></td>
 			</tr>
 			<tr>
+				
 				<th>시작일</th>
 				<td><input type="date" name="startDate" size="15"></td>
 				<th>종료일</th>
@@ -92,18 +91,12 @@
 			<tr>
 				<th>제작사</th>
 				<td><input type="text" name="production" size="15"></td>
-				<th>공연장소</th>
-				<td><select id="theater" name="theater">
-						<option value="소극장">소극장</option>
-						<option value="대극장">대극장</option>
-						<option value="콘서트홀1">콘서트홀1</option>
-						<option value="콘서트홀2">콘서트홀2</option>
-						<option value="뮤지컬관">뮤지컬관</option>
-					</select></td>
+				<th>가격</th>
+				<td><input type="text" name="price" size="15"></input></td>
 			</tr>
 			<tr>
 				<th>관람등급</th>
-				<td><select id="view_Class"  name="viewClass">
+				<td><select id="view_Class"  name="viewNo">
 						<option value="V001">전체관람가</option>
 						<option value="V002">12세 이상</option>
 						<option value="V003">15세 이상</option>
@@ -138,7 +131,7 @@
 		<hr width="900" align = "center" color = "black" size ="1">
 		
 		<div id="div2">
-		<h2>상세설명<h2><input type="file" name="detailFile" size="20"></input><br>
+		<h2>상세설명</h2><input type="file" name="detailFile" size="20"></input><br>
 		<input type="file" name="detailFile" size="20"></input><br>
 		<input type="file" name="detailFile" size="20"></input><br>
 		<input type="file" name="detailFile" size="20"></input><br>

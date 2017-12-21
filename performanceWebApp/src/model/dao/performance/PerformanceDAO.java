@@ -157,10 +157,13 @@ public class PerformanceDAO {
 			conn = DBConn.getConnection();
 					
 			StringBuffer sql = new StringBuffer();
-			sql.append("select performance.title,performance.start_date,performance.end_date,theater.t_name,viewclass.view_class,performance.running_time,	");
-			sql.append("performancegenre.genre,performance.price,poster.system_file_name,schedule.s_date,orders.o_time,detailfile.system_file_name	,theater.t_no		");
-			sql.append("from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile												");
-			sql.append("where poster.p_no=performance.P_NO																									");
+			sql.append("select performance.title, to_char(performance.start_date,'YYYY-MM-DD'), 		");
+			sql.append("to_char(performance.end_date,'YYYY-MM-DD'), theater.t_name, viewclass.view_class, performance.running_time,	");
+			sql.append("performancegenre.genre, performance.price ,poster.system_file_name, to_char(schedule.s_date,'YYYY/MM/DD'), 	");
+			sql.append("to_char(orders.o_time,'HH24:MI'),detailfile.system_file_name	,theater.t_no, 												 ");
+			sql.append("performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no		");
+			sql.append("from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile										");
+			sql.append("where poster.p_no=performance.P_NO																										");
 			sql.append("and performance.P_No=schedule.p_no(+)																								");
 			sql.append("and theater.T_NO=schedule.T_NO																										");
 			sql.append("and orders.s_no=schedule.s_no																										");
@@ -190,6 +193,13 @@ public class PerformanceDAO {
 					performance.setGenre(rs.getString(7));
 					performance.setPrice(rs.getInt(8));
 					performance.settNo(rs.getString(13));
+					performance.setContactName(rs.getString(14));
+					performance.setContactNumber(rs.getString(15));
+					performance.setVideo(rs.getString(16));
+					performance.setProduction(rs.getString(17));
+					performance.setNote(rs.getString(18));
+					performance.setpNo(rs.getString(19));
+					
 				}
 				
 				//상세 설명	
@@ -230,8 +240,8 @@ public class PerformanceDAO {
 			}
 			
 		} finally {
-			if(pstmt == null) pstmt.close();
-			if(conn == null) conn.close();
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
 		}
 		
 		return performance;			
@@ -250,12 +260,12 @@ public class PerformanceDAO {
 				conn = DBConn.getConnection();
 				stmt = conn.createStatement();
 				StringBuffer sql = new StringBuffer();
-				sql.append("select p.p_no,p.title,p.start_Date,p.end_Date,g.genre			      					");
+				sql.append("select p.p_no,p.title,to_char(p.start_Date,'YYYY/MM/DD'),to_char(p.end_Date,'YYYY/MM/DD'),g.genre			      					");
 				sql.append("from (select rownum as rn, perf.*															");
 				sql.append("from (select *																					");
 				sql.append("from performance order by p_no desc)perf)p ,performancegenre g 				");
 				sql.append("where p.genre_no=g.GENRE_NO															");
-				sql.append("and p.rn>=1 and p.rn<=8 																	");
+				sql.append("and p.rn>=1 															");
 				rs = stmt.executeQuery(sql.toString());
 				while(rs.next()) {
 					PerformanceVO performance = new PerformanceVO();
@@ -326,12 +336,13 @@ public class PerformanceDAO {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		StringBuffer sql = new StringBuffer();
 		try {
 			conn = DBConn.getConnection();
 			
-			sql.append("insert into performance									");
-			sql.append("values('p'||lpad(performance_seq.nextVal,5,0),?,?,?,?,?,?,?,?,?,?,?,?) ");
+			sql.append("insert into performance	(p_no,title,video,start_date,end_date,production,contact_name,contact_number, running_time,note,price,view_no,genre_no)								");
+			sql.append("values('P'||lpad(performance_seq.nextVal,5,0),?,?,?,?,?,?,?,?,?,?,?,?) ");
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -348,9 +359,25 @@ public class PerformanceDAO {
 			pstmt.setString(11, performance.getViewNo());
 			pstmt.setString(12, performance.getGenreNo());
 			
+			System.out.println("!!!!!!!!!!!!1"+performance.getGenreNo()+"~!!!!"+performance.getViewNo());
 			pstmt.executeUpdate();
+		
+			pstmt.close();
 			
-			return performance.getpNo();
+			
+			sql.delete(0, sql.length());
+			
+			stmt = conn.createStatement();
+				
+			sql.append("select 'P'||lpad(performance_seq.currVal,5,0) from dual ");
+			
+			ResultSet rs=stmt.executeQuery(sql.toString());
+		
+			String pNo="";
+			if(rs.next()) {
+				pNo = rs.getString(1);
+			}
+			return pNo;
 		
 		} finally {
 			if(pstmt != null) pstmt.close();	
@@ -377,7 +404,7 @@ public class PerformanceDAO {
 			
 			pstmt.setString(1, pNo);
 			
-			rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery(sql.toString());
 			
 			while(rs.next()) {
 				if(rs.getString(1) != null) {

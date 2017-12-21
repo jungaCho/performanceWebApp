@@ -32,30 +32,54 @@
 	}
 	
 	</style>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#btn1').click(function() {
+				
+				$.ajax({
+					url: '${pageContext.request.contextPath}/modifyMember.do'
+					,
+					method: 'POST'
+					,
+					dataType: 'json'
+					,
+					data: $('form').serialize()
+					,
+					success: function(data) {
+						if(data.success == true) {
+							alert("회원정보가 수정되었습니다.");
+							location.href="${pageContext.request.contextPath}/retrieveMember.do";
+						}
+					},
+					error: function(jqXHR) {
+						alert("Error : " + jqXHR);
+					}
+				});
+				
+			});
+		}); 
+	</script>
 </head>
 <body>
 	<form>
 		<div id="pannel">
 		<h2>회원정보수정</h2>
 		<button type="button" id="btn1">확인</button>
-		<button type="button" id="btn1">취소</button>
+		<button type="button" id="btn2">취소</button>
 		</div>
 	
 		<div id="div1">
-		아 이 디 : <input type="text" name="pwd" size="30" value="use el"readonly></input><br>
-		비밀번호 : <input type="password" name="pwd" size="30" value="use el"readonly></input><button type="button" id="btn2">변경</button><br>
+		아 이 디 : ${requestScope.member.mId }</input><br>
+		비밀번호 : <input type="password" name="pwd" size="30" value="${requestScope.member.mPw }"readonly></input><button type="button" id="btn2">변경</button><br>
 		
 		</div>
-		
 		<hr width="500" align = "center" color = "black" size ="1">
-		
 		<div id="div2">
-		
-		이  름 : <input type="text" name="name" value="use el" size="30"/><br>
-		생  일 : <input type="text" name="phone" value="use el" size="30"/><br>
-		이메일 :<input type="text" name="email" value="use el" size="30"/><br>
-		주  소 : <input type="text" name="address" value="use el" size="30"/><br>
-		
+		이  름 : <input type="text" name="name" value="${requestScope.member.mName }" size="30"/><br>
+		생  일 : <input type="text" name="phone" value="${requestScope.member.birthday }" size="30"/><br>
+		이메일 :<input type="text" name="email" value="${requestScope.member.email }" size="30"/><br>
+		주  소 : <input type="text" name="address" value="${requestScope.member.address }" size="30"/><br>
 		</div>
 	
 	

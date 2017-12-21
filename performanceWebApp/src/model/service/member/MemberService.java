@@ -28,11 +28,15 @@ public class MemberService {
 		MemberDAO.getInstance().updateMember(member);
 	}
 	
-	public void removeMember(MemberVO member) throws Exception {
-		MemberDAO.getInstance().deleteMember(member);	
+	public void removeMember(String mNo, String wdReason) throws Exception {
+		MemberDAO.getInstance().deleteMember(mNo,wdReason);	
 	}
-	
-	public boolean processLogin(String mId, String mPw) throws Exception {
+/*
+	public String processLogin(String mId, String mPw) throws Exception {
+		return MemberDAO.getInstance().loginMember(mId, mPw);
+	}
+*/
+	public MemberVO processLogin(String mId, String mPw) throws Exception {
 		return MemberDAO.getInstance().loginMember(mId, mPw);
 	}
 	
@@ -44,10 +48,11 @@ public class MemberService {
 		return MemberDAO.getInstance().checkOverLapEmail(email);
 	}
 	
-	public boolean findId(String mName, String email) throws Exception {
+	public MemberVO findId(String mName, String email) throws Exception {
 		return MemberDAO.getInstance().searchID(mName, email);
 	}
 	
+	//비밀번호 발급 전에 회원인지 아닌지 체크해줌. 
 	public boolean findPwd(String mId, String mName, String email) throws Exception {
 		MemberVO member = new MemberVO();
 		if (MemberDAO.getInstance().searchPwd(mId, mName, email) == member.getEmail()) {

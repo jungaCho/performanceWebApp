@@ -11,21 +11,48 @@ public class CommandFactory {
 	private CommandFactory() {
 		//클라이언트 요청을 처리하기 위해, 클라이언트 url과 요청을 처리할 command 클래스 매핑
 
-		map.put("/loginForm.do","controller.member.LoginFormCommand");
-
-		map.put("/loginForm.do","controller.member.loginFormCommand");
-
+		//회원
+		map.put("/loginForm.do", "controller.member.LoginFormCommand");
+		
+		map.put("/login.do","controller.member.LoginCommand");
+		
 		map.put("/SignUp.do","controller.member.SignUpCommand");
-
+		
+		map.put("/checkMember.do","controller.member.CheckMemberCommand");
+		
 		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
+		
+		map.put("/modifyMember.do", "controller.member.ModifyMemberCommand");
+		
+		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
 
-		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
+		map.put("/findId.do", "controller.member.FindIdCommand");
+		
+		map.put("/withdrawalForm.do", "controller.member.WithdrawalFormCommand");
+		
+		map.put("/withdrawal.do", "controller.member.WithdrawalCommand");
+
+		map.put("/findPwd.do", "controller.member.FindPwd");
+
+
+
 		
 		//예매
 		map.put("/member_r_reservationStart.do","controller.reservation.ReservationStartCommand");
+
 		map.put("/member_r_reservationStart2.do","controller.reservation.ReservationSeatCommand");
 		map.put("/member_r_reservationStart3.do","controller.reservation.ListCardCommand");
 		
+
+		
+		//공연
+		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");
+		
+		map.put("/admin_p_detailPerformance.do","controller.performance.DetailPerformanceCommand");	
+		
+		map.put("/removePerformance.do", "controller.performance.RemovePerformanceCommand");
+		
+		map.put("/admin_p_modifyPerformanceForm.do", "controller.performance.ModifyPerformanceFormCommand");
 	}
 	
 	public static CommandFactory getInstance() {

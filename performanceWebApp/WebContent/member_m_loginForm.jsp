@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,21 +47,56 @@ input {
 }
 
 </style>
-
+<%--
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#btn1').click(function() {
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath }/login.do'
+				,
+				method: 'POST'
+				,
+				dataType: 'json'
+				,
+				data: $('form').serialize()
+				,
+				success: function(data) {
+					if(data.success == true) {
+						alert("로그인에 성공하셨습니다!!");
+						location.href="${pageContext.request.contextPath}/member_index.jsp";
+					} else {
+						alert("아이디 혹은 비밀번호를 확인하세요!!");
+						location.href="${pageContext.request.contextPath}/loginForm.do";
+					}
+				}
+				,
+				error: function(jqXHR) {
+					alert("error : " + jqXHR);
+				}
+			});
+			
+		})
+	});
+</script>
+ --%>
+ 
 </head>
 <body>
 
-		<form action="${pageContext.request.contextPath }/loginForm.do" method="post">
+		<form action="${pageContext.request.contextPath }/login.do" method="POST">
 
 		<div id="box">
 
 			아이디 :<br>
-			 <input type="text" name="id" size="20"
-				placeholder="아이디를 입력해주세요" autofocus></input><br> 
+			<input type="text" name="id" size="20" placeholder="아이디를 입력해주세요"></input><br> 
 			비밀번호 : <br>
 			<input type="password" name="pwd" size="20" placeholder="비밀번호를 입력해주세요"></input><br>
 			<br>
-			<a href="#">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
+			<c:url var="findIDform" value="/member_m_findId.jsp" scope="page"/>
+			<c:url var="findPwdform" value="/member_m_findPwd.jsp" scope="page"/>
+			<a href="${pageScope.findIDform }">아이디찾기</a>/<a href="${pageScope.findPwdform }">비밀번호찾기</a><br>
 			<br>
 			<button type="submit" id="btn1">로그인</button>
 		</form>
@@ -70,7 +107,6 @@ input {
 			
 		</div>
 
-	</form>
 
 
 </body>
