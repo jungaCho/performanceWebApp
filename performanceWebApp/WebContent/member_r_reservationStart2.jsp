@@ -114,10 +114,45 @@ label {
 }
 
 .button{text-align:center; margin-top:10px;}
+
+.reservedSeat{background-color:blue;}
+
+.seatPadding{padding: 10px; text-align:center;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
 
+   	
+	
+	$(document).ready(function(){
+		
+		var  price = "${requestScope.performance.price}";
+		var discount = "${sessionScope.member.rank.discount}";		
+		var seatArray = new Array();		
+	
+			
+		$('label').on('click', function() {
+			var seatNo = $(this).text();
+			var index = seatArray.indexOf(seatNo);
+	
+			if(index == -1) {
+				
+				$(this).css('backgroundColor','blue');
+				seatArray.push(seatNo);
+		
+			} else {
+				$(this).css('backgroundColor','gray');
+				seatArray.splice(seatArray.indexOf(seatNo), 1);
+			}
+			
+								
+			$('#selectTd').text(seatArray.join());
+			$('#totalPrice').text(seatArray.length * price);
+			$('#disCount').text((seatArray.length * 0.05).toFixed(1) + "[Silver]");
+			$('#resultPrice').text(((seatArray.length * 0.95).toFixed(1) * (seatArray.length * price)).toFixed(0));
+			
+		});
+	});
 </script>
 
 </head>
@@ -128,36 +163,45 @@ label {
 		<div class="reservation_padding">
 			<div class="reservation_content01">
 				<dl>
-					<dt style="padding: 10px; text-align:center;">
-						<c:forEach var="seat" items="${requestScope.seats}" varStatus="loop">
-							<c:if test="${loop.index <= fn:length(requestScope.seats)}">
-								<label id="selectLabel">${pageScope.seat.seatNumber}</label>
-							</c:if>
-						</c:forEach>
+					<dt class="seatPadding">
+						<c:forEach var="seat" items="${requestScope.seats}" varStatus="loop">							
+								<c:forEach var="reservedSeat" items="${requestScope.reservedSeats}">	
+								   
+									<c:if test="${pageScope.seat.seatNumber == pageScope.reservedSeat.seatNumber}">
+											<label class="reservedSeat">${pageScope.seat.seatNumber}</label>
+									</c:if>
+									<c:if test="${pageScope.seat.seatNumber != pageScope.reservedSeat.seatNumber}">
+											<label>${pageScope.seat.seatNumber}</label>
+									</c:if>									
+								</c:forEach>																					
+						</c:forEach>						
 					</dt>
 					<dd class="reservation_text">※최대 10자리까지 예매 가능합니다.</dd>
 				</dl>
 				<table>
 					<tr>
 						<td>선택한 좌석번호</td>
-						<td>K4,K5</td>
+						<td id="selectTd"></td>
 						<td>총 금 액</td>
-						<td>60,000원</td>
+						<td id="totalPrice"></td>
 					</tr>
 					<tr>
 						<td>할인율</td>
-						<td>5% [실버등급]</td>
+						<td id="disCount"></td>
 						<td>최종 결제금액</td>
-						<td>57,000원</td>
+						<td id="resultPrice"></td>
 					</tr>
 				</table>
 				<div class="button">
 					<c:url var="url" value="/member_r_reservationStart.do">
 						<c:param name="pNo" value="${param.pNo }" />
 					</c:url>
-					<a href="${pageScope.url }" id="closeBtn">뒤로가기</a> <a
-						href="${pageContext.request.contextPath}/member_r_reservationStart3.jsp"
-						id="selectBtn">결제하기</a>
+					<a href="${pageScope.url }" id="closeBtn">뒤로가기</a> 
+					<c:url var="url" value="/member_r_reservationStart3.do">
+						<c:param name="tNo" value="${requestScope.performance.tNo}" />
+						<c:param name="pNo" value="${param.pNo }" />
+					</c:url> 
+					<a href="${pageScope.url}" id="selectBtn">결제하기</a>
 				</div>
 			</div>
 		</div>

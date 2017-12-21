@@ -221,18 +221,16 @@ public class ReservationDAO {
 
 		try {
 			StringBuffer sql = new StringBuffer();
-			sql.append(
-					"insert into reservation(r_no , r_date , card_number , total_price , approve_number , m_no , o_no , cardCo_no)                           ");
-			sql.append(
-					"values('R'||to_char(sysdate,'YYYY/MM/DD') || lpad(reservation_seq.nextval,6,'0'), to_char(sysdate,'YYYY/MM/DD')),                   ");
-			sql.append(
-					"? , ? , lpad(round(dbms_random.value(0,999999),0),6,'0'), ? , ?, ?                                                                                       ");
+			sql.append("insert into reservation(r_no , r_date , card_number , total_price , approve_number , m_no , o_no , cardCo_no)                           ");
+			sql.append("values('R'||to_char(sysdate,'YYYYMMDD') || lpad(reservation_seq.nextval,6,'0'), to_char(sysdate,'YYYY/MM/DD'),                    ");
+			sql.append("? , ? , lpad(round(dbms_random.value(0,999999),0),6,'0'), ? , ?, ?)                                                                                       ");
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, reservation.getCardNumber());
-			pstmt.setInt(2, reservation.getTotalPrive());
+			pstmt.setInt(2, reservation.getTotalPrice());
 			pstmt.setString(3, reservation.getmNo());
 			pstmt.setString(4, reservation.getoNo());
+			pstmt.setInt(5,reservation.getCardCoNo());
 
 			pstmt.executeUpdate();
 			pstmt.close();
@@ -240,8 +238,7 @@ public class ReservationDAO {
 			stmt = conn.createStatement();
 
 			sql.delete(0, sql.length());
-			sql.append(
-					"select ('R'||to_char(sysdate,'YYYY/MM/DD') || lpad(reservation_seq.currval,6,'0') from dual                                                      ");
+			sql.append("select ('R'||to_char(sysdate,'YYYY/MM/DD') || lpad(reservation_seq.currval,6,'0') from dual                                                      ");
 
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			if (rs.next()) {
@@ -249,8 +246,7 @@ public class ReservationDAO {
 			}
 
 		} finally {
-			if (pstmt != null)
-				pstmt.close();
+			if (stmt != null) stmt.close();
 		}
 
 		return rNo;
@@ -411,10 +407,10 @@ public class ReservationDAO {
 			conn = DBConn.getConnection();
 			
 			StringBuffer sql = new StringBuffer();
-			sql.append("select rs.seat_no							                                                             ");
-			sql.append("from reservation_seat  rs , reservation r , orders o                                          ");
+			sql.append("select s.seat_no, s.seat_number 	 					                                                             ");
+			sql.append("from reserved_seat  rs , reservation r , seat s  			                                    ");
 			sql.append("where rs.r_no = r.r_no                                                                               ");
-			sql.append("and r.o_no = o.o_no                                                                                  ");
+			sql.append("and rs.seat_no = s.seat_no                                                                               ");
 			sql.append("and r.o_no = ?                                                                                          ");
 
 			pstmt = conn.prepareStatement(sql.toString());
@@ -424,16 +420,19 @@ public class ReservationDAO {
 
 			while (rs.next()) {
 				ReservedSeatVO rSeat = new ReservedSeatVO();
-				rSeat.setrNo(rs.getString(1));
-				rSeat.setSeatNo(rs.getString(2));
+				rSeat.setSeatNo(rs.getString(1));
+				rSeat.setSeatNumber(rs.getString(2));
 				rSeats.add(rSeat);
 			}
 
 		} finally {
+			if (rs != null)
+				rs.close();
 			if (pstmt != null)
 				pstmt.close();
 			if (conn != null)
 				conn.close();
+		
 		}
 
 		return rSeats;

@@ -13,6 +13,7 @@ public class ReservationVO {
 	String mNo;
 	String oNo;
 	
+	
 	public ReservationVO() {
 		
 	}
@@ -73,15 +74,16 @@ public class ReservationVO {
 	}
 
 	public void setApproveNumber(String approveNumber) {
+		
 		this.approveNumber = approveNumber;
 	}
 
-	public int getTotalPrive() {
+	public int getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrive(int totalPrive) {
-		this.totalPrice = totalPrive;
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public String getCancelDate() {
