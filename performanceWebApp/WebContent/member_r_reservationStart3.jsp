@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -59,9 +61,11 @@ a:hover {
 }
 
 .ulText{font-size:20px; font-weight:bold;}
-input {width:60px;}
+input {width:300px;}
 
 .btnLeft{margin-left:35px;}
+
+#cardCompany{height:25px;}
 </style>
 
 </head>
@@ -72,22 +76,25 @@ input {width:60px;}
 		<div class="reservation_padding">
 			<ul>
 				<li class="ulText">▣ 결제정보 입력</li>
-				<li><span>결제금액 : </span>&nbsp;&nbsp;<span>57,000원</span></li>
+				<li><span>결제금액 : </span>&nbsp;&nbsp;<span>${requestScope.resultPrice}</span></li>
 				<li><span>카드번호 : </span>&nbsp;&nbsp;<input type="text"
-					name="cardNo">&nbsp;&nbsp;<input type="text" name="cardNo">&nbsp;&nbsp;<input
-					type="text" name="cardNo">&nbsp;&nbsp;<input type="text"
-					name="cardNo"></li>
+					name="cardNumber"></li>
 				<li><span>카드사 : </span>&nbsp;&nbsp;
-					<select name="cardCompany">
+					<select name="cardCompany" id="cardCompany">
 						<option value="1">국민</option>
 						<option value="2">BC</option>
 						<option value="3">우리</option>
 						<option value="4">농협</option>
+						<option value="5">농협</option>
 					</select>
 				</li>
 			</ul>
 			<div class="btnLeft">
-			<a href="${pageContext.request.contextPath}/member_r_reservationStart2.jsp" id="closeBtn">뒤로가기</a> 
+			<c:url var="url" value="/member_r_reservationStart2.do">
+					<c:param name="tNo" value="${param.tNo}" />
+					<c:param name="pNo" value="${param.pNo }" />
+			</c:url> 
+			<a href="${pageScope.url }" id="closeBtn">뒤로가기</a> 
 			<a href="${pageContext.request.contextPath}/member_r_reservationStart4.jsp" id="selectBtn">결제하기</a>
 			</div>
 		</div>
