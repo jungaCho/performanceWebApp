@@ -45,7 +45,7 @@ public class ScheduleDAO {
 	//공연 일정 정보를 삭제한다.
 	public void deleteSchedule(Connection conn,String pNo) throws Exception{
 		PreparedStatement pstmt=null;
-		Statement stmt=null;
+	
 		try {
 			StringBuffer sql=new StringBuffer();
 			sql.append("delete from schedule    ");
@@ -68,6 +68,7 @@ public class ScheduleDAO {
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			try {
+				
 				StringBuffer sql=new StringBuffer();
 				
 				sql.append("select s_no    ");
@@ -77,7 +78,7 @@ public class ScheduleDAO {
 				pstmt=conn.prepareStatement(sql.toString());
 				pstmt.setString(1,pNo);
 				
-				rs=pstmt.executeQuery(sql.toString());
+				rs=pstmt.executeQuery();
 				String[] sNos=null;
 				int i=0;
 				while(rs.next()) {
