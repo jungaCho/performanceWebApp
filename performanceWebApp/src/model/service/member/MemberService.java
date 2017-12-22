@@ -63,17 +63,5 @@ public class MemberService {
 			return false;
 		}
 	}
-	
-	public List<MemberVO> retrieveMemberList(String sortkey, int startRow, int endRow) throws Exception {
-		return MemberDAO.getInstance().selectMemberList(sortkey, startRow, endRow);
-	}
-	
-	public MemberVO retrieveMemberDetail(String mNo) throws Exception {
-		return MemberDAO.getInstance().selectMemberDetail(mNo);
-	}
-	
-	public List<MemberVO> findMember(String sortkey, String keyfield, 
-										String keyword, int startRow, int endRow) throws Exception {
-		return MemberDAO.getInstance().searchByMember(sortkey, keyfield, keyword, startRow, endRow);
-	}
+
 }

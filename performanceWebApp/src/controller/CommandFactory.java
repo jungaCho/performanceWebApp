@@ -33,6 +33,8 @@ public class CommandFactory {
 		map.put("/withdrawal.do", "controller.member.WithdrawalCommand");
 
 		map.put("/findPwd.do", "controller.member.FindPwd");
+	
+		map.put("/adminLogin.do", "controller.member.AdminLoginCommand");
 
 
 
