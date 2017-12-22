@@ -201,7 +201,7 @@ public class PerformanceVO {
 		this.posters = posters;
 	}
 
-	public List<DetailFileVO> getDetaileFiles() {
+	public List<DetailFileVO> getDetailFiles() {
 		return detailFiles;
 	}
 

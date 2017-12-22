@@ -79,7 +79,7 @@ public class PerformanceService {
 			posterDao.insertPoster(conn, posters);
 			
 
-			ArrayList<DetailFileVO> detailFiles = (ArrayList<DetailFileVO>) performance.getDetaileFiles();
+			ArrayList<DetailFileVO> detailFiles = (ArrayList<DetailFileVO>) performance.getDetailFiles();
 			for(DetailFileVO detialFile : detailFiles) {
 				detialFile.setpNo(pNo);				
 			}
@@ -183,7 +183,7 @@ public class PerformanceService {
 
 			DetailFileDAO detailFileDao = DetailFileDAO.getInstance();
 			detailFileDao.deleteDetailFileList(conn, performance.getpNo());
-			detailFileDao.insertDetailFile(conn, (ArrayList<DetailFileVO>) performance.getDetaileFiles());
+			detailFileDao.insertDetailFile(conn, (ArrayList<DetailFileVO>) performance.getDetailFiles());
 
 			conn.commit();
 		} catch (Exception e) {
@@ -223,7 +223,7 @@ public class PerformanceService {
 		}
 	}
 	
-	//특정 게시글의 상세정보를 모두 조회하다.
+	//특정 공연의 상세정보를 모두 조회하다.
 		public List<DetailFileVO> retrieveDetailFile(String pNo) throws Exception{
 				
 			DetailFileDAO detailFileDao = DetailFileDAO.getInstance();
@@ -232,7 +232,7 @@ public class PerformanceService {
 			return detailFileVO;
 		}
 		
-		//특정 게시글의 포스터를 모두 조회하다.
+		//특정 공연의 포스터를 모두 조회하다.
 		public List<PosterVO> retrievePoster(String pNo) throws Exception{
 					
 			PosterDAO posterDao = PosterDAO.getInstance();

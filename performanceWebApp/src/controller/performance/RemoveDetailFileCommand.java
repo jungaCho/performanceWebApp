@@ -1,6 +1,7 @@
 package controller.performance;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,36 +9,41 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
-import domain.performance.PerformanceVO;
+import domain.performance.DetailFileVO;
 import model.service.performance.PerformanceService;
 
-public class ModifyPerformanceFormCommand implements Command{
+public class RemoveDetailFileCommand implements Command{
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		//공연 번호 가져오기
-		String pNo = req.getParameter("pNo");
+		String fileNo=req.getParameter("fileNo");
+		String pNo=req.getParameter("pNo");
 		
-		ActionForward forward = new ActionForward();
+		ActionForward forward=new ActionForward();
 		try {
 			PerformanceService service = PerformanceService.getInstance();
-			PerformanceVO performance = service.retirevePerformance(pNo);
+			List<DetailFileVO>files=service.retrieveDetailFile(pNo);
 			
-			req.setAttribute("performance", performance);
-			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_modifyPerformanceForm");
+			for(int i=0;i<files.size();i++) {
+				DetailFileVO file= files.get(i);
+				if(file.getFileNo().equals(fileNo)) {
+					files.remove(i);
+				}
+			}
+			
+			req.setAttribute("DetailFiles", files); 
+			forward.setPath("/admin_p_modifyDetailFileView.jsp");
 			forward.setRedirect(false);
-			
 			return forward;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
-			forward.setRedirect(false);			
+			forward.setRedirect(false);
 			return forward;
 		}
 	}
+	
 
-	
-	
 }
