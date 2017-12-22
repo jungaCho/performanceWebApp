@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
@@ -30,6 +31,10 @@ public class AdminLoginCommand implements Command {
 			if (isExist) {
 				forward.setPath("/admin_index.jsp");
 				forward.setRedirect(false);
+				
+				HttpSession session = req.getSession();
+				session.setAttribute("aId", id);
+	
 				
 			} else {
 

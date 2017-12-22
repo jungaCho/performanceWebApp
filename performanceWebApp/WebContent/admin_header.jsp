@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:url var="url1" value="/admin_m_layout.jsp" scope="page">
+<c:url var="url1" value="/processMemberList.do" scope="page">
 	<c:param name="article" value="admin_welcome" />
 </c:url>
 
