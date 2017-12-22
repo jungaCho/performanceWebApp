@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.util.*" %>
-<%@ page import="domain.performance.PerformanceVO" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.util.*"%>
+<%@ page import="domain.performance.PerformanceVO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -18,9 +18,10 @@
 	height: 750px;
 }
  */
- body{
- 	color: gray;
- }
+body {
+	color: gray;
+}
+
 #btn1 {
 	width: 70px;
 	height: 30px;
@@ -57,39 +58,71 @@
 	margin-right: 235px;
 }
 
-#div3{
-		float:left;
-		text-align:center;
-	}
-a{
-	color:gray;
+#div3 {
+	float: left;
+	text-align: center;
+}
+
+a {
+	color: gray;
 }
 </style>
+<script>
+	$(document).ready(function() {
+		$("#btn3").on('click', function() {
+			$.ajax({
+				url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
+				method : 'GET',
+				dataType : 'json',
+				data : $('#search').serialize(),
+				success : function(data) {
+					$("#table").find('tr:not(:first)').remove();
+					var htmlStr = "";
+					for (var i = 0; i < data.length; i++) {
+						htmlStr += "<tr>";
+						htmlStr += "<td><input type='checkbox' name='check'></td>";
+						htmlStr += "<td>" + data[i].pNo + "</td>";
+						htmlStr += "<td>" + data[i].title + "</td>";
+						htmlStr += "<td>" + data[i].startDate + "</td>";
+						htmlStr += "<td>" + data[i].endDate + "</td>";
+						htmlStr += "<td>" + data[i].genre + "</td>";
+						htmlStr += "</tr>";
+
+						$(htmlStr).appendTo("#table");
+						htmlStr = "";
+					}
+				},
+				error : function(jqXHR) {
+					alert('Error : ' + jqXHR.status);
+				}
+			});
+		});
+	});
+</script>
 
 </head>
 <body>
-	
 
-		<div id="pannel">
-			<h1>공연 조회</h1>
-			<button type="button" id="btn1">선택삭제</button>
-			<button type="button" id="btn2">선택해제</button>
-		</div>
-		
-		
-		<form id="search">
-			<select id="keyfield" name="keyfield">
-						<option value="title">제목</option>
-						<option value="date">월</option>
-						<option value="genre">장르</option>
-					</select>
-			<input id="keyword" type="search" placeholder="검색어를 입력하세요">
-			<button type="search" id="btn3">검색</button>
-		</form>
-		
-		<br>
-		<br>
-		<div id="div3">
+
+	<div id="pannel">
+		<h1>공연 조회</h1>
+		<button type="button" id="btn1">선택삭제</button>
+		<button type="button" id="btn2">선택해제</button>
+	</div>
+
+
+	<form id="search">
+		<select id="keyfield" name="keyfield">
+			<option value="title">제목</option>
+			<option value="date">월</option>
+			<option value="genre">장르</option>
+		</select> <input id="keyword" type="search" placeholder="검색어를 입력하세요">
+		<button type="search" id="btn3">검색</button>
+	</form>
+
+	<br>
+	<br>
+	<div id="div3">
 		<table border="1" width=670>
 			<tr>
 				<th>선택</th>
@@ -99,22 +132,23 @@ a{
 				<th>종료일</th>
 				<th>장르</th>
 			</tr>
-		<c:forEach var="performance" items="${requestScope.performances }" varStatus="loop">
-			<c:url var="url" value="/admin_p_detailPerformance.do" scope="page">
-				<c:param name="pNo" value="${pageScope.performance.pNo }" />
-			</c:url>
-			<tr>
-				<td><input type="checkbox" name="check"></td>
-				<td>${pageScope.performance.pNo }</td>
-				<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
-				<td>${pageScope.performance.startDate }</td>
-				<td>${pageScope.performance.endDate }</td>
-				<td>${pageScope.performance.genre }</td>
-			</tr>
-		</c:forEach>
+			<c:forEach var="performance" items="${requestScope.performances }"
+				varStatus="loop">
+				<c:url var="url" value="/admin_p_detailPerformance.do" scope="page">
+					<c:param name="pNo" value="${pageScope.performance.pNo }" />
+				</c:url>
+				<tr>
+					<td><input type="checkbox" name="check"></td>
+					<td>${pageScope.performance.pNo }</td>
+					<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
+					<td>${pageScope.performance.startDate }</td>
+					<td>${pageScope.performance.endDate }</td>
+					<td>${pageScope.performance.genre }</td>
+				</tr>
+			</c:forEach>
 		</table>
-		</div>
-		<br>
-	
+	</div>
+	<br>
+
 </body>
 </html>
