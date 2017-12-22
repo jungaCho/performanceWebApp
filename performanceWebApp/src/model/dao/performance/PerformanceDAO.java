@@ -174,7 +174,7 @@ public class PerformanceDAO {
 			sql.append("to_char(performance.end_date,'YYYY-MM-DD'), theater.t_name, viewclass.view_class, performance.running_time,	");
 			sql.append("performancegenre.genre, performance.price, to_char(schedule.s_date,'YYYY/MM/DD'), 	");
 			sql.append("to_char(orders.o_time,'HH24:MI') ,theater.t_no, 												 ");
-			sql.append("performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no		");
+			sql.append("performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no, schedule.s_no		");
 			sql.append("from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile										");
 			sql.append("where poster.p_no=performance.P_NO																										");
 			sql.append("and performance.P_No=schedule.p_no(+)																								");
@@ -217,6 +217,7 @@ public class PerformanceDAO {
 					performance.setNote(rs.getString(16));
 					performance.setpNo(rs.getString(17));
 					
+					
 				}			
 							
 				
@@ -224,12 +225,13 @@ public class PerformanceDAO {
 				if(rs.getString(10) != null ) {
 					if(schedule==null || !sDate.equals(rs.getString(9))) {					
 						schedule = new ScheduleVO();
-						schedule.setsDate(rs.getString(9));					
+						schedule.setsDate(rs.getString(9));
+						schedule.setsNo(rs.getString(18)); 
 						performance.addSchedule(schedule);
 						sDate = rs.getString(9);
 						System.out.println(rs.getString(9));
 					}
-					
+					 
 					//È¸Â÷
 					if(!oTime.equals(rs.getString(10))) {	
 						OrderVO order = new OrderVO();
@@ -438,8 +440,9 @@ public class PerformanceDAO {
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, keyword);
-			pstmt.setString(2, keyword);
-
+			if(keyfield.equals("date")) {
+				pstmt.setString(2, keyword);
+			}
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
