@@ -109,103 +109,107 @@ a#modify {
 
 </head>
 <body>
+	<div id="pannel">
+		<h1>공연상세조회</h1>
+	</div>
+	<div>
+		<c:forEach var="poster" items="${requestScope.performance.posters}">
+			<img
+				src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
+				alt="사진">
+		</c:forEach>
+	</div>
+	<div id="div2">
+		<table id="schedule" border="1">
+			<tr>
+				<th>날짜</th>
+				<th>공연시간</th>
+			</tr>
+			<c:forEach var="schedule"
+				items="${requestScope.performance.schedules }" varStatus="loop">
+				<c:forEach var="order" items="${pageScope.schedule.orders}"
+					varStatus="loop">
 
-	<form>
-
-
-		<div id="pannel">
-			<h1>공연상세조회</h1>
-		</div>
-		<div>
-			<c:forEach var="poster" items="${requestScope.performance.posters}">
-				<img
-					src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
-					alt="사진">
-			</c:forEach>
-		</div>
-		<div id="div2">
-			<table id="schedule" border="1">
-				<tr>
-					<th>날짜</th>
-					<th>공연시간</th>
-				</tr>
-				<c:forEach var="schedule"
-					items="${requestScope.performance.schedules }" varStatus="loop">
-					<c:forEach var="order" items="${pageScope.schedule.orders}"
-						varStatus="loop">
-
-						<tr>
-							<td>${pageScope.schedule.sDate }</td>
-							<td>${pageScope.order.oTime }</td>
-						</tr>
-					</c:forEach>
+					<tr>
+						<td>${pageScope.schedule.sDate }</td>
+						<td>${pageScope.order.oTime }</td>
+					</tr>
 				</c:forEach>
-			</table>
-		</div>
+			</c:forEach>
+		</table>
+	</div>
 
 
-		<div id="div1">
-			공연번호 : ${requestScope.performance.pNo }<br>
-			<br> 공연제목 : ${requestScope.performance.title }
-		</div>
-		<div id="div3">
-			<table border="1" width=670>
-				<tr>
-					<th>동영상</th>
-					<td>${requestScope.performance.video }</td>
-					<th>가격</th>
-					<td>${requestScope.performance.price }</td>
-				</tr>
-				<tr>
-					<th>시작일</th>
-					<td>${requestScope.performance.startDate }</td>
-					<th>종료일</th>
-					<td>${requestScope.performance.endDate }</td>
-				</tr>
-				<tr>
-					<th>제작사</th>
-					<td>${requestScope.performance.production }</td>
-					<th>공연장소</th>
-					<td>${requestScope.performance.tName }</td>
-				</tr>
-				<tr>
-					<th>관람등급</th>
-					<td>${requestScope.performance.viewClass }</td>
-					<th>장르</th>
-					<td>${requestScope.performance.genre }</td>
-				</tr>
-				<tr>
-					<th>담당자</th>
-					<td>${requestScope.performance.contactName }</td>
-					<th>담당자 전화번호</th>
-					<td>${requestScope.performance.contactNumber }</td>
-				</tr>
-				<tr>
-					<th>런닝타임</th>
-					<td>${requestScope.performance.runningTime }</td>
-					<th>비고</th>
-					<td>${requestScope.performance.note }</td>
-				</tr>
-			</table>
-		</div>
-		<br>
+	<div id="div1">
+		공연번호 : ${requestScope.performance.pNo }<br> <br> 공연제목 :
+		${requestScope.performance.title }
+	</div>
+
+	<div id="div3">
+		<table border="1" width=670>
+			<tr>
+				<th>동영상</th>
+				<td>${requestScope.performance.video }</td>
+				<th>가격</th>
+				<td>${requestScope.performance.price }</td>
+			</tr>
+			<tr>
+				<th>시작일</th>
+				<td>${requestScope.performance.startDate }</td>
+				<th>종료일</th>
+				<td>${requestScope.performance.endDate }</td>
+			</tr>
+			<tr>
+				<th>제작사</th>
+				<td>${requestScope.performance.production }</td>
+				<th>공연장소</th>
+				<td>${requestScope.performance.tName }</td>
+			</tr>
+			<tr>
+				<th>관람등급</th>
+				<td>${requestScope.performance.viewClass }</td>
+				<th>장르</th>
+				<td>${requestScope.performance.genre }</td>
+			</tr>
+			<tr>
+				<th>담당자</th>
+				<td>${requestScope.performance.contactName }</td>
+				<th>담당자 전화번호</th>
+				<td>${requestScope.performance.contactNumber }</td>
+			</tr>
+			<tr>
+				<th>런닝타임</th>
+				<td>${requestScope.performance.runningTime }</td>
+				<th>비고</th>
+				<td>${requestScope.performance.note }</td>
+			</tr>
+		</table>
+		<br> <br>
+	</div>
+	<div id="div4">
+ 		<table border="1">
+ 			
+ 					<td>상세설명${pageScope.loop.count }</td>
+					<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
+ 				</tr>	
+ 		</table> 		
+	</div>
+
+	<br>
+
+	<div>
+		<c:url var="removeURL" value="/admin_p_removePerformance.do"
+			scope="page">
+			<c:param name="pNo" value="${requestScope.performance.pNo}" />
+		</c:url>
+		<a id="remove" href="${pageScope.removeURL}">삭제</a>&nbsp;
 
 
-		<div>
-
-
-			<c:url var="removeURL" value="/admin_p_removePerformance.do"
-				scope="page">
-				<c:param name="pNo" value="${requestScope.performance.pNo}" />
-			</c:url>
-			<a id="remove" href="${pageScope.removeURL}">삭제</a>&nbsp;
-
-
-			<c:url var="modifyURL" value="/admin_p_modifyPerformanceForm.do"
-				scope="page">
-				<c:param name="pNo" value="${requestScope.performance.pNo}" />
-			</c:url>
-			<a id="modify" href="${pageScope.modifyURL}">수정</a>&nbsp;
-		</div>
+		<c:url var="modifyURL" value="/admin_p_modifyPerformanceForm.do"
+			scope="page">
+			<c:param name="pNo" value="${requestScope.performance.pNo}" />
+		</c:url>
+		<a id="modify" href="${pageScope.modifyURL}">수정</a>&nbsp;
+	</div>
 </body>
 </html>

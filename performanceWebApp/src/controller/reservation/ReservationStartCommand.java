@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
+import domain.performance.OrderVO;
 import domain.performance.PerformanceVO;
 import domain.performance.ScheduleVO;
 import model.service.performance.PerformanceService;
@@ -28,7 +29,11 @@ public class ReservationStartCommand implements Command{
 			PerformanceService performanceService = PerformanceService.getInstance();
 			PerformanceVO performance = performanceService.retirevePerformance(pNo);
 			
-			System.out.println("performance : " + performance);
+			for(ScheduleVO temp : performance.getSchedules()) {
+				System.out.println(temp.getsNo());
+				
+			}
+			
 			
 			req.setAttribute("performance", performance);
 	

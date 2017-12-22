@@ -45,7 +45,9 @@ public class PerformanceService {
 	public PerformanceVO retirevePerformance(String pNo) throws Exception {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
 		PerformanceVO performance = performanceDao.selectPerformance(pNo);
-
+		PerformanceVO files=performanceDao.selectFiles(pNo);
+		performance.setDetaileFiles(files.getDetailFiles());
+		performance.setPosters(files.getPosters()); 
 		return performance;
 	}
 

@@ -24,16 +24,15 @@ public class FindPerformanceCommand implements Command {
 		String keyfield = req.getParameter("keyfield");
 		String keyword = req.getParameter("keyword");
 		System.out.println("~~~~~~~"+keyfield+"~~~"+keyword);
+		
 		ActionForward forward = new ActionForward();
 		try {
 			PerformanceService service = PerformanceService.getInstance();
 			ArrayList<PerformanceVO> performances = service.findPerformance(keyfield, keyword, startRow, endRow);
 
 			req.setAttribute("performances", performances);
-			System.out.println("~~~~"+performances.get(0).getTitle());
-			System.out.println("~~~~"+performances.get(1).getTitle());
 			
-			forward.setPath("/admin_p_selectPerforamcneListView.jsp");
+			forward.setPath("/admin_p_selectPerformanceListView.jsp");
 			forward.setRedirect(false);
 			return forward;
 		} catch (Exception e) {

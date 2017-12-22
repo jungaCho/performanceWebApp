@@ -104,6 +104,7 @@ a:hover {
 <script type="text/javascript">
 	
 	$(document).ready(function() {
+		 
 		
 		$('#closeBtn').click(function() {
 			close();
@@ -115,27 +116,59 @@ a:hover {
 			
 			
 			/*
+=======
+		$('select').on('change',  function(){
+			    
+>>>>>>> refs/remotes/origin/master
 				 $.ajax({
+<<<<<<< HEAD
 					url : "/orders.jsp"
+=======
+					url : "${pageContext.request.contextPath}/order.do?pNo=${param.pNo}"
+>>>>>>> refs/remotes/origin/master
 					,
-					method : "GET"
+					method : "GET" 
 					,
 					dataType : "json"
 					,
+<<<<<<< HEAD
 					data : $(this).val()
+=======
+					
+					data : $(this).find('option:selected').val()
+>>>>>>> refs/remotes/origin/master
 					,
 					success : function(data){
+<<<<<<< HEAD
 						console.log("옵션값 : " + $(this).val());
 						$('#orderTime').append("<option>" + data.oTime + "</option>");	
+=======
+						$('#orderTime').empty();
+						
+						var htmlStr = "";
+						
+						for(var i = 0 ; i < data.length; i++){
+							
+							htmlStr  += "<option>" + data[i].oTime + "</option>";	
+							
+							$('#sTime').append(htmlStr);
+							htmlStr = "";
+
+						};
+								
+>>>>>>> refs/remotes/origin/master
 					}
 					,
 					error : function(jqXHR){
 						alert('Error : ' + jqXHR.status);
 					}
+<<<<<<< HEAD
 				});
 		*/		
-				 
+
 		});
+		   		 
+		});   		 
 	});
 </script>
 </head>
@@ -183,10 +216,16 @@ a:hover {
 					</tr>
 
 					<tr>
-						<td>공연회차</td>
-						<td><select name="performanceTime">
-								<option id="orderTime">회차</option>	
-						</select></td>
+						<td>공연시간</td>
+						<td>
+							<select name="performanceTime" id="sTime">
+								<c:forEach var="schedule" items="${requestScope.performance.schedules }" varStatus="loop">
+									<c:forEach var="orders" items="${pageScope.schedule.orders}" > 	
+										<option value="0">${pageScope.orders.oTime }</option>	
+									</c:forEach>
+								</c:forEach>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td><a href="#" id="closeBtn">닫기</a></td>

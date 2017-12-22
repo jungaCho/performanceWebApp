@@ -76,6 +76,7 @@ a {
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
       $(document).ready(function() {
+    	  
             $("#btn3").on('click', function() {
                   $.ajax({
                         url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
@@ -83,7 +84,8 @@ a {
                         dataType : 'json',
                         data : $('#search').serialize(),
                         success : function(data) {
-                              $("#table").find('tr:not(:first)').remove();
+                        	 
+                        	  $("#table").find('tr:not(:first)').remove();
                               var htmlStr = "";
                               for (var i = 0; i < data.length; i++) {
                                     htmlStr += "<tr>";
@@ -97,6 +99,7 @@ a {
                                     $(htmlStr).appendTo("#table");
                                     htmlStr = "";
                               }
+                             
                         },
                         error : function(jqXHR) {
                               alert('Error : ' + jqXHR.status);
@@ -157,7 +160,9 @@ a {
 	<br>
 	<br>
 	&nbsp;
+	
 	<%-- 페이지 네비게이션 처리 --%>
+	
 	<form id="page">
         <c:if test="${requestScope.paging.prevPage >= 1 }">
                 <c:url var="prevUrl" value="/admin_p_selectPerformanceList.do" scope="page">
@@ -190,6 +195,7 @@ a {
                 [다음]&nbsp;&nbsp;
         </c:if>
 	</form>
+
 
 </body>
 </html>
