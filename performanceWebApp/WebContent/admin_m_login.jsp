@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <title>로그인화면</title>
 <style>
+
 #box {
 	
 	width: 300px;
@@ -31,21 +32,41 @@ input {
 
 
 </style>
+
+<!-- <script src = "js/jquery-3.2.1.min.js"></script>
+<script>
+
+
+
+	$(document).ready(function(){
+		
+		$('#btn1').click(function(){
+			
+			location.href= "${pageContext.request.contextPath}/AdminLoginCommand.do?";
+		
+		});
+		
+	});
+	
+	</script>
+	  
+  -->
 </head>
 <body>
 
-	<form>
+	<form action = "${pageContext.request.contextPath }/adminLogin.do" method="post">
 
 		<div id="box">
 
 			아이디 : <input type="text" name="id" sizes="20"
-				placeholder="관리자사번입력" autofocus></input><br> 비밀번호 : <input
+				placeholder="관리자사번입력" autofocus></input><br> 
+				비밀번호 : <input
 				type="password" name="pwd" sizes="20" placeholder="비밀번호입력"></input><br>
 
 			<a href="#">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
 			<br>
 
-			<button type="button" id="btn1">관리자로그인</button>
+			<button type="submit" id="btn1">관리자로그인</button>
 		</div>
 
 	</form>
