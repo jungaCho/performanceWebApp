@@ -105,7 +105,7 @@
 		<input type="date" id="date" name="birthday">
 		<br> 
 		주소<br>
-		<input type="text" name="address" size="40" placeholder="주소를 입력해주세요"/>
+		<input type="text" id="address" name="address" size="40" placeholder="주소를 입력해주세요"/>
 		<br>
 		<button id="btn1" type="button">취소</button>&nbsp;
 		<button id="btn2" type="button">회원가입</button>
