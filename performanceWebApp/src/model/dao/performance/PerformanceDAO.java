@@ -311,7 +311,7 @@ public class PerformanceDAO {
 			} else if (keyfield.equals("date")) {
 				sql.append("and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||? 				");
 				sql.append("and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?					");
-				sql.append("and perf.rn>=? and perf.rn<=?												");
+		//		sql.append("and perf.rn>=? and perf.rn<=?												");
 				sql.append("order by 1 asc																										");
 			//장르 선택시
 			} else if (keyfield.equals("genre")) {
