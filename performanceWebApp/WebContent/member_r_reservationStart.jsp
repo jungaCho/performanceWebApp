@@ -111,38 +111,19 @@ a:hover {
 		});
 		
 		
-		$('#sDate').on('change','option',function(){
-			alert("call");
-			
-			
-			/*
-=======
 		$('select').on('change',  function(){
 			    
->>>>>>> refs/remotes/origin/master
 				 $.ajax({
-<<<<<<< HEAD
-					url : "/orders.jsp"
-=======
+
 					url : "${pageContext.request.contextPath}/order.do?pNo=${param.pNo}"
->>>>>>> refs/remotes/origin/master
 					,
 					method : "GET" 
 					,
 					dataType : "json"
 					,
-<<<<<<< HEAD
-					data : $(this).val()
-=======
-					
 					data : $(this).find('option:selected').val()
->>>>>>> refs/remotes/origin/master
 					,
 					success : function(data){
-<<<<<<< HEAD
-						console.log("옵션값 : " + $(this).val());
-						$('#orderTime').append("<option>" + data.oTime + "</option>");	
-=======
 						$('#orderTime').empty();
 						
 						var htmlStr = "";
@@ -156,17 +137,13 @@ a:hover {
 
 						};
 								
->>>>>>> refs/remotes/origin/master
 					}
 					,
 					error : function(jqXHR){
 						alert('Error : ' + jqXHR.status);
 					}
-<<<<<<< HEAD
-				});
-		*/		
 
-		});
+				});
 		   		 
 		});   		 
 	});
