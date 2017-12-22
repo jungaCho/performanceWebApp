@@ -40,6 +40,7 @@ public class LoginCommand implements Command {
 		
 					// 로그인 성공 메인화면으로 이동한다.
 					forward.setPath("/member_index.jsp");
+					//forward.setPath("/member_m_newMember");
 					forward.setRedirect(false); 
 				} else {
 					forward.setPath("/loginForm.do");

@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>2단 Layout</title>
+<title>공연예매사이트</title>
 <style>
 body, a {
 	font: 20px '돋움';

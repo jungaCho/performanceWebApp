@@ -22,22 +22,21 @@ public class FindPwdCommand implements Command {
 		
 		ActionForward forward = new ActionForward();
 		
-		try {
 		
+		
+		try {
 			MemberService service = MemberService.getInstance();
 			boolean isExist = service.findPwd(mId, mName, email);
 			
-			req.setAttribute("name", mName);
-			
+			System.out.println("isExist: " + isExist);
+			//req.setAttribute("name", mName);
 			//회원인 경우 -> 서비스에 정의되어있는 javamail API를 호출해준다. 
-			
 			if(isExist) {
 				
-				forward.setPath("/isExistPwd.jsp");
+				forward.setPath("/member_index.jsp");
 				forward.setRedirect(false);
 				
 			} else {
-				
 				forward.setPath("/isNotExistPwd.jsp");
 				forward.setRedirect(false);
 			}

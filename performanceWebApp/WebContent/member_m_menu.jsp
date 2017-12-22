@@ -18,7 +18,7 @@
 </c:url>
 
 
-<ul>
+<ul id="sideMenu">
 	<li>MY PAGE</li><br>
 	<li><a style="color:#f25c5c" href="${pageScope.url1 }">나의 관람내역</a></li>
 	<li><a style="color:#a69bd4" href="${pageScope.url2 }">회원정보 조회</a></li>

@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.util.*" %>
-<%@ page import="domain.performance.PerformanceVO" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.util.*"%>
+<%@ page import="domain.performance.PerformanceVO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -18,9 +18,10 @@
 	height: 750px;
 }
  */
- body{
- 	color: gray;
- }
+body {
+	color: gray;
+}
+
 #btn1 {
 	width: 70px;
 	height: 30px;
@@ -57,40 +58,44 @@
 	margin-right: 235px;
 }
 
-#div3{
-		float:left;
-		text-align:center;
-	}
-a{
-	color:gray;
+#div3 {
+	float: left;
+	text-align: center;
+}
+
+a {
+	color: gray;
+}
+
+#div4 {
+	float: center;
 }
 </style>
 
 </head>
 <body>
-	
 
-		<div id="pannel">
-			<h1>공연 조회</h1>
-			<button type="button" id="btn1">선택삭제</button>
-			<button type="button" id="btn2">선택해제</button>
-		</div>
-		
-		
-		<form id="search">
-			<select id="keyfield" name="keyfield">
-						<option value="title">제목</option>
-						<option value="date">월</option>
-						<option value="genre">장르</option>
-					</select>
-			<input id="keyword" type="search" placeholder="검색어를 입력하세요">
-			<button type="search" id="btn3">검색</button>
-		</form>
-		
-		<br>
-		<br>
-		<div id="div3">
-		<table border="1" width=670>
+
+	<div id="pannel">
+		<h1>공연 조회</h1>
+		<button type="button" id="btn1">선택삭제</button>
+		<button type="button" id="btn2">선택해제</button>
+	</div>
+
+
+	<form id="search">
+		<select id="keyfield" name="keyfield">
+			<option value="title">제목</option>
+			<option value="date">월</option>
+			<option value="genre">장르</option>
+		</select> <input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요">
+		<button id="btn3" type="submit">검색</button>
+	</form>
+
+	<br>
+	<br>
+	<div id="div3">
+		<table id="table" border="1" width=670>
 			<tr>
 				<th>선택</th>
 				<th>공연번호</th>
@@ -99,22 +104,58 @@ a{
 				<th>종료일</th>
 				<th>장르</th>
 			</tr>
-		<c:forEach var="performance" items="${requestScope.performances }" varStatus="loop">
-			<c:url var="url" value="/admin_p_detailPerformance.do" scope="page">
-				<c:param name="pNo" value="${pageScope.performance.pNo }" />
-			</c:url>
-			<tr>
-				<td><input type="checkbox" name="check"></td>
-				<td>${pageScope.performance.pNo }</td>
-				<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
-				<td>${pageScope.performance.startDate }</td>
-				<td>${pageScope.performance.endDate }</td>
-				<td>${pageScope.performance.genre }</td>
-			</tr>
-		</c:forEach>
+			<c:forEach var="performance" items="${requestScope.performances }"
+				varStatus="loop">
+				<c:url var="url" value="/admin_p_detailPerformance.do" scope="page">
+					<c:param name="pNo" value="${pageScope.performance.pNo }" />
+				</c:url>
+				<tr>
+					<td><input type="checkbox" name="check"></td>
+					<td>${pageScope.performance.pNo }</td>
+					<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
+					<td>${pageScope.performance.startDate }</td>
+					<td>${pageScope.performance.endDate }</td>
+					<td>${pageScope.performance.genre }</td>
+				</tr>
+			</c:forEach>
 		</table>
-		</div>
-		<br>
-	
+	</div>
+	<br>
+	<br>
+	&nbsp;
+	<%-- 페이지 네비게이션 처리 --%>
+	<div id="div4">
+        <c:if test="${requestScope.paging.prevPage >= 1 }">
+                <c:url var="prevUrl" value="/admin_p_selectPerformanceList.do" scope="page">
+                        <c:param name="currentPage" value="${requestScope.paging.prevPage }" />
+                </c:url>
+                <a href="${pageScope.prevUrl }">[이전]</a>&nbsp;&nbsp;
+        </c:if>
+        <c:if test="${requestScope.paging.prevPage < 1 }">
+                [이전]&nbsp;&nbsp;
+        </c:if>
+        <c:forEach var="i" begin="${requestScope.paging.startPage }"
+                        end="${requestScope.paging.endPage }" step="1">
+                <c:if test="${requestScope.paging.currentPage == pageScope.i }">
+                        ${pageScope.i } &nbsp;&nbsp;
+                </c:if>
+                <c:if test="${requestScope.paging.currentPage != pageScope.i }">
+                        <c:url var="url" value="/admin_p_selectPerformanceList.do" scope="page">
+                                <c:param name="currentPage" value="${pageScope.i }" />
+                        </c:url>
+                        <a href="${pageScope.url }">${pageScope.i }</a> &nbsp;&nbsp;                      
+                </c:if>        
+        </c:forEach>
+        <c:if test="${requestScope.paging.endPage < requestScope.paging.totalPage }">
+                <c:url var="nextUrl" value="/admin_p_selectPerformanceList.do" scope="page">
+                        <c:param name="currentPage" value="${requestScope.paging.nextPage }" />
+                </c:url>
+                <a href="${pageScope.nextUrl }">[다음]</a>
+        </c:if>
+        <c:if test="${requestScope.paging.endPage >= requestScope.paging.totalPage  }">
+                [다음]&nbsp;&nbsp;
+        </c:if>
+	</div>
+
 </body>
 </html>

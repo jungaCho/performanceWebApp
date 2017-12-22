@@ -21,6 +21,10 @@ public class PagingVO {
 	public void setPostPerpage(int postPerpage) {
 		this.postPerpage = postPerpage;
 	}
+	
+	public int getPostPerpage() {
+		return postPerpage;
+	}
 
 	public void setPageBlock(int pageBlock) {
 		this.pageBlock = pageBlock;

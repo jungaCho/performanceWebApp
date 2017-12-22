@@ -223,19 +223,24 @@ public class PerformanceDAO {
 				
 				//일정
 				ScheduleVO schedule = null;
-				if(rs.getString(10) != null) {					
-					schedule = new ScheduleVO();
-					schedule.setsDate(rs.getString(10));					
-					performance.addSchedule(schedule);
-					sDate = rs.getString(10);
+				if(rs.getString(10) != null ) {
+					if(schedule==null || !rs.getString(10).equals(schedule.getsDate())) {
+					
+						schedule = new ScheduleVO();
+						schedule.setsDate(rs.getString(10));					
+						performance.addSchedule(schedule);
+						sDate = rs.getString(10);
+					}
+					
+					//회차					
+					//DB에 접근
+					OrderVO order = new OrderVO();
+					order.setoTime(rs.getString(11));
+					schedule.addOrders(order);
+					
 				}
 				
-				//회차					
-				//DB에 접근
-				OrderVO order = new OrderVO();
-				order.setoTime(rs.getString(11));
-				schedule.addOrders(order);
-				
+			
 				count++;
 			}
 			
@@ -253,20 +258,26 @@ public class PerformanceDAO {
 	public List<PerformanceVO> selectPerformanceListByAdmin(int startRow, int endRow) throws Exception {
 			ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 			Connection conn = null;
-			Statement stmt = null;
+			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
 			try {
 				conn = DBConn.getConnection();
-				stmt = conn.createStatement();
+				
 				StringBuffer sql = new StringBuffer();
-				sql.append("select p.p_no,p.title,to_char(p.start_Date,'YYYY/MM/DD'),to_char(p.end_Date,'YYYY/MM/DD'),g.genre			      					");
-				sql.append("from (select rownum as rn, perf.*															");
-				sql.append("from (select *																					");
-				sql.append("from performance order by p_no desc)perf)p ,performancegenre g 				");
-				sql.append("where p.genre_no=g.GENRE_NO															");
-				sql.append("and p.rn>=1 															");
-				rs = stmt.executeQuery(sql.toString());
+				sql.append("select p.p_no,p.title,to_char(p.start_Date,'YYYY/MM/DD'),to_char(p.end_Date,'YYYY/MM/DD'), pg.GENRE		");
+				sql.append("from (select rownum as rn, perf.*																		");
+				sql.append("from (select *																							");
+				sql.append("from performance order by p_no desc) perf) p, PERFORMANCEGENRE pg 										");
+				sql.append("where p.genre_no = pg.genre_no																			");
+				sql.append("and p.rn>=? and p.rn<=? 																				");
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				System.out.printf("startRow : %d, endRow : %d%n", startRow, endRow);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+				
+				rs = pstmt.executeQuery();
 				while(rs.next()) {
 					PerformanceVO performance = new PerformanceVO();
 					performance.setpNo(rs.getString(1));
@@ -277,7 +288,7 @@ public class PerformanceDAO {
 					performances.add(performance);
 				}
 			} finally {
-				if(stmt != null) stmt.close();
+				if(pstmt != null) pstmt.close();
 				if(conn != null) conn.close();
 			}
 			return performances;
@@ -302,22 +313,23 @@ public class PerformanceDAO {
 			sql.append("and perf.genre_no=g.genre_no													");
 			//제목 선택시
 			if (keyfield.equals("title")) {
-				sql.append("and title like '%' || ? || '%' 																						");
-				sql.append("order by 1 asc																										");
+				sql.append("and title like '%' || ? || '%' 												");
+				sql.append("order by 1 asc																");
 			//월 선택시
 			} else if (keyfield.equals("date")) {
 				sql.append("and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||? 				");
 				sql.append("and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?					");
-				sql.append("and perf.rn>=? and perf.rn<=?												");
-				sql.append("order by 1 asc																										");
+		//		sql.append("and perf.rn>=? and perf.rn<=?												");
+				sql.append("order by 1 asc																");
 			//장르 선택시
 			} else if (keyfield.equals("genre")) {
-				sql.append("and genre like '%' || ? || '%' 																						");
-				sql.append("order by 1 asc																										");
+				sql.append("and genre like '%' || ? || '%' 												");
+				sql.append("order by 1 asc																");
 			}
 			pstmt = conn.prepareStatement(sql.toString());
 			
 			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
 			
 			rs = pstmt.executeQuery();
 			
@@ -486,5 +498,35 @@ public class PerformanceDAO {
 			if(pstmt!=null)pstmt.close();
 			if(conn!=null)conn.close();
 		}
-	}	
+	}
+	
+	//총 게시글 수를 구하다.
+	public int selectTotalPost() throws Exception {
+        
+        int totalPost = 0;
+        Statement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        
+        try {
+                conn = DBConn.getConnection();
+                stmt = conn.createStatement();
+                
+                StringBuffer sql = new StringBuffer();
+                sql.append("select count(*) from performance                       ");
+
+                rs = stmt.executeQuery(sql.toString());
+                
+                if(rs.next()) {
+                        totalPost = rs.getInt(1);
+                }
+                
+        } finally {
+                if(rs != null) rs.close();
+                if(stmt != null) stmt.close();
+                if(conn != null) conn.close();
+        }
+        return totalPost;
+}
+
 }

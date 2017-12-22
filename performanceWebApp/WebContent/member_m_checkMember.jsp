@@ -13,12 +13,24 @@
 	}
 </style>
 </head>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#sideMenu, #btn1').click(function () {
+			var pwd = $('#pwd').val();
+			if(pwd.length == 0){
+				alert("본인확인을 위해 비밀번호를 입력해주세요.");
+				return false;
+			}
+		});
+	});
+</script>
 <body>
 	<form action="${pageContext.request.contextPath }/checkMember.do" method="POST">
 		<h3>본인확인</h3><br>
 		본인확인을 위해 비밀번호를 입력해주세요.<br>
 		<div id="box">	
-			<input type="password" name="pwd" placeholder="비밀번호 확인"/>&nbsp;<button type="submit">next></button>
+			<input type="password" id="pwd" name="pwd" placeholder="비밀번호 확인"/>&nbsp;<button type="submit" id="btn1">next></button>
 		</div>
 	</form>
 </body>
