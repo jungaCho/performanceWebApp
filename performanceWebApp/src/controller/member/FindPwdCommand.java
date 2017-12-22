@@ -10,7 +10,7 @@ import controller.ActionForward;
 import controller.Command;
 import model.service.member.MemberService;
 
-public class FindPwd implements Command {
+public class FindPwdCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
@@ -22,20 +22,26 @@ public class FindPwd implements Command {
 		
 		ActionForward forward = new ActionForward();
 		
-		try {
 		
+		
+		try {
 			MemberService service = MemberService.getInstance();
 			boolean isExist = service.findPwd(mId, mName, email);
 			
-			req.setAttribute("name", mName);
-			
+			System.out.println("isExist: " + isExist);
+			//req.setAttribute("name", mName);
 			//회원인 경우 -> 서비스에 정의되어있는 javamail API를 호출해준다. 
 			if(isExist) {
 				
-				forward.setPath("member_m_sendSuccess.jsp");
+				forward.setPath("/member_index.jsp");
 				forward.setRedirect(false);
-				return forward;
+				
+			} else {
+				forward.setPath("/isNotExistPwd.jsp");
+				forward.setRedirect(false);
 			}
+			
+			return forward;
 			
 			
 		} catch (Exception e) {
@@ -47,8 +53,6 @@ public class FindPwd implements Command {
 			return forward;
 		}
 		
-		
-		return null;
 	}
 	
 	

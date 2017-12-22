@@ -47,11 +47,11 @@ input {
 }
 
 </style>
-<%--
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
 	$(document).ready(function() {
-		$('#btn1').click(function() {
+		
+		/*$('#btn1').click(function() {
 			
 			$.ajax({
 				url: '${pageContext.request.contextPath }/login.do'
@@ -77,10 +77,10 @@ input {
 				}
 			});
 			
-		})
+		});*/
 	});
 </script>
- --%>
+
  
 </head>
 <body>

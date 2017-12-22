@@ -220,6 +220,9 @@ public class MemberDAO {
 			
 			while(rs.next()) {
 				mNo = rs.getString(1);
+				if(mNo!=null) {
+					member.setmId(mId);
+				}
 				member.setmNo(mNo);
 				withdrawal = rs.getString(2);
 				member.setWithdrawal(withdrawal);
@@ -349,7 +352,6 @@ public class MemberDAO {
 		String mId ="";
 		MemberVO member = new MemberVO();
 		
-		
 		try 
 			{
 			
@@ -393,7 +395,7 @@ public class MemberDAO {
 
 	}
 
-	public String searchPwd(String mId, String mName, String email) throws Exception {
+	public boolean searchPwd(String mId, String mName, String email) throws Exception {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -404,9 +406,9 @@ public class MemberDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_id, m_email			");
+			sql.append("select m_no			");
 			sql.append("from member    ");
-			sql.append("where m_id = ? and m_name = ? and m_email = ? 		");
+			sql.append("where m_id = ? and m_name = ? and email = ? 		");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -418,22 +420,18 @@ public class MemberDAO {
 
 			rs = pstmt.executeQuery();
 
-			String existId = "";
-			String existEmail = "";
-
 			while (rs.next()) {
 
-				existId = rs.getString(1);
-				existEmail = rs.getString(2);
+				if(rs.getString(1) != null ) {
+					return true;
+				}
 			}
 
-			if (existId == null) {
-				existEmail = "";
-			}
-
-			return existEmail;
+			return false;
 
 		} finally {
+			if (rs != null)
+				rs.close();
 			if (pstmt != null)
 				pstmt.close();
 			if (conn != null)

@@ -111,7 +111,8 @@ public class PerformanceService {
 			DetailFileDAO detailfileDao = DetailFileDAO.getInstance();
 			ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
 			OrderDAO orderDao = OrderDAO.getInstance();
-
+			
+			
 			posterDao.deletePosterList(conn, pNo);
 			detailfileDao.deleteDetailFileList(conn, pNo);
 			String[] sNOs = scheduleDao.selectSchedule(conn, pNo);
@@ -119,7 +120,8 @@ public class PerformanceService {
 				orderDao.deleteOrder(conn, sNo);
 			}
 			scheduleDao.deleteSchedule(conn, pNo);
-
+			performanceDao.deletePerformance(pNo); 
+			
 			conn.commit();
 		} catch (Exception e) {
 			conn.rollback();
@@ -220,4 +222,24 @@ public class PerformanceService {
 				conn.close();
 		}
 	}
+	
+	//특정 게시글의 상세정보를 모두 조회하다.
+		public List<DetailFileVO> retrieveDetailFile(String pNo) throws Exception{
+				
+			DetailFileDAO detailFileDao = DetailFileDAO.getInstance();
+			List<DetailFileVO> detailFileVO = detailFileDao.selectDetailFileList(pNo);
+				
+			return detailFileVO;
+		}
+		
+		//특정 게시글의 포스터를 모두 조회하다.
+		public List<PosterVO> retrievePoster(String pNo) throws Exception{
+					
+			PosterDAO posterDao = PosterDAO.getInstance();
+			List<PosterVO> posterVO = posterDao.selectPoster(pNo);
+					
+			return posterVO;
+		}
+	
+	
 }

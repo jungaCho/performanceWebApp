@@ -1,6 +1,7 @@
 package controller.performance;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,25 +12,26 @@ import controller.Command;
 import domain.performance.PerformanceVO;
 import model.service.performance.PerformanceService;
 
-//공연 상세조회 요청을 처리할 커맨드 클래스 구현
-public class DetailPerformanceCommand implements Command {
+public class FindPerformanceCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 
-		// 1. 상세히 조회하고자 하는 공연 번호를 구한다.
-		String pNo = req.getParameter("pNo");
-		System.out.println("pNo :  "+pNo); 
+		int startRow = 1;
+		int endRow = 10;
+		// 1. 검색 조건 및 검색어를 구한다.
+		String keyfield = req.getParameter("keyfield");
+		String keyword = req.getParameter("keyword");
+
 		ActionForward forward = new ActionForward();
 		try {
-			PerformanceService performanceService = PerformanceService.getInstance();
+			PerformanceService service = PerformanceService.getInstance();
+			List<PerformanceVO> performances = service.findPerformance(keyfield, keyword, startRow, endRow);
 
-			PerformanceVO performance = performanceService.retirevePerformance(pNo);
+			req.setAttribute("performances", performances);
 
-			req.setAttribute("performance", performance);
-
-			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_detailPerformance");
+			forward.setPath("/admin_p_selectPerforamcneList.jsp");
 			forward.setRedirect(false);
 			return forward;
 		} catch (Exception e) {

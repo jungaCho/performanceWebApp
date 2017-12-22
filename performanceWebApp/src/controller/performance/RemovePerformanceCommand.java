@@ -1,8 +1,6 @@
 package controller.performance;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,26 +8,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
-import domain.performance.PerformanceVO;
 import model.service.performance.PerformanceService;
 
-public class ListPerformanceByAdminCommand implements Command {
+//공연 삭제하는 커맨드
+public class RemovePerformanceCommand implements Command{
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		ActionForward forward = new ActionForward();
+		
+		String pNo=req.getParameter("pNo");
+		
+		ActionForward forward=new ActionForward();
 		try {
-			PerformanceService performs = PerformanceService.getInstance();
-
-			int startRow = 1;
-			int endRow = 10;
-			List<PerformanceVO> performances = performs.retrievePerformanceListByAdmin(startRow, endRow);
-			System.out.println(performances.size());
-			req.setAttribute("performances", performances);
-
-			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_selectPerformanceList");
-			forward.setRedirect(false);
+			PerformanceService service=PerformanceService.getInstance();
+			service.removePerformance(pNo);
+			
+			forward.setPath("/admin_p_selectPerformanceList.do");
+			forward.setRedirect(true);
 			return forward;
 		} catch (Exception e) {
 			req.setAttribute("exception", e);
@@ -37,7 +33,8 @@ public class ListPerformanceByAdminCommand implements Command {
 			forward.setRedirect(false);
 			return forward;
 		}
-
+		
+		
 	}
 
 }

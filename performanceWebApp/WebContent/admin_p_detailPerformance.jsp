@@ -10,25 +10,23 @@
 <title>공연상세조회</title>
 
 	<style>
-	
+	body{
+		color:gray;
+		padding-left:50px;
+	}
 	form {
 	
 		padding : 30px;
-		background-color : gray;
+		
 		width: 900px;
 		height: 750px;
 	
 	}
-	
-	button {
-	
-		width: 80px;
-		height: 40px;
-		margin-right: 50px;
 
+
+	div{
+		padding-left:50px;
 	}
-
-	
 	#pannel > h2 {
 		
 		display: inline-block;
@@ -59,7 +57,7 @@
 	
 	#schedule{
 		
-		 width: 180px; height:200px;
+		 width: 200px; height:200px;
    		 display: block;
    		 overflow: auto;
    		 float:right;;
@@ -77,8 +75,10 @@
 	#div3 {
 		text-align: center;
 	}
-	
-	a { 
+	#btn1{
+		width:118px; height:38px;
+	}
+	a#remove{ 
 		display:inline-block; 
 		text-align:center;
 		 vertical-align:middle; 
@@ -86,22 +86,46 @@
 		 font-size:12px; color:#000; 
 		 border:1px solid #000; 
 		 width:118px; height:38px;
-		  line-height:38px; 
-		  }
-
+		 line-height:38px; 
+		 color:gray;
+		 background-color :#F8E0F1;
+		 
+	  }
+	a#modify { 
+		display:inline-block; 
+		text-align:center;
+		 vertical-align:middle; 
+		 text-decoration:none; 
+		 font-size:12px; color:#000; 
+		 border:1px solid #000; 
+		 width:118px; height:38px;
+		 line-height:38px; 
+		 color:gray;
+		 background-color :#F8E0F1;
+	  }
+	#poster{
+		border:1px solid;
+		padding-left:50px;
+		heigth:80px;
+		width:40px;
+	}
 	</style>
 
 </head>
 <body>
-	<form action="<%=request.getContextPath()%>/removePerformance.do"  > 
+
+	<form > 
+
 	
 		<div id="pannel">
 		<h1>공연상세조회</h1>
 		</div>
 		<div>
-			<%-- <c:forEach var ="poster" items="${requestScope.performance.posters}">
-				<img src="C:\eclipse\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\performanceWebApp\upload/${pageScope.poster.systemFileName}">
-			</c:forEach> --%>
+			<c:forEach var ="poster" items="${requestScope.performance.posters}">
+				<img src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
+				
+				 alt="사진">
+			</c:forEach> 
 		</div>
 		<div id="div2">
 		<table id="schedule" border="1"  >
@@ -167,12 +191,22 @@
 		</table>
 		</div>
 		<br>
-		<button type="submit" id="btn1">삭제</button>
+		
+
+		<div>
+
+
+		<c:url var="removeURL" value="/admin_p_removePerformance.do" scope="page">
+			<c:param name="pNo" value="${requestScope.performance.pNo}" />
+		</c:url>
+		<a id="remove" href="${pageScope.removeURL}">삭제</a>&nbsp;
+
+		
 		<c:url var="modifyURL" value="/admin_p_modifyPerformanceForm.do" scope="page">
 			<c:param name="pNo" value="${requestScope.performance.pNo}" />
 		</c:url>
-		<a href="${pageScope.modifyURL}">수정</a>&nbsp;
+		<a id="modify" href="${pageScope.modifyURL}">수정</a>&nbsp;
+		</div>
 	
-	</form>
 </body>
 </html>
