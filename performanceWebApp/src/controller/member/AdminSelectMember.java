@@ -15,6 +15,10 @@ public class AdminSelectMember implements Command {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
+		//회원정보 조회
+		
+		//관리자 로그인 시 
+		
 		
 		
 		return null;

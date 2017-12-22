@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,35 +33,70 @@ input {
 
 
 </style>
-
-<!-- <script src = "js/jquery-3.2.1.min.js"></script>
+<%--
+<script src = "js/jquery-3.2.1.min.js"></script>
 <script>
 
 
 
 	$(document).ready(function(){
 		
-		$('#btn1').click(function(){
+		$('#btn1').on("click",function(){
 			
-			location.href= "${pageContext.request.contextPath}/AdminLoginCommand.do?";
-		
+		/* 	$.ajax ({
+				
+				url : "${pageContext.request.contextPath }/member_m_newMember.jsp",
+				method : 'POST',
+				dataType : "json",
+				
+				data : {
+					
+					id : $("#id").val(),
+					pwd : $("#pwd").val()
+					
+				},
+				
+				success : function(data){
+					if(data.success == true){
+						alert("로그인에 성공하셨습니다!");
+						location.href= "${pageContext.request.contextPath}/adminLogin.do?id="+data.id+"&pwd="+data.pwd;
+						
+					}
+				},
+				
+				error :  function(jqXHR){
+					
+					alert("에러 : " + jqXHR);
+				} */
+			/* 	
+			var id= $("#id").val();
+			var pwd = $("#pwd").val();
+			
+			location.href= "${pageContext.request.contextPath}/adminLogin.do?id="+id+"&pwd="+pwd;
+			}); */
 		});
+		
+	
+	});
+		
+		
+		
 		
 	});
 	
-	</script>
+	</script> --%>
 	  
-  -->
+ 
 </head>
 <body>
 
-	<form action = "${pageContext.request.contextPath }/adminLogin.do" method="post">
+	<form action="${pageContext.request.contextPath }/adminLogin.do" method = "post">
 
 		<div id="box">
 
-			아이디 : <input type="text" name="id" sizes="20"
+			아이디 : <input id="id" type="text" name="id" sizes="20"
 				placeholder="관리자사번입력" autofocus></input><br> 
-				비밀번호 : <input
+				비밀번호 : <input id="pwd"
 				type="password" name="pwd" sizes="20" placeholder="비밀번호입력"></input><br>
 
 			<a href="#">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
