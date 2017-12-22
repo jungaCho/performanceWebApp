@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,27 @@
 	
 
 </style>
+
+	<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+		
+	/* 	$("#btn1").click(function() {
+			if($('#id').val().length == 0) {
+				alert("아이디를 입력해주세요");
+				return false;
+			}
+			if ($('#pwd').val().trim().length == 0) {
+				alert("비밀번호를 입력해주세요");
+				return false;
+			}		
+		});
+		
+		$("#btn2").click(function() {
+			location.href="${pageContext.request.contextPath}/member_m_signup.jsp";
+		}); */
+		
+</script>
 
 </head>
 <body>
@@ -54,30 +76,30 @@
 		<th>이름</th>
 		<th>아이디</th>
 		<th>비밀번호</th>
-		<th>연락처</th>
 		<th>이메일</th>
 		<th>주소</th>
 		<th>등급</th>
 		<th>비고</th>
 		
-	
-		<tr>
 		
-		<tr>
+		</tr>
 		
-		<th>회원2</th>
-		<td>2</td>
-		<td>2</td>
-		<td>2</td>
-		<td>2</td>
-		<td>2</td>
-		<td>2</td>
-		<td>2</td>
-		<td>2</td>
+		<c:forEach var="members" items= "${requestScope.memberList }" varStatus="loop">
+		<tr id= "datas">
 		
-	
-		<tr>
+		<th>${pageScope.members.mNo }</th>
+		<td>${pageScope.members.mName }</td>
+		<td>${pageScope.members.mId }</td>
+		<td>${pageScope.members.mPw }</td>
+		<td>${pageScope.members.email }</td>
+		<td>${pageScope.members.address }</td>
+		<td>${pageScope.members.rankNo }</td>
 		
+		<td>비고</td>
+		
+		
+		</tr>
+		</c:forEach>
 	</table>
 	</form>
 

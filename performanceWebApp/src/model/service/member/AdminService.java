@@ -25,6 +25,11 @@ public class AdminService {
 		
 	}
 	
+
+	
+	public List<MemberVO> retrieveMembers() throws Exception {
+		return AdminDAO.getInstance().selectMember();
+	}
 	
 	public List<MemberVO> retrieveMemberList(String sortkey, int startRow, int endRow) throws Exception {
 		return AdminDAO.getInstance().selectMemberList(sortkey, startRow, endRow);

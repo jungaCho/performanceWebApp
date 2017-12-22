@@ -37,6 +37,7 @@ public class CommandFactory {
 		map.put("/findPwd.do", "controller.member.FindPwdCommand");
 
 		map.put("/logout.do", "controller.member.LogoutCommand");
+		map.put("/processMemberList.do", "controller.member.AdminSelectMember");
 
 		
 		//¿¹¸Å
