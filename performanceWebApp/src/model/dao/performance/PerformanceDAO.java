@@ -223,11 +223,14 @@ public class PerformanceDAO {
 				
 				//일정
 				ScheduleVO schedule = null;
-				if(rs.getString(10) != null) {					
-					schedule = new ScheduleVO();
-					schedule.setsDate(rs.getString(10));					
-					performance.addSchedule(schedule);
-					sDate = rs.getString(10);
+				if(rs.getString(10) != null ) {
+					if(schedule==null || !rs.getString(10).equals(schedule.getsDate())) {
+					
+						schedule = new ScheduleVO();
+						schedule.setsDate(rs.getString(10));					
+						performance.addSchedule(schedule);
+						sDate = rs.getString(10);
+					}
 				}
 				
 				//회차					
