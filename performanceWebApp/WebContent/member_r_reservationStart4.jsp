@@ -87,7 +87,7 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form action="" method="get">
+	<form method="get">
 		<div class="title_bg">결 제 정 보</div>
 		<div class="reservation_padding">
 			<div class="ulText">▣ 최종 결제정보</div>
