@@ -60,11 +60,32 @@ input {
 				alert("비밀번호를 입력해주세요");
 				return false;
 			}		
+/*
+			$.ajax({
+				url: "${pageContext.request.contextPath}/member_m_newMember.jsp";
+				,
+				method: 'POST'
+				,
+				dataType: 'json'
+				,
+				data: $('form').serialize();
+				,
+				success: function(data) {
+					if(data.success == true) {
+						location.href="${pageContext.request.contextPath}/login.do";
+					}
+				}
+				,
+				error: function(){
+					
+				}
+			});
+		*/
 		});
 		
 		$("#btn2").click(function() {
 			location.href="${pageContext.request.contextPath}/member_m_signup.jsp";
-		});
+		});		
 	});
 </script>
 
@@ -86,10 +107,6 @@ input {
 			<button type="button" id="btn2">회원가입</button>
 		</div>
 		</form>
-			
-		
-
-
 
 </body>
 </html>

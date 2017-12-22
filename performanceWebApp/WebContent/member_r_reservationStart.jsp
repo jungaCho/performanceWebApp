@@ -110,26 +110,31 @@ a:hover {
 		});
 		
 		
-		$('#sDate  option').on('change',function(){
-	
+		$('#sDate').on('change','option',function(){
+			alert("call");
+			
+			
+			/*
 				 $.ajax({
-					url : "orders.jsp"
+					url : "/orders.jsp"
 					,
 					method : "GET"
 					,
 					dataType : "json"
 					,
-					
 					data : $(this).val()
 					,
 					success : function(data){
+						console.log("옵션값 : " + $(this).val());
 						$('#orderTime').append("<option>" + data.oTime + "</option>");	
 					}
 					,
 					error : function(jqXHR){
 						alert('Error : ' + jqXHR.status);
 					}
-				}); 
+				});
+		*/		
+				 
 		});
 	});
 </script>

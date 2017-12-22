@@ -175,8 +175,8 @@
 				}
 				,
 				error : function(jqXHR){
-					alert('Error: ' + jqXHR.status );
-					
+					jqXHR = null;
+					alert("회원정보를 정확히 입력해주세요!!");
 				}
 				
 			});
