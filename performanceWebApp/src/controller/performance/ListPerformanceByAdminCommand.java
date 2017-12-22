@@ -31,7 +31,7 @@ public class ListPerformanceByAdminCommand implements Command {
         PagingVO paging = new PagingVO();
         
         //1. 한 페이지에 보여줄 게시글 수를 설정한다.
-        paging.setPostPerpage(5);
+        paging.setPostPerpage(10);
         //2. 한 페이지에 보여줄 페이지 목록 수를 설정한다.
         paging.setPageBlock(3);
         //3. 현재 페이지 번호를 구한다.

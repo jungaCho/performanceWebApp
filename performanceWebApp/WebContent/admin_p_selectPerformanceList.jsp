@@ -67,10 +67,44 @@ a {
 	color: gray;
 }
 
-#div4 {
-	float: center;
+#page {
+	margin-top: 290px;
 }
+
+
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+      $(document).ready(function() {
+            $("#btn3").on('click', function() {
+                  $.ajax({
+                        url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
+                        method : 'GET',
+                        dataType : 'json',
+                        data : $('#search').serialize(),
+                        success : function(data) {
+                              $("#table").find('tr:not(:first)').remove();
+                              var htmlStr = "";
+                              for (var i = 0; i < data.length; i++) {
+                                    htmlStr += "<tr>";
+                                    htmlStr += "<td><input type='checkbox' name='check'></td>";
+                                    htmlStr += "<td>" + data[i].pNo + "</td>";
+                                    htmlStr += "<td>" + data[i].title + "</td>";
+                                    htmlStr += "<td>" + data[i].startDate + "</td>";
+                                    htmlStr += "<td>" + data[i].endDate + "</td>";
+                                    htmlStr += "<td>" + data[i].genre + "</td>";
+                                    htmlStr += "</tr>";
+                                    $(htmlStr).appendTo("#table");
+                                    htmlStr = "";
+                              }
+                        },
+                        error : function(jqXHR) {
+                              alert('Error : ' + jqXHR.status);
+                        }
+                  });
+            });
+      });
+</script>
 
 </head>
 <body>
@@ -124,7 +158,7 @@ a {
 	<br>
 	&nbsp;
 	<%-- 페이지 네비게이션 처리 --%>
-	<div id="div4">
+	<form id="page">
         <c:if test="${requestScope.paging.prevPage >= 1 }">
                 <c:url var="prevUrl" value="/admin_p_selectPerformanceList.do" scope="page">
                         <c:param name="currentPage" value="${requestScope.paging.prevPage }" />
@@ -155,7 +189,7 @@ a {
         <c:if test="${requestScope.paging.endPage >= requestScope.paging.totalPage  }">
                 [다음]&nbsp;&nbsp;
         </c:if>
-	</div>
+	</form>
 
 </body>
 </html>
