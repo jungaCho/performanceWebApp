@@ -103,7 +103,7 @@
 	</header>
 	
 	<section>
-		<article><jsp:include page="<%=article %>" /></article>
+		<article><jsp:include page="admin_m_SelectList.jsp" /></article>
 	</section>
 	<footer>Footer</footer>
  </body>
