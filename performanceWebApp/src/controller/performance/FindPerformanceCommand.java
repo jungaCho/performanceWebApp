@@ -23,7 +23,7 @@ public class FindPerformanceCommand implements Command {
 		// 1. 검색 조건 및 검색어를 구한다.
 		String keyfield = req.getParameter("keyfield");
 		String keyword = req.getParameter("keyword");
-
+		System.out.println("~~~~~~~"+keyfield+"~~~"+keyword);
 		ActionForward forward = new ActionForward();
 		try {
 			PerformanceService service = PerformanceService.getInstance();
