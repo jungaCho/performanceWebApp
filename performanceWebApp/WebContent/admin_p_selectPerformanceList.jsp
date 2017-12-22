@@ -66,39 +66,44 @@ body {
 a {
 	color: gray;
 }
+
+#page {
+	margin-top: 290px;
+}
+
+
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
-	$(document).ready(function() {
-		$("#btn3").on('click', function() {
-			$.ajax({
-				url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
-				method : 'GET',
-				dataType : 'json',
-				data : $('#search').serialize(),
-				success : function(data) {
-					$("#table").find('tr:not(:first)').remove();
-					var htmlStr = "";
-					for (var i = 0; i < data.length; i++) {
-						htmlStr += "<tr>";
-						htmlStr += "<td><input type='checkbox' name='check'></td>";
-						htmlStr += "<td>" + data[i].pNo + "</td>";
-						htmlStr += "<td>" + data[i].title + "</td>";
-						htmlStr += "<td>" + data[i].startDate + "</td>";
-						htmlStr += "<td>" + data[i].endDate + "</td>";
-						htmlStr += "<td>" + data[i].genre + "</td>";
-						htmlStr += "</tr>";
-
-						$(htmlStr).appendTo("#table");
-						htmlStr = "";
-					}
-				},
-				error : function(jqXHR) {
-					alert('Error : ' + jqXHR.status);
-				}
-			});
-		});
-	});
+      $(document).ready(function() {
+            $("#btn3").on('click', function() {
+                  $.ajax({
+                        url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
+                        method : 'GET',
+                        dataType : 'json',
+                        data : $('#search').serialize(),
+                        success : function(data) {
+                              $("#table").find('tr:not(:first)').remove();
+                              var htmlStr = "";
+                              for (var i = 0; i < data.length; i++) {
+                                    htmlStr += "<tr>";
+                                    htmlStr += "<td><input type='checkbox' name='check'></td>";
+                                    htmlStr += "<td>" + data[i].pNo + "</td>";
+                                    htmlStr += "<td>" + data[i].title + "</td>";
+                                    htmlStr += "<td>" + data[i].startDate + "</td>";
+                                    htmlStr += "<td>" + data[i].endDate + "</td>";
+                                    htmlStr += "<td>" + data[i].genre + "</td>";
+                                    htmlStr += "</tr>";
+                                    $(htmlStr).appendTo("#table");
+                                    htmlStr = "";
+                              }
+                        },
+                        error : function(jqXHR) {
+                              alert('Error : ' + jqXHR.status);
+                        }
+                  });
+            });
+      });
 </script>
 
 </head>
@@ -124,7 +129,7 @@ a {
 	<br>
 	<br>
 	<div id="div3">
-		<table border="1" width=670>
+		<table id="table" border="1" width=670>
 			<tr>
 				<th>선택</th>
 				<th>공연번호</th>
@@ -150,6 +155,41 @@ a {
 		</table>
 	</div>
 	<br>
+	<br>
+	&nbsp;
+	<%-- 페이지 네비게이션 처리 --%>
+	<form id="page">
+        <c:if test="${requestScope.paging.prevPage >= 1 }">
+                <c:url var="prevUrl" value="/admin_p_selectPerformanceList.do" scope="page">
+                        <c:param name="currentPage" value="${requestScope.paging.prevPage }" />
+                </c:url>
+                <a href="${pageScope.prevUrl }">[이전]</a>&nbsp;&nbsp;
+        </c:if>
+        <c:if test="${requestScope.paging.prevPage < 1 }">
+                [이전]&nbsp;&nbsp;
+        </c:if>
+        <c:forEach var="i" begin="${requestScope.paging.startPage }"
+                        end="${requestScope.paging.endPage }" step="1">
+                <c:if test="${requestScope.paging.currentPage == pageScope.i }">
+                        ${pageScope.i } &nbsp;&nbsp;
+                </c:if>
+                <c:if test="${requestScope.paging.currentPage != pageScope.i }">
+                        <c:url var="url" value="/admin_p_selectPerformanceList.do" scope="page">
+                                <c:param name="currentPage" value="${pageScope.i }" />
+                        </c:url>
+                        <a href="${pageScope.url }">${pageScope.i }</a> &nbsp;&nbsp;                      
+                </c:if>        
+        </c:forEach>
+        <c:if test="${requestScope.paging.endPage < requestScope.paging.totalPage }">
+                <c:url var="nextUrl" value="/admin_p_selectPerformanceList.do" scope="page">
+                        <c:param name="currentPage" value="${requestScope.paging.nextPage }" />
+                </c:url>
+                <a href="${pageScope.nextUrl }">[다음]</a>
+        </c:if>
+        <c:if test="${requestScope.paging.endPage >= requestScope.paging.totalPage  }">
+                [다음]&nbsp;&nbsp;
+        </c:if>
+	</form>
 
 </body>
 </html>

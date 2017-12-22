@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <style>
 form {
 	padding: 30px;
-	background-color: gray;
+	color:gray;
 	width: 900px;
 	height: 750px;
 }
@@ -50,18 +51,53 @@ form {
 	margin-right: 500px;
 }
 </style>
-
+<script src="js/jquery-3.2.1.min.js">	</script>
+<script>
+	$(document).ready(function(){
+		$('#detailFile').on('click',function(){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/admin_p_removeDetailFile.do"
+				,
+				method:'GET'
+				,
+				dataType:'json'
+				,
+				data:$('#detailFileList').serialize()
+				,
+				success:function(data){
+					$('#detailFileList').find('tr:not(:first)').remove();		//위에 컬럼?이름 빼고 다지우기
+					var htmlStr="";
+					for(var i=0;i<data.length;i++){
+						htmlStr+="<tr>";
+						htmlStr+="<td>"+data[i].systemFileName+"</td>";
+						htmlStr+="<td>"+data[i].fileSize+"</td>";
+						htmlStr+="<td><a id='detailFile' >삭제</a></td>";
+						htmlStr+="</tr>";
+						
+						$(htmlStr).appendTo('#detailFileList');
+						htmlStr="";
+					}		
+				}
+				,
+				error:function(jqXHR){
+					alert("Error : "+jqXHR.status)
+				}
+					
+			});
+		});
+	});
+</script>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/modifyPerformance"
+	<form <%-- action="${pageContext.request.contextPath}/modifyPerformance" --%>
 		enctype="multipart/form-data" method="post">
 		<h1>공연 수정</h1>
 		<%-- 업로드 된 포스터 목록 조회 --%>
 		<table id="posterList" border="1">
 			<c:forEach var="poster" items="${requestScope.performance.posters }"
 				varStatus="loop">
-				<c:url var="url" value="removePoster.do" scope="page">
-					<c:param name="posterNo" value="${pageScope.poster.no }" />
+				<c:url var="url" value="admin_p_removePoster.do" scope="page">
+					<c:param name="posterNo" value="${pageScope.poster.posterNo }" />
 					<c:param name="pNo" value="${pageScope.performance.pNo }" />
 				</c:url>
 				<tr>
@@ -161,18 +197,23 @@ form {
 		<br>
 
 		<%-- 업로드 된 상세설명 목록 조회 --%>
+		<h2>상세설명 목록</h2>
 		<table id="detailFileList" border="1">
-			<c:forEach var="detailFile"
-				items="${requestScope.performance.detailFiles }" varStatus="loop">
-				<c:url var="url" value="removeDetailFile.do" scope="page">
-					<c:param name="fileNo" value="${pageScope.detailFile.no }" />
-					<c:param name="pNo" value="${pageScope.performance.pNo }" />
-				</c:url>
+			<tr>
+				<th>파일이름</th>
+				<th>파일크기</th>
+				
+			</tr>
+			<c:forEach var="detailFile" items="${requestScope.performance.detailFiles }" varStatus="loop">
+		
+				<input type="hidden" id="fileNo" value="${pageScoepe.detailfile.fileNo}">
+				<input type="hidden" id="pNo" value="${requestScope.performance.pNo}">
 				<tr>
-					<td>상세설명${pageScope.loop.count }</td>
-					<td>${pageScope.detailFile.originalFileName }</td>
-					<td><a href="${pageScope.url }">삭제</a></td>
+					<td>${pageScope.detailFile.systemFileName }</td>
+					<td>${pageScope.detailFile.fileSize }</td>
+					<td><a id="detailFile" >삭제</a></td>
 				</tr>
+			
 			</c:forEach>
 		</table>
 	</form>

@@ -31,6 +31,8 @@ public class CommandFactory {
 		map.put("/withdrawalForm.do", "controller.member.WithdrawalFormCommand");
 		
 		map.put("/withdrawal.do", "controller.member.WithdrawalCommand");
+	
+		map.put("/adminLogin.do", "controller.member.AdminLoginCommand");
 
 		map.put("/findPwd.do", "controller.member.FindPwdCommand");
 
@@ -55,6 +57,10 @@ public class CommandFactory {
 		map.put("/admin_p_modifyPerformanceForm.do", "controller.performance.ModifyPerformanceFormCommand");
 		
 		map.put("/admin_p_findPerformance.do", "controller.performance.FindPerformanceCommand");
+		
+		map.put("/admin_p_removePoster.do","controller.performance.RemovePosterCommand" );
+		
+		map.put("/admin_p_removeDetailFile.do","controller.performance.RemoveDetailFileCommand" );
 	}
 	
 	public static CommandFactory getInstance() {

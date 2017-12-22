@@ -8,36 +8,32 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
-import domain.performance.PerformanceVO;
 import model.service.performance.PerformanceService;
 
-public class ModifyPerformanceFormCommand implements Command{
+public class RemovePosterCommand implements Command{
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		//공연 번호 가져오기
-		String pNo = req.getParameter("pNo");
+		String posterNo=req.getParameter("posterNo");
+		String pNo=req.getParameter("pNo");
 		
-		ActionForward forward = new ActionForward();
+		ActionForward forward=new ActionForward();
 		try {
 			PerformanceService service = PerformanceService.getInstance();
-			PerformanceVO performance = service.retirevePerformance(pNo);
+			service.removePoster(posterNo);
 			
-			req.setAttribute("performance", performance);
-			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_modifyPerformanceForm");
+			forward.setPath("/admin_p_modifyPosterView.jsp");
 			forward.setRedirect(false);
-			
 			return forward;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
-			forward.setRedirect(false);			
+			forward.setRedirect(false);
 			return forward;
 		}
+		
 	}
-
-	
 	
 }

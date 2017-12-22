@@ -1,7 +1,7 @@
 package controller.performance;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,15 +23,17 @@ public class FindPerformanceCommand implements Command {
 		// 1. 검색 조건 및 검색어를 구한다.
 		String keyfield = req.getParameter("keyfield");
 		String keyword = req.getParameter("keyword");
-
+		System.out.println("~~~~~~~"+keyfield+"~~~"+keyword);
 		ActionForward forward = new ActionForward();
 		try {
 			PerformanceService service = PerformanceService.getInstance();
-			List<PerformanceVO> performances = service.findPerformance(keyfield, keyword, startRow, endRow);
+			ArrayList<PerformanceVO> performances = service.findPerformance(keyfield, keyword, startRow, endRow);
 
 			req.setAttribute("performances", performances);
-
-			forward.setPath("/admin_p_selectPerforamcneList.jsp");
+			System.out.println("~~~~"+performances.get(0).getTitle());
+			System.out.println("~~~~"+performances.get(1).getTitle());
+			
+			forward.setPath("/admin_p_selectPerforamcneListView.jsp");
 			forward.setRedirect(false);
 			return forward;
 		} catch (Exception e) {
