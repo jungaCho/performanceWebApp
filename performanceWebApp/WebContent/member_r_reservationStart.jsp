@@ -102,17 +102,32 @@ a:hover {
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+	
 	$(document).ready(function() {
+	/* 
+		var sDateList = 0;
+		
+		function sList(){
+			var listArray = new Array();	
+			for(var i = 0; i<listArray.length; i++){
+				var sDateList = listArray[i];
+			}	
+		}; */
+		
 		$('#closeBtn').click(function() {
 			close();
 		});
+		
+		/* $('#sDate').click(function(){
+			$(this).text(sDateList.join);
+		}); */
 
 	});
 </script>
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form action="" method="get">
+	<form method="get">
 		<div class="title_bg">예 매</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
@@ -146,8 +161,7 @@ a:hover {
 					<tr>
 						<td>공연일</td>
 						<td><select name="performanceDate" id="sDate">
-								<c:forEach var="scheduleSdate"
-									items="${requestScope.performance.schedules }">
+								<c:forEach var="scheduleSdate" items="${requestScope.performance.schedules }" varStatus="loop">
 									<option value="firstDate">${pageScope.scheduleSdate.sDate}</option>
 								</c:forEach>
 						</select></td>

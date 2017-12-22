@@ -7,6 +7,9 @@
 <meta charset="utf-8">
 <title>회원가입</title>
 <style>
+	body {
+		background: green;
+	}
 	form {
 		width:500px;
 		height:550px;
@@ -42,11 +45,14 @@
 <script>
 
 	$(document).ready(function(){
+		$('#btn1').click(function () {
+			location.href="${pageContext.request.contextPath}/loginForm.do";
+		});
 		
 		$('#btn2').click(function(){
+			if($)
 			
 			$.ajax({
-				
 				//ajax는 부메랑. url에 있는 곳으로 먼저 이동 - 거기선 "/member_m_newMember.jsp"로 이동된다.
 				url: "${pageContext.request.contextPath}/SignUp.do"
 				,
@@ -54,13 +60,10 @@
 				,
 				async: true
 				,
-				
 				dataType : 'json'
 				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. "/member_m_newMember.jsp"에 있는 json 데이터이다.
-				
 				data : $('form').serialize() 
 				,
-					
 				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
 					
 					if(data.success  == true) { //data에 있는 successs 에 대한 값이 true라면 밑 명령수행
@@ -87,22 +90,22 @@
 	<form>
 	<div id="box">
 		ID<br>
-		<input type="text" name="id" size="40" placeholder="최소 5~15글자, 특수문자 포함 불가"/>&nbsp;
+		<input type="text" id="id" name="id" size="25" placeholder="최소 5~15글자 특수문자 불가"/>&nbsp;
 		<button type="button">중복확인</button><br>
 		비밀번호<br>
-		<input type="password" name="pwd" size="40" placeholder="최소 8~12글자, 동일 숫자 연속 3자리 불가"/><br>
+		<input type="password" id="pwd" name="pwd" size="25" placeholder="최소 8~12글자 동일 숫자 연속 3자리 불가"/><br>
 		비밀번호 확인<br>
-		<input type="password" name="pwdcheck" size="40" placeholder="비밀번호를 한번더 입력해주세요"/><br>
+		<input type="password" id="pwdcheck" name="pwdcheck" size="25" placeholder="비밀번호를 한번더 입력해주세요"/><br>
 		이름<br>
-		<input type="text" name="name" size="40" placeholder="이름을 입력해주세요"/><br>
+		<input type="text" id="name" name="name" size="25" placeholder="이름을 입력해주세요"/><br>
 		이메일<br>
-		<input type="text" name="email" size="40" placeholder="이메일을 입력해주세요"/>&nbsp;
+		<input type="text" id="email" name="email" size="25" placeholder="이메일을 입력해주세요"/>&nbsp;
 		<button type="button">이메일 인증</button><br>
 		생일<br>
-		<input type="date" name="birthday">
+		<input type="date" id="date" name="birthday">
 		<br> 
 		주소<br>
-		<input type="text" name="address" size="40" placeholder="주소를 입력해주세요"/>
+		<input type="text" id="address" name="address" size="40" placeholder="주소를 입력해주세요"/>
 		<br>
 		<button id="btn1" type="button">취소</button>&nbsp;
 		<button id="btn2" type="button">회원가입</button>
