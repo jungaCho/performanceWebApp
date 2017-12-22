@@ -416,7 +416,7 @@ public class PerformanceDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select distinct perf.p_no, perf.title,perf.start_Date,perf.end_Date,g.genre 	");
+			sql.append("select distinct perf.p_no, perf.title,to_char(perf.start_Date, 'YY/MM/DD'),to_char(perf.end_Date, 'YY/MM/DD'),g.genre 	");
 			sql.append("from (select rownum as rn, p.*													");
 			sql.append("from(select *																	");
 			sql.append("from performance order by title asc) p) perf, schedule s, performancegenre g	");
@@ -437,12 +437,16 @@ public class PerformanceDAO {
 				sql.append("and genre like '%' || ? || '%' 												");
 				sql.append("order by 1 asc																");
 			}
+			
+			System.out.print(sql.toString());
+			
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, keyword);
 			if(keyfield.equals("date")) {
 				pstmt.setString(2, keyword);
 			}
+			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
