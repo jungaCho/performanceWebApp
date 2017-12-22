@@ -104,30 +104,53 @@ a:hover {
 <script type="text/javascript">
 	
 	$(document).ready(function() {
-	/* 
-		var sDateList = 0;
-		
-		function sList(){
-			var listArray = new Array();	
-			for(var i = 0; i<listArray.length; i++){
-				var sDateList = listArray[i];
-			}	
-		}; */
+		 
 		
 		$('#closeBtn').click(function() {
 			close();
 		});
 		
-		/* $('#sDate').click(function(){
-			$(this).text(sDateList.join);
-		}); */
+		
+		$('select').on('change',  function(){
+			    
+				 $.ajax({
+					url : "${pageContext.request.contextPath}/order.do?pNo=${param.pNo}"
+					,
+					method : "GET" 
+					,
+					dataType : "json"
+					,
+					
+					data : $(this).find('option:selected').val()
+					,
+					success : function(data){
+						$('#orderTime').empty();
+						
+						var htmlStr = "";
+						
+						for(var i = 0 ; i < data.length; i++){
+							
+							htmlStr  += "<option>" + data[i].oTime + "</option>";	
+							
+							$('#sTime').append(htmlStr);
+							htmlStr = "";
 
+						};
+								
+					}
+					,
+					error : function(jqXHR){
+						alert('Error : ' + jqXHR.status);
+					}
+						
+		});
+		   		 
+		});   		 
 	});
 </script>
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form method="get">
 		<div class="title_bg">예 매</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
@@ -160,25 +183,26 @@ a:hover {
 
 					<tr>
 						<td>공연일</td>
-						<td><select name="performanceDate" id="sDate">
+						<td>
+							<select name="performanceDate"   id="sDate">
 								<c:forEach var="scheduleSdate" items="${requestScope.performance.schedules }" varStatus="loop">
-									<option value="firstDate">${pageScope.scheduleSdate.sDate}</option>
+									<option value="${scheduleSdate.sNo}">${pageScope.scheduleSdate.sDate}</option>
 								</c:forEach>
-						</select></td>
+							</select>
+						</td>
 					</tr>
 
-
 					<tr>
-						<td>공연회차</td>
-						<td><select name="performanceTime">
+						<td>공연시간</td>
+						<td>
+							<select name="performanceTime" id="sTime">
 								<c:forEach var="schedule" items="${requestScope.performance.schedules }" varStatus="loop">
-									<c:if test="${loop.index == 0 }">
-										<c:forEach var="orders" items="${pageScope.schedule.orders}" > 	
-											<option value="firstTime">${pageScope.orders.oTime}</option>
-										</c:forEach>
-									</c:if>
+									<c:forEach var="orders" items="${pageScope.schedule.orders}" > 	
+										<option value="0">${pageScope.orders.oTime }</option>	
+									</c:forEach>
 								</c:forEach>
-						</select></td>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td><a href="#" id="closeBtn">닫기</a></td>
@@ -190,7 +214,6 @@ a:hover {
 				</table>
 			</div>
 		</div>
-	</form>
 </body>
 </html>
 

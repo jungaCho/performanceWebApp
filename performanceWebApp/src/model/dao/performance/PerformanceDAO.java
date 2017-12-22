@@ -1,5 +1,6 @@
 package model.dao.performance;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -154,7 +155,7 @@ public class PerformanceDAO {
 		return performances;
 	}
 
-	// 공연 번호에 해당하는 공연 상세 정보를 조회하다.
+	// 공연 번호에 해당하는 공연 상세 정보를 조회하다.(파일들 ㅃㅐ고)
 	public PerformanceVO selectPerformance(String pNo) throws Exception {
 		PerformanceVO performance = new PerformanceVO();
 		Connection conn = null;
@@ -171,9 +172,9 @@ public class PerformanceDAO {
 			StringBuffer sql = new StringBuffer();
 			sql.append("select performance.title, to_char(performance.start_date,'YYYY-MM-DD'), 		");
 			sql.append("to_char(performance.end_date,'YYYY-MM-DD'), theater.t_name, viewclass.view_class, performance.running_time,	");
-			sql.append("performancegenre.genre, performance.price ,poster.system_file_name, to_char(schedule.s_date,'YYYY/MM/DD'), 	");
-			sql.append("to_char(orders.o_time,'HH24:MI'),detailfile.system_file_name	,theater.t_no, 												 ");
-			sql.append("performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no		");
+			sql.append("performancegenre.genre, performance.price, to_char(schedule.s_date,'YYYY/MM/DD'), 	");
+			sql.append("to_char(orders.o_time,'HH24:MI') ,theater.t_no, 												 ");
+			sql.append("performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no, schedule.s_no		");
 			sql.append("from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile										");
 			sql.append("where poster.p_no=performance.P_NO																										");
 			sql.append("and performance.P_No=schedule.p_no(+)																								");
@@ -192,7 +193,7 @@ public class PerformanceDAO {
 					
 			rs = pstmt.executeQuery();
 			
-			DetailFileVO detailfile = null;
+			
 			int count = 1;		
 			while(rs.next()) {
 				
@@ -208,34 +209,36 @@ public class PerformanceDAO {
 					performance.setRunningTime(rs.getInt(6));
 					performance.setGenre(rs.getString(7));
 					performance.setPrice(rs.getInt(8));
-					performance.settNo(rs.getString(13));
-					performance.setContactName(rs.getString(14));
-					performance.setContactNumber(rs.getString(15));
-					performance.setVideo(rs.getString(16));
-					performance.setProduction(rs.getString(17));
-					performance.setNote(rs.getString(18));
-					performance.setpNo(rs.getString(19));
+					performance.settNo(rs.getString(11));
+					performance.setContactName(rs.getString(12));
+					performance.setContactNumber(rs.getString(13));
+					performance.setVideo(rs.getString(14));
+					performance.setProduction(rs.getString(15));
+					performance.setNote(rs.getString(16));
+					performance.setpNo(rs.getString(17));
+					
 					
 				}			
 							
 				
 				//공연 일정				
 				if(rs.getString(10) != null ) {
-					if(schedule==null || !sDate.equals(rs.getString(10))) {					
+					if(schedule==null || !sDate.equals(rs.getString(9))) {					
 						schedule = new ScheduleVO();
-						schedule.setsDate(rs.getString(10));					
+						schedule.setsDate(rs.getString(9));
+						schedule.setsNo(rs.getString(18)); 
 						performance.addSchedule(schedule);
-						sDate = rs.getString(10);
-						System.out.println(rs.getString(10));
+						sDate = rs.getString(9);
+						System.out.println(rs.getString(9));
 					}
-					
+					 
 					//회차
-					if(!oTime.equals(rs.getString(11))) {	
+					if(!oTime.equals(rs.getString(10))) {	
 						OrderVO order = new OrderVO();
-						order.setoTime(rs.getString(11));
+						order.setoTime(rs.getString(10));
 						schedule.addOrders(order);
-						oTime = rs.getString(11);
-						System.out.println(rs.getString(11));
+						oTime = rs.getString(10);
+						System.out.println(rs.getString(10));
 					}
 				}
 				
@@ -275,6 +278,84 @@ public class PerformanceDAO {
 		return performance;			
 	}
 
+	// 공연 번호에 해당하는 공연 상세 정보를 조회하다.(파일들 ㅃㅐ고)
+		public PerformanceVO selectFiles(String pNo) throws Exception {
+			PerformanceVO performance = new PerformanceVO();
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;	
+			
+			int count=0;
+			int num=0;
+			String posterName="";
+			String[] files = {"","","",""};
+			try {
+				conn = DBConn.getConnection();
+						
+				StringBuffer sql = new StringBuffer();
+				sql.append("select poster.system_file_Name, detailFile.system_File_Name				");
+				sql.append("from poster,performance,detailFile											");
+				sql.append("where poster.p_no=performance.P_NO																		");
+				sql.append("and detailfile.p_no=performance.p_no																			");
+				sql.append("and performance.p_no=?																				");
+				sql.append("order by 1 asc, 2 asc																");
+				System.out.println(sql.toString());
+				
+				pstmt = conn.prepareStatement(sql.toString());
+						
+				pstmt.setString(1, pNo);
+						
+				rs = pstmt.executeQuery();
+					
+				while(rs.next()) {
+					
+				
+			
+					//상세 설명	
+					if(rs.getString(2)!=null)  {
+						if(files!=null) {
+							for(int i=0;i<files.length;i++) {
+								String file=files[i];
+								if(file.equals(rs.getString(2))) {
+									count++;
+								}
+							}
+						}
+						
+						if(count<1 || files[0]=="") {
+							System.out.println("~~~"+rs.getString(2));
+							DetailFileVO detailfile=new DetailFileVO();
+							detailfile.setSystemFileName(rs.getString(2));
+							files[num]=rs.getString(2);
+							num++;
+							performance.addDetailFile(detailfile); 
+						}
+						count=0;
+					}
+					
+					
+						
+					//포스터와 관련된 첨부파일이 있는 경우
+					if(!posterName.equals(rs.getString(1))) {
+
+						System.out.println("call 포스터정보 등록");
+						System.out.println("~~~"+rs.getString(1));
+						PosterVO poster = new PosterVO();
+						poster.setSystemFileName(rs.getString(1));					
+						performance.addPoster(poster);
+						posterName = rs.getString(1);
+					}
+					
+					}
+				
+			} finally {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}
+			
+			return performance;			
+		}
+	
 	// 공연 정보를 목록을 조회하다.(관리자)
 	public List<PerformanceVO> selectPerformanceListByAdmin(int startRow, int endRow) throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
@@ -359,8 +440,9 @@ public class PerformanceDAO {
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, keyword);
-			pstmt.setString(2, keyword);
-
+			if(keyfield.equals("date")) {
+				pstmt.setString(2, keyword);
+			}
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
