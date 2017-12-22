@@ -127,6 +127,7 @@ label {
 	$(document).ready(function(){
 		
 		var  price = "${requestScope.performance.price}";
+		console.log(price);
 		var discount = "${sessionScope.member.rank.discount}";		
 		var seatArray = new Array();		
 	
@@ -197,12 +198,11 @@ label {
 						<c:param name="pNo" value="${param.pNo }" />
 					</c:url>
 					<a href="${pageScope.url }" id="closeBtn">뒤로가기</a>
-					<%--  
 					<c:url var="url" value="/member_r_reservationStart3.do">
 						<c:param name="tNo" value="${requestScope.performance.tNo}" />
 						<c:param name="pNo" value="${param.pNo }" />
-					</c:url> --%> 
-					<a  id="selectBtn">결제하기</a>
+					</c:url> 
+					<a  href="${pageScope.url }"id="selectBtn">결제하기</a>
 				</div>
 			</div>
 		</div>

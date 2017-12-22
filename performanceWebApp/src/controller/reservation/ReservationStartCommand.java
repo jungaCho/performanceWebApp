@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import controller.ActionForward;
 import controller.Command;
 import domain.performance.PerformanceVO;
+import domain.performance.ScheduleVO;
 import model.service.performance.PerformanceService;
 
 //예매할 공연에 대한 상세조회 요청 커맨드
@@ -17,6 +18,7 @@ public class ReservationStartCommand implements Command{
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
+		
 		
 		String pNo = req.getParameter("pNo");
 		System.out.println("pNo : " + pNo);
@@ -29,6 +31,7 @@ public class ReservationStartCommand implements Command{
 			System.out.println("performance : " + performance);
 			
 			req.setAttribute("performance", performance);
+	
 			forward.setPath("/member_r_reservationStart.jsp");
 			forward.setRedirect(false);
 			return forward;

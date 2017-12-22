@@ -161,7 +161,7 @@ public class PerformanceDAO {
 			sql.append("to_char(performance.end_date,'YYYY-MM-DD'), theater.t_name, viewclass.view_class, performance.running_time,	");
 			sql.append("performancegenre.genre, performance.price ,poster.system_file_name, to_char(schedule.s_date,'YYYY/MM/DD'), 	");
 			sql.append("to_char(orders.o_time,'HH24:MI'),detailfile.system_file_name	,theater.t_no, 												 ");
-			sql.append("performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no		");
+			sql.append("performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no, schedule.s_no		");
 			sql.append("from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile										");
 			sql.append("where poster.p_no=performance.P_NO																										");
 			sql.append("and performance.P_No=schedule.p_no(+)																								");
@@ -230,6 +230,7 @@ public class PerformanceDAO {
 						schedule.setsDate(rs.getString(10));					
 						performance.addSchedule(schedule);
 						sDate = rs.getString(10);
+						schedule.setsNo(rs.getString(20));
 					}
 					
 					//È¸Â÷					

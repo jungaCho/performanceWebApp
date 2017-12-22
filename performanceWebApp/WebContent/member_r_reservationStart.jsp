@@ -104,30 +104,38 @@ a:hover {
 <script type="text/javascript">
 	
 	$(document).ready(function() {
-	/* 
-		var sDateList = 0;
-		
-		function sList(){
-			var listArray = new Array();	
-			for(var i = 0; i<listArray.length; i++){
-				var sDateList = listArray[i];
-			}	
-		}; */
 		
 		$('#closeBtn').click(function() {
 			close();
 		});
 		
-		/* $('#sDate').click(function(){
-			$(this).text(sDateList.join);
-		}); */
-
+		
+		$('#sDate  option').on('change',function(){
+	
+				 $.ajax({
+					url : "orders.jsp"
+					,
+					method : "GET"
+					,
+					dataType : "json"
+					,
+					
+					data : $(this).val()
+					,
+					success : function(data){
+						$('#orderTime').append("<option>" + data.oTime + "</option>");	
+					}
+					,
+					error : function(jqXHR){
+						alert('Error : ' + jqXHR.status);
+					}
+				}); 
+		});
 	});
 </script>
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form method="get">
 		<div class="title_bg">예 매</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
@@ -160,24 +168,19 @@ a:hover {
 
 					<tr>
 						<td>공연일</td>
-						<td><select name="performanceDate" id="sDate">
+						<td>
+							<select name="performanceDate"   id="sDate">
 								<c:forEach var="scheduleSdate" items="${requestScope.performance.schedules }" varStatus="loop">
-									<option value="firstDate">${pageScope.scheduleSdate.sDate}</option>
+									<option value="${scheduleSdate.sNo}">${pageScope.scheduleSdate.sDate}</option>
 								</c:forEach>
-						</select></td>
+							</select>
+						</td>
 					</tr>
-
 
 					<tr>
 						<td>공연회차</td>
 						<td><select name="performanceTime">
-								<c:forEach var="schedule" items="${requestScope.performance.schedules }" varStatus="loop">
-									<c:if test="${loop.index == 0 }">
-										<c:forEach var="orders" items="${pageScope.schedule.orders}" > 	
-											<option value="firstTime">${pageScope.orders.oTime}</option>
-										</c:forEach>
-									</c:if>
-								</c:forEach>
+								<option id="orderTime">회차</option>	
 						</select></td>
 					</tr>
 					<tr>
@@ -190,7 +193,6 @@ a:hover {
 				</table>
 			</div>
 		</div>
-	</form>
 </body>
 </html>
 
