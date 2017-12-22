@@ -265,12 +265,12 @@ public class PerformanceDAO {
 				conn = DBConn.getConnection();
 				
 				StringBuffer sql = new StringBuffer();
-				sql.append("select p.p_no,p.title,to_char(p.start_Date,'YYYY/MM/DD'),to_char(p.end_Date,'YYYY/MM/DD'), pg.GENRE			      					");
-				sql.append("from (select rownum as rn, perf.*															");
-				sql.append("from (select *																					");
-				sql.append("from performance order by p_no asc) perf) p, PERFORMANCEGENRE pg 				");
-				sql.append("p.genre_no = pg.genre_no															");
-				sql.append("and p.rn>=? and p.rn<=? 															");
+				sql.append("select p.p_no,p.title,to_char(p.start_Date,'YYYY/MM/DD'),to_char(p.end_Date,'YYYY/MM/DD'), pg.GENRE		");
+				sql.append("from (select rownum as rn, perf.*																		");
+				sql.append("from (select *																							");
+				sql.append("from performance order by p_no desc) perf) p, PERFORMANCEGENRE pg 										");
+				sql.append("where p.genre_no = pg.genre_no																			");
+				sql.append("and p.rn>=? and p.rn<=? 																				");
 				pstmt = conn.prepareStatement(sql.toString());
 				
 				System.out.printf("startRow : %d, endRow : %d%n", startRow, endRow);

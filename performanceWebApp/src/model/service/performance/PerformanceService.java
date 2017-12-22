@@ -50,10 +50,11 @@ public class PerformanceService {
 	}
 
 	// 검색 조건에 해당하는 공연 정보 검색
-	public List<PerformanceVO> findPerformance(String keyfield, String keyword, int startRow, int endRow)
+	public ArrayList<PerformanceVO> findPerformance(String keyfield, String keyword, int startRow, int endRow)
 			throws Exception {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-		return performanceDao.searchPerformance(keyfield, keyword, startRow, endRow);
+		ArrayList<PerformanceVO> performances=(ArrayList<PerformanceVO>)performanceDao.searchPerformance(keyfield, keyword, startRow, endRow);
+		return performances;
 	}
 
 	// 공연 정보를 등록하다.
