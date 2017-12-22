@@ -67,6 +67,7 @@ a {
 	color: gray;
 }
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
 <script>
 	$(document).ready(function() {
 		$("#btn3").on('click', function() {
@@ -116,8 +117,8 @@ a {
 			<option value="title">제목</option>
 			<option value="date">월</option>
 			<option value="genre">장르</option>
-		</select> <input id="keyword" type="search" placeholder="검색어를 입력하세요">
-		<button type="search" id="btn3">검색</button>
+		</select> <input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요">
+		<button id="btn3" type="submit">검색</button>
 	</form>
 
 	<br>
