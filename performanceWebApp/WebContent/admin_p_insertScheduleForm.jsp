@@ -55,7 +55,14 @@
 	}
 	
 	</style>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
 
+	$(documen).ready(function() {
+		$('#sDate').text()
+	});
+</script>
+	
 </head>
 <body>
 	<form>
@@ -68,9 +75,9 @@
 		
 		공연장소 : <input type="text" name="theater" size="30" ></input><br>
 		공연제목 : <input type="text" name="title" size="30" ></input><br>
-		시작일자 : <input type="date" name="start_date" size="30" ></input><br>
-		종료일자 : <input type="date" name="end_date" size="30" ></input><br>
-		공연시간 : <input type="time" name="o_time" size="30" ></input><br>
+		시작일자 : <input type="date" name="startDate" size="30" ></input><br>
+		종료일자 : <input type="date" name="endDate" size="30" ></input><br>
+		공연시간 : <input type="time" name="oTime" size="30" ></input><br>
 
 		<br>
 
@@ -83,14 +90,14 @@
 				<th>시간</th>
 			</tr>
 			<tr>
-				<td>입력하는 일자가 여기에 들어오도록..</td>
-				<td>입력하는 시간이 여기에 들어오도록..</td>
+				<td id="sDate"></td>
+				<td id="oTime"></td>
 		</table>
 		
 		</div>
 		<br>
-		<button type="button" id="btn1">확인</button>
-		<button type="button" id="btn2">취소</button>
+		<button type="submit" id="btn1">확인</button>
+		<button type="rest" id="btn2">취소</button>
 	
 	
 	</form>
