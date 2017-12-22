@@ -56,17 +56,5 @@ public class MemberService {
 	public boolean findPwd(String mId, String mName, String email) throws Exception {
 		return MemberDAO.getInstance().searchPwd(mId, mName, email);
 	}
-	
-	public List<MemberVO> retrieveMemberList(String sortkey, int startRow, int endRow) throws Exception {
-		return MemberDAO.getInstance().selectMemberList(sortkey, startRow, endRow);
-	}
-	
-	public MemberVO retrieveMemberDetail(String mNo) throws Exception {
-		return MemberDAO.getInstance().selectMemberDetail(mNo);
-	}
-	
-	public List<MemberVO> findMember(String sortkey, String keyfield, 
-										String keyword, int startRow, int endRow) throws Exception {
-		return MemberDAO.getInstance().searchByMember(sortkey, keyfield, keyword, startRow, endRow);
-	}
+
 }

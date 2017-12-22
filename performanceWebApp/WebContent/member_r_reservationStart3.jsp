@@ -71,12 +71,12 @@ input {width:300px;}
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form action="" method="get">
+	<form method="get">
 		<div class="title_bg">결 제 정 보</div>
 		<div class="reservation_padding">
 			<ul>
 				<li class="ulText">▣ 결제정보 입력</li>
-				<li><span>결제금액 : </span>&nbsp;&nbsp;<span>${requestScope.resultPrice}</span></li>
+				<li><span>결제금액 : </span>&nbsp;&nbsp;<span id="resultPrice"></span></li>
 				<li><span>카드번호 : </span>&nbsp;&nbsp;<input type="text"
 					name="cardNumber"></li>
 				<li><span>카드사 : </span>&nbsp;&nbsp;

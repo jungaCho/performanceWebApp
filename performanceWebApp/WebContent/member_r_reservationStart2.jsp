@@ -158,7 +158,7 @@ label {
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form action="" method="get">
+	<form  method="get" >
 		<div class="title_bg">결 제 정 보</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
@@ -196,12 +196,13 @@ label {
 					<c:url var="url" value="/member_r_reservationStart.do">
 						<c:param name="pNo" value="${param.pNo }" />
 					</c:url>
-					<a href="${pageScope.url }" id="closeBtn">뒤로가기</a> 
+					<a href="${pageScope.url }" id="closeBtn">뒤로가기</a>
+					<%--  
 					<c:url var="url" value="/member_r_reservationStart3.do">
 						<c:param name="tNo" value="${requestScope.performance.tNo}" />
 						<c:param name="pNo" value="${param.pNo }" />
-					</c:url> 
-					<a href="${pageScope.url}" id="selectBtn">결제하기</a>
+					</c:url> --%> 
+					<a  id="selectBtn">결제하기</a>
 				</div>
 			</div>
 		</div>

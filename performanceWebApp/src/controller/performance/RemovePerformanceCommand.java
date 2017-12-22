@@ -24,7 +24,7 @@ public class RemovePerformanceCommand implements Command{
 			PerformanceService service=PerformanceService.getInstance();
 			service.removePerformance(pNo);
 			
-			forward.setPath("/admin_p_selectPerformanceList.do");
+			forward.setPath("/admin_p_selectPerformanceList.jsp");
 			forward.setRedirect(true);
 			return forward;
 		} catch (Exception e) {
