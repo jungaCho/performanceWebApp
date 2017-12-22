@@ -223,9 +223,10 @@ public class PerformanceDAO {
 				if(rs.getString(10) != null ) {
 					if(schedule==null || !sDate.equals(rs.getString(10))) {					
 						schedule = new ScheduleVO();
-						schedule.setsDate(rs.getString(10));					
+						schedule.setsDate(rs.getString(10));		
+						schedule.setsNo(rs.getString(20));
 						performance.addSchedule(schedule);
-						sDate = rs.getString(10);
+						sDate = rs.getString(10);					
 						System.out.println(rs.getString(10));
 					}
 					

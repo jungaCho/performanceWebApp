@@ -44,6 +44,7 @@ public class CommandFactory {
 
 		map.put("/member_r_reservationStart2.do","controller.reservation.ReservationSeatCommand");
 		map.put("/member_r_reservationStart3.do","controller.reservation.ListCardCommand");
+		map.put("/order.do","controller.reservation.OrderCommand");
 		
 
 		
