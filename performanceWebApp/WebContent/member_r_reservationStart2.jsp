@@ -149,7 +149,7 @@ label {
 								
 			$('#selectTd').text(seatArray.join());
 			$('#totalPrice').text(seatArray.length * price);
-			$('#disCount').text((seatArray.length * 0.05).toFixed(1) + "[Silver]");
+			$('#disCount').text((seatArray.length * 0.05).toFixed(1));
 			$('#resultPrice').text(((seatArray.length * 0.95).toFixed(1) * (seatArray.length * price)).toFixed(0));
 			
 		});
@@ -160,20 +160,20 @@ label {
 <body>
 	<!-- 예매페이지 -->
 	<form  method="get" >
+		<input type="hidden" name="tNo">
 		<div class="title_bg">결 제 정 보</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
 				<dl>
 					<dt class="seatPadding">
-						<c:forEach var="seat" items="${requestScope.seats}" varStatus="loop">							
+						<c:forEach var="seat" items="${requestScope.seats}">					
 								<c:forEach var="reservedSeat" items="${requestScope.reservedSeats}">	
-								   
 									<c:if test="${pageScope.seat.seatNumber == pageScope.reservedSeat.seatNumber}">
 											<label class="reservedSeat">${pageScope.seat.seatNumber}</label>
 									</c:if>
 									<c:if test="${pageScope.seat.seatNumber != pageScope.reservedSeat.seatNumber}">
 											<label>${pageScope.seat.seatNumber}</label>
-									</c:if>									
+									</c:if>														   
 								</c:forEach>																					
 						</c:forEach>						
 					</dt>
@@ -190,7 +190,7 @@ label {
 						<td>할인율</td>
 						<td id="disCount"></td>
 						<td>최종 결제금액</td>
-						<td id="resultPrice"></td>
+						<td id="resultPrice"><input type="hidden" name="resultPrice" value="${param.resultPrice }"></td>
 					</tr>
 				</table>
 				<div class="button">
@@ -201,6 +201,7 @@ label {
 					<c:url var="url" value="/member_r_reservationStart3.do">
 						<c:param name="tNo" value="${requestScope.performance.tNo}" />
 						<c:param name="pNo" value="${param.pNo }" />
+						<c:param name="oNo" value="${param.oNo }"/>
 					</c:url> 
 					<a  href="${pageScope.url }"id="selectBtn">결제하기</a>
 				</div>

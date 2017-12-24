@@ -40,9 +40,9 @@ public class ReservationSeatCommand implements Command{
 			
 			//예매된 좌석을 조회하다.
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			List<ReservedSeatVO> reservedSeats = reservationService.retrieveReservedSeatByOrders("O00001");
+			List<ReservedSeatVO> reservedSeats = reservationService.retrieveReservedSeatByOrders(oNo);
 			for(ReservedSeatVO reservedSeat : reservedSeats ) {
-				System.out.println(reservedSeat.getSeatNumber());
+				System.out.println("reservedSeat : " + reservedSeat.getSeatNumber());
 			}
 			
 			req.setAttribute("seats", seats);

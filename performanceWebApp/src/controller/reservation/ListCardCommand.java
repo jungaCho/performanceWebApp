@@ -18,6 +18,7 @@ public class ListCardCommand implements Command{
 		throws IOException, ServletException {
 		
 		String cardNumber = req.getParameter("cardNumber");
+
 		
 		PerformanceVO performance = new PerformanceVO();
 		ReservationVO reservation = new ReservationVO();
