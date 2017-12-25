@@ -18,7 +18,13 @@ public class CommandFactory {
 		
 		map.put("/SignUp.do","controller.member.SignUpCommand");
 		
+		map.put("/signUpForm.do","controller.member.SignUpFormCommand");
+		
 		map.put("/checkMember.do","controller.member.CheckMemberCommand");
+		
+		map.put("/checkMemberForm.do", "controller.member.CheckMemberFormCommand");
+		
+		map.put("/myPageForm.do", "controller.member.MyPageFormCommand");
 		
 		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
 		
@@ -28,6 +34,8 @@ public class CommandFactory {
 
 		map.put("/findId.do", "controller.member.FindIdCommand");
 		
+		map.put("/findIdForm.do", "controller.member.FindIdFormCommand");
+		
 		map.put("/withdrawalForm.do", "controller.member.WithdrawalFormCommand");
 		
 		map.put("/withdrawal.do", "controller.member.WithdrawalCommand");
@@ -35,8 +43,11 @@ public class CommandFactory {
 		map.put("/adminLogin.do", "controller.member.AdminLoginCommand");
 
 		map.put("/findPwd.do", "controller.member.FindPwdCommand");
+		
+		map.put("/findPwdForm.do", "controller.member.FindPwdFormCommand");
 
 		map.put("/logout.do", "controller.member.LogoutCommand");
+		
 		map.put("/processMemberList.do", "controller.member.AdminSelectMember");
 
 		
