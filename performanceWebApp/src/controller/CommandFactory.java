@@ -30,6 +30,8 @@ public class CommandFactory {
 		
 		map.put("/modifyMember.do", "controller.member.ModifyMemberCommand");
 		
+		map.put("/modifyPwd.do", "controller.member.ModifyPwdFormCommand");
+		
 		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
 
 		map.put("/findId.do", "controller.member.FindIdCommand");

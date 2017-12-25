@@ -8,7 +8,6 @@
 <title>로그인화면</title>
 <style>
 #box {
-	
 	width: 300px;
 	height: 400px;
 	background-color: yellow;
@@ -16,34 +15,27 @@
 	margin-bottom: 10px; /*아래 여백을 10px로 잡아줌 */
 	padding: 20px; /* 안쪽 여백을 20px로 잡아줌 */
 	text-align : center;
-	
-
 }
-button {
 
+button {
 	width: 80px;
 	height : 50px;
-
 }
 
 input {
-
 	text-align : center;
 }
 
 #btn1 {
-	
 	display: inline-block;
 	float : left;
 	margin-left: 60px;
 }
 
 #btn2 {
-	
 	display : inline-block;
 	float : right;
 	margin-right: 60px;
-
 }
 
 </style>
@@ -71,6 +63,7 @@ input {
 				data: $('form').serialize();
 				,
 				success: function(data) {
+					
 					if(data.success == true) {
 						location.href="${pageContext.request.contextPath}/login.do";
 					}

@@ -80,6 +80,7 @@
 		$('#id').on('focus', function() {
 			$('#btnCheckId').next('span').remove();
 		});
+		
 		$('#pwd').on('focus',function(){
 			$(this).next('span').remove();
 		});
@@ -110,6 +111,7 @@
 				$('#btnCheckId').after("<span> 아이디를 입력하세요</span>");
 			}
 		});
+		
 		$('#pwd').on('blur',function(){
 			if($(this).val() == 0 ) {
 				$(this).after("<span> 비밀번호를 입력하세요</span>");
@@ -147,12 +149,11 @@
 				$(this).after("<span> 주소를 입력하세요</span>");
 			}
 		});	
-		
-	
+
 		$('#btn1').click(function () {
 			location.href="${pageContext.request.contextPath}/loginForm.do";
 		});
-		
+
 		$('#btn2').click(function(){
 			
 			$.ajax({
@@ -174,11 +175,11 @@
 					}
 				}
 				,
-				error : function(jqXHR){
+				error : function(jqXHR) {
 					jqXHR = null;
 					alert("회원정보를 정확히 입력해주세요!!");
 				}
-				
+
 			});
 			
 		});
