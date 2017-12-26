@@ -24,11 +24,11 @@ public class UploadCardCommand implements Command{
 			int totalPrice = Integer.parseInt(req.getParameter("totalPrice"));
 			String selectTd =req.getParameter("selectTd");
 			String cardNumber = req.getParameter("cardNumber");
-			String cardCompany = req.getParameter("cardCompany");
+			String cardCoNo = req.getParameter("cardCoNo");
 			String oNo = req.getParameter("oNo");
 			
 			System.out.println("cardNumber : " + cardNumber);
-			System.out.println("cardCompany : " + cardCompany);
+			System.out.println("cardCoNo : " + cardCoNo);
 			ActionForward forward = new ActionForward();
 			
 			
@@ -46,7 +46,7 @@ public class UploadCardCommand implements Command{
 				req.setAttribute("totalPrice", totalPrice);
 				req.setAttribute("selectTd", selectTd);
 				req.setAttribute("cardNumber", cardNumber);
-				req.setAttribute("cardCompany", cardCompany);
+				req.setAttribute("cardCoNo", cardCoNo);
 				req.setAttribute("oNo", oNo);
 				
 				forward.setPath("/member_r_reservationStart4.jsp");

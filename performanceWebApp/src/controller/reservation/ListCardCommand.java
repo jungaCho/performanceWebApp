@@ -18,7 +18,6 @@ public class ListCardCommand implements Command{
 
 		int totalPrice = Integer.parseInt(req.getParameter("totalPrice"));
 		String selectTd =req.getParameter("selectTd");
-		String cardNumber = req.getParameter("cardNumber");
 		String oNo = req.getParameter("oNo");
 		
 		ReservationVO reservation = new ReservationVO();
@@ -28,7 +27,6 @@ public class ListCardCommand implements Command{
 		req.setAttribute("reservation", reservation);
 		req.setAttribute("totalPrice", totalPrice);
 		req.setAttribute("selectTd", selectTd);
-		req.setAttribute("cardNumber", cardNumber);
 		req.setAttribute("oNo", oNo);	
 		
 		forward.setPath("/member_r_reservationStart3.jsp");
