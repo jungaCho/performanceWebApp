@@ -54,5 +54,9 @@ public class MemberService {
 	public boolean findPwd(String mId, String mName, String email) throws Exception {
 		return MemberDAO.getInstance().searchPwd(mId, mName, email);
 	}
+	
+	public void sendPwdService(String tempPwd, String mId, String mName, String email) throws Exception {
+		MemberDAO.getInstance().sendPwd(tempPwd, mId, mName, email);
+	}
 
 }

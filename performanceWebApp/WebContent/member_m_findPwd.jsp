@@ -35,7 +35,6 @@
 			
 			//임시비밀번호발급 팝업창으로 넘어가기.	
 			$.ajax({
-
 				url: "${pageContext.request.contextPath}/sendTempPwd.do"
 				,
 				method: "POST"
@@ -45,14 +44,17 @@
 				dataType: "json"
 				,
 				data: {
+					id: $('#id').val(),
+					name: $('#name').val(),
 					email: $('#email').val()
 				}
 				,
 				success: function(data){
 					if(data.success == true){
-						var newWin = window.open("${pageContext.request.contextPath}/tempPwdForm.jsp","","width=700, height=600, top=200,left=200");
+						var newWin = window.open("${pageContext.request.contextPath}/tempPwdForm.jsp","","width=400, height=300, top=200,left=200");
+						//alert("해당 정보의 이메일로 임시비밀번호가 발송되었습니다.")
 					} else {
-						alert("<span id=span1>올바른 이메일 주소를 입력해주세요.</span1>");
+						alert("올바른 이메일 주소를 입력해주세요.");
 						return false;
 					}
 				}
