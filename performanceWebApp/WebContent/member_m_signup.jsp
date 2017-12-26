@@ -81,6 +81,12 @@
 			$('#btnCheckId').next('span').remove();
 		});
 		
+
+		$('btnCheckId').on('click',function(){
+			location.href="${pageContext.request.contextPath}/IdOverlapCheck.do";
+		});
+		
+
 		$('#pwd').on('focus',function(){
 			$(this).next('span').remove();
 		});
