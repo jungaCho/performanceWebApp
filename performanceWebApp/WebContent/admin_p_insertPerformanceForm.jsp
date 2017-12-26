@@ -53,10 +53,10 @@ form {
 
 		<div id="pannel">
 			<h1>공연 등록</h1>
-			<input type="file" name="mainPoster" size="20">메인 포스터</input><br> <input
-				type="file" name="poster" size="20"></input><br> <input
-				type="file" name="poster" size="20"></input><br> <input
-				type="file" name="poster" size="20"></input><br>
+			<input type="file" name="mainPoster" size="20">메인 포스터</input><br>
+			<input type="file" name="poster" size="20"></input><br>
+			<input type="file" name="poster" size="20"></input><br>
+			<input type="file" name="poster" size="20"></input><br>
 		</div>
 		<div id="div1">
 			<h3>
@@ -120,10 +120,10 @@ form {
 
 		<div id="div2">
 			<h2>상세설명</h2>
-			<input type="file" name="detailFile" size="20"></input><br> <input
-				type="file" name="detailFile" size="20"></input><br> <input
-				type="file" name="detailFile" size="20"></input><br> <input
-				type="file" name="detailFile" size="20"></input><br>
+			<input type="file" name="detailFile" size="20"></input><br>
+			<input type="file" name="detailFile" size="20"></input><br>
+			<input type="file" name="detailFile" size="20"></input><br>
+			<input type="file" name="detailFile" size="20"></input><br>
 
 		</div>
 		<br>

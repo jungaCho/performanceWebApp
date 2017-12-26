@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import controller.ActionForward;
 import controller.Command;
 import domain.performance.PerformanceVO;
+import domain.reservation.ReservationVO;
 import domain.reservation.ReservedSeatVO;
 import domain.reservation.SeatVO;
 import model.service.performance.PerformanceService;
@@ -26,6 +27,7 @@ public class ReservationSeatCommand implements Command{
 		String tNo = req.getParameter("tNo");
 		String pNo =req.getParameter("pNo");
 		String oNo = req.getParameter("oNo");
+		ReservationVO reservation = new ReservationVO(); 
 		
 		try {
 			
@@ -48,6 +50,8 @@ public class ReservationSeatCommand implements Command{
 			req.setAttribute("seats", seats);
 			req.setAttribute("performance", performance);
 			req.setAttribute("reservedSeats", reservedSeats);
+			req.setAttribute("reservation", reservation);
+			req.setAttribute("oNo", oNo);
 			
 			forward.setPath("/member_r_reservationStart2.jsp");
 			forward.setRedirect(false);

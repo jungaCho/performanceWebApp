@@ -77,7 +77,7 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 			if(confirm("선택한 좌석 정보로 예약하시겠습니까?") == true){
 				console.log("OK");
 				self.close();
-				$(opener.location).attr('href', '${pageContext.request.contextPath}/member_r_layout.jsp?nav=member_r_menu&article=member_r_reservation');
+				$(opener.location).attr('href', '${pageContext.request.contextPath}/member_r_layout2.jsp?nav=member_r_menu&article=member_r_reservationList');
 			}else{
 				return;
 			}
@@ -94,11 +94,11 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 			<table cellpadding=0 cellspacing=0>
 					<tr class="tr1">
 						<td>총 결제금액</td>
-						<td>60,000원</td>
+						<td>${param.totalPrice}</td>
 					</tr>
 					<tr>
 						<td>공연명</td>
-						<td>바람과 함께 사라지다</td>
+						<td>${requestScope.performance.title}</td>
 					</tr>
 					<tr>
 						<td>공연일</td>
@@ -110,11 +110,11 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 					</tr>
 					<tr>
 						<td>좌석정보</td>
-						<td>K4,K5</td>
+						<td>${param.selectTd}</td>
 					</tr>
 					<tr>
 						<td>카드번호</td>
-						<td>5707-3759-7222-1045</td>
+						<td>${param.cardNumber }</td>
 					</tr>										
 					</table>
 				<div style="text-align:center; margin-top:20px; width:550px;">

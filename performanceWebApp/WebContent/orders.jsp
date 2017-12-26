@@ -4,19 +4,18 @@
 
 [
 
-<c:forEach var="schedule" items="${requestScope.performance.schedules }"
-	varStatus="loop">
-	<c:forEach var="orders" items="${pageScope.schedule.orders}"> 	
+<c:forEach var="orders"
+	items="${requestScope.orders}" varStatus="loop"> 	
 	{
-		"oTime" : "${pageScope.orders.oTime}"
+		"oTime" : "${pageScope.orders.oTime}",
+		"oNo" : "${pageScope.orders.oNo}"
 	}
 
 
-	<c:if
-			test="${loop.index < fn:length(pageScope.schedule.orders) -1 }">
+	<c:if test="${loop.index < fn:length(requestScope.orders) -1 }">
 	,
 	</c:if>
 
-	</c:forEach>
 </c:forEach>
+
 ]

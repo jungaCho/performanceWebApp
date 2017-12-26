@@ -55,7 +55,11 @@ public class CommandFactory {
 		map.put("/IdOverlapCheck.do", "controller.member.IdOverlapCommand");
 		
 		map.put("/sendEmail.do", "controller.member.SendEmailCommand");
-		map.put("/sendSuccess.do", "controller.member.SendEmailSuccessCommand");
+		
+
+		map.put("/authEmail.do", "controller.member.AuthEmailProcessCommand");
+			
+		map.put("/authNumberForm.do", "controller.member.AuthNumberFormCommand");
 
 		
 		//¿¹¸Å
@@ -64,6 +68,8 @@ public class CommandFactory {
 		map.put("/member_r_reservationStart2.do","controller.reservation.ReservationSeatCommand");
 		
 		map.put("/member_r_reservationStart3.do","controller.reservation.ListCardCommand");
+		
+		map.put("/member_r_reservationStart4.do","controller.reservation.UploadCardCommand");
 		
 		map.put("/order.do","controller.reservation.OrderCommand");
 		
@@ -85,6 +91,14 @@ public class CommandFactory {
 		map.put("/admin_p_removePoster.do","controller.performance.RemovePosterCommand" );
 		
 		map.put("/admin_p_removeDetailFile.do","controller.performance.RemoveDetailFileCommand" );
+		
+		map.put("/admin_p_insertScheduleForm.do","controller.performance.InsertScheduleFormCommand" );
+		
+		map.put("/admin_p_insertSchedule.do","controller.performance.InsertScheduleCommand" );
+		
+		map.put("/member_p_selectPerformance.do","controller.performance.ListPerformanceByMemberCommand" );
+		
+		map.put("/member_p_detailPerformance.do", "controller.performance.DetailPerformanceByMemberCommand" );
 	}
 	
 	public static CommandFactory getInstance() {

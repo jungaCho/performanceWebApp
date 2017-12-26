@@ -57,7 +57,7 @@ public class MemberService {
 	}
 	
 
-	public void sendEmail(String email) throws Exception {
+	public boolean sendEmail(String email, String authNumber)  {
 		String host = "smtp.naver.com";
 		final String user = "ztz33";
 		final String password = "vusgo123";
@@ -86,16 +86,17 @@ public class MemberService {
 
 			// Text
 			message.setText("하단 url을 누르시면 이메일 인증이 완료됩니다.");
-			message.setText("'http://localhost:9000/performanceWebApp/sendSuccess.do'");
+			message.setText("인증번호 : " + authNumber);		
 				
 			// send the message
 			Transport.send(message);
-			System.out.println("message sent successfully...");
+					
+			return true;
 
-		} catch (MessagingException e) {
-			e.printStackTrace();
-			throw e;
+		} catch (MessagingException e) {			
+			return false;
 		}
+		
 	}
 	
 	
