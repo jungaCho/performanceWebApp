@@ -23,13 +23,13 @@ public class IdOverlapCommand implements Command {
 			MemberService service = MemberService.getInstance();
 			boolean isTrue = service.checkID(mId);
 
-			if (isTrue == true) {
+			if (isTrue) {
 				req.setAttribute("isExist", true);
-				forward.setPath("/overlapId.jsp");
+				forward.setPath("/overlapID.jsp");
 				forward.setRedirect(false);
 			} else {
-				req.setAttribute("isFail", false);
-				forward.setPath("/overlapId.jsp");
+				req.setAttribute("isExist", false);
+				forward.setPath("/overlapID.jsp");
 				forward.setRedirect(false);
 			}
 			return forward;

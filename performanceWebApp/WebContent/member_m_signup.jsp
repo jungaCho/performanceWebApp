@@ -52,7 +52,7 @@
 	}
 	
 	#span2 {
-		color: red;
+		color: green;
 		font-size: 12px;
 	}
 	
@@ -90,13 +90,17 @@
 		*/
 		
 		$('#id').on('focus', function() {
-			$('#btnCheckId').next('span').remove();
+			if($('#btnCheckId').next('span').val() != null) {
+				$('#btnCheckId').next('span').remove();
+			}
 		});
 		
 
-		$('#btnCheckId').on('click',function(){
-			
-				$.ajax({
+		$('#btnCheckId').on('click',function() {
+			if($('#btnCheckId').next('span').val() != null) {
+				$('#btnCheckId').next('span').remove();
+			} 
+			$.ajax({
 				//ajax는 부메랑. url에 있는 곳으로 먼저 이동 - 거기선 "/member_m_newMember.jsp"로 이동된다.
 				url: "${pageContext.request.contextPath}/IdOverlapCheck.do"
 				,
@@ -111,7 +115,9 @@
 				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
 					if(data.success == true ) {
 						$('#btnCheckId').after("<span id='span1'> 중복된 아이디입니다. </span>");
-					}else{
+					} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
+						$('#btnCheckId').after("<span id='span1'> 아이디 양식을 확인해주세요! </span>");
+					} else {
 						$('#btnCheckId').after("<span id='span2'> 사용가능한 아이디입니다. </span>");
 					}
 				}
