@@ -93,15 +93,32 @@ a {
 			<table border="1" width=180>
 				<tr>
 					<td>${pageScope.performance.sDate }</td>
-					<td><button type="button" id="btn2">예매하기</button>
+					<td><button type="submit" id="btn2">예매하기</button>
 				</tr>
 				<tr>
-					<c:forEach var="poster" items="${requestScope.performance.posters}">
-						<td colspan='2'><img
-							src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
-							alt="사진"></td>
+					<c:forEach var="performance" items="${requestScope.performances }"
+						varStatus="loop">
+						<c:url var="url" value="/member_p_detailPerformance.do"
+							scope="page">
+							<c:param name="pNo" value="${pageScope.performance.pNo }" />
+						</c:url>
+						<c:forEach var="poster"
+							items="${requestScope.performance.posters}">
+							<td colspan='2'><a href="${pageScope.url }"><img
+									src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
+									alt="사진"></td>
+						</c:forEach>
 					</c:forEach>
-
+				</tr>
+				<tr>
+					<c:forEach var="performance" items="${requestScope.performances }"
+						varStatus="loop">
+						<c:url var="url" value="/member_p_detailPerformance.do"
+							scope="page">
+							<c:param name="pNo" value="${pageScope.performance.pNo }" />
+						</c:url>
+						<td><a href="${pageScope.url }">${pageScope.performance.title }</td>
+					</c:forEach>
 				</tr>
 			</table>
 		</div>
