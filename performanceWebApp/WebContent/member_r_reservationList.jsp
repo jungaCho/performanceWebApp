@@ -112,7 +112,6 @@
 </style>
 </head>
 <body>
-	<form action="" method="get">
 		<div class="reservationList">
 			<div class="r_content1">
 				<div class="r_content1_sub1">
@@ -121,13 +120,13 @@
 							공연을 예매해 주셔서 진심으로 감사드립니다!<br> 2017년 11월 20일 예매가 정상적으로 이루어
 							졌습니다.<br> 아래 예매내역을 확인해 주세요.
 						</dt>
-						<dd>예매번호 : R1711200001</dd>
+						<dd>예매번호 : ${requestScope.reservation.rNo}</dd>
 					</dl>
 				</div>
 				<div class="r_content1_sub2">
 					<dl>
 						<dt class="r_content1_sub2_img">포스터</dt>
-						<dd class="r_content1_sub2_title">공연명</dd>
+						<dd class="r_content1_sub2_title">${param.title}</dd>
 					</dl>
 				</div>
 				<div class="r_info">▣ 예매정보</div>
@@ -136,23 +135,23 @@
 				<table class="r_content2_table">
 					<tr class="r_content2_table_bg1">
 						<th>총 결제 금액</th>
-						<th>57,000원</th>
+						<th>${param.totalPrice}</th>
 					</tr>
 					<tr>
 						<td>공 연 일</td>
-						<td>2018/01/01 (월)</td>
+						<td>${param.sDate }</td>
 					</tr>
 					<tr>
 						<td>공 연 시 간</td>
-						<td>15:00~18:00</td>
+						<td>${param.oTime }</td>
 					</tr>
 					<tr>
 						<td>좌 석 정 보</td>
-						<td>K4,K5</td>
+						<td>${param.selectTd }</td>
 					</tr>
 					<tr>
 						<td>신용카드 승인번호</td>
-						<td>485962</td>
+						<td>${requestScope.reservation.approveNumber}</td>
 					</tr>
 				</table>
 				<div class="r_button2">
@@ -160,7 +159,5 @@
 				</div>
 			</div>
 		</div>
-	</form>
-
 </body>
 </html>

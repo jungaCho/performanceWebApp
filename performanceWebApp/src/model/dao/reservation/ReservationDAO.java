@@ -239,7 +239,7 @@ public class ReservationDAO {
 			stmt = conn.createStatement();
 
 			sql.delete(0, sql.length());
-			sql.append("select ('R'||to_char(sysdate,'YYYY/MM/DD') || lpad(reservation_seq.currval,6,'0')) from dual                                                      ");
+			sql.append("select ('R'||to_char(sysdate,'YYMMDD') || lpad(reservation_seq.currval,6,'0')) from dual                                                      ");
 
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			if (rs.next()) {

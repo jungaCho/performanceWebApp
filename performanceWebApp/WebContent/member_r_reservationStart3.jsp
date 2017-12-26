@@ -71,9 +71,10 @@ input {width:300px;}
 <script type="text/javascript">
 	
 	$(document).ready(function() {
-		
+				
 		$('#selectBtn').click(function(){	
-			var select = 'pNo=${param.pNo}&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice=${param.totalPrice}&selectTd=${param.selectTd}&cardNumber='+$('#cardNumber').val()+'&cardCoNo=' +$('#cardCoNo').find('option:selected').val();
+			
+			var select = 'pNo=${param.pNo}&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice=${param.totalPrice}&selectTd=${param.selectTd}&cardNumber='+$('#cardNumber').val()+'&cardCoNo=' +$('#cardCoNo').find('option:selected').val()+'&oTime=${param.oTime}'+'&title=${param.title}&sDate=${param.sDate}&rNo=${}';
 
 			
 			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart4.do?'+select);
@@ -89,15 +90,14 @@ input {width:300px;}
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form method="get">
 		<div class="title_bg">결 제 정 보</div>
 		<div class="reservation_padding">
 			<ul>
 				<li class="ulText">▣ 결제정보 입력</li>
 				<li><span>결제금액 : </span>&nbsp;&nbsp;<span>${param.totalPrice }</span></li>
-				<li><span>카드번호 : </span>&nbsp;&nbsp;<input type="text" id="cardNumber" >&nbsp;- 포함 작성</li>
+				<li><span>카드번호 : </span>&nbsp;&nbsp;<input type="text" id="cardNumber" name="cardNumber">&nbsp;- 포함 작성</li>
 				<li><span>카드사 : </span>&nbsp;&nbsp;
-					<select id="cardCoNo">
+					<select id="cardCoNo" name="cardCoNo">
 						<option value="1">국민</option>
 						<option value="2">BC</option>
 						<option value="3">농협</option>
@@ -124,7 +124,5 @@ input {width:300px;}
 			<a href="#" id="selectBtn">결제하기</a>
 			</div>
 		</div>
-
-	</form>
 </body>
 </html>

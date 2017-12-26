@@ -58,6 +58,8 @@ public class CommandFactory {
 		map.put("/authEmail.do", "controller.member.AuthEmailProcessCommand");
 			
 		map.put("/authNumberForm.do", "controller.member.AuthNumberFormCommand");
+		
+		map.put("/sendTempPwd.do", "controller.member.sendTempPwdCommand");
 
 		
 		//¿¹¸Å
@@ -72,6 +74,8 @@ public class CommandFactory {
 		map.put("/order.do","controller.reservation.OrderCommand");
 		
 		map.put("/member_r_layout.do","controller.reservation.ListReservationCommand");
+		
+		map.put("/member_r_layout2.do","controller.reservation.UploadReservationCommand");
 		
 
 		
