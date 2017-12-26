@@ -56,10 +56,11 @@ public class CommandFactory {
 		
 		map.put("/sendEmail.do", "controller.member.SendEmailCommand");
 		
-
 		map.put("/authEmail.do", "controller.member.AuthEmailProcessCommand");
 			
 		map.put("/authNumberForm.do", "controller.member.AuthNumberFormCommand");
+		
+		map.put("/sendTempPwd.do", "controller.member.sendTempPwdCommand");
 
 		
 		//¿¹¸Å

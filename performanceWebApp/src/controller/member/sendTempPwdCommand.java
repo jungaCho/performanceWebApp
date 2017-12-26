@@ -12,56 +12,52 @@ import controller.ActionForward;
 import controller.Command;
 import model.service.member.MemberService;
 
-public class SendEmailCommand implements Command {
+public class sendTempPwdCommand implements Command {
 
-	//@Override
+	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-	
+		
 		String email = req.getParameter("email");
-		
-		
+
 		Random random = new Random();
-		
+
 		String randomN[] = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,0,1,2,3,4,5,6,7,8,9".split(",");
-		
+
 		StringBuffer buffer = new StringBuffer();
-		for(int i=0; i<6; i++) {			
+		for (int i = 0; i < 6; i++) {
 			buffer.append(randomN[random.nextInt(randomN.length)]);
-		}		
-		
-		String authNumber = buffer.toString();
-		System.out.println("authNumber : " + authNumber);
-		
-		
-		HttpSession session = req.getSession();		
-		session.setAttribute("authNumber", authNumber);
-		
-		
+		}
+
+		String tempPwd = buffer.toString();
+		System.out.println("tempPwd : " + tempPwd);
+
+		HttpSession session = req.getSession();
+		session.setAttribute("tempPwd", tempPwd);
+
 		ActionForward forward = new ActionForward();
-		try {			
-			
-			MemberService service = MemberService.getInstance();	
-			boolean flag = service.sendEmail(email, authNumber);
-			
-			
+		try {
+
+			MemberService service = MemberService.getInstance();
+			boolean flag = service.sendEmailPwd(email,tempPwd);
+
 			System.out.println("flag : " + flag);
-			if(flag) {
-				forward.setPath("/sendSuccess.jsp?success="+flag);
-				forward.setRedirect(true);				
+			
+			if (flag) {
+				forward.setPath("/sendSuccess.jsp?success=" + flag);
+				forward.setRedirect(true);
 			} else {
-				forward.setPath("/sendSuccess.jsp?success="+flag);
-				forward.setRedirect(true);	
+				forward.setPath("/sendSuccess.jsp?success=" + flag);
+				forward.setRedirect(true);
 			}
 			return forward;
-		
-		} catch (Exception e) {			
+
+		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
 			forward.setRedirect(false);
 			return forward;
 		}
 	}
-		
-	}
 
+}

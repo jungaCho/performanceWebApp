@@ -108,7 +108,7 @@
 		
 		
 		
-$('#btnCheckEmail').on('click',function(){
+		$('#btnCheckEmail').on('click',function(){
 			
 			event.preventDefault(); 
 						
@@ -144,7 +144,8 @@ $('#btnCheckEmail').on('click',function(){
 			error : function(jqXHR) {
 					$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
 			}
-		});
+		
+			});
 			
 			
 			
