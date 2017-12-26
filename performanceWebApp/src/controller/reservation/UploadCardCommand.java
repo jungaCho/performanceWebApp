@@ -24,7 +24,7 @@ public class UploadCardCommand implements Command{
 			int totalPrice = Integer.parseInt(req.getParameter("totalPrice"));
 			String selectTd =req.getParameter("selectTd");
 			String cardNumber = req.getParameter("cardNumber");
-			String cardCoNo = req.getParameter("cardCoNo");
+			int cardCoNo = Integer.parseInt(req.getParameter("cardCoNo"));
 			String oNo = req.getParameter("oNo");
 			
 			System.out.println("cardNumber : " + cardNumber);
@@ -32,7 +32,7 @@ public class UploadCardCommand implements Command{
 			ActionForward forward = new ActionForward();
 			
 			
-			ReservationVO reservation = new ReservationVO();
+			ReservationVO reservation = new ReservationVO(cardNumber,totalPrice,cardCoNo);
 			List<ReservedSeatVO> reservedSeats = new ArrayList<ReservedSeatVO>();
 			
 			try {
