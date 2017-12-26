@@ -21,8 +21,7 @@
 		});
 		
 		$('#findPwd').click(function() {
-			
-			//임시비밀번호발급 팝업창으로 넘어가기.		
+			event.preventDefault();
 			if($('#id').val().trim().length == 0) {
 				alert("아이디를 입력해주세요!");
 				return false;
@@ -34,8 +33,7 @@
 				return false;
 			}
 			
-			event.preventDefault();
-			
+			//임시비밀번호발급 팝업창으로 넘어가기.	
 			$.ajax({
 
 				url: "${pageContext.request.contextPath}/sendTempPwd.do"
