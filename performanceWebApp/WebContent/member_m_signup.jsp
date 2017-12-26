@@ -40,8 +40,20 @@
 	}
 	
 	span {
+	
+	color: red;
+	font-size: 12px;
+	
+	}
+	
+	#span1 {
 		color: red;
-		font-size: 12px;	
+		font-size: 12px;
+	}
+	
+	#span2 {
+		color: red;
+		font-size: 12px;
 	}
 	
 </style>
@@ -94,13 +106,13 @@
 				,
 				dataType : 'json'
 				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. "/member_m_newMember.jsp"에 있는 json 데이터이다.
-				data : $('#id').val()
+				data : $('form').serialize() 
 				,
 				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
 					if(data.success == true ) {
-						$('#btnCheckId').after("<span> 중복된 아이디입니다. </span>");
-					}else if(data.fail== true){
-						$('#btnCheckId').after("<span> 사용가능한 아이디입니다. </span>");
+						$('#btnCheckId').after("<span id='span1'> 중복된 아이디입니다. </span>");
+					}else{
+						$('#btnCheckId').after("<span id='span2'> 사용가능한 아이디입니다. </span>");
 					}
 				}
 				,
@@ -112,8 +124,13 @@
 			
 		});
 		
-		$('btnCheckEmail').on('click',function(){
-			location.href="${pageContext.request.contextPath}/SendEmail.do";
+		$('#btnCheckEmail').on('click',function(){
+			
+			location.href = "${pageContext.request.contextPath}/SendEmail.do";
+			alert("이메일이 발송되었습니다!");
+			return false;
+			
+			
 		});
 
 		$('#pwd').on('focus',function(){
@@ -237,7 +254,7 @@
 		<input type="text" id="name" name="name" size="25" placeholder="이름을 입력해주세요"/><br>
 		이메일<br>
 		<input type="text" id="email" name="email" size="25" placeholder="이메일을 입력해주세요"/>&nbsp;
-		<button type="button" id="btnCheckEmail">이메일 인증</button><br>
+		<button type="submit" id="btnCheckEmail">이메일 인증</button><br>
 		생일<br>
 		<input type="date" id="birthday" name="birthday">
 		<br> 

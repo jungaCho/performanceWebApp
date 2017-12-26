@@ -2,9 +2,7 @@
 
 {
 
-   "success": "${param.isExist}"
-   "fail": "${param.isFail}"
-   
+   "success": ${requestScope.isExist}
   
 
 }

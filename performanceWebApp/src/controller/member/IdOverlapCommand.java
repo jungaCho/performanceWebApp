@@ -24,18 +24,17 @@ public class IdOverlapCommand implements Command {
 
 			
 		boolean isTrue = service.checkID(mId);
+		System.out.println("isTrue" + isTrue);
 		
-		if(isTrue == true) {
+		if(isTrue) {		
 			
-			
-			req.setAttribute("isExist", true);
-			forward.setPath("/overlapId.jsp");
+			req.setAttribute("isExist", isTrue);
+			forward.setPath("/overlapID.jsp");
 			forward.setRedirect(false);
 			
-		} else {
-			
-			req.setAttribute("isFail", false);
-			forward.setPath("/overlapId.jsp");
+		} else {			
+			req.setAttribute("isExist", isTrue);
+			forward.setPath("/overlapID.jsp");
 			forward.setRedirect(false);
 		}
 		
