@@ -243,6 +243,7 @@ public class MemberDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
 			conn = DBConn.getConnection();
 
@@ -269,9 +270,12 @@ public class MemberDAO {
 						return false; // false
 					}
 					
+				} else {
+					return true;
 				}
 
 			}
+			return false;
 
 		} finally {
 			if (rs != null)
@@ -281,7 +285,7 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
-		return true;
+		
 	}
 
 	public boolean checkOverLapEmail(String email) throws Exception {

@@ -40,8 +40,20 @@
 	}
 	
 	span {
+	
+	color: red;
+	font-size: 12px;
+	
+	}
+	
+	#span1 {
 		color: red;
-		font-size: 12px;	
+		font-size: 12px;
+	}
+	
+	#span2 {
+		color: green;
+		font-size: 12px;
 	}
 	
 </style>
@@ -78,13 +90,17 @@
 		*/
 		
 		$('#id').on('focus', function() {
-			$('#btnCheckId').next('span').remove();
+			if($('#btnCheckId').next('span').val() != null) {
+				$('#btnCheckId').next('span').remove();
+			}
 		});
 		
 
-		$('#btnCheckId').on('click',function(){
-			
-				$.ajax({
+		$('#btnCheckId').on('click',function() {
+			if($('#btnCheckId').next('span').val() != null) {
+				$('#btnCheckId').next('span').remove();
+			} 
+			$.ajax({
 				//ajax는 부메랑. url에 있는 곳으로 먼저 이동 - 거기선 "/member_m_newMember.jsp"로 이동된다.
 				url: "${pageContext.request.contextPath}/IdOverlapCheck.do"
 				,
@@ -94,13 +110,15 @@
 				,
 				dataType : 'json'
 				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. "/member_m_newMember.jsp"에 있는 json 데이터이다.
-				data : $('#id').val()
+				data : $('form').serialize() 
 				,
 				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
 					if(data.success == true ) {
-						$('#btnCheckId').after("<span> 중복된 아이디입니다. </span>");
-					}else if(data.fail== true){
-						$('#btnCheckId').after("<span> 사용가능한 아이디입니다. </span>");
+						$('#btnCheckId').after("<span id='span1'> 중복된 아이디입니다. </span>");
+					} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
+						$('#btnCheckId').after("<span id='span1'> 아이디 양식을 확인해주세요! </span>");
+					} else {
+						$('#btnCheckId').after("<span id='span2'> 사용가능한 아이디입니다. </span>");
 					}
 				}
 				,
@@ -112,8 +130,37 @@
 			
 		});
 		
-		$('btnCheckEmail').on('click',function(){
-			location.href="${pageContext.request.contextPath}/SendEmail.do";
+		$('#btnCheckEmail').on('click',function(){
+			
+			event.preventDefault();
+			
+
+			$.ajax({
+				url: "${pageContext.request.contextPath}/sendEmail.do"
+				,
+				method: 'POST' 
+				,
+				async: true
+				,
+				dataType : 'json'
+				, 
+				data : {
+					email: $('#email').val()				
+				}
+				,
+				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
+					if(data.success == true ) {
+						$('#btnCheckEmail').after("<span id='span1'> 이메일 인증이 완료되었습니다. </span>");
+					}
+				}
+				,
+				error : function(jqXHR) {
+					$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
+				}
+		});
+			
+			
+			
 		});
 
 		$('#pwd').on('focus',function(){
@@ -237,7 +284,7 @@
 		<input type="text" id="name" name="name" size="25" placeholder="이름을 입력해주세요"/><br>
 		이메일<br>
 		<input type="text" id="email" name="email" size="25" placeholder="이메일을 입력해주세요"/>&nbsp;
-		<button type="button" id="btnCheckEmail">이메일 인증</button><br>
+		<button type="submit" id="btnCheckEmail">이메일 인증</button><br>
 		생일<br>
 		<input type="date" id="birthday" name="birthday">
 		<br> 
