@@ -37,6 +37,8 @@ public class CommandFactory {
 		
 		map.put("/findIdForm.do", "controller.member.FindIdFormCommand");
 		
+		map.put("/findIdRetrieve.do", "controller.member.FindIdRetrieveCommand");
+		
 		map.put("/withdrawalForm.do", "controller.member.WithdrawalFormCommand");
 		
 		map.put("/withdrawal.do", "controller.member.WithdrawalCommand");
