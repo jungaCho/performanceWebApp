@@ -66,12 +66,15 @@
 	
 		$('#id').on('focus', function() {
 			if($('#btnCheckId').next('span').val() != null) {
-				$('#btnCheckId').next('span').remove();
+				if($('#btnCheckId').next('#span2').val == null) {
+					$('#btnCheckId').next('span').remove();
+				}
 			}
 		});
 		
-		var checkIdCount = 0;
+		
 		$('#btnCheckId').on('click',function() {
+			var checkIdCount = 0;
 			if($('#btnCheckId').next('span').val() != null) {
 				$('#btnCheckId').next('span').remove();
 			} 
@@ -89,12 +92,15 @@
 				success : function(data){
 					if(data.success == true ) {
 						$('#btnCheckId').after("<span id='span1'> 중복된 아이디입니다. </span>");
+						checkIdCount = 0;
 					} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
 						$('#btnCheckId').after("<span id='span1'> 아이디 양식을 확인해주세요! </span>");
+						checkIdCount = 0;
 					} else {
 						$('#btnCheckId').after("<span id='span2'> 사용가능한 아이디입니다. </span>");
 						checkIdCount = 1;
 					}
+					console.log("checkIdCount : " + checkIdCount);
 				}
 				,
 				error : function(jqXHR) {
@@ -161,14 +167,16 @@
 		$('#id').on('blur', function() {
 			if($(this).val() == 0 ) {
 				$('#btnCheckId').after("<span> 아이디를 입력하세요</span>");
-			} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
-				$('#btnCheckId').after("<span id='span1'> 아이디 양식을 확인해주세요! </span>");
+			} else if($(this).val().length < 5 && $(this).val().length < 16) {
+				$('#btnCheckId').after("<span id='span1'> 최소5~15글자 특수문자 불가 </span>");
 			}
 		});
 		
 		$('#pwd').on('blur',function(){
 			if($(this).val() == 0 ) {
 				$(this).after("<span> 비밀번호를 입력하세요</span>");
+			} else if($(this).val().length < 5 && $(this).val().length < 16) {
+				$(this).after("<span id='span1'> 최소8~12글자 동일숫자 연속 3자리 불가 </span>");
 			}
 		});
 
