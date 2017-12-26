@@ -82,9 +82,9 @@
 		});
 		
 
-		$('btnCheckId').on('click',function(){
+		$('#btnCheckId').on('click',function(){
 			
-			$.ajax({
+				$.ajax({
 				//ajax는 부메랑. url에 있는 곳으로 먼저 이동 - 거기선 "/member_m_newMember.jsp"로 이동된다.
 				url: "${pageContext.request.contextPath}/IdOverlapCheck.do"
 				,
@@ -94,11 +94,13 @@
 				,
 				dataType : 'json'
 				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. "/member_m_newMember.jsp"에 있는 json 데이터이다.
-				data : $('form').serialize() 
+				data : $('#id').val()
 				,
 				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
-					if(data.success  == true) { //data에 있는 successs 에 대한 값이 true라면 밑 명령수행
-						alert("이미 존재하는 ID입니다.");
+					if(data.success == true ) {
+						$('#btnCheckId').after("<span> 중복된 아이디입니다. </span>");
+					}else if(data.fail== true){
+						$('#btnCheckId').after("<span> 사용가능한 아이디입니다. </span>");
 					}
 				}
 				,
@@ -108,7 +110,6 @@
 
 			});
 			
-		});
 		});
 		
 		$('btnCheckEmail').on('click',function(){
