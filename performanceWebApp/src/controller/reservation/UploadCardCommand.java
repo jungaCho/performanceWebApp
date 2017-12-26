@@ -27,8 +27,7 @@ public class UploadCardCommand implements Command{
 			int cardCoNo = Integer.parseInt(req.getParameter("cardCoNo"));
 			String oNo = req.getParameter("oNo");
 			
-			System.out.println("cardNumber : " + cardNumber);
-			System.out.println("cardCoNo : " + cardCoNo);
+			
 			ActionForward forward = new ActionForward();
 			
 			
@@ -40,6 +39,9 @@ public class UploadCardCommand implements Command{
 				//예매 정보를 등록한다.
 				ReservationService reservationService = ReservationService.getInstance();
 				reservationService.createReservation(reservation, reservedSeats);
+				
+				System.out.println("cardNumber : " + cardNumber);
+				System.out.println("cardCoNo : " + cardCoNo);
 				
 				req.setAttribute("reservation", reservation);
 				req.setAttribute("reservedSeats", reservedSeats);
