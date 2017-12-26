@@ -109,7 +109,7 @@ public class DetailFileDAO {
 				detailFile.setSystemFileName(rs.getString(2));
 				detailFile.setOriginalFileName(rs.getString(3));
 				detailFile.setFileSize(rs.getLong(4));
-				detailFile.setFileSize(rs.getLong(5));
+				detailFile.setpNo(rs.getString(5));
 				
 				detailFiles.add(detailFile);
 			}	
