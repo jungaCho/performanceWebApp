@@ -73,7 +73,7 @@ input {width:300px;}
 	$(document).ready(function() {
 		
 		$('#selectBtn').click(function(){	
-			var select = 'pNo=${param.pNo}&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice=${param.totalPrice}&selectTd=${param.selectTd}&cardNumber='+$('#cardNumber').val()+'&cardCompany=' +$('#cardCoNo').find('option:selected').val(); ;
+			var select = 'pNo=${param.pNo}&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice=${param.totalPrice}&selectTd=${param.selectTd}&cardNumber='+$('#cardNumber').val()+'&cardCoNo=' +$('#cardCoNo').find('option:selected').val();
 			
 			
 			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart4.do?'+select);
@@ -97,12 +97,12 @@ input {width:300px;}
 				<li><span>결제금액 : </span>&nbsp;&nbsp;<span>${param.totalPrice }</span></li>
 				<li><span>카드번호 : </span>&nbsp;&nbsp;<input type="text" id="cardNumber" >&nbsp;- 포함 작성</li>
 				<li><span>카드사 : </span>&nbsp;&nbsp;
-					<select name="cardCoNo" id="cardCoNo">
+					<select id="cardCoNo">
 						<option value="1">국민</option>
 						<option value="2">BC</option>
-						<option value="3">우리</option>
-						<option value="4">농협</option>
-						<option value="5">농협</option>
+						<option value="3">농협</option>
+						<option value="4">신한</option>
+						<option value="5">우리</option>
 					</select>
 				</li>
 			</ul>
