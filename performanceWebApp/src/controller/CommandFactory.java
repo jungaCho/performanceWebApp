@@ -88,6 +88,10 @@ public class CommandFactory {
 		map.put("/admin_p_removePoster.do","controller.performance.RemovePosterCommand" );
 		
 		map.put("/admin_p_removeDetailFile.do","controller.performance.RemoveDetailFileCommand" );
+		
+		map.put("/admin_p_insertScheduleForm.do","controller.performance.InsertScheduleFormCommand" );
+		
+		map.put("/admin_p_insertSchedule.do","controller.performance.InsertScheduleCommand" );
 	}
 	
 	public static CommandFactory getInstance() {

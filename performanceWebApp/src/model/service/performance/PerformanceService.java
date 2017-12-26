@@ -251,4 +251,10 @@ public class PerformanceService {
 		return orders;
 	}
 	
+	//공연 제목 모두 조회
+	public List<String> retrieveTitle() throws Exception{
+		PerformanceDAO performanceDao=PerformanceDAO.getInstance();
+		List<String> titles=performanceDao.selectTitles();
+		return titles;
+	}
 }

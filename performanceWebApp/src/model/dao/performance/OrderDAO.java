@@ -92,7 +92,6 @@ public class OrderDAO {
 							String oNo=rs.getString(2);
 							OrderVO order=new OrderVO(oNo,oTime,sNo);
 							orders.add(order);
-							
 						}
 						return orders;
 					} finally {
