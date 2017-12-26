@@ -95,7 +95,7 @@
 			}
 		});
 		
-
+		var idCheckCount = 0;
 		$('#btnCheckId').on('click',function() {
 			if($('#btnCheckId').next('span').val() != null) {
 				$('#btnCheckId').next('span').remove();
@@ -115,10 +115,10 @@
 				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
 					if(data.success == true ) {
 						$('#btnCheckId').after("<span id='span1'> 중복된 아이디입니다. </span>");
-					} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
-						$('#btnCheckId').after("<span id='span1'> 아이디 양식을 확인해주세요! </span>");
+						idCheckCount = 0;
 					} else {
 						$('#btnCheckId').after("<span id='span2'> 사용가능한 아이디입니다. </span>");
+						idCheckCount = 1;
 					}
 				}
 				,
@@ -131,11 +131,6 @@
 		});
 		
 		$('#btnCheckEmail').on('click',function(){
-			
-			location.href = "${pageContext.request.contextPath}/SendEmail.do";
-			alert("이메일이 발송되었습니다!");
-			return false;
-			
 			
 		});
 
@@ -167,6 +162,9 @@
 		$('#id').on('blur', function() {
 			if($(this).val() == 0 ) {
 				$('#btnCheckId').after("<span> 아이디를 입력하세요</span>");
+			} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
+				$('#btnCheckId').after("<span id='span1'> 아이디 양식을 확인해주세요! </span>");
+				idCheckCount = 0;
 			}
 		});
 		
@@ -227,7 +225,11 @@
 				data : $('form').serialize() 
 				,
 				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
-					if(data.success  == true) { //data에 있는 successs 에 대한 값이 true라면 밑 명령수행
+					if($('#span1').val() != null) {
+						data.success == false;
+						alert("입력한 정보를 확인해주세요!");
+						return false;
+					} else if(data.success  == true) { //data에 있는 successs 에 대한 값이 true라면 밑 명령수행
 						alert("회원가입에 성공하셨습니다!!");
 						location.href = "${pageContext.request.contextPath}/member_index.jsp";
 					}
