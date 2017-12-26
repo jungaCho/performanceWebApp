@@ -70,15 +70,17 @@ button {
 			 }*/
 			
 			 $.ajax({
-				url: '${pageContext.request.contextPath}/asdf.do'
+				url: '${pageContext.request.contextPath}/admin_p_insertSchedule.do'
 				,
 				method: 'GET'
 				,
 				dataType: 'json'
 				,
 				data: {
-					sDate: $('#td1').text()
-					oTime: $('#td2').text();
+					tNo: $('#tNo option:selected').val(),
+					title: $('#title option:selected').val(),
+					sDate: $('#sDate').val(),
+					oTime: $('#oTime').val()
 				}
 				,
 				success: function() {
@@ -113,8 +115,8 @@ button {
 				<option value="T005">뮤지컬관</option>
 			</select><br>
 			공연제목 : <select id="title" name="title">
-				<c:forEach var="title" items="${requestScope.titles}" varStatus="loop">
-					<option value=>${pageScope.title}</option>
+				<c:forEach var="performances" items="${requestScope.performances}" varStatus="loop">
+					<option value="${pageScope.performances.pNo }" }>${pageScope.performances.title}</option>
 				</c:forEach>
 			</select><br>
 			공연일자 : <input type="date" id="sDate" name="sDate" size="30"></input><br>

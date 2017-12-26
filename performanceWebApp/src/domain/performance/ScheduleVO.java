@@ -9,10 +9,19 @@ public class ScheduleVO {
 	private String pNo ;	//공연번호
 	private String tNo;		//공연장 번호
 	private List<OrderVO> orders= new ArrayList<OrderVO>();		//회차목록
+	private OrderVO order = new OrderVO();
 	
 	public ScheduleVO() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public ScheduleVO(String sDate, String pNo, String tNo, OrderVO order) {
+		super();
+		this.sDate = sDate;
+		this.pNo = pNo;
+		this.tNo = tNo;
+		this.order = order;
 	}
 
 	public ScheduleVO(String sNo, String sDate, String pNo, String tNo, List<OrderVO> orders) {
