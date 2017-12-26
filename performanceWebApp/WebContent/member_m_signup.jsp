@@ -1,4 +1,4 @@
-<%-- member_signup --%>
+<%-- member_m_signup --%>
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <!doctype html>
@@ -60,35 +60,10 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
 
+	
+
 	$(document).ready(function(){
-		/*
-		$('input[type=text], input[type=password], input[type=email], input[type=date]').on('focus',function() {
-			$(this).next('span').remove();
-			$('#btnCheckId').next('span').remove();
-			$('#btnCheckEmail').next('span').remove();
-		});
-		
-		$('input[type=text], input[type=password], input[type=email], input[type=date]').on('blur',function() {
-			if($(this).val().length == 0 ) {
-				if($(this).attr('name') == 'id') {
-					$('#btnCheckId').after("<span> 아이디를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'pwd') {
-					$(this).after("<span> 비밀번호를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'pwdcheck') {
-					$(this).after("<span> 비밀번호를 한번더 입력하세요.</span>");
-				} else if($(this).attr('name') == 'name') {
-					$(this).after("<span> 비밀번호를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'email') {
-					$('#btnCheckEmail').after("<span> 비밀번호를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'birthday') {
-					$(this).after("<span> 비밀번호를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'address') {
-					$(this).after("<span> 비밀번호를 입력하세요.</span>");
-				}
-			}
-		});
-		*/
-		
+	
 		$('#id').on('focus', function() {
 			if($('#btnCheckId').next('span').val() != null) {
 				$('#btnCheckId').next('span').remove();
@@ -132,10 +107,10 @@
 		
 		$('#btnCheckEmail').on('click',function(){
 			
-			event.preventDefault();
-			
-
+			event.preventDefault(); 
+						
 			$.ajax({
+				
 				url: "${pageContext.request.contextPath}/sendEmail.do"
 				,
 				method: 'POST' 
@@ -149,14 +124,23 @@
 				}
 				,
 				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
-					if(data.success == true ) {
-						$('#btnCheckEmail').after("<span id='span1'> 이메일 인증이 완료되었습니다. </span>");
+					
+					
+					if(data.success == true ) {						
+						var newWin = window.open("${pageContext.request.contextPath}/authNumberForm.jsp", "", "width=700, height=600, top=200, left=200");
+						
+												
+					} else {
+						$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
 					}
-				}
-				,
-				error : function(jqXHR) {
+						
+				
+				
+			}
+			,
+			error : function(jqXHR) {
 					$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
-				}
+			}
 		});
 			
 			
@@ -271,7 +255,8 @@
 </script>
 </head>
 <body>
-	<form>
+	<form name="form">
+		<input type="hidden" name="success" id="success">
 	<div id="box">
 		ID<br>
 		<input type="text" id="id" name="id" size="25" placeholder="최소 5~15글자 특수문자 불가"/>&nbsp;

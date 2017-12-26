@@ -55,8 +55,10 @@ public class CommandFactory {
 		map.put("/IdOverlapCheck.do", "controller.member.IdOverlapCommand");
 		
 		map.put("/sendEmail.do", "controller.member.SendEmailCommand");
-		map.put("/sendSuccess.do", "controller.member.SendEmailSuccessCommand");
-
+		
+		map.put("/authEmail.do", "controller.member.AuthEmailProcessCommand");
+			
+		map.put("/authNumberForm.do", "controller.member.AuthNumberFormCommand");
 		
 		//¿¹¸Å
 		map.put("/member_r_reservationStart.do","controller.reservation.ReservationStartCommand");
