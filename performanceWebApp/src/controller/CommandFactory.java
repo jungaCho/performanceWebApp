@@ -10,7 +10,6 @@ public class CommandFactory {
 	
 	private CommandFactory() {
 		//클라이언트 요청을 처리하기 위해, 클라이언트 url과 요청을 처리할 command 클래스 매핑
-
 		//회원
 		map.put("/loginForm.do", "controller.member.LoginFormCommand");
 		
@@ -56,7 +55,9 @@ public class CommandFactory {
 		
 		map.put("/sendEmail.do", "controller.member.SendEmailCommand");
 		
-		map.put("/sendSuccess.do", "controller.member.SendEmailSuccessCommand");
+		map.put("/authEmail.do", "controller.member.AuthEmailProcessCommand");
+			
+		map.put("/authNumberForm.do", "controller.member.AuthNumberFormCommand");
 
 		
 		//예매
