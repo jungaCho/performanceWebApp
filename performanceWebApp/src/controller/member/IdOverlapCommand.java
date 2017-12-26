@@ -24,7 +24,7 @@ public class IdOverlapCommand implements Command {
 		boolean isTrue = service.checkID(mId);
 		if(isTrue) {
 			forward.setPath("/login");
-			forward.setRedirect(isRedirect);
+			forward.setRedirect(false);
 		}
 		return null;
 		}catch(Exception e) {

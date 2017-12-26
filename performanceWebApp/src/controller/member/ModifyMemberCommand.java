@@ -23,7 +23,7 @@ public class ModifyMemberCommand implements Command {
 		
 		String mNo = member.getmNo();
 		
-		String pwd = req.getParameter("pwd");
+		String pwd = req.getParameter("newPwd");
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		String address = req.getParameter("address");
