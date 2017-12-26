@@ -24,7 +24,6 @@
 	<c:param name="article" value="member_welcome" />
 </c:url>
 
-<%-- <c:if test="${empty sessionScope.member}"> --%>
 <script src=js/jquery-3.2.1.min.js></script>
 <script>
 
@@ -41,7 +40,6 @@
 	});
  
 </script>
-<%-- </c:if> --%>
 
 <nav>
 	<a href ="${ pageScope.urlHome }"><h1>로고</h1></a>
