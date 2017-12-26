@@ -245,9 +245,9 @@ public class PerformanceService {
 		}
 	
 	//특정 일정에 대한 회차 조회
-	public List<String> retrieveOrders(String sNo) throws Exception{
+	public List<OrderVO> retrieveOrders(String sNo) throws Exception{
 		OrderDAO orderDao=OrderDAO.getInstance();
-		List<String> orders=orderDao.selectOrders(sNo);
+		List<OrderVO> orders=orderDao.selectOrders(sNo);
 		return orders;
 	}
 	
