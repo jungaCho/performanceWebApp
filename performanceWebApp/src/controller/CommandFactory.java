@@ -57,10 +57,6 @@ public class CommandFactory {
 		map.put("/sendEmail.do", "controller.member.SendEmailCommand");
 		map.put("/sendSuccess.do", "controller.member.SendEmailSuccessCommand");
 
-
-
-
-
 		
 		//¿¹¸Å
 		map.put("/member_r_reservationStart.do","controller.reservation.ReservationStartCommand");

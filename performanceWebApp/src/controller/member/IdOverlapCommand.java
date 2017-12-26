@@ -15,37 +15,30 @@ public class IdOverlapCommand implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		MemberService service = MemberService.getInstance();
-		ActionForward forward = new ActionForward();
 		
 		String mId = req.getParameter("id");
-		
-		try {
 
-			
-		boolean isTrue = service.checkID(mId);
-		System.out.println("isTrue" + isTrue);
-		
-		if(isTrue) {		
-			
-			req.setAttribute("isExist", isTrue);
-			forward.setPath("/overlapID.jsp");
-			forward.setRedirect(false);
-			
-		} else {			
-			req.setAttribute("isExist", isTrue);
-			forward.setPath("/overlapID.jsp");
-			forward.setRedirect(false);
-		}
-		
-		return forward;
-		
-		}catch(Exception e) {
+		ActionForward forward = new ActionForward();
+		try {
+			MemberService service = MemberService.getInstance();
+			boolean isTrue = service.checkID(mId);
+
+			if (isTrue) {
+				req.setAttribute("isExist", true);
+				forward.setPath("/overlapID.jsp");
+				forward.setRedirect(false);
+			} else {
+				req.setAttribute("isExist", false);
+				forward.setPath("/overlapID.jsp");
+				forward.setRedirect(false);
+			}
+			return forward;
+		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
 			forward.setRedirect(false);
 			return forward;
+		}
+
 	}
-	
-}
 }
