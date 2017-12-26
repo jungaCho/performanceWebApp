@@ -70,13 +70,12 @@
 			}
 		});
 		
-		var idCheckCount = 0;
+		var checkIdCount = 0;
 		$('#btnCheckId').on('click',function() {
 			if($('#btnCheckId').next('span').val() != null) {
 				$('#btnCheckId').next('span').remove();
 			} 
 			$.ajax({
-				//ajax는 부메랑. url에 있는 곳으로 먼저 이동 - 거기선 "/member_m_newMember.jsp"로 이동된다.
 				url: "${pageContext.request.contextPath}/IdOverlapCheck.do"
 				,
 				method: 'POST' 
@@ -84,36 +83,30 @@
 				async: true
 				,
 				dataType : 'json'
-				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. "/member_m_newMember.jsp"에 있는 json 데이터이다.
+				, 
 				data : $('form').serialize() 
 				,
-				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
+				success : function(data){
 					if(data.success == true ) {
 						$('#btnCheckId').after("<span id='span1'> 중복된 아이디입니다. </span>");
-						idCheckCount = 0;
+					} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
+						$('#btnCheckId').after("<span id='span1'> 아이디 양식을 확인해주세요! </span>");
 					} else {
 						$('#btnCheckId').after("<span id='span2'> 사용가능한 아이디입니다. </span>");
-						idCheckCount = 1;
+						checkIdCount = 1;
 					}
 				}
 				,
 				error : function(jqXHR) {
 					jqXHR = null;
 				}
-
 			});
-			
 		});
-		
-		
-		
-		
+
 		$('#btnCheckEmail').on('click',function(){
-			
-			event.preventDefault(); 
-						
+			event.preventDefault(); 			
+
 			$.ajax({
-				
 				url: "${pageContext.request.contextPath}/sendEmail.do"
 				,
 				method: 'POST' 
@@ -126,29 +119,19 @@
 					email: $('#email').val()				
 				}
 				,
-				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
-					
-					
+				success : function(data){ 
 					if(data.success == true ) {						
 						var newWin = window.open("${pageContext.request.contextPath}/authNumberForm.jsp", "", "width=700, height=600, top=200, left=200");
-						
-												
 					} else {
 						$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
 					}
-						
-				
-				
-			}
-			,
-			error : function(jqXHR) {
-					$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
-			}
-		
+	}
+				,
+				error : function(jqXHR) {
+						$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
+				}
 			});
-			
-			
-			
+
 		});
 
 
@@ -182,7 +165,6 @@
 				$('#btnCheckId').after("<span> 아이디를 입력하세요</span>");
 			} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
 				$('#btnCheckId').after("<span id='span1'> 아이디 양식을 확인해주세요! </span>");
-				idCheckCount = 0;
 			}
 		});
 		
