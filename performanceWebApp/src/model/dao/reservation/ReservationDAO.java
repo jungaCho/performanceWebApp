@@ -221,9 +221,10 @@ public class ReservationDAO {
 
 		try {
 			StringBuffer sql = new StringBuffer();
-			sql.append("insert into reservation(r_no , r_date , card_number , total_price , approve_number , m_no , o_no , cardCo_no)                           ");
-			sql.append("values('R'||to_char(sysdate,'YYYYMMDD') || lpad(reservation_seq.nextval,6,'0'), to_char(sysdate,'YYYY/MM/DD'),                    ");
+			sql.append("insert into reservation(r_no , r_date , card_number , total_price , approve_number , m_no , o_no , cardco_no)                           ");
+			sql.append("values('R'||to_char(sysdate,'YYMMDD') || lpad(reservation_seq.nextval,6,'0'), to_char(sysdate,'YYYY/MM/DD'),                    ");
 			sql.append("? , ? , lpad(round(dbms_random.value(0,999999),0),6,'0'), ? , ?, ?)                                                                                       ");
+		
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, reservation.getCardNumber());
@@ -238,11 +239,12 @@ public class ReservationDAO {
 			stmt = conn.createStatement();
 
 			sql.delete(0, sql.length());
-			sql.append("select ('R'||to_char(sysdate,'YYYY/MM/DD') || lpad(reservation_seq.currval,6,'0') from dual                                                      ");
+			sql.append("select ('R'||to_char(sysdate,'YYYY/MM/DD') || lpad(reservation_seq.currval,6,'0')) from dual                                                      ");
 
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			if (rs.next()) {
 				rNo = rs.getString(1);
+				System.out.println("rNo : " + rNo);
 			}
 
 		} finally {

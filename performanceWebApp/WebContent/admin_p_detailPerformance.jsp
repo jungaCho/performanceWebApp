@@ -115,7 +115,7 @@ a#modify {
 	<div>
 		<c:forEach var="poster" items="${requestScope.performance.posters}">
 			<img
-				src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
+				src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.originalFileName}"
 				alt="사진">
 		</c:forEach>
 	</div>
@@ -141,8 +141,9 @@ a#modify {
 
 
 	<div id="div1">
-		공연번호 : ${requestScope.performance.pNo }<br> <br> 공연제목 :
-		${requestScope.performance.title }
+		공연번호 : ${requestScope.performance.pNo }
+		<br> <br>
+		공연제목 : ${requestScope.performance.title }
 	</div>
 
 	<div id="div3">
@@ -187,12 +188,12 @@ a#modify {
 		<br> <br>
 	</div>
 	<div id="div4">
- 		<table border="1">
- 			
- 					<td>상세설명${pageScope.loop.count }</td>
-					<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
- 				</tr>	
- 		</table> 		
+		<table border="1">
+			<tr>
+				<td>상세설명${pageScope.loop.count }</td>
+				<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
+			</tr>
+		</table>
 	</div>
 
 	<br>

@@ -184,7 +184,7 @@ public class PerformanceDAO {
 			sql.append("and performancegenre.GENRE_NO=performance.GENRE_NO																					");
 			sql.append("and detailfile.p_no=performance.p_no																								");
 			sql.append("and performance.p_no=?																												");
-			sql.append(" order by performance.p_no asc, schedule.s_date asc, orders.o_time asc																");
+			sql.append(" order by performance.p_no asc, schedule.s_date asc, orders.o_no asc																");
 			System.out.println(sql.toString());
 			
 			pstmt = conn.prepareStatement(sql.toString());
@@ -233,13 +233,13 @@ public class PerformanceDAO {
 					}
 					 
 					//회차
-					if(!oTime.equals(rs.getString(10))) {	
+					if(!oTime.equals(rs.getString(19))) {	
 						OrderVO order = new OrderVO();
 						order.setoTime(rs.getString(10));
 						schedule.addOrders(order);
-						oTime = rs.getString(10);
+						oTime = rs.getString(19);
 						order.setoNo(rs.getString(19));
-						System.out.println(rs.getString(10));
+						System.out.println(rs.getString(19));
 					}
 				}
 				
@@ -661,5 +661,34 @@ public class PerformanceDAO {
 		return totalPost;
 	}
 
-	
+	//모든 공연의 제목 구하기
+	public List<String> selectTitles() throws Exception{
+		PreparedStatement pstmt=null;
+		Connection conn=null;
+		ResultSet rs=null;
+		List<String> titles=new ArrayList<String>();
+		try {
+			conn=DBConn.getConnection();
+			StringBuffer sql=new StringBuffer();
+			sql.append("select title     ");
+			sql.append("from performance  ");
+			pstmt=conn.prepareStatement(sql.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String title=rs.getString(1);
+				titles.add(title);
+			}
+			return titles;
+			
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+	}
 }

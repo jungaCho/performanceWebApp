@@ -33,7 +33,7 @@ public class ModifyPerformanceFormCommand implements Command{
 			req.setAttribute("performance", performance);
 			req.setAttribute("posters",posters);
 			req.setAttribute("detailFiles",detailFiles);
-			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_modifyPerformanceForm");
+			forward.setPath("/admin_layout.jsp?nav=admin_p_menu&article=admin_p_modifyPerformanceForm");
 			forward.setRedirect(false);
 			
 			return forward;

@@ -67,6 +67,24 @@ input {width:300px;}
 
 #cardCompany{height:25px;}
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+		
+		$('#selectBtn').click(function(){	
+			var select = 'pNo=${param.pNo}&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice=${param.totalPrice}&selectTd=${param.selectTd}&cardNumber='+$('#cardNumber').val()+'&cardCoNo=' +$('#cardCoNo').find('option:selected').val();
+
+			
+			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart4.do?'+select);
+	
+		}); 
+		
+ 	
+	});
+</script>
+
+
 
 </head>
 <body>
@@ -76,26 +94,34 @@ input {width:300px;}
 		<div class="reservation_padding">
 			<ul>
 				<li class="ulText">▣ 결제정보 입력</li>
-				<li><span>결제금액 : </span>&nbsp;&nbsp;<span id="resultPrice">${param.resultPrice }</span></li>
-				<li><span>카드번호 : </span>&nbsp;&nbsp;<input type="text"
-					name="cardNumber"></li>
+				<li><span>결제금액 : </span>&nbsp;&nbsp;<span>${param.totalPrice }</span></li>
+				<li><span>카드번호 : </span>&nbsp;&nbsp;<input type="text" id="cardNumber" >&nbsp;- 포함 작성</li>
 				<li><span>카드사 : </span>&nbsp;&nbsp;
-					<select name="cardCompany" id="cardCompany">
+					<select id="cardCoNo">
 						<option value="1">국민</option>
 						<option value="2">BC</option>
-						<option value="3">우리</option>
-						<option value="4">농협</option>
-						<option value="5">농협</option>
+						<option value="3">농협</option>
+						<option value="4">신한</option>
+						<option value="5">우리</option>
 					</select>
 				</li>
 			</ul>
 			<div class="btnLeft">
 			<c:url var="url" value="/member_r_reservationStart2.do">
-					<c:param name="tNo" value="${param.tNo}" />
 					<c:param name="pNo" value="${param.pNo }" />
+					<c:param name="tNo" value="${param.tNo}" />
+					<c:param name="oNo" value="${param.oNo }"/>
 			</c:url> 
 			<a href="${pageScope.url }" id="closeBtn">뒤로가기</a> 
-			<a href="${pageContext.request.contextPath}/member_r_reservationStart4.jsp" id="selectBtn">결제하기</a>
+			<%-- <c:url var="url" value="/member_r_reservationStart4.do">
+					<c:param name="pNo" value="${param.pNo }" />
+					<c:param name="tNo" value="${param.tNo}" />
+					<c:param name="oNo" value="${param.oNo }"/>
+					<c:param name="totalPrice" value="${param.totalPrice }"/>
+					<c:param name="selectTd" value="${param.selectTd }"/>
+					<c:param name="cardNumber" value="${param.cardNumber }"/>
+			</c:url>  --%>			
+			<a href="#" id="selectBtn">결제하기</a>
 			</div>
 		</div>
 
