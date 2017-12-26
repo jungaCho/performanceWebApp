@@ -18,11 +18,13 @@ public class ReservationVO {
 		
 	}
 	
-	public ReservationVO(String cardNumber, int totalPrice, int cardCoNo) {
+public ReservationVO(String cardNumber, int totalPrice, int cardCoNo, String mNo, String oNo) {
 		super();
 		this.cardNumber = cardNumber;
 		this.totalPrice = totalPrice;
 		this.cardCoNo = cardCoNo;
+		this.mNo = mNo;
+		this.oNo = oNo;
 	}
 
 
