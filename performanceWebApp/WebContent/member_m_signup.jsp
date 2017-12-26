@@ -131,8 +131,31 @@
 		});
 		
 		$('#btnCheckEmail').on('click',function(){
-			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/sendEmail.do"
+				,
+				method: 'POST' 
+				,
+				async: true
+				,
+				dataType : 'json'
+				, 
+				data : {
+					email: $('#email').val()				
+				}
+				,
+				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
+					if(data.success == true ) {
+						$('#btnCheckEmail').after("<span id='span1'> 이메일 인증이 완료되었습니다. </span>");
+					}
+				}
+				,
+				error : function(jqXHR) {
+					$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
+				}
+			});
 		});
+
 
 		$('#pwd').on('focus',function(){
 			$(this).next('span').remove();
