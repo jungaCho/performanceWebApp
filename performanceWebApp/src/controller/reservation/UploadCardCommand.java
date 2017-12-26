@@ -21,7 +21,16 @@ public class UploadCardCommand implements Command{
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 		
+			int totalPrice = Integer.parseInt(req.getParameter("totalPrice"));
+			String selectTd =req.getParameter("selectTd");
+			String cardNumber = req.getParameter("cardNumber");
+			String cardCompany = req.getParameter("cardCompany");
+			String oNo = req.getParameter("oNo");
+			
+			System.out.println("cardNumber : " + cardNumber);
+			System.out.println("cardCompany : " + cardCompany);
 			ActionForward forward = new ActionForward();
+			
 			
 			ReservationVO reservation = new ReservationVO();
 			List<ReservedSeatVO> reservedSeats = new ArrayList<ReservedSeatVO>();
@@ -34,6 +43,11 @@ public class UploadCardCommand implements Command{
 				
 				req.setAttribute("reservation", reservation);
 				req.setAttribute("reservedSeats", reservedSeats);
+				req.setAttribute("totalPrice", totalPrice);
+				req.setAttribute("selectTd", selectTd);
+				req.setAttribute("cardNumber", cardNumber);
+				req.setAttribute("cardCompany", cardCompany);
+				req.setAttribute("oNo", oNo);
 				
 				forward.setPath("/member_r_reservationStart4.jsp");
 				forward.setRedirect(false);

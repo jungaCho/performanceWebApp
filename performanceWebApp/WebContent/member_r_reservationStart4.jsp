@@ -77,7 +77,7 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 			if(confirm("선택한 좌석 정보로 예약하시겠습니까?") == true){
 				console.log("OK");
 				self.close();
-				$(opener.location).attr('href', '${pageContext.request.contextPath}/member_r_layout.jsp?nav=member_r_menu&article=member_r_reservation');
+				$(opener.location).attr('href', '${pageContext.request.contextPath}/member_r_layout2.jsp?nav=member_r_menu&article=member_r_reservationList');
 			}else{
 				return;
 			}
