@@ -89,7 +89,7 @@
 		<div id="div3">
 		<table border="1" width=180>
 			<tr>
-				<td>2017/10/20</td>
+				<td>${pageScope.performance.sDate }</td>
 				<td><button type="button" id="btn2">예매하기</button>
 			</tr>
 			<br>
