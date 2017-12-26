@@ -55,15 +55,43 @@ button {
 			$('#sDate1').text(sDate);
 			$('#oTime1').text(oTime);	
 			
-			$('#table1').append("<tr><td>"+ sDate + "</td><td>"+ oTime +"</td></tr>");
-			count++;
+			if(sDate != "" && oTime != "") {
+				$('#table1').append("<tr><td id='td1'>"+ sDate + "</td><td id='td2'>"+ oTime +"</td></tr>");
+			} 
+//			count++;
+			console.log($('#td1').text());
+			console.log($('#td2').text());
+			
 		});
 		
-		$("#btn2").on('click', function() {
-			 for(var i=0; i<=count;i++){
+		$("#btn3").on('click', function() {
+			 /*for(var i=0; i<=count;i++){
 				$('#table1 tr:nth-child(i):nth-child(0)').val 
-			 }
-
+			 }*/
+			
+			 $.ajax({
+				url: '${pageContext.request.contextPath}/asdf.do'
+				,
+				method: 'GET'
+				,
+				dataType: 'json'
+				,
+				data: {
+					sDate: $('#td1').text()
+					oTime: $('#td2').text();
+				}
+				,
+				success: function() {
+					location.href="${pageContext.request.contextPath}/admin_p_selectPerformanceList.do";
+					alert("공연정보가 등록되었습니다!!");
+				}
+				,
+				error: function() {
+					alert("error : " + jqXHR.status);
+				}
+				
+			 });
+			
 		});
 	});
 </script>

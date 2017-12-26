@@ -77,6 +77,9 @@ a {
 <script>
       $(document).ready(function() {
     	  	
+    	  $('#btn1').click(function(){
+    		  
+    	  });
     	  
     	  
             $("#btn3").on('click', function() {
