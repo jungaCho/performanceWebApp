@@ -16,16 +16,17 @@ public class SendEmailCommand implements Command {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		ActionForward forward = new ActionForward();
-		
-		MemberService service = MemberService.getInstance();
+	
 		String email = req.getParameter("email");
 		
+		
 		try {
+			MemberService service = MemberService.getInstance();	
+			service.sendEmail(email);
 			
-		service.sendEmail(email);
-		forward.setPath("/signUpForm.do");
-		forward.setRedirect(false);
-		return forward;
+			forward.setPath("/signUpForm.do");
+			forward.setRedirect(false);
+			return forward;
 		
 		} catch (Exception e) {
 			req.setAttribute("exception", e);

@@ -55,14 +55,13 @@ public class MemberService {
 	public boolean checkEmail(String email) throws Exception {
 		return MemberDAO.getInstance().checkOverLapEmail(email);
 	}
+	
 
 	public void sendEmail(String email) throws Exception {
-
 		String host = "smtp.naver.com";
 		final String user = "ztz33";
 		final String password = "vusgo123";
-
-		String to = email;
+		
 
 		// Get the session object
 		Properties props = new Properties();
@@ -73,33 +72,32 @@ public class MemberService {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(user, password);
 			}
-
 		});
 
 		// Compose the message
-		try {
-			
+		try {		
 			
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(user));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
 			// Subject
 			message.setSubject("[가입 승인] 공연예매프로그램");
 
 			// Text
 			message.setText("하단 url을 누르시면 이메일 인증이 완료됩니다.");
-			message.setText("<a href='http://localhost:9000/performanceWebApp/signUpForm.do'>가입승인url</a>");
-					
-
+			message.setText("'http://localhost:9000/performanceWebApp/sendSuccess.do'");
+				
 			// send the message
 			Transport.send(message);
 			System.out.println("message sent successfully...");
 
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
+	
 	
 	
 	//임시비밀번호를 발

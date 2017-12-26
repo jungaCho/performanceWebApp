@@ -54,7 +54,8 @@ public class CommandFactory {
 		
 		map.put("/IdOverlapCheck.do", "controller.member.IdOverlapCommand");
 		
-		map.put("/SendEmail.do", "controller.member.SendEmailCommand");
+		map.put("/sendEmail.do", "controller.member.SendEmailCommand");
+		map.put("/sendSuccess.do", "controller.member.SendEmailSuccessCommand");
 
 
 
