@@ -2,7 +2,6 @@
 
 {
 
-   "success": ${requestScope.isSuccess}
-  
+   "success": ${param.success} 
 
 }

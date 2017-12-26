@@ -115,7 +115,7 @@ a#modify {
 	<div>
 		<c:forEach var="poster" items="${requestScope.performance.posters}">
 			<img
-				src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
+				src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.originalFileName}"
 				alt="사진">
 		</c:forEach>
 	</div>
