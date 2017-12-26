@@ -4,15 +4,9 @@
 
 
 
-<c:url var="url1" value="/processMemberList.do" scope="page">
-	<c:param name="article" value="admin_welcome" />
-</c:url>
-
-	
-<c:url var="url2" value="/admin_layout.jsp" scope="page"/>
-	
+<c:url var="url1" value="/processMemberList.do" scope="page"/>	
+<c:url var="url2" value="/admin_layout.jsp" scope="page"/>	
 <c:url var="url3" value="/admin_p_selectPerformanceList.do" scope="page" />
-
 <c:url var="urlHome" value="/admin_index.jsp" scope="page" />
 	
 <nav>

@@ -6,8 +6,7 @@
 	<c:forEach var="detailFile" items="${requestScope.DetailFiles}"  varStatus="loop">
 	
 	{
-		"systemFileName" :${pageScope.detailFile.systemFileName} ,
-		"fileSize": "${pageScope.detailFile.fileSize}",
+		"originalFileName" :${pageScope.detailFile.originalFileName} 
 		
 	}
 	<c:if test="${loop.index < fn:length(requestScope.articles)-1}">

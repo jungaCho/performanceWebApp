@@ -1,7 +1,6 @@
 <%-- admin_layout.jsp --%>
 <%@ page contentType="text/html; charset=utf-8" %>
 
-
 	
 <%
 	String nav = request.getParameter("nav") + ".jsp";
@@ -77,7 +76,7 @@ section nav {
 
 	section article {
 		width: 75%;
-		height: 800px;
+		height: 100%;
 		background-color: #ebebeb;
 		float: left;
 		
