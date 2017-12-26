@@ -115,30 +115,28 @@ a:hover {
 			    
 				 $.ajax({
 
-					url : "${pageContext.request.contextPath}/order.do?pNo=${param.pNo}"
+					url : "${pageContext.request.contextPath}/order.do"
 					,
 					method : "GET" 
 					,
 					dataType : "json"
 					,
-					data : $(this).find('option:selected').val()
+					data : {
+						pNo: '${param.pNo}' ,
+						sNo : $(this).find('option:selected').val()
+					}
 					,
 					success : function(data){
-						$('#orderTime').empty();
+						 $('#oTime').empty(); 
 						
 						var htmlStr = "";
 
-						for(var i = 0 ; i < data.length; i++){
-							
-							htmlStr  += "<option>" + data[i].oTime + "</option>";	
-							
+						for(var i = 0; i<data.length; i++){							
+							htmlStr  += "<option value= " + data[i].oNo + ">" + data[i].oTime + "</option>";		
+							console.log(i);
 							$('#oTime').append(htmlStr);
-							
-												
 							htmlStr = "";
-
-						};
-									
+						};									
 					}
 					,
 					error : function(jqXHR){
@@ -150,19 +148,15 @@ a:hover {
 		}); 
 		
 
-		$('#oTime').on('change',  function(){
-		
-			var oNo =	 $('#oTime').find('option:selected').val();
-			console.log("oNo :" + oNo);	
-			
-		});
 
 		$('#selectBtn').click(function(){	
-			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart2.do?pNo=${param.pNo}?tNo=${requestScope.performance.tNo}?oNo=oNo');
+			 var oNo =	 $('#oTime').find('option:selected').val();
+			 console.log("oNo :" + oNo);
+			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart2.do?pNo=${param.pNo}&tNo=${requestScope.performance.tNo}&oNo='+oNo);
 	
 		}); 
-
 		
+ 	
 	});
 </script>
 </head>

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
-import domain.performance.PerformanceVO;
 import domain.reservation.ReservationVO;
 
 public class ListCardCommand implements Command{
@@ -16,16 +15,21 @@ public class ListCardCommand implements Command{
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
-		
-		String cardNumber = req.getParameter("cardNumber");
 
+		int totalPrice = Integer.parseInt(req.getParameter("totalPrice"));
+		String selectTd =req.getParameter("selectTd");
+		String cardNumber = req.getParameter("cardNumber");
+		String oNo = req.getParameter("oNo");
 		
-		PerformanceVO performance = new PerformanceVO();
 		ReservationVO reservation = new ReservationVO();
 		ActionForward forward = new ActionForward();
-				
-		req.setAttribute("performance", performance);
+
+	
 		req.setAttribute("reservation", reservation);
+		req.setAttribute("totalPrice", totalPrice);
+		req.setAttribute("selectTd", selectTd);
+		req.setAttribute("cardNumber", cardNumber);
+		req.setAttribute("oNo", oNo);	
 		
 		forward.setPath("/member_r_reservationStart3.jsp");
 		forward.setRedirect(false);
