@@ -18,15 +18,25 @@ public class CommandFactory {
 		
 		map.put("/SignUp.do","controller.member.SignUpCommand");
 		
+		map.put("/signUpForm.do","controller.member.SignUpFormCommand");
+		
 		map.put("/checkMember.do","controller.member.CheckMemberCommand");
+		
+		map.put("/checkMemberForm.do", "controller.member.CheckMemberFormCommand");
+		
+		map.put("/myPageForm.do", "controller.member.MyPageFormCommand");
 		
 		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
 		
 		map.put("/modifyMember.do", "controller.member.ModifyMemberCommand");
 		
+		map.put("/modifyPwd.do", "controller.member.ModifyPwdFormCommand");
+		
 		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
 
 		map.put("/findId.do", "controller.member.FindIdCommand");
+		
+		map.put("/findIdForm.do", "controller.member.FindIdFormCommand");
 		
 		map.put("/withdrawalForm.do", "controller.member.WithdrawalFormCommand");
 		
@@ -35,18 +45,28 @@ public class CommandFactory {
 		map.put("/adminLogin.do", "controller.member.AdminLoginCommand");
 
 		map.put("/findPwd.do", "controller.member.FindPwdCommand");
+		
+		map.put("/findPwdForm.do", "controller.member.FindPwdFormCommand");
 
 		map.put("/logout.do", "controller.member.LogoutCommand");
+
 		map.put("/processMemberList.do", "controller.member.AdminSelectMember");
 		map.put("/IdOverlapCheck.do", "controller.member.IdOverlapCommand");
+
+
+
 
 		
 		//¿¹¸Å
 		map.put("/member_r_reservationStart.do","controller.reservation.ReservationStartCommand");
 
 		map.put("/member_r_reservationStart2.do","controller.reservation.ReservationSeatCommand");
+		
 		map.put("/member_r_reservationStart3.do","controller.reservation.ListCardCommand");
+		
 		map.put("/order.do","controller.reservation.OrderCommand");
+		
+		map.put("/member_r_layout.do","controller.reservation.ListReservationCommand");
 		
 
 		

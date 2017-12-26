@@ -8,7 +8,6 @@
 <title>로그인화면</title>
 <style>
 #box {
-	
 	width: 300px;
 	height: 400px;
 	background-color: yellow;
@@ -16,34 +15,27 @@
 	margin-bottom: 10px; /*아래 여백을 10px로 잡아줌 */
 	padding: 20px; /* 안쪽 여백을 20px로 잡아줌 */
 	text-align : center;
-	
-
 }
-button {
 
+button {
 	width: 80px;
 	height : 50px;
-
 }
 
 input {
-
 	text-align : center;
 }
 
 #btn1 {
-	
 	display: inline-block;
 	float : left;
 	margin-left: 60px;
 }
 
 #btn2 {
-	
 	display : inline-block;
 	float : right;
 	margin-right: 60px;
-
 }
 
 </style>
@@ -60,11 +52,33 @@ input {
 				alert("비밀번호를 입력해주세요");
 				return false;
 			}		
+/*
+			$.ajax({
+				url: "${pageContext.request.contextPath}/member_m_newMember.jsp";
+				,
+				method: 'POST'
+				,
+				dataType: 'json'
+				,
+				data: $('form').serialize();
+				,
+				success: function(data) {
+					
+					if(data.success == true) {
+						location.href="${pageContext.request.contextPath}/login.do";
+					}
+				}
+				,
+				error: function(){
+					
+				}
+			});
+		*/
 		});
 		
 		$("#btn2").click(function() {
-			location.href="${pageContext.request.contextPath}/member_m_signup.jsp";
-		});
+			location.href="${pageContext.request.contextPath}/signUpForm.do";
+		});		
 	});
 </script>
 
@@ -78,18 +92,14 @@ input {
 			비밀번호 : <br>
 			<input type="password" id="pwd" name="pwd" size="20" placeholder="비밀번호를 입력해주세요"></input><br>
 			<br>
-			<c:url var="findIDform" value="/member_m_findId.jsp" scope="page"/>
-			<c:url var="findPwdform" value="/member_m_findPwd.jsp" scope="page"/>
+			<c:url var="findIDform" value="/findIdForm.do" scope="page"/>
+			<c:url var="findPwdform" value="/findPwdForm.do" scope="page"/>
 			<a href="${pageScope.findIDform }">아이디찾기</a>/<a href="${pageScope.findPwdform }">비밀번호찾기</a><br>
 			<br>
 			<button type="submit" id="btn1">로그인</button>
 			<button type="button" id="btn2">회원가입</button>
 		</div>
 		</form>
-			
-		
-
-
 
 </body>
 </html>

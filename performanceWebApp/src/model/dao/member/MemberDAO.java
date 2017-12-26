@@ -239,19 +239,15 @@ public class MemberDAO {
 	}
 	
 	public boolean checkOverLapId(String mId) throws Exception {
-
 		// 1. DB에 접속해 회원 아이디를 조회한다.
-
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
 		try {
-
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_id, withdrawal		");
+			sql.append("select m_no, m_id, withdrawal		");
 			sql.append("from member     ");
 			sql.append("where m_id = ?   ");
 
@@ -261,6 +257,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+
 				String memberId = rs.getString(1);
 				String wdCheck = rs.getString(2);
 
@@ -273,10 +270,12 @@ public class MemberDAO {
 					}
 					
 				}
+
 			}
 
 		} finally {
-
+			if (rs != null)
+				rs.close();
 			if (pstmt != null)
 				pstmt.close();
 			if (conn != null)

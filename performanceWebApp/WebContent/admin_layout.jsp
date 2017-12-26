@@ -1,6 +1,8 @@
 <%-- admin_layout.jsp --%>
 <%@ page contentType="text/html; charset=utf-8" %>
 
+
+	
 <%
 	String nav = request.getParameter("nav") + ".jsp";
 	String article= request.getParameter("article") + ".jsp";

@@ -76,7 +76,7 @@ input {width:300px;}
 		<div class="reservation_padding">
 			<ul>
 				<li class="ulText">▣ 결제정보 입력</li>
-				<li><span>결제금액 : </span>&nbsp;&nbsp;<span id="resultPrice"></span></li>
+				<li><span>결제금액 : </span>&nbsp;&nbsp;<span id="resultPrice">${param.resultPrice }</span></li>
 				<li><span>카드번호 : </span>&nbsp;&nbsp;<input type="text"
 					name="cardNumber"></li>
 				<li><span>카드사 : </span>&nbsp;&nbsp;

@@ -7,7 +7,6 @@
 <title>회원정보조회페이지</title>
 	<style>
 	form {
-	
 		padding : 30px;
 	}
 	
@@ -53,11 +52,25 @@
 						}
 					},
 					error: function(jqXHR) {
-						alert("Error : " + jqXHR);
+						alert("정보를 정확히 입력해주세요!");
 					}
 				});
-				
 			});
+			
+			$('#btn2').click(function() {
+				location.href="${pageContext.request.contextPath}/retrieveMember.do";		
+			});
+			/*
+			$('#btn3').click(function(){
+				var url = "${pageContext.request.contextPath}/modifyPwd.do";
+				var width = 400;
+				var height = 200;
+				var ww = width/2;
+				var wh = height/2;
+				window.open(url,"비밀번호 변경","width=" + width + ",height=" + height + ",top="+(screen.availHeight/2-wh)+
+													",left="+(screen.availWidth/2-ww)+"");
+			});
+			*/
 		}); 
 	</script>
 </head>
@@ -68,10 +81,10 @@
 		<button type="button" id="btn1">확인</button>
 		<button type="button" id="btn2">취소</button>
 		</div>
-	
+
 		<div id="div1">
 		아 이 디 : ${requestScope.member.mId }</input><br>
-		비밀번호 : <input type="password" name="pwd" size="30" value="${requestScope.member.mPw }"readonly></input><button type="button" id="btn2">변경</button><br>
+		비밀번호 : <input type="password" name="pwd" size="30" value="${requestScope.member.mPw }"readonly></input><button type="button" id="btn3">변경</button><br>
 		
 		</div>
 		<hr width="500" align = "center" color = "black" size ="1">

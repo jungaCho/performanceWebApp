@@ -11,16 +11,8 @@
 	<c:param name="nav" value="member_r_menu" />
 	<c:param name="article" value="member_r_reservation" />
 </c:url>
-<%--
-<c:url var="url3" value="/member_m_layout.jsp" scope="page">
-	<c:param name="nav" value="member_m_menu" />
-	<c:param name="article" value="member_m_myPageMain" />
-</c:url>
- --%>
-<c:url var="url3" value="/member_m_layout.jsp" scope="page">
-	<c:param name="nav" value="member_m_menu" />
-	<c:param name="article" value="member_m_checkMember" />
-</c:url>
+
+<c:url var="url3" value="/checkMemberForm.do" scope="page"/>
 
 <c:url var="urlHome" value="/mem_mainTestjsp.jsp" scope="page">
 	<c:param name="article" value="member_welcome" />

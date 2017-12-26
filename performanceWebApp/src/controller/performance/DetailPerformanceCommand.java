@@ -1,6 +1,7 @@
 package controller.performance;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
+import domain.performance.DetailFileVO;
 import domain.performance.PerformanceVO;
 import model.service.performance.PerformanceService;
 
@@ -24,10 +26,11 @@ public class DetailPerformanceCommand implements Command {
 		ActionForward forward = new ActionForward();
 		try {
 			PerformanceService performanceService = PerformanceService.getInstance();
-
 			PerformanceVO performance = performanceService.retirevePerformance(pNo);
-
+			List<DetailFileVO> detailFiles = (List<DetailFileVO>)performance.getDetailFiles();
+			
 			req.setAttribute("performance", performance);
+			req.setAttribute("detailFiles", detailFiles);
 
 			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_detailPerformance");
 			forward.setRedirect(false);

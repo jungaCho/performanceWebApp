@@ -7,12 +7,16 @@
 <style>
 	
 	form {
-
 		width:400px;
 		height:600px;
 	}
+	
+	div > h3 {
+		display: inline-block;
+		margin-right: 5px;
+	}
+	
 	#box {
-
 		margin-top:50px;
 		width:auto;
 		height:100px;	
@@ -23,6 +27,7 @@
 		height:150px;
 		float:left;
 	}
+	
 	#box2 {
 		width:60%;
 		height:150px;
@@ -34,12 +39,23 @@
 		height:200px;
 	}
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+
+		$('#btn2').click(function() {
+			location.href="${pageContext.request.contextPath}/myPageForm.do";
+		});
+	});
+</script>
 </head>
 <body>
 	<form action="${pageContext.request.contextPath }/withdrawal.do" method="POST">
-		<span>회원탈퇴</span>&nbsp;
-		<button id="btn1" type="submit">확인</button>&nbsp;
-		<button id="btn2" type="button">취소</button><br>
+		<div>
+			<h3>회원탈퇴</h3>&nbsp;
+			<button id="btn1" type="submit">확인</button>
+			<button id="btn2" type="button">취소</button><br>
+		</div>
 		<div id="box">
 			현재 계정 정보 : ${requestScope.member.mName }님<br>
 			아이디 : ${requestScope.member.mId }님<br>
