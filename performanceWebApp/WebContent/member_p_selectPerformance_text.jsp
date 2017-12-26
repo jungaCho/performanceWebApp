@@ -98,7 +98,7 @@
 				<td>${pageScope.performance.title }</td>
 				<td>${pageScope.performance.startDate } ~ ${pageScope.performance.endDate }</td>
 				<td>${pageScope.performance.tNo }</td>
-				<td><button type="button" id="btn2">예매하기</button></td>
+				<td><button type="submit" id="btn2">예매하기</button></td>
 			</tr>
 		</table>
 		</div>
