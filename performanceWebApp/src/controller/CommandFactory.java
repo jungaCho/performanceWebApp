@@ -66,6 +66,8 @@ public class CommandFactory {
 		
 		map.put("/member_r_reservationStart3.do","controller.reservation.ListCardCommand");
 		
+		map.put("/member_r_reservationStart4.do","controller.reservation.UploadCardCommand");
+		
 		map.put("/order.do","controller.reservation.OrderCommand");
 		
 		map.put("/member_r_layout.do","controller.reservation.ListReservationCommand");

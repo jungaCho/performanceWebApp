@@ -60,6 +60,7 @@ public class ListPerformanceByAdminCommand implements Command {
 			forward.setRedirect(false);
 			return forward;
 			
+			
 		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");

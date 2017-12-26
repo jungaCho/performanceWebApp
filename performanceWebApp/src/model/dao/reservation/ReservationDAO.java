@@ -221,9 +221,10 @@ public class ReservationDAO {
 
 		try {
 			StringBuffer sql = new StringBuffer();
-			sql.append("insert into reservation(r_no , r_date , card_number , total_price , approve_number , m_no , o_no , cardCo_no)                           ");
+			sql.append("insert into reservation(r_no , r_date , card_number , total_price , approve_number , m_no , o_no , cardco_no)                           ");
 			sql.append("values('R'||to_char(sysdate,'YYYYMMDD') || lpad(reservation_seq.nextval,6,'0'), to_char(sysdate,'YYYY/MM/DD'),                    ");
 			sql.append("? , ? , lpad(round(dbms_random.value(0,999999),0),6,'0'), ? , ?, ?)                                                                                       ");
+		
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, reservation.getCardNumber());
