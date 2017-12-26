@@ -28,7 +28,7 @@
 <script>
 
 	$(document).ready(function () {
-		var noSession = ${empty sessionScope.member}
+		var noSession = ${empty sessionScope.member};
 		if(noSession) { 
 			$('#loginm').text("로그인이 필요합니다");	
 			$('#mypage, #reservation').click(function () {
