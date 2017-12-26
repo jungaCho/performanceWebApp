@@ -72,6 +72,8 @@ public class CommandFactory {
 		
 		map.put("/member_r_layout.do","controller.reservation.ListReservationCommand");
 		
+		map.put("/member_r_layout2.do","controller.reservation.UploadReservationCommand");
+		
 
 		
 		//°ø¿¬

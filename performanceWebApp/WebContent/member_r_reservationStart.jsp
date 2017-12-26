@@ -147,12 +147,14 @@ a:hover {
 	 
 		}); 
 		
-
+		
 
 		$('#selectBtn').click(function(){	
 			 var oNo =	 $('#oTime').find('option:selected').val();
+			 var oTime = $('#oTime option:selected').text();
+			 var sDate = $('#sDate option:selected').text();
 			 console.log("oNo :" + oNo);
-			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart2.do?pNo=${param.pNo}&tNo=${requestScope.performance.tNo}&oNo='+oNo);
+			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart2.do?pNo=${param.pNo}&tNo=${requestScope.performance.tNo}&oNo='+oNo+'&oTime='+oTime+'&title=${requestScope.performance.title}&sDate='+sDate);
 	
 		}); 
 		
@@ -195,7 +197,7 @@ a:hover {
 					<tr>
 						<td>공연일</td>
 						<td>
-							<select name="performanceDate"   id="sDate">
+							<select name="sDate"   id="sDate">
 								<c:forEach var="scheduleSdate" items="${requestScope.performance.schedules }">
 									<option value="${scheduleSdate.sNo}">${pageScope.scheduleSdate.sDate}</option>
 								</c:forEach>
@@ -206,7 +208,7 @@ a:hover {
 					<tr>
 						<td>공연시간</td>
 						<td>
-							<select name="performanceTime" id="oTime">
+							<select name="oTime" id="oTime">
 								<c:forEach var="schedule" items="${requestScope.performance.schedules }" varStatus="loop">
 									<c:forEach var="orders" items="${pageScope.schedule.orders}" > 	
 										<option value="${orders.oNo}">${pageScope.orders.oTime }</option>	

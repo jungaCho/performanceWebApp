@@ -27,6 +27,9 @@ public class ReservationSeatCommand implements Command{
 		String tNo = req.getParameter("tNo");
 		String pNo =req.getParameter("pNo");
 		String oNo = req.getParameter("oNo");
+		String oTime = req.getParameter("oTime");
+		String title = req.getParameter("title");
+		String sDate = req.getParameter("sDate");
 		ReservationVO reservation = new ReservationVO(); 
 		
 		try {
@@ -52,6 +55,9 @@ public class ReservationSeatCommand implements Command{
 			req.setAttribute("reservedSeats", reservedSeats);
 			req.setAttribute("reservation", reservation);
 			req.setAttribute("oNo", oNo);
+			req.setAttribute("oTime", oTime);
+			req.setAttribute("title", title);
+			req.setAttribute("sDate", sDate);
 			
 			forward.setPath("/member_r_reservationStart2.jsp");
 			forward.setRedirect(false);
