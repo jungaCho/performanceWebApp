@@ -271,6 +271,7 @@ public class MemberDAO {
 					if (wdCheck != "T") {
 						return false; // false
 					}
+					
 				}
 			}
 
