@@ -46,19 +46,15 @@ button {
 <script>
 	$(document).ready(function() {
 
-		var scheduleArray = new Array();
+		
 
 		$("#btn1").on('click', function() {
 			
-			var theater = $(this).text();
-			var title = $(this).text();
-			var sDate = $(this).text();
-			var oTime = $(this).text();
-		
-			$('#theater').text(scheduleArray.join());
-			$('#title').text(scheduleArray.join());
-			$('#sDate').date(scheduleArray.join());
-			$('#oTime').time(scheduleArray.join());
+			var sDate = $(this).prev("#sDate").text();
+			var oTime = $(this).prev("#oTime").text();
+
+			$('#sDate1').text(sDate);
+			$('#oTime1').text(oTime);
 
 		});
 	});
@@ -85,7 +81,7 @@ button {
 					<option value=>${pageScope.title}</option>
 				</c:forEach>
 			</select><br>
-			공연일자 : <input type="date" id="date" name="sDate" size="30"></input><br>
+			공연일자 : <input type="date" id="sDate" name="sDate" size="30"></input><br>
 			공연시간 : <input type="time" id="oTime" name="oTime" size="30"></input><br> <br>
 			<button type="button" id="btn1">확인</button>
 			<button type="reset" id="btn2">취소</button>
@@ -100,11 +96,9 @@ button {
 					<th>일자</th>
 					<th>시간</th>
 				</tr>
-				<tr>
-					
-						<td></td>
-						<td></td>
-					
+				<tr id="tr">
+					<td id="sDate1"></td>
+					<td id="oTime1"></td>
 				</tr>
 			</table>
 
