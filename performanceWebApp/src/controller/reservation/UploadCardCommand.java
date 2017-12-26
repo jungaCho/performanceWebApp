@@ -42,14 +42,22 @@ public class UploadCardCommand implements Command{
 			String mNo = member.getmNo();
 			
 			
-			ReservationVO reservation = new ReservationVO(cardNumber, totalPrice, cardCoNo,mNo, oNo);
-			List<ReservedSeatVO> reservedSeats = new ArrayList<ReservedSeatVO>();
+			ReservationVO reservation = new ReservationVO(cardNumber, 
+
+totalPrice, cardCoNo,mNo, oNo);
+			List<ReservedSeatVO> reservedSeats = new 
+
+ArrayList<ReservedSeatVO>();
 			
 			try {
 			
 				//예매 정보를 등록한다.
-				ReservationService reservationService = ReservationService.getInstance();
-				reservationService.createReservation(reservation, reservedSeats);
+				ReservationService reservationService = 
+
+ReservationService.getInstance();
+				reservationService.createReservation(reservation, 
+
+reservedSeats);
 				
 				req.setAttribute("reservation", reservation);
 				req.setAttribute("reservedSeats", reservedSeats);

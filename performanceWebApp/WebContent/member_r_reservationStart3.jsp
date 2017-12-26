@@ -74,7 +74,7 @@ input {width:300px;}
 		
 		$('#selectBtn').click(function(){	
 			var select = 'pNo=${param.pNo}&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice=${param.totalPrice}&selectTd=${param.selectTd}&cardNumber='+$('#cardNumber').val()+'&cardCoNo=' +$('#cardCoNo').find('option:selected').val();
-			
+
 			
 			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart4.do?'+select);
 	
