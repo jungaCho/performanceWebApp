@@ -76,6 +76,11 @@ a {
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
       $(document).ready(function() {
+    	  	
+    	  $('#btn1').click(function(){
+    		  
+    	  });
+    	  
     	  
             $("#btn3").on('click', function() {
             	 
@@ -84,14 +89,16 @@ a {
                         method : 'GET',
                         dataType : 'json',
                         data : $('#search').serialize(),
+
                         success : function(data) {
+
                         	  $("#table").find('tr:not(:first)').remove();
                               var htmlStr = "";
                               for (var i = 0; i < data.length; i++) {
                                     htmlStr += "<tr>";
                                     htmlStr += "<td><input type='checkbox' name='check'></td>";
                                     htmlStr += "<td>" + data[i].pNo + "</td>";
-                                    htmlStr += "<td>" + data[i].title + "</td>";
+                                    htmlStr += "<td><a href=/performanceWebApp/admin_p_detailPerformance.do?pNo="+data[i].pNo+">" + data[i].title + "</td>";
                                     htmlStr += "<td>" + data[i].startDate + "</td>";
                                     htmlStr += "<td>" + data[i].endDate + "</td>";
                                     htmlStr += "<td>" + data[i].genre + "</td>";
@@ -106,12 +113,15 @@ a {
                         }
                   });
             });
+            
+            $('#btn2').click(function(){
+            	$("input[name=check]").prop("checked",false);
+            });
       });
 </script>
 
 </head>
 <body>
-
 
 	<div id="pannel">
 		<h1>공연 조회</h1>
@@ -126,7 +136,7 @@ a {
 			<option value="date">월</option>
 			<option value="genre">장르</option>
 		</select> <input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요">
-		<button id="btn3" type="submit">검색</button>
+		<button id="btn3" type="button">검색</button>
 	</form>
 
 	<br>
@@ -161,8 +171,7 @@ a {
 	<br>
 	&nbsp;
 	
-	<%-- 페이지 네비게이션 처리 --%>
-	
+	<%-- 페이지 네비게이션 처리  --%>
 	<form id="page">
         <c:if test="${requestScope.paging.prevPage >= 1 }">
                 <c:url var="prevUrl" value="/admin_p_selectPerformanceList.do" scope="page">

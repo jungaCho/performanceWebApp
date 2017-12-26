@@ -29,12 +29,12 @@ public class CheckMemberCommand implements Command {
 			member = MemberService.getInstance().retrieveMember(member.getmNo());
 			
 			if(!pwd.equals(member.getmPw())) {
-				forward.setPath("/member_m_layout.jsp?nav=member_m_menu&article=member_m_checkMember");
+				forward.setPath("/checkMemberForm.do");
 				forward.setRedirect(true);
 				return forward;
 			} else {
-				forward.setPath("/member_m_layout.jsp?nav=member_m_menu&article=member_m_myPageMain");
-				forward.setRedirect(false);
+				forward.setPath("/myPageForm.do");
+				forward.setRedirect(true);
 				return forward;
 			}
 		} catch(Exception e) {

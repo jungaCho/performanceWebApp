@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import domain.performance.OrderVO;
 import conn.DBConn;
@@ -65,5 +66,47 @@ public class OrderDAO {
 			}
 		}
 		
+		//일정에 해당하는 회차 조회
+				public List<OrderVO> selectOrders(String sNo) throws Exception {
+
+					List<OrderVO> orders= new ArrayList<OrderVO>();
+					PreparedStatement pstmt = null;
+					Connection conn = null;
+					ResultSet rs = null;
+
+					try {
+						conn = DBConn.getConnection();
+					
+
+						StringBuffer sql = new StringBuffer();
+						sql.append("select to_char(o_time,'HH24:MI') ,O_no                    ");
+						sql.append("from orders   										 ");
+						sql.append("where S_NO=?  								 ");
+						
+						pstmt = conn.prepareStatement(sql.toString());
+						
+						pstmt.setString(1, sNo);
+						
+						rs = pstmt.executeQuery();
+						
+						while (rs.next()) {
+							String oTime=rs.getString(1);
+							String oNo=rs.getString(2);
+							OrderVO order=new OrderVO(oNo,oTime,sNo);
+							orders.add(order);
+							System.out.println("oTime2 : " + oTime);
+							
+						}
+						
+						return orders;
+					} finally {
+						if (rs != null)
+							rs.close();
+						if (pstmt != null)
+							pstmt.close();
+						if (conn != null)
+							conn.close();
+					}
+				}	
 	
 }

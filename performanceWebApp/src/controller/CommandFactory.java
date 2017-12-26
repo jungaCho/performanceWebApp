@@ -10,7 +10,6 @@ public class CommandFactory {
 	
 	private CommandFactory() {
 		//클라이언트 요청을 처리하기 위해, 클라이언트 url과 요청을 처리할 command 클래스 매핑
-
 		//회원
 		map.put("/loginForm.do", "controller.member.LoginFormCommand");
 		
@@ -18,15 +17,25 @@ public class CommandFactory {
 		
 		map.put("/SignUp.do","controller.member.SignUpCommand");
 		
+		map.put("/signUpForm.do","controller.member.SignUpFormCommand");
+		
 		map.put("/checkMember.do","controller.member.CheckMemberCommand");
+		
+		map.put("/checkMemberForm.do", "controller.member.CheckMemberFormCommand");
+		
+		map.put("/myPageForm.do", "controller.member.MyPageFormCommand");
 		
 		map.put("/modifyForm.do", "controller.member.ModifyMemberFormCommand");
 		
 		map.put("/modifyMember.do", "controller.member.ModifyMemberCommand");
 		
+		map.put("/modifyPwd.do", "controller.member.ModifyPwdFormCommand");
+		
 		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
 
 		map.put("/findId.do", "controller.member.FindIdCommand");
+		
+		map.put("/findIdForm.do", "controller.member.FindIdFormCommand");
 		
 		map.put("/withdrawalForm.do", "controller.member.WithdrawalFormCommand");
 		
@@ -35,17 +44,38 @@ public class CommandFactory {
 		map.put("/adminLogin.do", "controller.member.AdminLoginCommand");
 
 		map.put("/findPwd.do", "controller.member.FindPwdCommand");
+		
+		map.put("/findPwdForm.do", "controller.member.FindPwdFormCommand");
 
 		map.put("/logout.do", "controller.member.LogoutCommand");
+		
 		map.put("/processMemberList.do", "controller.member.AdminSelectMember");
+		
+		map.put("/IdOverlapCheck.do", "controller.member.IdOverlapCommand");
+		
+		map.put("/sendEmail.do", "controller.member.SendEmailCommand");
+		
+		map.put("/authEmail.do", "controller.member.AuthEmailProcessCommand");
+			
+		map.put("/authNumberForm.do", "controller.member.AuthNumberFormCommand");
+		
+		map.put("/sendTempPwd.do", "controller.member.sendTempPwdCommand");
 
 		
 		//예매
 		map.put("/member_r_reservationStart.do","controller.reservation.ReservationStartCommand");
 
 		map.put("/member_r_reservationStart2.do","controller.reservation.ReservationSeatCommand");
+		
 		map.put("/member_r_reservationStart3.do","controller.reservation.ListCardCommand");
+		
+		map.put("/member_r_reservationStart4.do","controller.reservation.UploadCardCommand");
+		
 		map.put("/order.do","controller.reservation.OrderCommand");
+		
+		map.put("/member_r_layout.do","controller.reservation.ListReservationCommand");
+		
+		map.put("/member_r_layout2.do","controller.reservation.UploadReservationCommand");
 		
 
 		
@@ -63,6 +93,14 @@ public class CommandFactory {
 		map.put("/admin_p_removePoster.do","controller.performance.RemovePosterCommand" );
 		
 		map.put("/admin_p_removeDetailFile.do","controller.performance.RemoveDetailFileCommand" );
+		
+		map.put("/admin_p_insertScheduleForm.do","controller.performance.InsertScheduleFormCommand" );
+		
+		map.put("/admin_p_insertSchedule.do","controller.performance.InsertScheduleCommand" );
+		
+		map.put("/member_p_selectPerformance.do","controller.performance.ListPerformanceByMemberCommand" );
+		
+		map.put("/member_p_detailPerformance.do", "controller.performance.DetailPerformanceByMemberCommand" );
 	}
 	
 	public static CommandFactory getInstance() {

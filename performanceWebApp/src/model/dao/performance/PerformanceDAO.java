@@ -1,6 +1,5 @@
 package model.dao.performance;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -160,46 +159,57 @@ public class PerformanceDAO {
 		PerformanceVO performance = new PerformanceVO();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;	
-		
+		ResultSet rs = null;
+
 		String sDate = "";
 		String oTime = "";
 		ScheduleVO schedule = null;
-		
+
 		try {
 			conn = DBConn.getConnection();
-					
+
 			StringBuffer sql = new StringBuffer();
 			sql.append("select performance.title, to_char(performance.start_date,'YYYY-MM-DD'), 		");
-			sql.append("to_char(performance.end_date,'YYYY-MM-DD'), theater.t_name, viewclass.view_class, performance.running_time,	");
+			sql.append(
+					"to_char(performance.end_date,'YYYY-MM-DD'), theater.t_name, viewclass.view_class, performance.running_time,	");
 			sql.append("performancegenre.genre, performance.price, to_char(schedule.s_date,'YYYY/MM/DD'), 	");
-			sql.append("to_char(orders.o_time,'HH24:MI') ,theater.t_no, 												 ");
-			sql.append("performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no, schedule.s_no, orders.o_no		");
-			sql.append("from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile										");
-			sql.append("where poster.p_no=performance.P_NO																										");
-			sql.append("and performance.P_No=schedule.p_no(+)																								");
-			sql.append("and theater.T_NO=schedule.T_NO																										");
-			sql.append("and orders.s_no=schedule.s_no																										");
-			sql.append("and viewclass.VIEW_NO=performance.VIEW_NO																							");
-			sql.append("and performancegenre.GENRE_NO=performance.GENRE_NO																					");
-			sql.append("and detailfile.p_no=performance.p_no																								");
-			sql.append("and performance.p_no=?																												");
-			sql.append(" order by performance.p_no asc, schedule.s_date asc, orders.o_time asc																");
+			sql.append(
+					"to_char(orders.o_time,'HH24:MI') ,theater.t_no, 												 ");
+			sql.append(
+					"performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no, schedule.s_no, orders.o_no		");
+			sql.append(
+					"from poster,performance,schedule,orders,theater,viewclass,performancegenre,detailfile										");
+			sql.append(
+					"where poster.p_no=performance.P_NO																										");
+			sql.append(
+					"and performance.P_No=schedule.p_no(+)																								");
+			sql.append(
+					"and theater.T_NO=schedule.T_NO																										");
+			sql.append(
+					"and orders.s_no=schedule.s_no																										");
+			sql.append(
+					"and viewclass.VIEW_NO=performance.VIEW_NO																							");
+			sql.append(
+					"and performancegenre.GENRE_NO=performance.GENRE_NO																					");
+			sql.append(
+					"and detailfile.p_no=performance.p_no																								");
+			sql.append(
+					"and performance.p_no=?																												");
+			sql.append(
+					" order by performance.p_no asc, schedule.s_date asc, orders.o_no asc																");
 			System.out.println(sql.toString());
-			
+
 			pstmt = conn.prepareStatement(sql.toString());
-					
+
 			pstmt.setString(1, pNo);
-					
+
 			rs = pstmt.executeQuery();
-			
-			
-			int count = 1;		
-			while(rs.next()) {
-				
-			
-				//공연정보			
-				if(count == 1) {	
+
+			int count = 1;
+			while (rs.next()) {
+
+				// 공연정보
+				if (count == 1) {
 					System.out.println("call 공연정보 등록");
 					performance.setTitle(rs.getString(1));
 					performance.setStartDate(rs.getString(2));
@@ -216,147 +226,195 @@ public class PerformanceDAO {
 					performance.setProduction(rs.getString(15));
 					performance.setNote(rs.getString(16));
 					performance.setpNo(rs.getString(17));
-					
-					
-				}			
-							
-				
-				//공연 일정				
-				if(rs.getString(10) != null ) {
-					if(schedule==null || !sDate.equals(rs.getString(9))) {					
+
+				}
+
+				// 공연 일정
+				if (rs.getString(10) != null) {
+					if (schedule == null || !sDate.equals(rs.getString(9))) {
 						schedule = new ScheduleVO();
 						schedule.setsDate(rs.getString(9));
-						schedule.setsNo(rs.getString(18)); 
+						schedule.setsNo(rs.getString(18));
 						performance.addSchedule(schedule);
 						sDate = rs.getString(9);
 						System.out.println(rs.getString(9));
 					}
-					 
-					//회차
-					if(!oTime.equals(rs.getString(10))) {	
+
+					// 회차
+					if (!oTime.equals(rs.getString(19))) {
 						OrderVO order = new OrderVO();
 						order.setoTime(rs.getString(10));
 						schedule.addOrders(order);
-						oTime = rs.getString(10);
+						oTime = rs.getString(19);
 						order.setoNo(rs.getString(19));
-						System.out.println(rs.getString(10));
+						System.out.println(rs.getString(19));
 					}
 				}
-				
+
 				count++;
-				
-								
-				
+
 				/*
-				//상세 설명	
-				if(!systemFileName.equals(rs.getString(12)))  {					
-					//업로드된 파일이 여러개인 경우 DB에 한번 접근해서 모든 업로드된 파일 정보를 읽어오도록
-					DetailFileVO detailfile = new DetailFileVO();
-					detailfile.setSystemFileName(rs.getString(12));
-					performance.addDetailFile(detailfile);
-					systemFileName = rs.getString(12);										
-				}
-				
-				
-					
-				//포스터와 관련된 첨부파일이 있는 경우
-				if(!posterName.equals(rs.getString(9))) {
-					//업로드된 파일이 여러개인 경우 DB에 한번 접근해서 모든 업로드된 파일 정보를 읽어오도록
-					System.out.println("call 포스터정보 등록");
-					PosterVO poster = new PosterVO();
-					poster.setSystemFileName(rs.getString(9));					
-					performance.addPoster(poster);
-					posterName = rs.getString(9);
-				}
-				*/
+				 * //상세 설명 if(!systemFileName.equals(rs.getString(12))) { //업로드된 파일이 여러개인 경우 DB에
+				 * 한번 접근해서 모든 업로드된 파일 정보를 읽어오도록 DetailFileVO detailfile = new DetailFileVO();
+				 * detailfile.setSystemFileName(rs.getString(12));
+				 * performance.addDetailFile(detailfile); systemFileName = rs.getString(12); }
+				 * 
+				 * 
+				 * 
+				 * //포스터와 관련된 첨부파일이 있는 경우 if(!posterName.equals(rs.getString(9))) { //업로드된 파일이
+				 * 여러개인 경우 DB에 한번 접근해서 모든 업로드된 파일 정보를 읽어오도록 System.out.println("call 포스터정보 등록");
+				 * PosterVO poster = new PosterVO(); poster.setSystemFileName(rs.getString(9));
+				 * performance.addPoster(poster); posterName = rs.getString(9); }
+				 */
 			}
-			
+
 		} finally {
-			if(pstmt != null) pstmt.close();
-			if(conn != null) conn.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
 		}
-		
-		return performance;			
+
+		return performance;
 	}
 
-	// 공연 번호에 해당하는 공연 상세 정보를 조회하다.(파일들 ㅃㅐ고)
-		public PerformanceVO selectFiles(String pNo) throws Exception {
-			PerformanceVO performance = new PerformanceVO();
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;	
-			
-			int count=0;
-			int num=0;
-			String posterName="";
-			String[] files = {"","","",""};
-			try {
-				conn = DBConn.getConnection();
-						
-				StringBuffer sql = new StringBuffer();
-				sql.append("select poster.system_file_Name, detailFile.system_File_Name				");
-				sql.append("from poster,performance,detailFile											");
-				sql.append("where poster.p_no=performance.P_NO																		");
-				sql.append("and detailfile.p_no=performance.p_no																			");
-				sql.append("and performance.p_no=?																				");
-				sql.append("order by 1 asc, 2 asc																");
-				System.out.println(sql.toString());
-				
-				pstmt = conn.prepareStatement(sql.toString());
-						
-				pstmt.setString(1, pNo);
-						
-				rs = pstmt.executeQuery();
-					
-				while(rs.next()) {
-					
-				
-			
-					//상세 설명	
-					if(rs.getString(2)!=null)  {
-						if(files!=null) {
-							for(int i=0;i<files.length;i++) {
-								String file=files[i];
-								if(file.equals(rs.getString(2))) {
-									count++;
-								}
+	// 공연 번호에 해당하는 공연 정보 리스트를 조회하다.
+	public List<PerformanceVO> selectPerformanceList(String pNo) throws Exception {
+		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConn.getConnection();
+
+			StringBuffer sql = new StringBuffer();
+			sql.append(
+					"select po.SYSTEM_FILE_NAME, perf.title, to_char(perf.start_Date,'YYYY/MM/DD'), to_char(perf.end_Date,'YYYY/MM/DD'),	");
+			sql.append(
+					"to_char(sch.s_date, 'YYYY/MM/DD'), to_char(o.o_time,'HH24:MI'), perf.price											");
+			sql.append(
+					"from poster po, performance perf																					");
+			sql.append(
+					"where perf.p_no = po.p_no																							");
+			sql.append(
+					"and perf.p_no = sch.p_no																							");
+			sql.append(
+					"and sch.s_no = o.s_no																								");
+			sql.append(
+					"and po.main_poster = '1'																							");
+			sql.append(
+					"and perf.p_no = ?																									");
+
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setString(1, pNo);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				PosterVO poster = new PosterVO();
+				poster.setSystemFileName(rs.getString(1));
+
+				PerformanceVO performance = new PerformanceVO();
+				performance.setTitle(rs.getString(2));
+				performance.setStartDate(rs.getString(3));
+				performance.setEndDate(rs.getString(4));
+				performance.setPrice(rs.getInt(7));
+
+				ScheduleVO schedule = new ScheduleVO();
+				schedule.setsDate(rs.getString(5));
+
+				OrderVO order = new OrderVO();
+				order.setoTime(rs.getString(6));
+			}
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+		return performances;
+	}
+
+	// 공연 번호에 해당하는 공연 상세 정보를 조회하다.(파일들만)
+	public PerformanceVO selectFiles(String pNo) throws Exception {
+		PerformanceVO performance = new PerformanceVO();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int count = 0;
+		int num = 0;
+		String posterName = "";
+		String[] files = { "", "", "", "" };
+		try {
+			conn = DBConn.getConnection();
+
+			StringBuffer sql = new StringBuffer();
+			sql.append("select poster.system_file_Name, detailFile.system_File_Name				");
+			sql.append("from poster,performance,detailFile											");
+			sql.append(
+					"where poster.p_no=performance.P_NO																		");
+			sql.append(
+					"and detailfile.p_no=performance.p_no																			");
+			sql.append(
+					"and performance.p_no=?																				");
+			sql.append("order by 1 asc, 2 asc																");
+			System.out.println(sql.toString());
+
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setString(1, pNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				// 상세 설명
+				if (rs.getString(2) != null) {
+					if (files != null) {
+						for (int i = 0; i < files.length; i++) {
+							String file = files[i];
+							if (file.equals(rs.getString(2))) {
+								count++;
 							}
 						}
-						
-						if(count<1 || files[0]=="") {
-							System.out.println("~~~"+rs.getString(2));
-							DetailFileVO detailfile=new DetailFileVO();
-							detailfile.setSystemFileName(rs.getString(2));
-							files[num]=rs.getString(2);
-							num++;
-							performance.addDetailFile(detailfile); 
-						}
-						count=0;
 					}
-					
-					
-						
-					//포스터와 관련된 첨부파일이 있는 경우
-					if(!posterName.equals(rs.getString(1))) {
 
-						System.out.println("call 포스터정보 등록");
-						System.out.println("~~~"+rs.getString(1));
-						PosterVO poster = new PosterVO();
-						poster.setSystemFileName(rs.getString(1));					
-						performance.addPoster(poster);
-						posterName = rs.getString(1);
+					if (count < 1 || files[0] == "") {
+						System.out.println("~~~" + rs.getString(2));
+						DetailFileVO detailfile = new DetailFileVO();
+						detailfile.setSystemFileName(rs.getString(2));
+						files[num] = rs.getString(2);
+						num++;
+						performance.addDetailFile(detailfile);
 					}
-					
-					}
-				
-			} finally {
-				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
+					count = 0;
+				}
+
+				// 포스터와 관련된 첨부파일이 있는 경우
+				if (!posterName.equals(rs.getString(1))) {
+
+					System.out.println("call 포스터정보 등록");
+					System.out.println("~~~" + rs.getString(1));
+					PosterVO poster = new PosterVO();
+					poster.setSystemFileName(rs.getString(1));
+					performance.addPoster(poster);
+					posterName = rs.getString(1);
+				}
+
 			}
-			
-			return performance;			
+
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
 		}
-	
+
+		return performance;
+	}
+
 	// 공연 정보를 목록을 조회하다.(관리자)
 	public List<PerformanceVO> selectPerformanceListByAdmin(int startRow, int endRow) throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
@@ -417,7 +475,8 @@ public class PerformanceDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select distinct perf.p_no, perf.title,to_char(perf.start_Date, 'YY/MM/DD'),to_char(perf.end_Date, 'YY/MM/DD'),g.genre 	");
+			sql.append(
+					"select distinct perf.p_no, perf.title,to_char(perf.start_Date, 'YY/MM/DD'),to_char(perf.end_Date, 'YY/MM/DD'),g.genre 	");
 			sql.append("from (select rownum as rn, p.*													");
 			sql.append("from(select *																	");
 			sql.append("from performance order by title asc) p) perf, schedule s, performancegenre g	");
@@ -438,16 +497,16 @@ public class PerformanceDAO {
 				sql.append("and genre like '%' || ? || '%' 												");
 				sql.append("order by 1 asc																");
 			}
-			
-			System.out.print(sql.toString());
-			
+
+			System.out.println(sql.toString());
+
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, keyword);
-			if(keyfield.equals("date")) {
+			if (keyfield.equals("date")) {
 				pstmt.setString(2, keyword);
 			}
-			
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -659,6 +718,69 @@ public class PerformanceDAO {
 				conn.close();
 		}
 		return totalPost;
+	}
+/*
+	// 모든 공연의 제목 구하기
+	public List<String> selectTitles() throws Exception {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		List<String> titles = new ArrayList<String>();
+		try {
+			conn = DBConn.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select title     ");
+			sql.append("from performance  ");
+			pstmt = conn.prepareStatement(sql.toString());
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				String title = rs.getString(1);
+				titles.add(title);
+			}
+			return titles;
+
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+	}
+*/
+	public List<PerformanceVO> selectPerformance() throws Exception {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		List<PerformanceVO> performances = new ArrayList<PerformanceVO>();
+		PerformanceVO performance = new PerformanceVO();
+		try {
+			conn = DBConn.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("select p_no, title ");
+			sql.append("from performance ");
+			pstmt = conn.prepareStatement(sql.toString());
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				performance.setpNo(rs.getString(1));
+				performance.setTitle(rs.getString(2));
+				performances.add(performance);
+			}
+			return performances;
+
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
 	}
 
 }

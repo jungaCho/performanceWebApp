@@ -111,32 +111,32 @@ a:hover {
 		});
 		
 		
-		$('select').on('change',  function(){
+		$('#sDate').on('change',  function(){
 			    
 				 $.ajax({
 
-					url : "${pageContext.request.contextPath}/order.do?pNo=${param.pNo}"
+					url : "${pageContext.request.contextPath}/order.do"
 					,
 					method : "GET" 
 					,
 					dataType : "json"
 					,
-					data : $(this).find('option:selected').val()
+					data : {
+						pNo: '${param.pNo}' ,
+						sNo : $(this).find('option:selected').val()
+					}
 					,
 					success : function(data){
-						$('#orderTime').empty();
+						 $('#oTime').empty(); 
 						
 						var htmlStr = "";
-						
-						for(var i = 0 ; i < data.length; i++){
-							
-							htmlStr  += "<option>" + data[i].oTime + "</option>";	
-							
-							$('#sTime').append(htmlStr);
-							htmlStr = "";
 
-						};
-								
+						for(var i = 0; i<data.length; i++){							
+							htmlStr  += "<option value= " + data[i].oNo + ">" + data[i].oTime + "</option>";		
+							console.log(i);
+							$('#oTime').append(htmlStr);
+							htmlStr = "";
+						};									
 					}
 					,
 					error : function(jqXHR){
@@ -144,8 +144,21 @@ a:hover {
 					}
 
 				});
-		   		 
-		});   		 
+	 
+		}); 
+		
+		
+
+		$('#selectBtn').click(function(){	
+			 var oNo =	 $('#oTime').find('option:selected').val();
+			 var oTime = $('#oTime option:selected').text();
+			 var sDate = $('#sDate option:selected').text();
+			 console.log("oNo :" + oNo);
+			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart2.do?pNo=${param.pNo}&tNo=${requestScope.performance.tNo}&oNo='+oNo+'&oTime='+oTime+'&title=${requestScope.performance.title}&sDate='+sDate);
+	
+		}); 
+		
+ 	
 	});
 </script>
 </head>
@@ -184,8 +197,8 @@ a:hover {
 					<tr>
 						<td>공연일</td>
 						<td>
-							<select name="performanceDate"   id="sDate">
-								<c:forEach var="scheduleSdate" items="${requestScope.performance.schedules }" varStatus="loop">
+							<select name="sDate"   id="sDate">
+								<c:forEach var="scheduleSdate" items="${requestScope.performance.schedules }">
 									<option value="${scheduleSdate.sNo}">${pageScope.scheduleSdate.sDate}</option>
 								</c:forEach>
 							</select>
@@ -195,10 +208,10 @@ a:hover {
 					<tr>
 						<td>공연시간</td>
 						<td>
-							<select name="performanceTime" id="sTime">
+							<select name="oTime" id="oTime">
 								<c:forEach var="schedule" items="${requestScope.performance.schedules }" varStatus="loop">
 									<c:forEach var="orders" items="${pageScope.schedule.orders}" > 	
-										<option value="0">${pageScope.orders.oTime }</option>	
+										<option value="${orders.oNo}">${pageScope.orders.oTime }</option>	
 									</c:forEach>
 								</c:forEach>
 							</select>
@@ -206,10 +219,13 @@ a:hover {
 					</tr>
 					<tr>
 						<td><a href="#" id="closeBtn">닫기</a></td>
-						<td><c:url var="url" value="/member_r_reservationStart2.do">
+						<td>
+							<%-- <c:url var="url" value="/member_r_reservationStart2.do">
 								<c:param name="tNo" value="${requestScope.performance.tNo}" />
 								<c:param name="pNo" value="${param.pNo }" />
-							</c:url> <a href="${pageScope.url }" id="selectBtn">좌석선택</a></td>
+							</c:url> --%>
+							<a href="#" id="selectBtn">좌석선택</a>
+						</td>
 					</tr>
 				</table>
 			</div>

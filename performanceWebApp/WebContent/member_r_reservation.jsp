@@ -80,7 +80,6 @@
 </script>
 </head>
 <body>
-	<form action="" method="get">
 		<div style="margin-left: 50px;">
 			<h3>예매</h3>
 			<span style="font-size: 17px;">공연 예매</span> <br>
@@ -88,6 +87,8 @@
 			<div class="reservation">
 				<!-- r_img -->
 				<div class="r_img">
+					<c:forEach var="img" items= "${requestScope.perfomance.posters }">
+					</c:forEach>
 					<a href="#">포스터</a>
 				</div>
 				<!-- r_text -->
@@ -192,6 +193,5 @@
 
 
 		</div>
-	</form>
 </body>
 </html>

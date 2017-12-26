@@ -20,7 +20,6 @@ public class ReservationStartCommand implements Command{
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 		
-		
 		String pNo = req.getParameter("pNo");
 		System.out.println("pNo : " + pNo);
 		
@@ -29,14 +28,20 @@ public class ReservationStartCommand implements Command{
 			PerformanceService performanceService = PerformanceService.getInstance();
 			PerformanceVO performance = performanceService.retirevePerformance(pNo);
 			
-			for(ScheduleVO temp : performance.getSchedules()) {
+		/*	for(ScheduleVO temp : performance.getSchedules()) {
 				System.out.println(temp.getsNo());
 				
-			}
+				
+				for(OrderVO temp2 : temp.getOrders()){
+					System.out.println("oTime : " + temp2.getoTime());
+					System.out.println("oNo : " + temp2.getoNo());
+				}
+			}*/
+
 			
 			
 			req.setAttribute("performance", performance);
-	
+			
 			forward.setPath("/member_r_reservationStart.jsp");
 			forward.setRedirect(false);
 			return forward;

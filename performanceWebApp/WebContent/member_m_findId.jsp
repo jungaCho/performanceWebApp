@@ -10,13 +10,20 @@
 <script>
 
 $(document).ready(function(){
+	$('#cancel').click(function() {
+		location.href="${pageContext.request.contextPath}/loginForm.do";
+	});
 	
 	$('#findId').click(function(){
-		
-	location.href("${pageContext.request.contextPath}/FindIdCommand.do");
-
+		if($('#name').val().trim().length == 0){
+			alert("이름을 입력해주세요!!");
+			return false;
+		} else if($('#email').val().trim().length == 0) {
+			alert("이메일을 입력해주세요!!");
+			return false;
+		}
+		return true;
 	}); 
-	
 });
 
 
@@ -28,12 +35,12 @@ $(document).ready(function(){
 			이름과 이메일을 입력해주세요!<br>
 			<input type="hidden" name="member" value="${requestScope.member }">
 			이름<br>
-			<input type="text" name="name" size="30" placeholder="이름을 입력해주세요"/><br>
+			<input type="text" id="name" name="name" size="30" placeholder="이름을 입력해주세요"/><br>
 			Email<br>
-			<input type="email" name="email" size="30" placeholder="이메일을 입력해주세요"/><br>
+			<input type="email" id="email" name="email" size="30" placeholder="이메일을 입력해주세요"/><br>
 			<br>
 			<button id ="findId">아이디 찾기</button>&nbsp;
-			<button>취소</button>
+			<button type="button" id ="cancel">취소</button>
 		</div>
 	</form>
 

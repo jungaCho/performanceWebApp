@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +14,7 @@ form {
 	padding: 30px;
 	background-color: gray;
 	width: 900px;
-	height: 750px;
+	height: 100%;
 }
 
 #btn1 {
@@ -51,23 +54,52 @@ form {
 }
 </style>
 
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+      $(document).ready(function() {
+    	  
+    	  
+    	  
+    	   $('#detailFileList  a').on('click', function() {
+    		  var temp = $('input[name=removeDetailFile]').val();
+    		  if(temp.length != 0) {
+    			  $('input[name=removeDetailFile]').val(temp + ","+ $(this).attr('id')); 
+    		  } else {
+    			  $('input[name=removeDetailFile]').val($(this).attr('id'));  
+    		  }    	     		 
+    		  $(this).parents('tr:first').empty();
+    	   })
+    	   
+    	   $('#posterList  a').on('click', function() {
+     		  var temp = $('input[name=removePoster]').val();
+     		  if(temp.length != 0) {
+     			  $('input[name=removePoster]').val(temp + ","+ $(this).attr('id')); 
+     		  } else {
+     			  $('input[name=removePoster]').val($(this).attr('id'));  
+     		  }    	     		 
+     		  $(this).parents('tr:first').empty();
+     	   })
+     	   
+    	      	  
+
+    	   
+      });
+</script>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/modifyPerformance"
-		enctype="multipart/form-data" method="post">
+	<form action="${pageContext.request.contextPath}/modifyPerformance.do" enctype="multipart/form-data"
+		 method="get">
+		<input type="hidden" name="removeDetailFile">
+		<input type="hidden" name="removePoster">		
 		<h1>공연 수정</h1>
 		<%-- 업로드 된 포스터 목록 조회 --%>
 		<table id="posterList" border="1">
-			<c:forEach var="poster" items="${requestScope.performance.posters }"
-				varStatus="loop">
-				<c:url var="url" value="removePoster.do" scope="page">
-					<c:param name="posterNo" value="${pageScope.poster.no }" />
-					<c:param name="pNo" value="${pageScope.performance.pNo }" />
-				</c:url>
+			<c:forEach var="poster"
+				items="${requestScope.posters }" varStatus="loop">				
 				<tr>
 					<td>포스터${pageScope.loop.count }</td>
 					<td>${pageScope.poster.originalFileName }</td>
-					<td><a href="${pageScope.url }">삭제</a></td>
+					<td><a href="#"  id="${pageScope.poster.posterNo }">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -163,15 +195,11 @@ form {
 		<%-- 업로드 된 상세설명 목록 조회 --%>
 		<table id="detailFileList" border="1">
 			<c:forEach var="detailFile"
-				items="${requestScope.performance.detailFiles }" varStatus="loop">
-				<c:url var="url" value="removeDetailFile.do" scope="page">
-					<c:param name="fileNo" value="${pageScope.detailFile.no }" />
-					<c:param name="pNo" value="${pageScope.performance.pNo }" />
-				</c:url>
+				items="${requestScope.detailFiles }" varStatus="loop">				
 				<tr>
 					<td>상세설명${pageScope.loop.count }</td>
 					<td>${pageScope.detailFile.originalFileName }</td>
-					<td><a href="${pageScope.url }">삭제</a></td>
+					<td><a href="#"  id="${pageScope.detailFile.fileNo }">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>

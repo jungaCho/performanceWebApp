@@ -1,6 +1,7 @@
 package controller.performance;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
+import domain.performance.DetailFileVO;
 import domain.performance.PerformanceVO;
+import domain.performance.PosterVO;
 import model.service.performance.PerformanceService;
 
 public class ModifyPerformanceFormCommand implements Command{
@@ -24,9 +27,13 @@ public class ModifyPerformanceFormCommand implements Command{
 		try {
 			PerformanceService service = PerformanceService.getInstance();
 			PerformanceVO performance = service.retirevePerformance(pNo);
+			ArrayList<PosterVO> posters=(ArrayList<PosterVO>)service.retrievePoster(pNo);
+			ArrayList<DetailFileVO> detailFiles=(ArrayList<DetailFileVO>)service.retrieveDetailFile(pNo);
 			
 			req.setAttribute("performance", performance);
-			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_modifyPerformanceForm");
+			req.setAttribute("posters",posters);
+			req.setAttribute("detailFiles",detailFiles);
+			forward.setPath("/admin_layout.jsp?nav=admin_p_menu&article=admin_p_modifyPerformanceForm");
 			forward.setRedirect(false);
 			
 			return forward;

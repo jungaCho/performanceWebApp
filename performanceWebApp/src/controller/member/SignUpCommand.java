@@ -33,16 +33,13 @@ public class SignUpCommand implements Command {
 		
 		MemberVO member = new MemberVO(id,pwd,name,email,birthday,address);		
 		
-		
 		try {
-		
 			MemberService service = MemberService.getInstance();
 			service.createMember(member);
 			
 			forward.setPath("/member_m_newMember.jsp");
 			forward.setRedirect(false);
 			return forward;
-			
 
 			} catch (Exception e) {
 				

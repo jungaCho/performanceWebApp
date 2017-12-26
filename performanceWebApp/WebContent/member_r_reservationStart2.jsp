@@ -131,7 +131,6 @@ label {
 		var discount = "${sessionScope.member.rank.discount}";		
 		var seatArray = new Array();		
 	
-			
 		$('label').on('click', function() {
 			var seatNo = $(this).text();
 			var index = seatArray.indexOf(seatNo);
@@ -148,33 +147,44 @@ label {
 			
 								
 			$('#selectTd').text(seatArray.join());
-			$('#totalPrice').text(seatArray.length * price);
-			$('#disCount').text((seatArray.length * 0.05).toFixed(1) + "[Silver]");
-			$('#resultPrice').text(((seatArray.length * 0.95).toFixed(1) * (seatArray.length * price)).toFixed(0));
+			$('#sumPrice').text(seatArray.length * price);
+			$('#disCount').text((seatArray.length * 0.05).toFixed(1));
+			$('#totalPrice').text(((seatArray.length * 0.95).toFixed(1) * (seatArray.length * price)).toFixed(0));
 			
 		});
+		
+		
+		$('#selectBtn').on('click', function() {
+			var queryStr = 'pNo=${param.pNo }&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice='+$('#totalPrice').text()+'&selectTd='+$('#selectTd').text()+'&oTime=${param.oTime}'+'&title=${param.title}&sDate=${param.sDate}';
+			location.href="${pageContext.request.contextPath}/member_r_reservationStart3.do?"+queryStr;		
+		
+		});
+		
 	});
 </script>
 
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form  method="get" >
 		<div class="title_bg">결 제 정 보</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
 				<dl>
 					<dt class="seatPadding">
-						<c:forEach var="seat" items="${requestScope.seats}" varStatus="loop">							
+						<c:forEach var="seat" items="${requestScope.seats}">					
+								<c:if test="${fn:length(requestScope.reservedSeats) > 0 }">
 								<c:forEach var="reservedSeat" items="${requestScope.reservedSeats}">	
-								   
 									<c:if test="${pageScope.seat.seatNumber == pageScope.reservedSeat.seatNumber}">
 											<label class="reservedSeat">${pageScope.seat.seatNumber}</label>
 									</c:if>
 									<c:if test="${pageScope.seat.seatNumber != pageScope.reservedSeat.seatNumber}">
 											<label>${pageScope.seat.seatNumber}</label>
-									</c:if>									
-								</c:forEach>																					
+									</c:if>														   
+								</c:forEach>
+								</c:if>
+								<c:if test="${fn:length(requestScope.reservedSeats) ==  0 }">
+									<label>${pageScope.seat.seatNumber}</label>		
+								</c:if>																											
 						</c:forEach>						
 					</dt>
 					<dd class="reservation_text">※최대 10자리까지 예매 가능합니다.</dd>
@@ -184,13 +194,14 @@ label {
 						<td>선택한 좌석번호</td>
 						<td id="selectTd"></td>
 						<td>총 금 액</td>
-						<td id="totalPrice"></td>
+						<td id="sumPrice"></td>
 					</tr>
+					
 					<tr>
 						<td>할인율</td>
 						<td id="disCount"></td>
 						<td>최종 결제금액</td>
-						<td id="resultPrice"></td>
+						<td id="totalPrice"></td>
 					</tr>
 				</table>
 				<div class="button">
@@ -198,14 +209,10 @@ label {
 						<c:param name="pNo" value="${param.pNo }" />
 					</c:url>
 					<a href="${pageScope.url }" id="closeBtn">뒤로가기</a>
-					<c:url var="url" value="/member_r_reservationStart3.do">
-						<c:param name="tNo" value="${requestScope.performance.tNo}" />
-						<c:param name="pNo" value="${param.pNo }" />
-					</c:url> 
-					<a  href="${pageScope.url }"id="selectBtn">결제하기</a>
+				
+					<a  href="#"  id="selectBtn">결제하기</a>
 				</div>
 			</div>
 		</div>
-	</form>
 </body>
 </html>

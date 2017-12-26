@@ -243,6 +243,7 @@ public class MemberDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
 			conn = DBConn.getConnection();
 
@@ -257,7 +258,24 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+
+				String memberId = rs.getString(1);
+				String wdCheck = rs.getString(2);
+
+				// 똑같은 이름의 아이디가 존재하는 지 먼저 체크
+				if (memberId.equals(mId)) {
+
+					// 탈퇴여부가 F일때는
+					if (wdCheck != "T") {
+						return false; // false
+					}
+					
+				} else {
+					return true;
+				}
+
 			}
+			return false;
 
 		} finally {
 			if (rs != null)
@@ -267,7 +285,7 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
-		return true;
+		
 	}
 
 	public boolean checkOverLapEmail(String email) throws Exception {

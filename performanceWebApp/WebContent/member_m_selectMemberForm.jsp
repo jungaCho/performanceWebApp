@@ -12,7 +12,7 @@
 		margin-right: 10px;
 	}
 	
-	div{
+	div {
 		padding: 40px;
 		width: 250px;
 	}

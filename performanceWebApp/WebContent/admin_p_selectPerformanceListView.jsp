@@ -16,6 +16,7 @@
 		"endDate": "${pageScope.performance.endDate }"
 		,
 		"genre": "${pageScope.performance.genre }"
+		
 	}
 	 <c:if test="${loop.index < fn:length(requestScope.performances) - 1  }">
      ,
