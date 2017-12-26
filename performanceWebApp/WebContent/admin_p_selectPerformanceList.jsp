@@ -76,6 +76,8 @@ a {
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
       $(document).ready(function() {
+    	  	
+    	  
     	  
             $("#btn3").on('click', function() {
                   $.ajax({
@@ -104,6 +106,10 @@ a {
                               alert('Error : ' + jqXHR.status);
                         }
                   });
+            });
+            
+            $('#btn2').click(function(){
+            	$("input[name=check]").prop("checked",false);
             });
       });
 </script>
