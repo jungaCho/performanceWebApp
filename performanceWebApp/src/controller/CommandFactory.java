@@ -54,11 +54,8 @@ public class CommandFactory {
 		
 		map.put("/IdOverlapCheck.do", "controller.member.IdOverlapCommand");
 		
-		map.put("/SendEmail.do", "controller.member.SendEmailCommand");
-
-
-
-
+		map.put("/sendEmail.do", "controller.member.SendEmailCommand");
+		map.put("/sendSuccess.do", "controller.member.SendEmailSuccessCommand");
 
 		
 		//¿¹¸Å
@@ -90,6 +87,10 @@ public class CommandFactory {
 		map.put("/admin_p_removePoster.do","controller.performance.RemovePosterCommand" );
 		
 		map.put("/admin_p_removeDetailFile.do","controller.performance.RemoveDetailFileCommand" );
+		
+		map.put("/admin_p_insertScheduleForm.do","controller.performance.InsertScheduleFormCommand" );
+		
+		map.put("/admin_p_insertSchedule.do","controller.performance.InsertScheduleCommand" );
 	}
 	
 	public static CommandFactory getInstance() {

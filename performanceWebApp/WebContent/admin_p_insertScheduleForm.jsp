@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -44,19 +46,15 @@ button {
 <script>
 	$(document).ready(function() {
 
-		var scheduleArray = new Array();
-
-		$(#btn1).on('click', function() {
-			
-			var theater = $(this).text();
-			var title = $(this).text();
-			var sDate = $(this).text();
-			var oTime = $(this).text();
 		
-			$('#theater').text(scheduleArray.join());
-			$('#title').text(scheduleArray.join());
-			$('#sDate').date(scheduleArray.join());
-			$('#oTime').time(scheduleArray.join());
+
+		$("#btn1").on('click', function() {
+			
+			var sDate = $(this).prev("#sDate").text();
+			var oTime = $(this).prev("#oTime").text();
+
+			$('#sDate1').text(sDate);
+			$('#oTime1').text(oTime);
 
 		});
 	});
@@ -64,24 +62,28 @@ button {
 
 </head>
 <body>
-	<form method="get">
+	<form method="get" action="${pageContext.request.contextPath}/admin_p_insertSchedule.do" >
 
 		<div id="pannel">
 			<h2>공연 일정 등록</h2>
 		</div>
 
 		<div id="div1">
-			공연장소 : <select id="theater" name="theater">
+			공연장소 : <select id="tNo" name="tNo">
 				<option value="T001">소극장</option>
 				<option value="T002">대극장</option>
 				<option value="T003">콘서트홀1</option>
 				<option value="T004">콘서트홀2</option>
 				<option value="T005">뮤지컬관</option>
 			</select><br>
-			공연제목 : <input type="text" id="title" name="title" size="15"></input><br>
-			공연일자 : <input type="date" id="date" name="sDate" size="30"></input><br>
+			공연제목 : <select id="title" name="title">
+				<c:forEach var="title" items="${requestScope.titles}" varStatus="loop">
+					<option value=>${pageScope.title}</option>
+				</c:forEach>
+			</select><br>
+			공연일자 : <input type="date" id="sDate" name="sDate" size="30"></input><br>
 			공연시간 : <input type="time" id="oTime" name="oTime" size="30"></input><br> <br>
-			<button type="submit" id="btn1">확인</button>
+			<button type="button" id="btn1">확인</button>
 			<button type="reset" id="btn2">취소</button>
 			<br> <br>
 
@@ -91,16 +93,13 @@ button {
 		<div id="div2">
 			<table border="1" width=400>
 				<tr>
-					<th>장소</th>
-					<th>제목</th>
 					<th>일자</th>
 					<th>시간</th>
 				</tr>
-				<tr>
-					<td id="theater"></td>
-					<td id="title"></td>
-					<td id="sDate"></td>
-					<td id="oTime"></td>
+				<tr id="tr">
+					<td id="sDate1"></td>
+					<td id="oTime1"></td>
+				</tr>
 			</table>
 
 		</div>

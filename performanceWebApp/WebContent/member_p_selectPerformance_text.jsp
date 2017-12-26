@@ -78,9 +78,9 @@
 			<div id="div2-2">
 				<button type="button">이미지보기</button><button type="button">텍스트보기</button>
 				<select id="genre" >
-					<option value="뮤지컬">뮤지컬</option>
-					<option value="연극">연극</option>
-					<option value="콘서트">콘서트</option>
+					<option value="G002">뮤지컬</option>
+					<option value="G001">연극</option>
+					<option value="G003">콘서트</option>
 				</select>
 			</div>
 		</div>
@@ -95,10 +95,10 @@
 				<th>예매하기</th>
 			</tr>
 			<tr>
-				<td>싸이콘서트</td>
-				<td>2017.10.20 ~ 2017.10.30</td>
-				<td>콘서트홀1</td>
-				<td><button type="button" id="btn2">예매하기</button></td>
+				<td>${pageScope.performance.title }</td>
+				<td>${pageScope.performance.startDate } ~ ${pageScope.performance.endDate }</td>
+				<td>${pageScope.performance.tNo }</td>
+				<td><button type="submit" id="btn2">예매하기</button></td>
 			</tr>
 		</table>
 		</div>

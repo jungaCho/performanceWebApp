@@ -56,7 +56,7 @@ public class ListPerformanceByAdminCommand implements Command {
 			req.setAttribute("performances", performances);
 			req.setAttribute("paging", paging);
 
-			forward.setPath("/admin_layout.jsp?nav=admin_menu&article=admin_p_selectPerformanceList");
+			forward.setPath("/admin_layout.jsp?nav=admin_p_menu&article=admin_p_selectPerformanceList");
 			forward.setRedirect(false);
 			return forward;
 			

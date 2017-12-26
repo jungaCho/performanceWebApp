@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
+import model.service.member.MemberService;
 
 public class SendEmailCommand implements Command {
 
@@ -15,10 +16,25 @@ public class SendEmailCommand implements Command {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		ActionForward forward = new ActionForward();
-		
-		forward.setPath("?");
-		forward.setRedirect(false);
-		return forward;
-	}
 	
-}
+		String email = req.getParameter("email");
+		
+		
+		try {
+			MemberService service = MemberService.getInstance();	
+			service.sendEmail(email);
+			
+			forward.setPath("/signUpForm.do");
+			forward.setRedirect(false);
+			return forward;
+		
+		} catch (Exception e) {
+			req.setAttribute("exception", e);
+			forward.setPath("/error.jsp");
+			forward.setRedirect(false);
+			return forward;
+		}
+	}
+		
+	}
+

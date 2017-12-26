@@ -2,7 +2,7 @@
 
 {
 
-   "success": ${requestScope.isExist}
+   "success": ${requestScope.isSuccess}
   
 
 }
