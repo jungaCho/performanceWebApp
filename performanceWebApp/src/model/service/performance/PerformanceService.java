@@ -244,5 +244,11 @@ public class PerformanceService {
 			return posterVO;
 		}
 	
+	//특정 일정에 대한 회차 조회
+	public List<OrderVO> retrieveOrders(String sNo) throws Exception{
+		OrderDAO orderDao=OrderDAO.getInstance();
+		List<OrderVO> orders=orderDao.selectOrders(sNo);
+		return orders;
+	}
 	
 }
