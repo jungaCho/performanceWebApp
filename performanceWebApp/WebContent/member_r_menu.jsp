@@ -7,9 +7,9 @@
 	<c:param name="article" value="member_r_reservation" />
 </c:url>
 
-<c:url var="url2" value="/member_r_layout2.jsp" scope="page">
+<c:url var="url2" value="/member_r_layout3.jsp" scope="page">
 	<c:param name="nav" value="member_r_menu" />
-	<c:param name="article" value="member_r_reservationList" />
+	<c:param name="article" value="member_r_reservationInfo" />
 </c:url>
 
 

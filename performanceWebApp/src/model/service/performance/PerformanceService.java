@@ -199,7 +199,7 @@ public class PerformanceService {
 	}
 
 	// 공연 일정을 등록하다.
-	public void createSchedule(List<ScheduleVO> schedules, String pNo) throws Exception {
+	public void createSchedule(List<ScheduleVO> schedules) throws Exception {
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
@@ -252,9 +252,12 @@ public class PerformanceService {
 	}
 	
 	//공연 제목 모두 조회
-	public List<String> retrieveTitle() throws Exception{
+	/*public List<String> retrieveTitle() throws Exception{
 		PerformanceDAO performanceDao=PerformanceDAO.getInstance();
 		List<String> titles=performanceDao.selectTitles();
-		return titles;
+		return titles;		
+	}*/
+	public List<PerformanceVO> retrievePerformance() throws Exception {
+		return PerformanceDAO.getInstance().selectPerformance();
 	}
 }

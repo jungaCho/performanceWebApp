@@ -111,6 +111,7 @@
 
 		$('#btnCheckEmail').on('click',function(){
 			event.preventDefault(); 			
+
 			$.ajax({
 				url: "${pageContext.request.contextPath}/sendEmail.do"
 				,
@@ -130,12 +131,13 @@
 					} else {
 						$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
 					}
-				}
+	}
 				,
 				error : function(jqXHR) {
 						$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
 				}
 			});
+
 		});
 
 

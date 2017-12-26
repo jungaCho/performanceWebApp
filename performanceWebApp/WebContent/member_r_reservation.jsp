@@ -80,7 +80,6 @@
 </script>
 </head>
 <body>
-	<form action="" method="get">
 		<div style="margin-left: 50px;">
 			<h3>예매</h3>
 			<span style="font-size: 17px;">공연 예매</span> <br>
@@ -194,6 +193,5 @@
 
 
 		</div>
-	</form>
 </body>
 </html>
