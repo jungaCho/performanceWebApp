@@ -78,13 +78,13 @@ a {
       $(document).ready(function() {
     	  
             $("#btn3").on('click', function() {
+            	 
                   $.ajax({
                         url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
                         method : 'GET',
                         dataType : 'json',
                         data : $('#search').serialize(),
                         success : function(data) {
-                        	 
                         	  $("#table").find('tr:not(:first)').remove();
                               var htmlStr = "";
                               for (var i = 0; i < data.length; i++) {
