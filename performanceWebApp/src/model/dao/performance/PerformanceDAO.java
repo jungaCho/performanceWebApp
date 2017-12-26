@@ -184,7 +184,7 @@ public class PerformanceDAO {
 			sql.append("and performancegenre.GENRE_NO=performance.GENRE_NO																					");
 			sql.append("and detailfile.p_no=performance.p_no																								");
 			sql.append("and performance.p_no=?																												");
-			sql.append(" order by performance.p_no asc, schedule.s_date asc, orders.o_time asc																");
+			sql.append(" order by performance.p_no asc, schedule.s_date asc, orders.o_no asc																");
 			System.out.println(sql.toString());
 			
 			pstmt = conn.prepareStatement(sql.toString());
@@ -233,13 +233,13 @@ public class PerformanceDAO {
 					}
 					 
 					//È¸Â÷
-					if(!oTime.equals(rs.getString(10))) {	
+					if(!oTime.equals(rs.getString(19))) {	
 						OrderVO order = new OrderVO();
 						order.setoTime(rs.getString(10));
 						schedule.addOrders(order);
-						oTime = rs.getString(10);
+						oTime = rs.getString(19);
 						order.setoNo(rs.getString(19));
-						System.out.println(rs.getString(10));
+						System.out.println(rs.getString(19));
 					}
 				}
 				

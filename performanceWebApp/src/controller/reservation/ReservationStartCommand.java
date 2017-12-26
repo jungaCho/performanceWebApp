@@ -28,14 +28,15 @@ public class ReservationStartCommand implements Command{
 			PerformanceService performanceService = PerformanceService.getInstance();
 			PerformanceVO performance = performanceService.retirevePerformance(pNo);
 			
-			for(ScheduleVO temp : performance.getSchedules()) {
+		/*	for(ScheduleVO temp : performance.getSchedules()) {
 				System.out.println(temp.getsNo());
 				
 				
 				for(OrderVO temp2 : temp.getOrders()){
+					System.out.println("oTime : " + temp2.getoTime());
 					System.out.println("oNo : " + temp2.getoNo());
 				}
-			}
+			}*/
 
 			
 			

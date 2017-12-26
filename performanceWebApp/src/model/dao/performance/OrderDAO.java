@@ -69,7 +69,7 @@ public class OrderDAO {
 		//일정에 해당하는 회차 조회
 				public List<OrderVO> selectOrders(String sNo) throws Exception {
 
-					List<OrderVO> orders=null;
+					List<OrderVO> orders= new ArrayList<OrderVO>();
 					PreparedStatement pstmt = null;
 					Connection conn = null;
 					ResultSet rs = null;
@@ -83,16 +83,21 @@ public class OrderDAO {
 						sql.append("from orders   										 ");
 						sql.append("where S_NO=?  								 ");
 						
+						pstmt = conn.prepareStatement(sql.toString());
+						
 						pstmt.setString(1, sNo);
 						
-						rs = pstmt.executeQuery(sql.toString());
+						rs = pstmt.executeQuery();
 						
-						if (rs.next()) {
+						while (rs.next()) {
 							String oTime=rs.getString(1);
 							String oNo=rs.getString(2);
 							OrderVO order=new OrderVO(oNo,oTime,sNo);
 							orders.add(order);
+							System.out.println("oTime2 : " + oTime);
+							
 						}
+						
 						return orders;
 					} finally {
 						if (rs != null)
