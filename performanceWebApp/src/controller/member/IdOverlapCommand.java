@@ -22,15 +22,19 @@ public class IdOverlapCommand implements Command {
 		
 		try {
 		boolean isTrue = service.checkID(mId);
+		
 		if(isTrue) {
-			forward.setPath("/login");
-			forward.setRedirect(isRedirect);
+			forward.setPath("/member_m_newMember.jsp");
+			forward.setRedirect(false);
 		}
-		return null;
+		
+		return forward;
 		}catch(Exception e) {
-			
-		}
-		return null;
+			req.setAttribute("exception", e);
+			forward.setPath("/error.jsp");
+			forward.setRedirect(false);
+			return forward;
 	}
 	
+}
 }
