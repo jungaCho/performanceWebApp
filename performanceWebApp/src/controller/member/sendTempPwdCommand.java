@@ -40,21 +40,33 @@ public class sendTempPwdCommand implements Command {
 
 		ActionForward forward = new ActionForward();
 		try {
-			MemberService.getInstance().sendPwdService(tempPwd, mId, mName, email);
-			EmailService service = EmailService.getInstance();
-			boolean flag = service.sendEmailPwd(email,tempPwd);
+			boolean isTrue = true;
+			isTrue = MemberService.getInstance().sendPwdService(tempPwd, mId, mName, email);
+			if(isTrue) {
+				req.setAttribute("isTrue", isTrue);				
+				EmailService service = EmailService.getInstance();
+				boolean flag = service.sendEmailPwd(email,tempPwd);
+	
+				System.out.println("flag : " + flag);
+				
+				if (flag) {
+					forward.setPath("/sendSuccess.jsp?success=" + flag);
+					forward.setRedirect(true);
 
-			System.out.println("flag : " + flag);
-			
-			if (flag) {
-				forward.setPath("/sendSuccess.jsp?success=" + flag);
-				forward.setRedirect(true);
+				} else {
+					forward.setPath("/sendSuccess.jsp?success=" + flag);
+					forward.setRedirect(true);
+				}
+				forward.setPath("/sendEmailSuccess.jsp");
+				forward.setRedirect(false);
+				return forward;
 			} else {
-				forward.setPath("/sendSuccess.jsp?success=" + flag);
-				forward.setRedirect(true);
+				isTrue = false;
+				req.setAttribute("isTrue", isTrue);
+				forward.setPath("/sendEmailSuccess.jsp");
+				forward.setRedirect(false);
+				return forward;
 			}
-			return forward;
-
 		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
