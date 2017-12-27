@@ -1,5 +1,8 @@
 package model.service.member;
 
+import java.sql.Connection;
+
+import conn.DBConn;
 import domain.member.MemberVO;
 import model.dao.member.MemberDAO;
 
@@ -51,12 +54,30 @@ public class MemberService {
 	}
 
 	// 비밀번호 발급 전에 회원인지 아닌지 체크해줌.
-	public boolean findPwd(String mId, String mName, String email) throws Exception {
+	/*public boolean findPwd(String mId, String mName, String email) throws Exception {
 		return MemberDAO.getInstance().searchPwd(mId, mName, email);
 	}
-	
-	public void sendPwdService(String tempPwd, String mId, String mName, String email) throws Exception {
-		MemberDAO.getInstance().sendPwd(tempPwd, mId, mName, email);
+	*/
+	public boolean sendPwdService(String tempPwd, String mId, String mName, String email) throws Exception {
+		Connection conn = null;
+		try {
+			conn = DBConn.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			boolean isTrue = MemberDAO.getInstance().searchPwd(conn, mId, mName, email);
+			
+			MemberDAO.getInstance().sendPwd(conn, tempPwd, mId, mName, email);
+				
+			conn.commit();
+			
+			return isTrue;
+		} catch(Exception e) {
+			conn.rollback();
+			throw e;
+		} finally {
+			if(conn!=null)
+				conn.close();
+		}
 	}
-
 }
