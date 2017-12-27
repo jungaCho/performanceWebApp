@@ -1,6 +1,8 @@
 package model.service.reservation;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 import conn.DBConn;
@@ -101,8 +103,61 @@ public class ReservationService {
 				conn.close();
 		}
 	}
+	
+	//특정 회원의 예매내역을 조회한다.
+		public List<TotalInfoVO> retrieveReservationByMember(int startRow, int endRow, 
+																String mNo) throws Exception{
+			Connection conn = null;
+			try {
+				conn = DBConn.getConnection();
+				
+				conn.setAutoCommit(false);
+				
+				ReservationDAO reservationDAO = ReservationDAO.getInstance();
+				List<TotalInfoVO> totalInfos = reservationDAO.selectReservationListByMember(conn, mNo, startRow, endRow);
+				
+				return totalInfos;			
+			} catch (Exception e) {
+				conn.rollback();
+				throw e;
+			} finally {
+				if(conn != null) conn.close();
+			}
+		}
+		
+		//특정 공연장의 모든 좌석을 조회한다.
+		public List<SeatVO> retrieveAllSeatByTheater(String tNo) throws Exception {
+			
+			ReservationDAO reservationDAO = ReservationDAO.getInstance();
+			List<SeatVO> seats = reservationDAO.selectAllSeat(tNo);
+			return seats;	
+			
+		}
+		
+		//전체 회원의 예매내역을 조회한다.
+		public List<TotalInfoVO> retrieveReservationByMember(int startRow, int endRow, String keyfield, String keyword) throws Exception{
+		
+			ReservationDAO reservationDAO = ReservationDAO.getInstance();
+			return reservationDAO.selectReservationListByAdmin(keyfield, keyword, startRow, endRow);
+			
+		}
+		
+		//특정 공연회차의 예매된 좌석을 조회한다.
+		public List<ReservedSeatVO> retrieveReservedSeatByOrders(String oNo) throws Exception {
+			
+			ReservationDAO reservationDAO = ReservationDAO.getInstance();
+			List<ReservedSeatVO> seats  = reservationDAO.selectReservedSeat(oNo);
+			
+			return seats;
+			
+		}
+		
+		public int selectTotalList() throws Exception {
+			return ReservationDAO.getInstance().selectTotalPost();
+		}
 
-	// 특정 공연장의 모든 좌석을 조회한다.
+		
+/*	// 특정 공연장의 모든 좌석을 조회한다.
 	public List<SeatVO> retrieveAllSeatByTheater(String tNo) throws Exception {
 
 		ReservationDAO reservationDAO = ReservationDAO.getInstance();
@@ -129,5 +184,5 @@ public class ReservationService {
 		return seats;
 
 	}
-
+*/
 }

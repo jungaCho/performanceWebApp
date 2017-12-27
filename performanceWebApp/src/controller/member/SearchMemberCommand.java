@@ -6,39 +6,38 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
 import domain.member.MemberVO;
 import model.service.member.AdminService;
 
-public class SelectMemberListCommand implements Command {
+public class SearchMemberCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 
-		// 리퀘스트에서 sortkey받아오고
+		// 검색조건과 검색어, 한페이지당 출력되어야하는 strow endrow를 매개변수로 받아온다.
+		// 해당 멤버들이 담긴 json으로 이동한다.
 
 		String sortkey = req.getParameter("sortkey");
+		String keyword = req.getParameter("keyword");
+		int startRow = Integer.parseInt(req.getParameter("startRow"));
+		int endRow = Integer.parseInt(req.getParameter("endRow"));
 
 		ActionForward forward = new ActionForward();
 
 		try {
 
-			// sortkey에해당하는 커맨드로 나온 회원정보를 request에 바인딩시켜주고
-			// json페이지로 이동한다.
-
 			AdminService service = AdminService.getInstance();
-			List<MemberVO> sortedMembers = service.retrieveMemberList(sortkey, 1, 15);
-			
-			for(MemberVO memberss : sortedMembers) {
+
+			List<MemberVO> sortedMembers = service.findMember(sortkey, keyword, startRow, endRow);
+			req.setAttribute("sortedMembers", sortedMembers);
+
+			for (MemberVO memberss : sortedMembers) {
 				System.out.println(memberss.toString());
 			}
-			
-
-			req.setAttribute("sortedMembers", sortedMembers);
 
 			if (sortedMembers != null) {
 				forward.setPath("/sortedMember.jsp");
@@ -52,7 +51,6 @@ public class SelectMemberListCommand implements Command {
 			return forward;
 
 		} catch (Exception e) {
-
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
 			forward.setRedirect(false);
