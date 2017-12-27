@@ -46,7 +46,8 @@ public class PerformanceService {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
 		PerformanceVO performance = performanceDao.selectPerformance(pNo);
 		PerformanceVO files=performanceDao.selectFiles(pNo);
-		performance.setDetaileFiles(files.getDetailFiles());
+		
+		performance.setDetailFiles(files.getDetailFiles());
 		performance.setPosters(files.getPosters()); 
 		return performance;
 	}
@@ -168,7 +169,7 @@ public class PerformanceService {
 	}
 
 	// 공연 정보를 수정하다.
-	public void modifyPerformance(PerformanceVO performance) throws Exception {
+	public void modifyPerformance(PerformanceVO performance, List<String> removePosters,List<String> removeDetailFiles) throws Exception {
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
@@ -180,11 +181,11 @@ public class PerformanceService {
 			performanceDao.updatePerformance(performance);
 
 			PosterDAO posterDao = PosterDAO.getInstance();
-			posterDao.deletePosterList(conn, performance.getpNo());
+			posterDao.deletePosterList(conn, removePosters);
 			posterDao.insertPoster(conn, (ArrayList<PosterVO>)performance.getPosters());
  
 			DetailFileDAO detailFileDao = DetailFileDAO.getInstance();
-			detailFileDao.deleteDetailFileList(conn, performance.getpNo());
+			detailFileDao.deleteDetailFileList(conn, removeDetailFiles);
 			detailFileDao.insertDetailFile(conn, (ArrayList<DetailFileVO>) performance.getDetailFiles());
 
 			conn.commit();

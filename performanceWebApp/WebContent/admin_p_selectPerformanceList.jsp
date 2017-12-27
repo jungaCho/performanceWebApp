@@ -75,11 +75,21 @@ a {
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
-      $(document).ready(function() {
+	$(document).ready(function() {
     	  	
-    	  $('#btn1').click(function(){
-    		  
-    	  });
+		/* $('#btn1').click(function(){
+	      	$("input[name=check]:checked").each(function() {
+	      		var checked = $(this).val();
+	      		alert(checked);
+			});
+		}); */
+		
+		$('#btn1').click(function(){
+			var param = "";
+			$("input[name=check]:checked").each(function() {
+				if
+			}
+		}
     	  
     	  
             $("#btn3").on('click', function() {
@@ -122,6 +132,7 @@ a {
 
 	<div id="pannel">
 		<h1>공연 조회</h1>
+		
 		<button type="button" id="btn1">선택삭제</button>
 		<button type="button" id="btn2">선택해제</button>
 	</div>
@@ -154,7 +165,7 @@ a {
 					<c:param name="pNo" value="${pageScope.performance.pNo }" />
 				</c:url>
 				<tr>
-					<td><input type="checkbox" name="check"></td>
+					<td><input type="checkbox" name="check" value="${pageScope.performance.pNo }"></td>
 					<td>${pageScope.performance.pNo }</td>
 					<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
 					<td>${pageScope.performance.startDate }</td>

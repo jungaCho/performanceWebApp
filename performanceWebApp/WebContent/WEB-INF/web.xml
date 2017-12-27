@@ -50,7 +50,15 @@
 		<url-pattern>/modifyPerformance</url-pattern>
 	</servlet-mapping>
 
-
+	<servlet>
+		<servlet-name>DownloadFile</servlet-name>
+		<servlet-class>controller.performance.DownloadFileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DownloadFile</servlet-name>
+		<url-pattern>/downloadFile</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>Controller</servlet-name>
 		<servlet-class>controller.ControllerServlet</servlet-class>

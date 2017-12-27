@@ -296,7 +296,7 @@ public class PerformanceDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select poster.system_file_Name, detailFile.system_File_Name				");
+			sql.append("select poster.system_file_Name, detailFile.system_File_Name, poster.main_poster				");
 			sql.append("from poster,performance,detailFile											");
 			sql.append(
 					"where poster.p_no=performance.P_NO																		");
@@ -344,6 +344,7 @@ public class PerformanceDAO {
 					System.out.println("~~~" + rs.getString(1));
 					PosterVO poster = new PosterVO();
 					poster.setSystemFileName(rs.getString(1));
+					poster.setMainPoster(rs.getInt(3));
 					performance.addPoster(poster);
 					posterName = rs.getString(1);
 				}
@@ -600,29 +601,31 @@ public class PerformanceDAO {
 		try {
 			conn = DBConn.getConnection();
 			sql.append(
-					"update performance set title=?,video=?,start_date=?,end_date=?,production=?,													");
+					"update performance												");
 			sql.append(
-					"genre_no=(select genre_no from performancegenre where genre=?),view_no=(select view_no from viewclass where view_class=?),		");
+					"set title=?  ,video=?, start_date=? , end_date=?,production=?, price=?,		");
 			sql.append(
-					"contact_name=?,contact_number=?,note=?,running_time=?																			");
+					"genre_no=?, view_no=?,  contact_name=?,	contact_number=?, note=?, running_time=? 																	");
 			sql.append(
-					"where pNo=?																														");
+					"where p_no=? 																													");
 
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setString(1, performance.getpNo());
-			pstmt.setString(2, performance.getTitle());
-			pstmt.setString(3, performance.getVideo());
-			pstmt.setString(4, performance.getStartDate());
-			pstmt.setString(5, performance.getEndDate());
-			pstmt.setString(6, performance.getProduction());
+			pstmt.setString(1, performance.getTitle());
+			pstmt.setString(2, performance.getVideo());
+			pstmt.setString(3, performance.getStartDate());
+			pstmt.setString(4, performance.getEndDate());
+			pstmt.setString(5, performance.getProduction());
+			pstmt.setInt(6, performance.getPrice());
 			pstmt.setString(7, performance.getGenreNo());
 			pstmt.setString(8, performance.getViewNo());
 			pstmt.setString(9, performance.getContactName());
 			pstmt.setString(10, performance.getContactNumber());
 			pstmt.setString(11, performance.getNote());
 			pstmt.setInt(12, performance.getRunningTime());
-
+			
+			
+			pstmt.setString(13, performance.getpNo());
 			pstmt.executeUpdate();
 
 		} finally {

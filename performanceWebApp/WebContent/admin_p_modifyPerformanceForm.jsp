@@ -87,8 +87,8 @@ form {
 </script>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/modifyPerformance.do" enctype="multipart/form-data"
-		 method="get">
+	<form action="${pageContext.request.contextPath}/modifyPerformance" enctype="multipart/form-data"
+		 method="post">
 		<input type="hidden" name="removeDetailFile">
 		<input type="hidden" name="removePoster">		
 		<h1>공연 수정</h1>
