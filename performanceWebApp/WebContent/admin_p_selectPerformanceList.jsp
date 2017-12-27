@@ -96,8 +96,7 @@ a {
 			$('#btn1').on("click",function(){
 				
 				//string[] 공연번호를 배열로 넘긴다.
-				
-				
+
 				var pNoArrays = [];
 				
 				$('#checkSelect:checked').each(function(){
