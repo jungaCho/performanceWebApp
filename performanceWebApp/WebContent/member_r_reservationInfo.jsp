@@ -41,7 +41,7 @@ td{width:90px;}
 			<span style="font-size: 17px;">예매 내역</span> <br>
 		
 			<div class="reservation">
-				<%--<form id="form"> --%>
+				<form id="form">
 				<div class="selectbox">
 					<select>
 						<option value="title">공연명</option>
@@ -111,11 +111,9 @@ td{width:90px;}
 					[다음]&nbsp;&nbsp;
 				</c:if>
 
-				<%--</form> --%>
+				</form>
 		
 			</div>
-
-			 
 		</div>
 	</form>
 </body>

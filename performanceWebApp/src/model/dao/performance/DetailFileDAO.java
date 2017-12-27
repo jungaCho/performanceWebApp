@@ -22,7 +22,7 @@ public class DetailFileDAO {
 	}
 	
 	//공연 상세정보를 일괄 등록한다.
-	public void insertDetailFile(Connection conn,ArrayList<DetailFileVO> detailFiles) throws Exception{
+	public void insertDetailFile(Connection conn,ArrayList<DetailFileVO> detailFiles,String pNo) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
 			StringBuffer sql=new StringBuffer();
@@ -36,7 +36,7 @@ public class DetailFileDAO {
 				pstmt.setString(1, detailFile.getSystemFileName());
 				pstmt.setString(2, detailFile.getOriginalFileName());
 				pstmt.setLong(3, detailFile.getFileSize());
-				pstmt.setString(4, detailFile.getpNo());
+				pstmt.setString(4, pNo);
 				pstmt.addBatch();
 			}
 				pstmt.executeBatch();

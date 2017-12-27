@@ -79,9 +79,10 @@ form {
      		  }    	     		 
      		  $(this).parents('tr:first').empty();
      	   })
-     	   
-    	      	  
-
+    	   
+    	   $('#btn2').click(function() {
+   			location.href="${pageContext.request.contextPath}/admin_p_detailPerformance.do?pNo=${requestScope.performance.pNo }";
+   		   });
     	   
       });
 </script>

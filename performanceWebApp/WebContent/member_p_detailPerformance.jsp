@@ -72,19 +72,23 @@ a {
 	<form>
 		<div id="div2">
 			<div id="div2-1">
-				<input id="keyword" type="search" placeholder="검색어를 입력하세요" size=60>
-				<button id="btn1" type="submit">검색</button>
+				<input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요" size=60>
+				<button id="btn1" type="button">검색</button>
 			</div>
 		</div>
 		<br> <br>
 		<div id="div1">
-			<div>
-				<c:forEach var="poster" items="${requestScope.performance.posters}">
-					<img
-						src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
-						alt="사진">
-				</c:forEach>
-			</div>
+			<c:forEach var="poster" items="${requestScope.performance.posters}" >
+				<c:if test="${pageScope.poster.mainPoster == 1}">
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+									width="100px" height="150px" id="img">
+				</c:if>
+				<c:if test="${pageScope.poster.mainPoster != 1}">
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+									width="50px" height="50px" id="img">
+				</c:if>
+			</c:forEach>
+		</div>
 
 			<button type="button" id="btn2" type="button">예매하기</button>
 
@@ -140,10 +144,16 @@ a {
 		</div>
 		<div id="div4">
 			<table id="detailFile" border="1" width=800>
-				<tr>
-					<th>상세설명${pageScope.loop.count }</th>
-					<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
-				</tr>
+				<c:forEach var="detailFile" items="${requestScope.detailFiles }" varStatus="loop">
+	 				<c:url var="url" value="/downloadFile" scope="page">
+	 					<c:param name="originalFileName" value="${pageScope.detailFile.originalFileName }" />
+	 					<c:param name="systemFileName" value="${pageScope.detailFile.systemFileName }" />
+	 				</c:url>
+					<tr>
+						<td>상세설명${pageScope.loop.count }</td>
+						<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</form>
