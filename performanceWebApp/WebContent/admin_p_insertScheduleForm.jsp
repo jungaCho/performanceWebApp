@@ -11,7 +11,7 @@
 <style>
 form {
 	padding: 30px;
-	background-color: gray;
+	color: gray;
 	width: 600px;
 	height: 550px;
 }
@@ -68,7 +68,7 @@ button {
 			
 		});
 		
-		
+	
 		$("#btn3").on('click', function() {
 			 alert('call');
 			 
@@ -78,6 +78,7 @@ button {
 			 console.log('oTime : ' + oTimeList.join("/"));
 			 
 			 alert("call");
+
 			
 			 $.ajax({
 				url: '${pageContext.request.contextPath}/admin_p_insertSchedule.do'

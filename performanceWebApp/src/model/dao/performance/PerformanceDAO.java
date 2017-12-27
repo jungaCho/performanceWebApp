@@ -280,6 +280,7 @@ public class PerformanceDAO {
 
 
 
+
 	// 공연 번호에 해당하는 공연 상세 정보를 조회하다.(파일들만)
 	public PerformanceVO selectFiles(String pNo) throws Exception {
 		PerformanceVO performance = new PerformanceVO();
@@ -664,16 +665,16 @@ public class PerformanceDAO {
 		return totalPost;
 	}
 /*
-	// 모든 공연의 제목 구하기
-	public List<String> selectTitles() throws Exception {
-		PreparedStatement pstmt = null;
-		Connection conn = null;
-		ResultSet rs = null;
-		List<String> titles = new ArrayList<String>();
+	//모든 공연의 제목 구하기
+	public List<String> selectTitles() throws Exception{
+		PreparedStatement pstmt=null;
+		Connection conn=null;
+		ResultSet rs=null;
+		List<String> titles=new ArrayList<String>();
 		try {
 			conn = DBConn.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select title     ");
+			sql.append("select title ,     ");
 			sql.append("from performance  ");
 			pstmt = conn.prepareStatement(sql.toString());
 
@@ -695,6 +696,7 @@ public class PerformanceDAO {
 		}
 	}
 */
+	
 	public List<PerformanceVO> selectPerformance() throws Exception {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -728,8 +730,9 @@ public class PerformanceDAO {
 		}
 	}
 	
-	// 공연 정보 리스트를 조회하다.
-	public List<PerformanceVO> selectPerformanceList(int startRow, int endRow) throws Exception {
+
+	// 공연 번호에 해당하는 공연 정보 리스트를 조회하다.
+	public List<PerformanceVO> selectPerformanceList(String pNo) throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -754,13 +757,11 @@ public class PerformanceDAO {
 			sql.append(
 					"and po.main_poster = '1'																							");
 			sql.append(
-					"and p.rn>=? and p.rn<=? 																				");
+					"and perf.p_no = ?																									");
 
 			pstmt = conn.prepareStatement(sql.toString());
-			
-			System.out.printf("startRow : %d, endRow : %d%n", startRow, endRow);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+
+			pstmt.setString(1, pNo);
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -778,8 +779,6 @@ public class PerformanceDAO {
 
 				OrderVO order = new OrderVO();
 				order.setoTime(rs.getString(6));
-				
-				performances.add(performance);
 			}
 		} finally {
 			if (pstmt != null)
@@ -789,5 +788,6 @@ public class PerformanceDAO {
 		}
 		return performances;
 	}
+
 
 }

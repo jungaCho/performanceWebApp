@@ -113,10 +113,17 @@ a#modify {
 		<h1>공연상세조회</h1>
 	</div>
 	<div>
-		<c:forEach var="poster" items="${requestScope.performance.posters}">
-			<img
-				src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}"
-				alt="사진">
+		<c:forEach var="poster" items="${requestScope.performance.posters}" >
+			<c:choose>	
+				<c:when test="${pageScope.poster.mainPoster==1}">
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}.jpg" 
+								width="100px" height="150px" id="img">
+				</c:when>
+				<c:when test="${pageScope.poster.mainPoster==0}">
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}.jpg" 
+								width="50px" height="50px" id="img">
+				</c:when>
+			</c:choose>
 		</c:forEach>
 	</div>
 	<div id="div2">

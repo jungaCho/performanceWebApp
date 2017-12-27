@@ -14,7 +14,7 @@
 
 <ul>
 	<li>공연관리</li><br>
-	<li><a style="color:#f25c5c" href="${pageScope.url1 }">공연조회</a></li>
+	<li><a style="color:#a69bd4" href="${pageScope.url1 }">공연조회</a></li>
 	<li><a style="color:#a69bd4" href="${pageScope.url2 }">공연등록</a></li>
 	<li><a style="color:#a69bd4" href="${pageScope.url3 }">일정등록</a></li>
 </ul>
