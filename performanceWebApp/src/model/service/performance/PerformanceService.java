@@ -260,4 +260,10 @@ public class PerformanceService {
 	public List<PerformanceVO> retrievePerformance() throws Exception {
 		return PerformanceDAO.getInstance().selectPerformance();
 	}
+	
+	//공연 정보 리스트를 조회하다 (사용자)
+	public List<PerformanceVO> retrievePerformanceList(int startRow, int endRow) throws Exception {
+		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
+		return performanceDao.selectPerformance();
+	}
 }
