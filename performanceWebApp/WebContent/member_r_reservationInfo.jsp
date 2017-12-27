@@ -43,7 +43,7 @@ td{width:90px;}
 			<div class="reservation">
 				<form id="form">
 				<div class="selectbox">
-					<select>
+					<select name="keyfield">
 						<option value="title">공연명</option>
 						<option value="sDate">공연날짜</option>
 						<option value="rStatus">상태</option>
@@ -77,8 +77,8 @@ td{width:90px;}
 					</c:forEach>
 				</table>
 				<br>
-			<br>
-				
+				<br>
+
 				<c:if test="${requestScope.paging.prevPage > 0 }">
 					<c:url var="prevUrl" value="/totalInfoRetrieveList.do" scope="page">
 						<c:param name="currentPage" value="${requestScope.paging.prevPage }" />
