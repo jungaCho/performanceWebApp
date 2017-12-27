@@ -20,7 +20,6 @@ public class RemovePerformanceCommand implements Command{
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		
 		String pNo=req.getParameter("pNo");
 		
 		ActionForward forward=new ActionForward();

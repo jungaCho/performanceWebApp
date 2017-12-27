@@ -110,11 +110,11 @@ a#modify {
 	<div>
 		<c:forEach var="poster" items="${requestScope.performance.posters}" >
 			<c:if test="${pageScope.poster.mainPoster == 1}">
-					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}.jsp" 
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
 								width="100px" height="150px" id="img">
 			</c:if>
 			<c:if test="${pageScope.poster.mainPoster != 1}">
-					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}.jsp" 
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
 								width="50px" height="50px" id="img">
 			</c:if>
 		</c:forEach>
