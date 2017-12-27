@@ -601,29 +601,31 @@ public class PerformanceDAO {
 		try {
 			conn = DBConn.getConnection();
 			sql.append(
-					"update performance set title=?,video=?,start_date=?,end_date=?,production=?,													");
+					"update performance												");
 			sql.append(
-					"genre_no=(select genre_no from performancegenre where genre=?),view_no=(select view_no from viewclass where view_class=?),		");
+					"set title=?  ,video=?, start_date=? , end_date=?,production=?, price=?,		");
 			sql.append(
-					"contact_name=?,contact_number=?,note=?,running_time=?																			");
+					"genre_no=?, view_no=?,  contact_name=?,	contact_number=?, note=?, running_time=? 																	");
 			sql.append(
-					"where pNo=?																														");
+					"where p_no=? 																													");
 
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setString(1, performance.getpNo());
-			pstmt.setString(2, performance.getTitle());
-			pstmt.setString(3, performance.getVideo());
-			pstmt.setString(4, performance.getStartDate());
-			pstmt.setString(5, performance.getEndDate());
-			pstmt.setString(6, performance.getProduction());
+			pstmt.setString(1, performance.getTitle());
+			pstmt.setString(2, performance.getVideo());
+			pstmt.setString(3, performance.getStartDate());
+			pstmt.setString(4, performance.getEndDate());
+			pstmt.setString(5, performance.getProduction());
+			pstmt.setInt(6, performance.getPrice());
 			pstmt.setString(7, performance.getGenreNo());
 			pstmt.setString(8, performance.getViewNo());
 			pstmt.setString(9, performance.getContactName());
 			pstmt.setString(10, performance.getContactNumber());
 			pstmt.setString(11, performance.getNote());
 			pstmt.setInt(12, performance.getRunningTime());
-
+			
+			
+			pstmt.setString(13, performance.getpNo());
 			pstmt.executeUpdate();
 
 		} finally {
@@ -732,8 +734,8 @@ public class PerformanceDAO {
 	}
 	
 
-	// 공연 번호에 해당하는 공연 정보 리스트를 조회하다.
-	public List<PerformanceVO> selectPerformanceList(String pNo) throws Exception {
+	//  공연 정보 리스트를 조회하다(for 예매 페이지).
+	public List<PerformanceVO> selectPerformanceList() throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -744,25 +746,21 @@ public class PerformanceDAO {
 
 			StringBuffer sql = new StringBuffer();
 			sql.append(
-					"select po.SYSTEM_FILE_NAME, perf.title, to_char(perf.start_Date,'YYYY/MM/DD'), to_char(perf.end_Date,'YYYY/MM/DD'),	");
+					"select pos.system_file_name, perf.title, perf.start_date, perf.end_date, perf.price 	");
 			sql.append(
-					"to_char(sch.s_date, 'YYYY/MM/DD'), to_char(o.o_time,'HH24:MI'), perf.price											");
+					"from (select rownum as rn, p.* 									");
 			sql.append(
-					"from poster po, performance perf																					");
+					" from(select *      																					");
 			sql.append(
-					"where perf.p_no = po.p_no																							");
+					" from performance order by p_no desc) p) perf,																					");
 			sql.append(
-					"and perf.p_no = sch.p_no																							");
+					" (select system_file_name,p_no,main_poster from poster where main_poster=1) pos																						");
 			sql.append(
-					"and sch.s_no = o.s_no																								");
-			sql.append(
-					"and po.main_poster = '1'																							");
-			sql.append(
-					"and perf.p_no = ?																									");
+					"where perf.p_no=pos.p_no																							");
+			
 
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setString(1, pNo);
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -773,15 +771,11 @@ public class PerformanceDAO {
 				performance.setTitle(rs.getString(2));
 				performance.setStartDate(rs.getString(3));
 				performance.setEndDate(rs.getString(4));
-				performance.setPrice(rs.getInt(7));
-
-				ScheduleVO schedule = new ScheduleVO();
-				schedule.setsDate(rs.getString(5));
-
-				OrderVO order = new OrderVO();
-				order.setoTime(rs.getString(6));
+				performance.setPrice(rs.getInt(5));
+				performances.add(performance);
 			}
 		} finally {
+			if(rs!=null) rs.close();
 			if (pstmt != null)
 				pstmt.close();
 			if (conn != null)

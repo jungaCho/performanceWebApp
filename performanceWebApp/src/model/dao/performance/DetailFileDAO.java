@@ -64,7 +64,7 @@ public class DetailFileDAO {
 		}
 	}
 	
-	//공연 상세 설명을 일괄 삭제한다.
+	//공연 상세 설명을 일괄 삭제한다.(공연번호에 해당하는)
 	public void deleteDetailFileList(Connection conn,String p_no) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
@@ -77,6 +77,27 @@ public class DetailFileDAO {
 			pstmt.executeUpdate();
 			
 		} finally {
+			if(pstmt!=null) pstmt.close();
+		}
+	}
+	
+	//공연 상세설명 일괄 삭제(리스트로 받기)
+	public void deleteDetailFileList(Connection conn,List<String> detailFiles) throws Exception{
+		PreparedStatement pstmt=null;
+		try {
+			StringBuffer sql=new StringBuffer();
+			sql.append("delete from detailFile     ");
+			sql.append("where file_no= ?			");
+			
+			pstmt=conn.prepareStatement(sql.toString());
+			for(String fileNo : detailFiles) {
+				pstmt.setString(1, fileNo);
+				pstmt.addBatch();
+			}
+			pstmt.executeBatch();			
+		
+			
+		}finally {
 			if(pstmt!=null) pstmt.close();
 		}
 	}

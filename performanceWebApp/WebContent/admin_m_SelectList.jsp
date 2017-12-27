@@ -22,24 +22,54 @@
 
 </style>
 
-	<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
 <script>
-	$(document).ready(function() {
+
+	$(document).ready(function(){
+	
 		
-	/* 	$("#btn1").click(function() {
-			if($('#id').val().length == 0) {
-				alert("아이디를 입력해주세요");
-				return false;
-			}
-			if ($('#pwd').val().trim().length == 0) {
-				alert("비밀번호를 입력해주세요");
-				return false;
-			}		
+		$('#btn2').on("click",function(){
+			var memberNo = $(this).parents("tr:first").attr("id");		
+			window.open("${pageContext.request.contextPath}/retrieveMemberDetail.do?mNo="+memberNo,"회원정보상세조회","width=700, height=600, top=200, left=200");
 		});
 		
-		$("#btn2").click(function() {
-			location.href="${pageContext.request.contextPath}/member_m_signup.jsp";
-		}); */
+		
+		$('#btn1').on("click",function(){
+			
+	
+			
+			$.ajax({
+				
+				url: "${pageContext.request.contextPath}/selectMemberList.do"
+				,
+				method : "POST"
+				,
+				dataType: 'json'
+				,
+				data: {
+					
+					sortkey: $('#view').find('option:selected').val()
+				},
+				success: function(data){
+					
+					if(data.success == true){
+						alert("success");
+					}
+				}
+				,
+				error: function(jaXHR){
+					alert("error: " + jaXHR.error );
+					
+				}
+				
+			}); 
+		});
+		
+	});
+	
+	
+		
+		
 		
 </script>
 
@@ -49,25 +79,26 @@
 	<h2>회원관리</h2>
 	<form>
 	<select id="view">
-	<option value="회원번호">
-	<option value="이름">
-	<option value="아이디">
-	<option value="등급">
+	<option value="m_no">회원번호</option>
+	<option value="m_name">이름</option>
+	<option value="withdrawal">등급</option>
+	<option value="withdrawal">탈퇴여부</option>
 		
 	</select>
-	<button type="button">순으로 정렬</button>
+	<button type="button" id="btn1">순으로 정렬</button>
 	
 	<select id="filter" >
-	<option value="회원번호">
-	<option value="이름">
-	<option value="아이디">
-	<option value="등급">
-	<option value="탈퇴여부">
+	<option>회원번호</option>
+	<option>이름</option>
+	<option>아이디</option>
+	<option>등급</option>
+	<option>탈퇴여부</option>
+	
 		
 	</select>
 	
 	<button type="button">검색</button>
-
+	
 	<table id="table1" border = "1">
 		
 		<tr>
@@ -85,21 +116,19 @@
 		</tr>
 		
 		<c:forEach var="members" items= "${requestScope.memberList }" varStatus="loop">
-		<tr id= "datas">
-		
-		<th>${pageScope.members.mNo }</th>
-		<td>${pageScope.members.mName }</td>
-		<td>${pageScope.members.mId }</td>
-		<td>${pageScope.members.mPw }</td>
-		<td>${pageScope.members.email }</td>
-		<td>${pageScope.members.address }</td>
-		<td>${pageScope.members.rankNo }</td>
-		
-		<td>비고</td>
-		
-		
+		<tr id="${pageScope.members.mNo }" >		
+			<th>${pageScope.members.mNo }</th>
+			<td>${pageScope.members.mName }</td>
+			<td>${pageScope.members.mId }</td>
+			<td>${pageScope.members.mPw }</td>
+			<td>${pageScope.members.email }</td>
+			<td>${pageScope.members.address }</td>
+			<td>${pageScope.members.rankNo }</td>
+			
+			<td>비고<button type="button" id="btn2">회원정보상세조회</button></td>		
 		</tr>
 		</c:forEach>
+		
 	</table>
 	</form>
 

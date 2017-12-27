@@ -169,7 +169,7 @@ public class PerformanceService {
 	}
 
 	// 공연 정보를 수정하다.
-	public void modifyPerformance(PerformanceVO performance) throws Exception {
+	public void modifyPerformance(PerformanceVO performance, List<String> removePosters,List<String> removeDetailFiles) throws Exception {
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
@@ -181,12 +181,11 @@ public class PerformanceService {
 			performanceDao.updatePerformance(performance);
 
 			PosterDAO posterDao = PosterDAO.getInstance();
-			for (PosterVO poster : performance.getPosters()) {
-				posterDao.updatePoster(conn, poster);
-			}
-
+			posterDao.deletePosterList(conn, removePosters);
+			posterDao.insertPoster(conn, (ArrayList<PosterVO>)performance.getPosters());
+ 
 			DetailFileDAO detailFileDao = DetailFileDAO.getInstance();
-			detailFileDao.deleteDetailFileList(conn, performance.getpNo());
+			detailFileDao.deleteDetailFileList(conn, removeDetailFiles);
 			detailFileDao.insertDetailFile(conn, (ArrayList<DetailFileVO>) performance.getDetailFiles());
 
 			conn.commit();
@@ -258,15 +257,17 @@ public class PerformanceService {
 		List<String> titles=performanceDao.selectTitles();
 		return titles;		
 	}*/
+	
+	//공연목록 모두 조회
 	public List<PerformanceVO> retrievePerformance() throws Exception {
 		List<PerformanceVO> performances= PerformanceDAO.getInstance().selectPerformance();
-		System.out.println("***"+performances.toString());
+		
 		 return performances;
 	}
 	
 	//공연 정보 리스트를 조회하다 (사용자)
-	public List<PerformanceVO> retrievePerformanceList(int startRow, int endRow) throws Exception {
+	public List<PerformanceVO> retrievePerformanceList() throws Exception {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-		return performanceDao.selectPerformance();
+		return performanceDao.selectPerformanceList();
 	}
 }
