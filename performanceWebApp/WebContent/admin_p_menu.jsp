@@ -5,7 +5,7 @@
 <c:url var="url1" value="/admin_p_selectPerformanceList.do" scope="page"/>
 
 
-<c:url var="url2" value="/admin_layout.jsp?article=admin_p_insertPerformanceForm" scope="page"/>
+<c:url var="url2" value="/admin_layout.jsp?nav=admin_p_menu&article=admin_p_insertPerformanceForm" scope="page"/>
 
 
 <c:url var="url3" value="/admin_p_insertScheduleForm.do" scope="page"/>

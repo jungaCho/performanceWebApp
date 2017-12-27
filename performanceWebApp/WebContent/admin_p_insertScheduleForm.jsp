@@ -46,7 +46,9 @@ button {
 <script>
 	$(document).ready(function() {
 		
-		var count=0;
+		var sDateList = [];   //공연 일자
+		var oTimeList = [];   //공연 회차
+		
 		$("#btn1").on('click', function() {
 
 			var sDate = $('#sDate').val();
@@ -57,17 +59,25 @@ button {
 			
 			if(sDate != "" && oTime1 != "") {
 				$('#table1').append("<tr><td id='td1'>"+ sDate + "</td><td id='td2'>"+ oTime1 + " , " + oTime2 + " , " + oTime3 + "</td></tr>");
+				sDateList.push(sDate);
+				oTimeList.push(oTime1 + "," + oTime2 + "," + oTime3);
 			} 
-//			count++;
+
 			console.log($('#td1').text());
 			console.log($('#td2').text());
 			
 		});
 		
+		
 		$("#btn3").on('click', function() {
-			 /*for(var i=0; i<=count;i++){
-				$('#table1 tr:nth-child(i):nth-child(0)').val 
-			 }*/
+			 alert('call');
+			 
+			 console.log('tNo : ' + $('#tNo option:selected').val());
+			 //console.log('pNo : ');
+			 console.log('sDate : ' + sDateList.join("/"));
+			 console.log('oTime : ' + oTimeList.join("/"));
+			 
+			 alert("call");
 			
 			 $.ajax({
 				url: '${pageContext.request.contextPath}/admin_p_insertSchedule.do'
@@ -78,9 +88,9 @@ button {
 				,
 				data: {
 					tNo: $('#tNo option:selected').val(),
-					title: $('#title option:selected').val(),
-					sDate: $('#sDate').val(),
-					oTime: $('#oTime').val()
+					공연번호: $('#title option:selected').val(),
+					sDate: sDateList.join("/"),
+					oTime: oTimeList.join("/")
 				}
 				,
 				success: function() {
@@ -114,7 +124,7 @@ button {
 				<option value="T004">콘서트홀2</option>
 				<option value="T005">뮤지컬관</option>
 			</select><br>
-			공연제목 : <select id="title" name="title">
+			공연제목 : <select id="pNo" name="pNo">
 				<c:forEach var="performances" items="${requestScope.performances}" varStatus="loop">
 					<option value="${pageScope.performances.pNo }" }>${pageScope.performances.title}</option>
 				</c:forEach>
@@ -131,7 +141,7 @@ button {
 			<hr width="600" align="center" color="black" size="1">
 		</div>
 
-		<div id="div2">
+		<div id="div2">			
 			<table border="1" width=400 id="table1">
 				<tr>
 					<th>일자</th>
@@ -142,7 +152,6 @@ button {
 					<td id="oTime1"></td>
 				</tr> -->
 			</table>
-
 		</div>
 		<br>
 		<button type="submit" id="btn3">등록</button>

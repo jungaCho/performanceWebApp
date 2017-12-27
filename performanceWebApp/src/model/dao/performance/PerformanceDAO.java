@@ -700,7 +700,7 @@ public class PerformanceDAO {
 		Connection conn = null;
 		ResultSet rs = null;
 		List<PerformanceVO> performances = new ArrayList<PerformanceVO>();
-		PerformanceVO performance = new PerformanceVO();
+		
 		try {
 			conn = DBConn.getConnection();
 			StringBuffer sql = new StringBuffer();
@@ -711,6 +711,7 @@ public class PerformanceDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				PerformanceVO performance = new PerformanceVO();
 				performance.setpNo(rs.getString(1));
 				performance.setTitle(rs.getString(2));
 				performances.add(performance);
