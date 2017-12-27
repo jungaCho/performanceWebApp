@@ -153,7 +153,7 @@ a#modify {
 				<th>동영상</th>
 				<td>${requestScope.performance.video }</td>
 				<th>가격</th>
-				<td>${requestScope.performance.price }</td>
+				<td>${requestScope.performance.price }원</td>
 			</tr>
 			<tr>
 				<th>시작일</th>
@@ -192,12 +192,12 @@ a#modify {
 			<table border="1">
 				<c:forEach var="detailFile" items="${requestScope.detailFiles }" varStatus="loop">
 	 				<c:url var="url" value="/downloadFile" scope="page">
-	 					<c:param name="orignalFileName" value="${pageScope.detailFile.originalFileName }" />
+	 					<c:param name="originalFileName" value="${pageScope.detailFile.originalFileName }" />
 	 					<c:param name="systemFileName" value="${pageScope.detailFile.systemFileName }" />
 	 				</c:url>
 					<tr>
 						<td>상세설명${pageScope.loop.count }</td>
-						<td><a href="${pageScope.url }">${pageScope.detailFile.systemFileName }</a></td>
+						<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
 					</tr>
 				</c:forEach>
 			</table>

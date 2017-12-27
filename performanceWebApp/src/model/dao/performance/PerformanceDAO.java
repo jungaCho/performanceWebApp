@@ -296,7 +296,7 @@ public class PerformanceDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select poster.system_file_Name, detailFile.system_File_Name, poster.main_poster				");
+			sql.append("select poster.system_file_Name, detailFile.system_File_Name, poster.main_poster, detailFile.original_file_name				");
 			sql.append("from poster,performance,detailFile											");
 			sql.append(
 					"where poster.p_no=performance.P_NO																		");
@@ -330,6 +330,7 @@ public class PerformanceDAO {
 						System.out.println("~~~" + rs.getString(2));
 						DetailFileVO detailfile = new DetailFileVO();
 						detailfile.setSystemFileName(rs.getString(2));
+						detailfile.setOriginalFileName(rs.getString(4));
 						files[num] = rs.getString(2);
 						num++;
 						performance.addDetailFile(detailfile);
@@ -576,7 +577,7 @@ public class PerformanceDAO {
 		try {
 			conn = DBConn.getConnection();
 			sql.append("delete from performance ");
-			sql.append("where pNo=? ");
+			sql.append("where p_no=? ");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, pNo);
@@ -734,7 +735,7 @@ public class PerformanceDAO {
 	
 
 	//  공연 정보 리스트를 조회하다(for 예매 페이지).
-	public List<PerformanceVO> selectPerformanceList() throws Exception {
+	public List<PerformanceVO> selectPerformanceList(int startRow, int endRow) throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -745,7 +746,7 @@ public class PerformanceDAO {
 
 			StringBuffer sql = new StringBuffer();
 			sql.append(
-					"select pos.system_file_name, perf.title, perf.start_date, perf.end_date, perf.price 	");
+					"select pos.system_file_name, perf.title, perf.start_date, perf.end_date, perf.price, perf.pno	");
 			sql.append(
 					"from (select rownum as rn, p.* 									");
 			sql.append(
@@ -756,12 +757,16 @@ public class PerformanceDAO {
 					" (select system_file_name,p_no,main_poster from poster where main_poster=1) pos																						");
 			sql.append(
 					"where perf.p_no=pos.p_no																							");
+			sql.append("and rn >= ? and rn <= ?                                                       ");
 			
 
 			pstmt = conn.prepareStatement(sql.toString());
-
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 
 			rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
 				PosterVO poster = new PosterVO();
 				poster.setSystemFileName(rs.getString(1));
@@ -771,6 +776,7 @@ public class PerformanceDAO {
 				performance.setStartDate(rs.getString(3));
 				performance.setEndDate(rs.getString(4));
 				performance.setPrice(rs.getInt(5));
+				performance.setpNo(rs.getString(6));
 				performances.add(performance);
 			}
 		} finally {

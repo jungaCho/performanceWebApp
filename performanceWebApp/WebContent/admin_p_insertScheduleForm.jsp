@@ -46,6 +46,8 @@ button {
 <script>
 	$(document).ready(function() {
 		
+		
+		
 		var sDateList = [];   //공연 일자
 		var oTimeList = [];   //공연 회차
 		
@@ -108,6 +110,10 @@ button {
 			 });
 			
 		});
+		
+		$('#btn4').click(function() {
+ 			location.href="${pageContext.request.contextPath}/admin_p_selectPerformanceList.do";
+ 	  });
 	});
 </script>
 

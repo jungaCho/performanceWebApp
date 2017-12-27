@@ -119,7 +119,7 @@ public class PerformanceService {
 			
 			posterDao.deletePosterList(conn, pNo);
 			detailfileDao.deleteDetailFileList(conn, pNo);
-			String[] sNOs = scheduleDao.selectSchedule(conn, pNo);
+			ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
 			for (String sNo : sNOs) {
 				orderDao.deleteOrder(conn, sNo);
 			}
@@ -267,8 +267,8 @@ public class PerformanceService {
 	}
 	
 	//공연 정보 리스트를 조회하다 (사용자)
-	public List<PerformanceVO> retrievePerformanceList() throws Exception {
+	public List<PerformanceVO> retrievePerformanceList(int startRow, int endRow) throws Exception {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-		return performanceDao.selectPerformanceList();
+		return performanceDao.selectPerformanceList(startRow, endRow);
 	}
 }

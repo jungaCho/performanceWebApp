@@ -4,7 +4,7 @@ public class RankVO {
 	int rankNo;
 	String rName;
 	String updateScore;
-	String discount;
+	double discount;
 	
 	public RankVO() {
 		super();
@@ -34,11 +34,11 @@ public class RankVO {
 		this.updateScore = updateScore;
 	}
 
-	public String getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(String discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
 	

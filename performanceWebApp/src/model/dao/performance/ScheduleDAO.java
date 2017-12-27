@@ -79,7 +79,7 @@ public class ScheduleDAO {
 	}
 	
 	//공연번호에 해당하는 회차번호 조회
-		public String[] selectSchedule(Connection conn, String pNo) throws Exception{
+		public ArrayList<String> selectSchedule(Connection conn, String pNo) throws Exception{
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			try {
@@ -94,12 +94,11 @@ public class ScheduleDAO {
 				pstmt.setString(1,pNo);
 				
 				rs=pstmt.executeQuery();
-				String[] sNos=null;
-				int i=0;
+				ArrayList<String> sNos =new ArrayList<String>();
+				
 				while(rs.next()) {
 					String sNo=rs.getString(1);
-					sNos[i]=sNo;
-					i++;
+					sNos.add(sNo);
 				}
 				return sNos;	
 				
