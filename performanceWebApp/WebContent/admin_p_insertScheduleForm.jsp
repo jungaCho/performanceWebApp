@@ -64,10 +64,10 @@ button {
 			
 		});
 		
-		$("#btn3").on('click', function() {
+		/* $("#btn3").on('click', function() {
 			 /*for(var i=0; i<=count;i++){
 				$('#table1 tr:nth-child(i):nth-child(0)').val 
-			 }*/
+			 }
 			
 			 $.ajax({
 				url: '${pageContext.request.contextPath}/admin_p_insertSchedule.do'
@@ -92,7 +92,7 @@ button {
 					alert("error : " + jqXHR.status);
 				}
 				
-			 });
+			 }); */
 			
 		});
 	});

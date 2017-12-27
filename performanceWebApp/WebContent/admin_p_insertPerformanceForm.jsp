@@ -53,8 +53,8 @@ form {
 
 		<div id="pannel">
 			<h2><strong>공연 등록</strong></h2><br>
-			<input type="file" name="mainPoster" size="20">메인 포스터</input><br>
-			<input type="file" name="poster" size="20"></input><br>
+			메인포스터:<input type="file" name="mainPoster" size="20"></input><br>
+			부가포스터:<input type="file" name="poster" size="20"></input><br>
 			<input type="file" name="poster" size="20"></input><br>
 			<input type="file" name="poster" size="20"></input><br>
 		</div>
