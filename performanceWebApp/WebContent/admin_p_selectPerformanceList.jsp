@@ -78,7 +78,7 @@ a {
       $(document).ready(function() {
     	  	
     	  $('#btn1').click(function(){
-    		  
+    		  alert('$(check:checked)'.text());
     	  });
     	  
     	  
@@ -89,9 +89,7 @@ a {
                         method : 'GET',
                         dataType : 'json',
                         data : $('#search').serialize(),
-
                         success : function(data) {
-
                         	  $("#table").find('tr:not(:first)').remove();
                               var htmlStr = "";
                               for (var i = 0; i < data.length; i++) {
@@ -167,6 +165,7 @@ a {
 			</c:forEach>
 		</table>
 	</div>
+	
 	<br>
 	<br>
 	&nbsp;
