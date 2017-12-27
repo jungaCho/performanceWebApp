@@ -50,13 +50,13 @@ button {
 		$("#btn1").on('click', function() {
 
 			var sDate = $('#sDate').val();
-			var oTime = $('#oTime').val();
+			var oTime1 = $('#oTime1').val();
+			var oTime2 = $('#oTime2').val();
+			var oTime3 = $('#oTime3').val();
 
-			$('#sDate1').text(sDate);
-			$('#oTime1').text(oTime);	
 			
-			if(sDate != "" && oTime != "") {
-				$('#table1').append("<tr><td id='td1'>"+ sDate + "</td><td id='td2'>"+ oTime +"</td></tr>");
+			if(sDate != "" && oTime1 != "") {
+				$('#table1').append("<tr><td id='td1'>"+ sDate + "</td><td id='td2'>"+ oTime1 + " , " + oTime2 + " , " + oTime3 + "</td></tr>");
 			} 
 //			count++;
 			console.log($('#td1').text());
@@ -120,9 +120,12 @@ button {
 				</c:forEach>
 			</select><br>
 			공연일자 : <input type="date" id="sDate" name="sDate" size="30"></input><br>
-			공연시간 : <input type="time" id="oTime" name="oTime" size="30"></input><br> <br>
+			공연시간 : <input type="time" id="oTime1" name="oTime1" size="10"></input>
+					   <input type="time" id="oTime2" name="oTime2" size="10"></input>
+					   <input type="time" id="oTime3" name="oTime3" size="10"></input>
+			<br> <br>
 			<button type="button" id="btn1">확인</button>
-			<button type="button" id="btn2">취소</button>
+			<button type="reset" id="btn2">취소</button>
 			<br> <br>
 
 			<hr width="600" align="center" color="black" size="1">
