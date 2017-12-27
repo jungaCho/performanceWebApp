@@ -81,7 +81,7 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 				console.log("OK");
 				self.close();
 				var rNo = '${requestScope.reservation.rNo}';
-				var select = 'pNo=${param.pNo}&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice=${param.totalPrice}&selectTd=${param.selectTd}&cardNumber=${param.cardNumber}&cardCoNo=${param.cardCoNo}&oTime=${param.oTime}&title=${param.title}&sDate=${param.sDate}&rNo=${requestScope.reservation.rNo}';
+				var select = 'pNo=${param.pNo}&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice=${param.totalPrice}&selectTd=${param.selectTd}&cardNumber=${param.cardNumber}&cardCoNo=${param.cardCoNo}&oTime=${param.oTime}&title=${param.title}&sDate=${param.sDate}&rNo=${param.rNo}';
 				$(opener.location).attr('href', '${pageContext.request.contextPath}/member_r_layout2.do?nav=member_r_menu&article=member_r_reservationList'+select);
 			}else{
 				return;
