@@ -135,10 +135,10 @@ public class ReservationService {
 		}
 		
 		//전체 회원의 예매내역을 조회한다.
-		public List<TotalInfoVO> retrieveReservationByMember(int startRow, int endRow, String keyfield, String keyword) throws Exception{
+		public List<TotalInfoVO> retrieveReservationByMember(int startRow, int endRow) throws Exception{
 		
 			ReservationDAO reservationDAO = ReservationDAO.getInstance();
-			return reservationDAO.selectReservationListByAdmin(keyfield, keyword, startRow, endRow);
+			return reservationDAO.selectReservationListByAdmin(startRow, endRow);
 			
 		}
 		
@@ -152,6 +152,7 @@ public class ReservationService {
 			
 		}
 		
+		//게시글 수를 조회하다.
 		public int selectTotalList() throws Exception {
 			return ReservationDAO.getInstance().selectTotalPost();
 		}

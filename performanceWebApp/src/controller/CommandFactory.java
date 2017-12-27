@@ -95,6 +95,8 @@ public class CommandFactory {
 		
 		map.put("/totalInfoRetrieveList.do", "controller.reservation.TotalInfoRetrieveListCommand");
 		
+		map.put("/admin_r_layout.do", "controller.reservation.ListReservationByAdminCommand");
+		
 		
 		//°ø¿¬
 		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");
