@@ -75,6 +75,11 @@ a {
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
+      $(document).ready(function() {
+    	  	
+    	  $('#btn1').click(function(){
+    		  alert('$(check:checked)'.text());
+    	  });
 	$(document).ready(function() {
 		
 		
@@ -110,14 +115,13 @@ a {
     	  
     	  
             $("#btn3").on('click', function() {
-            	
-            
+            	 
                   $.ajax({
                         url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
                         method : 'GET',
                         dataType : 'json',
                         data : $('#search').serialize(),
-                        success : function(data) {                            	  
+                        success : function(data) {
                         	  $("#table").find('tr:not(:first)').remove();
                               var htmlStr = "";
                               for (var i = 0; i < data.length; i++) {
@@ -198,6 +202,7 @@ a {
 		</table>
 		
 	</div>
+	
 	<br>
 	<br>
 	&nbsp;

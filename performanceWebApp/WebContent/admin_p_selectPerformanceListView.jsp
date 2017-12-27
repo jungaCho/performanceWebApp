@@ -18,7 +18,6 @@
 		"genre": "${pageScope.performance.genre }"
 		
 	}
-	
 	 <c:if test="${loop.index < fn:length(requestScope.performances) - 1  }">
      ,
      </c:if>
