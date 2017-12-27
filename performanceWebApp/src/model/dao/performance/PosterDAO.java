@@ -22,7 +22,7 @@ public class PosterDAO {
 	}
 	
 	//공연 포스터를 일괄 등록한다.
-	public void insertPoster(Connection conn,ArrayList<PosterVO> posters) throws Exception{
+	public void insertPoster(Connection conn,ArrayList<PosterVO> posters,String pNo) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
 			StringBuffer sql=new StringBuffer();
@@ -40,7 +40,7 @@ public class PosterDAO {
 				pstmt.setString(2, poster.getOriginalFileName());
 				pstmt.setLong(3, poster.getFileSize());
 				pstmt.setInt(4, poster.getMainPoster());
-				pstmt.setString(5, poster.getpNo());
+				pstmt.setString(5, pNo);
 				pstmt.addBatch();
 			}
 			pstmt.executeBatch();			

@@ -23,16 +23,12 @@ public class AdminSelectMember implements Command {
 		//회원정보 조회 - DB에 접근해 모든 멤버들을 List<MemberVO> 에 담아 리턴된 값 가져와서 req에 바인딩.
 		
 		ActionForward forward = new ActionForward();
-		
-		
 		try {
-		
 			List<MemberVO> memberList = AdminService.getInstance().retrieveMembers();
 			
 			req.setAttribute("memberList",memberList);
-			
 			forward.setPath("/admin_m_layout.jsp?article=admin_m_SelectList");
-		
+			forward.setRedirect(false);
 		}catch(Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");

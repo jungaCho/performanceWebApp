@@ -91,9 +91,12 @@
 					<!-- r_img -->
 					<div class="r_img">
 						<a href="#">
-						<c:forEach var="poster" items="${requestScope.performance.posters}">
-								${pageScope.poster.systemFileName}
-							</c:forEach>
+						<c:forEach var="poster" items="${requestScope.performance.posters}" >
+							<c:if test="${pageScope.poster.mainPoster == 1}">
+								<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+												width="100px" height="150px" id="img">
+							</c:if>
+						</c:forEach>
 						</a>
 					</div>
 					<!-- r_text -->

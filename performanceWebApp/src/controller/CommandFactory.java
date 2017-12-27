@@ -93,7 +93,8 @@ public class CommandFactory {
 		
 		map.put("/member_r_layout2.do","controller.reservation.UploadReservationCommand");
 		
-
+		map.put("/totalInfoRetrieveList.do", "controller.reservation.TotalInfoRetrieveListCommand");
+		
 		
 		//°ø¿¬
 		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");
@@ -117,6 +118,9 @@ public class CommandFactory {
 		map.put("/member_p_selectPerformance.do","controller.performance.ListPerformanceByMemberCommand" );
 		
 		map.put("/member_p_detailPerformance.do", "controller.performance.DetailPerformanceByMemberCommand" );
+
+		map.put("/admin_p_removePerformanceList.do", "controller.performance.RemovePerformanceListCommand" );
+
 	}
 	
 	public static CommandFactory getInstance() {

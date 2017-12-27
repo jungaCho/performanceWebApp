@@ -63,10 +63,10 @@ public class MemberDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address, r_name 		");
-			sql.append("from member m, rank r												");
-			sql.append("where m.rank_no = r.rank_no											");
-			sql.append("	and m_no = ?													");
+			sql.append("select m_no, m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address, r_name 		");
+			sql.append("from member m, rank r																	");
+			sql.append("where m.rank_no = r.rank_no																");
+			sql.append("	and m_no = ?																		");
 
 			pstmt = conn.prepareStatement(sql.toString());
 
@@ -75,15 +75,16 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				member.setmId(rs.getString(1));
-				member.setmPw(rs.getString(2));
-				member.setmName(rs.getString(3));
-				member.setBirthday(rs.getString(4));
-				member.setEmail(rs.getString(5));
-				member.setAddress(rs.getString(6));
-				if (rs.getString(7) != null) {
+				member.setmNo(rs.getString(1));
+				member.setmId(rs.getString(2));
+				member.setmPw(rs.getString(3));
+				member.setmName(rs.getString(4));
+				member.setBirthday(rs.getString(5));
+				member.setEmail(rs.getString(6));
+				member.setAddress(rs.getString(7));
+				if (rs.getString(8) != null) {
 					RankVO rank = new RankVO();
-					rank.setrName(rs.getString(7));
+					rank.setrName(rs.getString(8));
 					member.setRank(rank);
 				}
 			}
@@ -195,7 +196,7 @@ public class MemberDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no	,withdrawal			");
+			sql.append("select m_no,m_id,m_pw,m_name,email,birthday,address, withdrawal	");
 			sql.append("from member						");
 			sql.append("where m_id = ? and m_pw = ? 	");
 
@@ -205,7 +206,17 @@ public class MemberDAO {
 			pstmt.setString(2, mPw);
 
 			rs = pstmt.executeQuery();
-
+			while (rs.next()) {
+				member.setmNo(rs.getString(1));
+				member.setmId(rs.getString(2));
+				member.setmPw(rs.getString(3));
+				member.setmName(rs.getString(4));
+				member.setEmail(rs.getString(5));
+				member.setBirthday(rs.getString(6));
+				member.setAddress(rs.getString(7));
+				member.setWithdrawal(rs.getString(8));
+			}
+/*
 			while (rs.next()) {
 				mNo = rs.getString(1);
 				if (mNo != null) {
@@ -215,6 +226,8 @@ public class MemberDAO {
 				withdrawal = rs.getString(2);
 				member.setWithdrawal(withdrawal);
 			}
+*/
+			return member;
 		} finally {
 			if (rs != null)
 				rs.close();
@@ -223,7 +236,7 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
-		return member;
+		
 	}
 
 	public boolean checkOverLapId(String mId) throws Exception {

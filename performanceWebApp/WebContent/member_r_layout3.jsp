@@ -27,13 +27,6 @@ section {
 	overflow: hidden;
 }
 
-section article {
-	width: 100%;
-	height: 600px;
-	background-color: #ebebeb;
-	float: left;
-}
-
 footer {
 	width: 960px;
 	height: 100px;
@@ -63,6 +56,8 @@ section article {
 	height: 100%;
 	background-color: #ebebeb;
 	float: left;
+	min-height:600px;
+	margin-bottom:50px;
 }
 
 #loginm {
