@@ -39,9 +39,8 @@ public class AdminService {
 		return AdminDAO.getInstance().selectMemberDetail(mNo);
 	}
 	
-	public List<MemberVO> findMember(String sortkey, String keyfield, 
-										String keyword, int startRow, int endRow) throws Exception {
-		return AdminDAO.getInstance().searchByMember(sortkey, keyfield, keyword, startRow, endRow);
+	public List<MemberVO> findMember(String sortkey, String keyword, int startRow, int endRow) throws Exception {
+		return AdminDAO.getInstance().searchByMember(sortkey, keyword, startRow, endRow);
 	}
 
 }

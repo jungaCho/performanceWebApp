@@ -66,6 +66,12 @@ public class CommandFactory {
 		map.put("/sendTempPwd.do", "controller.member.sendTempPwdCommand");
 		
 		map.put("/selectMemberList.do", "controller.member.SelectMemberListCommand");
+		
+		map.put("/searchMember.do", "controller.member.SearchMemberCommand");
+		
+		map.put("/adminLogout.do", "controller.member.AdminLogoutCommand");
+		
+		
 
 		
 		//예매
@@ -83,7 +89,8 @@ public class CommandFactory {
 		
 		map.put("/member_r_layout2.do","controller.reservation.UploadReservationCommand");
 		
-
+		map.put("/totalInfoRetrieveList.do", "controller.reservation.TotalInfoRetrieveListCommand");
+		
 		
 		//공연
 		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");

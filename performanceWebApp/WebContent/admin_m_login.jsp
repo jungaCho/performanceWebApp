@@ -99,7 +99,7 @@ input {
 				비밀번호 : <input id="pwd"
 				type="password" name="pwd" sizes="20" placeholder="비밀번호입력"></input><br>
 
-			<a href="#">아이디찾기</a>/<a href="#">비밀번호찾기</a><br>
+
 			<br>
 
 			<button type="submit" id="btn1">관리자로그인</button>

@@ -41,6 +41,7 @@
 
 
 	footer {
+	
 		width: 100%;
 		height: 100px;
 		margin-left: auto;
@@ -69,10 +70,13 @@
 
 
 	section article {
+	
 		width: 100%;
 		height: 100%;
+		min-height: 600px;
 		background-color: #ebebeb;
 		float: left;
+		margin-botton: 50px;
 		
 	}
 

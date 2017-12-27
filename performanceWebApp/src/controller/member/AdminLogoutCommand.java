@@ -1,44 +1,44 @@
 package controller.member;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
-import domain.member.MemberVO;
-import model.service.member.AdminService;
 
-
-
-public class AdminSelectMember implements Command {
+public class AdminLogoutCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		
-		//회원정보 조회 - DB에 접근해 모든 멤버들을 List<MemberVO> 에 담아 리턴된 값 가져와서 req에 바인딩.
-		
+
+		HttpSession session = req.getSession();
+		String aId = (String) session.getAttribute("aId");
+
 		ActionForward forward = new ActionForward();
+
 		try {
-			List<MemberVO> memberList = AdminService.getInstance().retrieveMembers();
+
+			if (aId != null) {
+		
+				session.invalidate();
+
+				forward.setPath("/admin_m_login.jsp");
+				forward.setRedirect(false);
+			}
 			
-			req.setAttribute("memberList",memberList);
-			forward.setPath("/admin_m_layout.jsp?article=admin_m_SelectList");
-			forward.setRedirect(false);
-		}catch(Exception e) {
+			return forward;
+
+		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
 			forward.setRedirect(false);
-			
+			return forward;
 		}
-		
-		return forward;
 	}
 
-	
-	
 }
