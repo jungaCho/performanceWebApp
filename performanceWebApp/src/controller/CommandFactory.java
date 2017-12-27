@@ -71,6 +71,10 @@ public class CommandFactory {
 		
 		map.put("/adminLogout.do", "controller.member.AdminLogoutCommand");
 		
+		map.put("/selectMenu.do", "controller.member.SelectMenuCommand");
+		
+		
+		
 		
 
 		
