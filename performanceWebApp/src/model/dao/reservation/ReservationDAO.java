@@ -111,7 +111,7 @@ public class ReservationDAO {
 	}
 
 	// 검색조건에 해당하는 전체 회원의 예매내역을 조회한다. (관리자)
-	public List<TotalInfoVO> selectReservationListByAdmin(String keyfield, String keyword, int startRow, int endRow)
+	public List<TotalInfoVO> selectReservationListByAdmin(int startRow, int endRow)
 			throws Exception {
 
 		Connection conn = null;
@@ -123,35 +123,30 @@ public class ReservationDAO {
 			StringBuffer sql = new StringBuffer();
 
 			sql.append(
-					"select res.r_no, res.r_status, to_char(res.r_date, 'YYYY/MM/DD'), res.card_number,                              ");
+					"select res.r_no, res.r_status, to_char(res.r_date, 'YYYY/MM/DD'), res.card_number, res.approve_number, res.total_price, card.cardco_name, mem.m_id, perf.title,                             ");
 			sql.append(
-					"res.approve_number, res.total_price, card.cardco_name, mem.m_id, perf.title,                                      ");
+					"to_char(sch.s_date, 'YYYY/MM/DD'), to_char(ord.o_time, 'HH24:MI'), t.t_name, rseat.seat_no                                     ");
 			sql.append(
-					"to_char(sch.s_date, 'YYYY/MM/DD'), to_char(ord.o_time, 'HH24:MI'), t.t_name, rest.seat_no                   ");
+					"from (select ROWNUM as rn, rs.* from (select * from reservation order by r_no desc) rs) res,                          ");
+			sql.append("card_company card, member mem, performance perf, schedule sch, orders ord, theater t,                ");
+			sql.append("reserved_seat rseat, seat seat                                               ");
 			sql.append(
-					"from reservation res, card_company card, member mem, performance perf, schedule sch,                        ");
+					"where res.CARDCO_NO = card.CARDCO_NO                                                                                                           ");
 			sql.append(
-					"orders ord, theater t, reserved_seat rseat, seat                                                                               ");
+					"and res.R_NO = rseat.R_NO                                                                                                              ");
 			sql.append(
-					"where res.o_no = ord.o_no                                                                                                           ");
+					"and rseat.SEAT_NO = seat.SEAT_NO                                                                                                             ");
 			sql.append(
-					"and ord.s_no = sch.s_no                                                                                                              ");
+					"and res.O_NO = ord.O_NO                                                                                                                 ");
 			sql.append(
-					"and sch.p_no = perf.p_no                                                                                                             ");
+					"and ord.S_NO = sch.S_NO                                                                                                            ");
 			sql.append(
-					"and sch.t_no = t.t_no                                                                                                                  ");
+					"and sch.P_NO = perf.P_NO                                                                                                  ");
 			sql.append(
-					"and res.r_no = rseat.r_no                                                                                                             ");
+					"and sch.T_NO = t.T_NO                                                                                                                ");
 			sql.append(
-					"and seat.seat_no = rseat.seat_no                                                                                                  ");
-			sql.append(
-					"and seat.t_no = t.t_no                                                                                                                 ");
-			sql.append(
-					"and res.m_no = mem.m_no                                                                                                            ");
-			sql.append(
-					"and res.cardco_no = card.cardco_no;                                                                                              ");
-
-			if (keyfield.equals("mId")) {
+					" and res.M_NO = mem.M_NO                                                                                                            ");
+		/*	if (keyfield.equals("mId")) {
 				sql.append("and mem.m_id LIKE '%' || ? || '%'                                                                                       ");
 			} else if (keyfield.equals("rDate")) {
 				sql.append("and res.r_date = ?                                                                                                            ");
@@ -161,13 +156,17 @@ public class ReservationDAO {
 				sql.append("and sch.s_date = ?                                                                                                           ");
 			} else if (keyfield.equals("rStatus")) {
 				sql.append("and res.r_status = ?                                                                                                          ");
-			}
+			}*/
 
+			sql.append("and res.rn>=? and res.rn <= ?                ");
 			sql.append("order by r_no desc                                                                                                                ");
+			
 
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, keyword);
-
+			/*pstmt.setString(1, keyword);*/
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -472,6 +471,8 @@ public class ReservationDAO {
 		return seats;
 	}
 	
+	
+	//총 게시글 수를 구하다.
 	public int selectTotalPost() throws Exception {
 		int totalPost = 0;
 		Connection conn = null;
@@ -575,5 +576,7 @@ public class ReservationDAO {
 		}
 		
 	}
+	
+
 
 }
