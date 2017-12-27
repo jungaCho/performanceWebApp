@@ -71,7 +71,7 @@ public class PosterDAO {
 	}
 	
 	//해당 공연의 공연 포스터를 일괄 삭제한다.
-	public void deletePosterList(Connection conn, String p_no) throws Exception{
+	public void deletePosterList(Connection conn, String pNo) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
 			StringBuilder sql=new StringBuilder();
@@ -79,7 +79,7 @@ public class PosterDAO {
 			sql.append("where p_no=?   " );
 			
 			pstmt=conn.prepareStatement(sql.toString());
-			pstmt.setString(1, p_no);
+			pstmt.setString(1, pNo);
 			
 			pstmt.executeUpdate();
 			

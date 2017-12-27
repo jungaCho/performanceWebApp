@@ -97,12 +97,14 @@ a {
 				
 				//string[] 공연번호를 배열로 넘긴다.
 				
+				
 				var pNoArrays = [];
 				
-				pNoArrays.push($('#checkSelect:checked').val());
-	
+				$('#checkSelect:checked').each(function(){
+				
+					pNoArrays.push($(this).val());		
+				});	
 				location.href= "${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked="+pNoArrays;
-						
 				
 			});
     	  

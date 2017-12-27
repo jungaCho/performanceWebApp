@@ -20,6 +20,8 @@ public class RemovePerformanceListCommand implements Command {
 		for(String temp: pNos) {
 			System.out.println("temp: "+ temp.toString());
 		}
+		
+		
 		return null;
 		
 	}
