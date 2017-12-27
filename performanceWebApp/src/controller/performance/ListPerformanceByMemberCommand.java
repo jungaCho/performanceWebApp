@@ -21,6 +21,10 @@ public class ListPerformanceByMemberCommand implements Command {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
+		int startRow = Integer.parseInt(req.getParameter("startRow"));
+        int endRow = Integer.parseInt(req.getParameter("endRow"));
+        String mode = req.getParameter("mode");
+        
 		//1. 현재 페이지 번호를 구하다.
         int currentPage = 0;
         try {
@@ -45,21 +49,30 @@ public class ListPerformanceByMemberCommand implements Command {
 			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
 			paging.setTotalPost(performanceDao.selectTotalPost());
 
-			int startRow = paging.getStartRow();
-			int endRow = paging.getEndRow();
-			System.out.printf("startRow : %d, endRow : %d%n", startRow, endRow);
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            
+            map.put("startRow",startRow);
+            map.put("endRow",endRow);
+            map.put("mode",mode);
 
-			HashMap<String,Object> map = new HashMap<String, Object>();
-			List<PerformanceVO> performances = performs.retrievePerformanceListByMember(map);
+            PerformanceService service = PerformanceService.getInstance();
+            List<PerformanceVO> perfomances = service.retrievePerformanceListByMember(map);
+
+            if(perfomances != null) {
+                req.setAttribute("perfomances", perfomances);
+                forward.setPath("/performanceList.jsp"); //json에 객체들 바인딩되어있는 페이지
+                forward.setRedirect(false);
+                return forward;
+            } else {
+            	forward.setPath("/member_p_layout2.jsp?article=member_p_selectPerformance");
+    			forward.setRedirect(false);
+    			return forward;
+            }
 			
-			System.out.println(performances.size());
-			
-			req.setAttribute("performances", performances);
+		/*	req.setAttribute("performances", performances);
 			req.setAttribute("paging", paging);
-
-			forward.setPath("/admin_layout.jsp?nav=admin_p_menu&article=admin_p_selectPerformanceList");
-			forward.setRedirect(false);
-			return forward;
+*/
+			
 			
 		} catch (Exception e) {
 			req.setAttribute("exception", e);

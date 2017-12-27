@@ -89,7 +89,7 @@ public class CommandFactory {
 		
 		map.put("/order.do","controller.reservation.OrderCommand");
 		
-		map.put("/member_r_layout.do","controller.reservation.ListReservationCommand");
+		
 		
 		map.put("/member_r_layout2.do","controller.reservation.UploadReservationCommand");
 		
@@ -120,6 +120,8 @@ public class CommandFactory {
 		map.put("/member_p_detailPerformance.do", "controller.performance.DetailPerformanceByMemberCommand" );
 		
 		map.put("/admin_p_removePerformanceList.do", "controller.performance.RemovePerformanceListCommand" );
+		
+		map.put("/member_r_layout.do","controller.performance.ListReservationCommand");
 
 
 	}
