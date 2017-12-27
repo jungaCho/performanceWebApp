@@ -484,12 +484,13 @@ public class ReservationDAO {
 
 			StringBuilder sql = new StringBuilder();
 			sql.append("select count(*)	from reservation");
+			
+			
 			rs = stmt.executeQuery(sql.toString());
 
 			if(rs.next()) {
 				totalPost = rs.getInt(1);
 			}
-
 		} finally {
 			if(rs!=null) rs.close();
 			if(stmt!=null) stmt.close();
@@ -511,9 +512,9 @@ public class ReservationDAO {
 			sql.append("	   to_char(o.o_time,'HH24:MI')																		");*/
 			sql.append("from (select rownum as rn, totalinfo1.*																	");
 			sql.append("	 from (select *																						");
-			sql.append("		   from reservation																					");
-			sql.append("		   order by r_no desc) totalinfo1),									 							");
-			sql.append("	 reservation r, card_company c, member m , performance p,											");
+			sql.append("		   from reservation																				");
+			sql.append("		   order by r_no desc) totalinfo1) r,									 							");
+			sql.append("	 ,card_company c, member m , performance p,															");
 			sql.append("	 schedule s, orders o , theater t,  reserved_seat rs 												");
 			sql.append("where r.o_no = o.o_no																					");
 			sql.append("and r.cardCo_no = c.cardCo_no																			");

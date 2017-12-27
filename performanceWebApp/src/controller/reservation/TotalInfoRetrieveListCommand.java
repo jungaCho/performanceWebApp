@@ -20,7 +20,7 @@ public class TotalInfoRetrieveListCommand implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		System.out.println("call");
+		
 		int currentPage = 0;
 		try {
 			currentPage = Integer.parseInt(req.getParameter("currentPage"));
@@ -30,7 +30,7 @@ public class TotalInfoRetrieveListCommand implements Command {
 		
 		PagingVO paging = new PagingVO();
 		
-		paging.setPostPerpage(15);
+		paging.setPostPerpage(11);
 		paging.setPageBlock(5);
 		paging.setCurrentPage(currentPage);
 		
@@ -40,6 +40,11 @@ public class TotalInfoRetrieveListCommand implements Command {
 			
 			int startRow = paging.getStartRow();
 			int endRow = paging.getEndRow();
+			System.out.printf("startRow : %d, endRow : %d%n", startRow,endRow);
+			System.out.println("ÃÑ °Ô½Ã±Û ¼ö : " + paging.getTotalPost());
+			System.out.println("ÃÑ ÆäÀÌÁö ¼ö : " + paging.getTotalPage());
+			System.out.println("startPage : " + paging.getStartPage());
+			System.out.println("endPage : " + paging.getEndPage());
 			
 			HttpSession session = req.getSession();
 			MemberVO member = (MemberVO)session.getAttribute("member");
@@ -50,6 +55,7 @@ public class TotalInfoRetrieveListCommand implements Command {
 			
 			req.setAttribute("totalInfos",totalInfos);
 			req.setAttribute("paging", paging);
+			
 			forward.setPath("/member_r_layout3.jsp?nav=member_r_menu&article=member_r_reservationInfo");
 			forward.setRedirect(false);
 			return forward;
