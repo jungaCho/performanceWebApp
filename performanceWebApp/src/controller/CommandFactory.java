@@ -66,6 +66,8 @@ public class CommandFactory {
 		map.put("/sendTempPwd.do", "controller.member.sendTempPwdCommand");
 		
 		map.put("/selectMemberList.do", "controller.member.SelectMemberListCommand");
+		
+		map.put("/searchMember.do", "controller.member.SearchMemberCommand");
 
 		
 		//¿¹¸Å

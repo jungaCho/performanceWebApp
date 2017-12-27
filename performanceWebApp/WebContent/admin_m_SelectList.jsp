@@ -28,7 +28,7 @@
 	$(document).ready(function(){
 	
 		
-		$('#btn2').on("click",function(){
+		$('#table1').on("click", 'button', function(){
 			var memberNo = $(this).parents("tr:first").attr("id");		
 			window.open("${pageContext.request.contextPath}/retrieveMemberDetail.do?mNo="+memberNo,"회원정보상세조회","width=700, height=600, top=200, left=200");
 		});
@@ -50,23 +50,105 @@
 					
 					sortkey: $('#view').find('option:selected').val()
 				},
+				
 				success: function(data){
 					
-					if(data.success == true){
-						alert("success");
-					}
+						$('#table1').find('tr:not(:first)').remove(); 
+						
+						var htmlStr = "";
+						
+						for(var i=0; i<data.length; i++){
+							
+							htmlStr += "<tr id=" + data[i].mNo + ">";
+							htmlStr += "<td>" + data[i].mNo + "</td>";
+							htmlStr += "<td>" + data[i].mName + "</td>";
+							htmlStr += "<td>" + data[i].mId + "</td>";
+							htmlStr += "<td>" + data[i].mPw + "</td>";
+							htmlStr += "<td>" + data[i].email + "</td>";
+							htmlStr += "<td>" + data[i].address + "</td>";
+							htmlStr += "<td>" + data[i].rankNo + "</td>";
+						    htmlStr += "<td>" + "비고" +"<button type='button'>회원정보상세조회</button>"+ "</td>";
+							htmlStr += "<tr>";
+							
+							$(htmlStr).appendTo('#table1');
+							htmlStr = "";
+							
+						}
+						
 				}
+			
 				,
 				error: function(jaXHR){
 					alert("error: " + jaXHR.error );
 					
 				}
 				
-			}); 
+			});
+			
 		});
 		
-	});
+		
+		//검색어 입력 처리
+		
+			$('#btn3').on("click",function(){
+			
 	
+			
+			$.ajax({
+				
+				url: "${pageContext.request.contextPath}/searchMember.do"
+				,
+				method : "POST"
+				,
+				dataType: 'json'
+				,
+				data: {
+				
+					sortkey: $('#filter').find('option:selected').val(),
+					keyword: $('#keyword').val(),
+					startRow: 1,
+					endRow: 15
+					
+					
+				},
+				
+				success: function(data){
+					
+						$('#table1').find('tr:not(:first)').remove(); 
+						
+						var htmlStr = "";
+						
+						for(var i=0; i<data.length; i++){
+							
+							htmlStr += "<tr id=" + data[i].mNo + ">";
+							htmlStr += "<td>" + data[i].mNo + "</td>";
+							htmlStr += "<td>" + data[i].mName + "</td>";
+							htmlStr += "<td>" + data[i].mId + "</td>";
+							htmlStr += "<td>" + data[i].mPw + "</td>";
+							htmlStr += "<td>" + data[i].email + "</td>";
+							htmlStr += "<td>" + data[i].address + "</td>";
+							htmlStr += "<td>" + data[i].rankNo + "</td>";
+						    htmlStr += "<td>" + "비고" +"<button type='button'>회원정보상세조회</button>"+ "</td>";
+							htmlStr += "<tr>";
+							
+							$(htmlStr).appendTo('#table1');
+							htmlStr = "";
+							
+						}
+						
+				}
+			
+				,
+				error: function(jaXHR){
+					alert("error: " + jaXHR.error );
+					
+				}
+				
+			});
+			
+			});
+		
+	});
 	
 		
 		
@@ -81,23 +163,25 @@
 	<select id="view">
 	<option value="m_no">회원번호</option>
 	<option value="m_name">이름</option>
-	<option value="withdrawal">등급</option>
+	<option value="rankNo">등급</option>
 	<option value="withdrawal">탈퇴여부</option>
 		
 	</select>
 	<button type="button" id="btn1">순으로 정렬</button>
 	
 	<select id="filter" >
-	<option>회원번호</option>
-	<option>이름</option>
-	<option>아이디</option>
-	<option>등급</option>
-	<option>탈퇴여부</option>
+	<option value="m_no">회원번호</option>
+	<option value="m_name">이름</option>
+	<option value="m_id">아이디</option>
+	<option value="rank_no">등급</option>
+	<option value="withdrawal">탈퇴여부</option>
 	
 		
 	</select>
 	
-	<button type="button">검색</button>
+	<input type="text" id="keyword" placeholder="검색어를 입력해주십시오">
+	
+	<button type="button" id="btn3">검색</button>
 	
 	<table id="table1" border = "1">
 		

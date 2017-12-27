@@ -234,8 +234,9 @@ public class AdminDAO {
 		return member;
 	}
 
-	public List<MemberVO> searchByMember(String sortkey, String keyfield, String keyword, int startRow, int endRow)
+	public List<MemberVO> searchByMember(String sortkey, String keyword, int startRow, int endRow)
 			throws Exception {
+		
 		List<MemberVO> members = new ArrayList<MemberVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -248,33 +249,42 @@ public class AdminDAO {
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from (select rownum as rn, member1.*								");
 			sql.append("		from(select * from member									");
+			
 			if (sortkey.equals("m_no")) {
 				sql.append("                order by m_no desc)member1)							");
+				sql.append("where m_no like '%' || ? || '%'									");
 			} else if (sortkey.equals("m_id")) {
 				sql.append("                order by m_id desc)member1)							");
+				sql.append("where m_id like '%' || ? || '%'									");
 			} else if (sortkey.equals("m_name")) {
 				sql.append("                order by m_name desc)member1)							");
+				sql.append("where m_name like '%' || ? || '%'								");
 			} else if (sortkey.equals("rank_no")) {
 				sql.append("                order by rank_no desc)member1)							");
+				sql.append("where rank_no like '%' || ? || '%'									");
 			} else if (sortkey.equals("withdrawal")) {
 				sql.append("                order by withdrawal asc)member1)							");
-			}
-
-			if (keyfield.equals("m_no")) {
-				sql.append("where m_no like '%' || ? || '%'									");
-			} else if (keyfield.equals("m_id")) {
-				sql.append("where m_id like '%' || ? || '%'									");
-			} else if (keyfield.equals("m_name")) {
-				sql.append("where m_name like '%' || ? || '%'								");
-			} else if (keyfield.equals("birthday")) {
-				sql.append("where m_id like '%' || ? || '%'									");
-			} else if (keyfield.equals("rank_no")) {
-				sql.append("where rank_no like '%' || ? || '%'								");
-			} else if (keyfield.equals("withdrawal")) {
 				sql.append("where withdrawal like '%' || ? || '%'							");
 			}
-			sql.append("	and rn >= ? and rn =< ?											");
 
+		/*	if (sortkey.equals("m_no")) {
+				sql.append("where m_no like '%' || ? || '%'									");
+			} else if (sortkey.equals("m_id")) {
+				sql.append("where m_id like '%' || ? || '%'									");
+			} else if (sortkey.equals("m_name")) {
+				sql.append("where m_name like '%' || ? || '%'								");
+			} else if (sortkey.equals("birthday")) {
+				sql.append("where m_id like '%' || ? || '%'									");
+			} else if (sortkey.equals("rank_no")) {
+				sql.append("where rank_no like '%' || ? || '%'								");
+			} else if (sortkey.equals("withdrawal")) {
+				sql.append("where withdrawal like '%' || ? || '%'							");
+			}*/
+			sql.append("	and rn >= ? and rn <= ?											");
+
+			
+			System.out.println(sql.toString());
+			
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, keyword);
@@ -284,6 +294,7 @@ public class AdminDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				
 				MemberVO member = new MemberVO();
 				member.setmNo(rs.getString(1));
 				member.setmId(rs.getString(2));
