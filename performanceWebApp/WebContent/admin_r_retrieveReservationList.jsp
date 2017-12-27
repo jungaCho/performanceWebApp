@@ -69,17 +69,19 @@ a {
 
 #page {
 	margin-top: 290px;
+	text-align:center;
+	font-size:15px;
 }
 
+.wrapper{padding: 0 40px 10px 40px; width:1200px;}
+#table{width:1100px; font-size:15px;}
+tr{height:40px;}
+td{border-bottom:1px solid gray; border-right:1px solid gray;}
+th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00; color:#fff;}
 
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
-      $(document).ready(function() {
-    	  	
-    	  $('#btn1').click(function(){
-    		  alert('$(check:checked)'.text());
-    	  });
 	$(document).ready(function() {
 		
 		
@@ -101,7 +103,8 @@ a {
 			$('#btn1').on("click",function(){
 				
 				//string[] 공연번호를 배열로 넘긴다.
-
+				
+				
 				var pNoArrays = [];
 				
 				$('#checkSelect:checked').each(function(){
@@ -114,13 +117,14 @@ a {
     	  
     	  
             $("#btn3").on('click', function() {
-            	 
+            	
+            
                   $.ajax({
                         url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
                         method : 'GET',
                         dataType : 'json',
                         data : $('#search').serialize(),
-                        success : function(data) {
+                        success : function(data) {                            	  
                         	  $("#table").find('tr:not(:first)').remove();
                               var htmlStr = "";
                               for (var i = 0; i < data.length; i++) {
@@ -152,7 +156,7 @@ a {
 
 </head>
 <body>
-
+	<div class="wrapper">
 	<div id="pannel">
 		<h1>공연 조회</h1>
 		
@@ -163,9 +167,11 @@ a {
 
 	<form id="search">
 		<select id="keyfield" name="keyfield">
-			<option value="title">제목</option>
-			<option value="date">월</option>
-			<option value="genre">장르</option>
+			<option value="title">예매일자</option>
+			<option value="date">공연제목</option>
+			<option value="genre">예매자</option>
+			<option value="genre">공연날짜</option>
+			<option value="genre">예매상태</option>
 		</select> <input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요">
 		<button id="btn3" type="button">검색</button>
 	</form>
@@ -175,33 +181,33 @@ a {
 	<div id="div3">
 
 	<input type="hidden" value="${pageScope.performance.pNo }">
-		<table id="table" border="1" width=670>
+		<table id="table" cellspacing=0>
 			<tr>
-				<th>선택</th>
-				<th>공연번호</th>
+				<th style="border-left:1px solid gray">예매번호</th>
+				<th>예매일자</th>
 				<th>공연제목</th>
-				<th>시작일</th>
-				<th>종료일</th>
-				<th>장르</th>
+				<th>공연날짜</th>
+				<th>예매매수</th>
+				<th>상태</th>
+				<th>예매자</th>
+				<th>공연관</th>
+				<th>좌석번호</th>
 			</tr>
-			<c:forEach var="performance" items="${requestScope.performances }"
-				varStatus="loop">
-				<c:url var="url" value="/admin_p_detailPerformance.do" scope="page">
-					<c:param name="pNo" value="${pageScope.performance.pNo }" />
-				</c:url>
-				<tr>
-					<td><input type="checkbox" name="box[]" value="${pageScope.performance.pNo }" id="checkSelect"></td>
-					<td>${pageScope.performance.pNo }</td>
-					<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
-					<td>${pageScope.performance.startDate }</td>
-					<td>${pageScope.performance.endDate }</td>
-					<td>${pageScope.performance.genre }</td>
-				</tr>
-			</c:forEach>
+			<tr>
+				<td style="border-left:1px solid gray">예매번호</td>
+				<td>예매일자</td>
+				<td>공연제목</td>
+				<td>공연날짜</td>
+				<td>예매매수</td>
+				<td>상태</td>
+				<td>예매자</td>
+				<td>공연관</td>
+				<td>좌석번호</td>
+			</tr>
+			
 		</table>
 		
 	</div>
-	
 	<br>
 	<br>
 	&nbsp;
@@ -239,7 +245,7 @@ a {
                 [다음]&nbsp;&nbsp;
         </c:if>
 	</form>
-
+    </div>
 
 </body>
 </html>

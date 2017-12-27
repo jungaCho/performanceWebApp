@@ -4,7 +4,7 @@
 
 
 <c:url var="url1" value="/processMemberList.do" scope="page"/>	
-<c:url var="url2" value="/admin_layout.jsp" scope="page"/>	
+<c:url var="url2" value="/admin_r_layout.do" scope="page"/>	
 <c:url var="url3" value="/admin_p_selectPerformanceList.do" scope="page" />
 <c:url var="url4" value="/admin_m_login.jsp" scope="page"/>
 <c:url var="url5" value="/adminLogout.do" scope="page"/>
@@ -29,7 +29,7 @@ $(document).ready(function () {
 	<a href ="${pageScope.urlHome }"><h1>로고</h1></a>
 	<ul style="float:right; margin-right:30px;">
 		<li id="manage1"><a href="${pageScope.url1 }">회원관리</a></li>
-		<li id="manage3"><a href="#">예매관리</a></li>
+		<li id="manage3"><a href="${pageScope.url2 }">예매관리</a></li>
 		<li id="manage2"><a href="${pageScope.url3 }">공연관리</a></li>
 		<li><span id="loginm">${sessionScope.aId} 님 환영합니다</span></li>
 		<li><a href="${pageScope.url5 }"><span id="loginm2">로그아웃</span></a><li>
