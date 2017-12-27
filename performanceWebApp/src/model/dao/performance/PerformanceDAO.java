@@ -595,6 +595,34 @@ public class PerformanceDAO {
 				conn.close();
 		}
 	}
+	
+	// 공연 정보를 삭제한다.
+		public void deletePerformance2(String[] pNos) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			StringBuffer sql = new StringBuffer();
+			
+			for(int i = 0; i<pNos.length; i++) {
+				String pNo = pNos[i];
+			
+			try {
+				conn = DBConn.getConnection();
+				sql.append("delete from performance ");
+				sql.append("where p_no=? ");
+
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, pNo);
+
+				pstmt.executeUpdate();
+
+			} finally {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			}
+		}
+		}
 
 	// 공연 정보를 수정한다.
 	public void updatePerformance(PerformanceVO performance) throws Exception {

@@ -23,6 +23,7 @@ public class RemovePerformanceCommand implements Command{
 		String pNo=req.getParameter("pNo");
 		
 		ActionForward forward=new ActionForward();
+		
 		try {
 			PerformanceService service=PerformanceService.getInstance();
 			PerformanceVO performance=service.retirevePerformance(pNo);
@@ -34,6 +35,7 @@ public class RemovePerformanceCommand implements Command{
 				for(DetailFileVO detailFile : performance.getDetailFiles()) {
 					String systemFileName = detailFile.getSystemFileName();
 					file = new File(path + File.separator + systemFileName);
+				
 					if(file.exists()) {
 						file.delete();
 					}
