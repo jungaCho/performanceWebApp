@@ -76,16 +76,12 @@ button {
 		
 	
 		$("#btn3").on('click', function() {
-			 alert('call');
 			 
 			 console.log('tNo : ' + $('#tNo option:selected').val());
 			 //console.log('pNo : ');
 			 console.log('sDate : ' + sDateList.join("/"));
 			 console.log('oTime : ' + oTimeList.join("/"));
-			 
-			 alert("call");
 
-			
 			 $.ajax({
 				url: '${pageContext.request.contextPath}/admin_p_insertSchedule.do'
 				,
@@ -95,17 +91,19 @@ button {
 				,
 				data: {
 					tNo: $('#tNo option:selected').val(),
-					공연번호: $('#title option:selected').val(),
+					pNo: $('#pNo option:selected').val(),
 					sDate: sDateList.join("/"),
 					oTime: oTimeList.join("/")
 				}
 				,
-				success: function() {
-					location.href="${pageContext.request.contextPath}/admin_p_selectPerformanceList.do";
-					alert("공연정보가 등록되었습니다!!");
+				success: function(data) {
+					if(data.isSuccess=='true'){
+						alert("공연정보가 등록되었습니다!!");
+						location.href="${pageContext.request.contextPath}/admin_p_selectPerformanceList.do";
+					}
 				}
 				,
-				error: function() {
+				error: function(jqXHR) {
 					alert("error : " + jqXHR.status);
 				}
 				
@@ -165,7 +163,7 @@ button {
 			</table>
 		</div>
 		<br>
-		<button type="submit" id="btn3">등록</button>
+		<button type="button" id="btn3">등록</button>
 		<button type="reset" id="btn4">뒤로가기</button>
 	</form>
 </body>

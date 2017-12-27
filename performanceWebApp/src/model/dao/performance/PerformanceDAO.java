@@ -33,8 +33,9 @@ public class PerformanceDAO {
 	 * startRow : endRow :
 	 */
 
-	// 조회 조건에 해당하는 공연 정보를 목록을 조회하다.(사용자)
+	// 조회 조건에 해당하는 공연 정보를 목록을 조회하다.(사용자) 
 	public List<PerformanceVO> selectPerformanceListByMember(HashMap<String, Object> map) throws Exception {
+		
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -47,6 +48,7 @@ public class PerformanceDAO {
 			String mode = (String) map.get("mod");
 
 			// 이미지 보기 텍스트 보기
+			
 			if (mode.equals("image")) {
 				sql.append(
 						"select perf.title, pos.SYSTEM_FILE_NAME, perf.start_date, perf.end_date		 				");
@@ -64,7 +66,9 @@ public class PerformanceDAO {
 						"and pos.main_poster = 1    																														 ");
 				sql.append(
 						"and perf.rn>=? and perf.rn<=? 																							");
+			
 			} else if (mode.equals("text")) {
+				
 				sql.append(
 						"select distinct perf.title,perf.start_Date,perf.end_Date,t.t_Name										");
 				sql.append("from (select rownum as rn, p.*   													");
@@ -504,7 +508,6 @@ public class PerformanceDAO {
 			pstmt.setString(11, performance.getViewNo());
 			pstmt.setString(12, performance.getGenreNo());
 
-			System.out.println("!!!!!!!!!!!!1" + performance.getGenreNo() + "~!!!!" + performance.getViewNo());
 			pstmt.executeUpdate();
 
 			pstmt.close();

@@ -71,6 +71,10 @@ public class CommandFactory {
 		
 		map.put("/adminLogout.do", "controller.member.AdminLogoutCommand");
 		
+		map.put("/selectMenu.do", "controller.member.SelectMenuCommand");
+		
+		
+		
 		
 
 		
@@ -116,6 +120,7 @@ public class CommandFactory {
 		map.put("/member_p_detailPerformance.do", "controller.performance.DetailPerformanceByMemberCommand" );
 		
 		map.put("/admin_p_removePerformanceList.do", "controller.performance.RemovePerformanceListCommand" );
+
 
 	}
 	

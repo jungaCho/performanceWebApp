@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import controller.ActionForward;
 import controller.Command;
@@ -23,22 +24,42 @@ public class InsertScheduleCommand implements Command {
 		// 일정 등록 요청 처리
 		// 1. 일정 정보를 가져온다.
 		String tNo = req.getParameter("tNo");
-		String pNo = req.getParameter("title");
-		String sDate = req.getParameter("sDate");
-		String oTime = req.getParameter("oTime");
+		String pNo = req.getParameter("pNo");
+		String paraSDate = req.getParameter("sDate");
+		String paraOTime = req.getParameter("oTime");
+		System.out.println("%%%"+pNo);
 		
-		
-		List<OrderVO> orders = new ArrayList<OrderVO>();
-		List<ScheduleVO> schedules = new ArrayList<ScheduleVO>();
-		
+		String[] sDates=paraSDate.split("/");
+		String[] oTimes=paraOTime.split("/");
 		ActionForward forward = new ActionForward();
+		List<ScheduleVO> schedules=new ArrayList<ScheduleVO>();
+		List<OrderVO> orders=new ArrayList<OrderVO>();
+		
 		try {
-			// 2. DB에 일정 정보 등록
+			for(int i=0; i<sDates.length; i++) {
+				ScheduleVO schedule = new ScheduleVO();
+				schedule.setsDate(sDates[i]);	
+				schedule.settNo(tNo);
+				schedule.setpNo(pNo); 
+				schedules.add(schedule);
+			}
+			
+			for(int i=0; i<oTimes.length; i++) {
+				String[] oTime = oTimes[i].split(",");
+				for(int j=0; j<oTime.length; j++) {
+					OrderVO order = new OrderVO();
+					order.setoTime(oTime[j]);
+					schedules.get(i).addOrders(order);
+				}				
+			}
+		
 			PerformanceService service = PerformanceService.getInstance();
+
 			service.createSchedule(schedules);
 
-			// 3.
-
+			forward.setPath("/admin_p_insertScheduleView.jsp");
+			forward.setRedirect(false);
+			return forward;
 		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
@@ -46,6 +67,6 @@ public class InsertScheduleCommand implements Command {
 
 			return forward;
 		}
-		return null;
+		
 	}
 }

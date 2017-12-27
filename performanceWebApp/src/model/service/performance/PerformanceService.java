@@ -80,7 +80,7 @@ public class PerformanceService {
 				poster.setpNo(pNo); 
 			}
 			PosterDAO posterDao = PosterDAO.getInstance();
-			posterDao.insertPoster(conn, posters);
+			posterDao.insertPoster(conn, posters,pNo);
 			
 
 			ArrayList<DetailFileVO> detailFiles = (ArrayList<DetailFileVO>) performance.getDetailFiles();
@@ -88,7 +88,7 @@ public class PerformanceService {
 				detialFile.setpNo(pNo);				
 			}
 			DetailFileDAO detailfileDao = DetailFileDAO.getInstance();
-			detailfileDao.insertDetailFile(conn, detailFiles);
+			detailfileDao.insertDetailFile(conn, detailFiles,pNo);
 
 			conn.commit();
 			
@@ -218,11 +218,11 @@ public class PerformanceService {
 
 			PosterDAO posterDao = PosterDAO.getInstance();
 			posterDao.deletePosterList(conn, removePosters);
-			posterDao.insertPoster(conn, (ArrayList<PosterVO>)performance.getPosters());
+			posterDao.insertPoster(conn, (ArrayList<PosterVO>)performance.getPosters(),performance.getpNo());
  
 			DetailFileDAO detailFileDao = DetailFileDAO.getInstance();
 			detailFileDao.deleteDetailFileList(conn, removeDetailFiles);
-			detailFileDao.insertDetailFile(conn, (ArrayList<DetailFileVO>) performance.getDetailFiles());
+			detailFileDao.insertDetailFile(conn, (ArrayList<DetailFileVO>) performance.getDetailFiles(),performance.getpNo());
 
 			conn.commit();
 		} catch (Exception e) {
@@ -245,12 +245,13 @@ public class PerformanceService {
 
 			for (ScheduleVO schedule : schedules) {
 				ScheduleDAO dao = ScheduleDAO.getInstance();
-				dao.insertSchedule(conn, schedule);
+				String sNo=dao.insertSchedule(conn, schedule);
 
 				ArrayList<OrderVO> orders = (ArrayList<OrderVO>) schedule.getOrders();
-				OrderDAO dao1 = OrderDAO.getInstance();
-				dao1.insertOrder(conn, orders);
-
+				for(OrderVO order:orders) {
+					OrderDAO dao1 = OrderDAO.getInstance();
+					dao1.insertOrder(conn, order);
+				}
 			}
 			conn.commit();
 		} catch (Exception e) {

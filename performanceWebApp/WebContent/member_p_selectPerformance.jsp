@@ -63,6 +63,18 @@ a {
 	
 }
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		
+		$('#btnText').on("click",function(){
+			
+			location.href="${pageContext.request.contextPath}/selectMenu.do";
+			
+		});
+		
+	});
+</script>
 </head>
 <body>
 	<form>
@@ -80,7 +92,7 @@ a {
 			</div>
 			<div id="div2-2">
 				<button type="button">이미지보기</button>
-				<button type="button">텍스트보기</button>
+				<button type="button" id="btnText">텍스트보기</button>
 				<select id="genre">
 					<option value="G002">뮤지컬</option>
 					<option value="G001">연극</option>
