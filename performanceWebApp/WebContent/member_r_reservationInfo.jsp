@@ -11,16 +11,16 @@ margin-left:50px; margin-right:50px;
 }
 
 .reservation {
-	overflow: hidden;
+
 	margin-top: 10px;
-	height: 110px;
+
 }
 
-table{border:1px solid gray; text-align:center; font-size:12px; margin-top:40px; margin-bottom:15px; width:100%}
+table{border:1px solid gray; text-align:center; font-size:12px; margin-top:50px; margin-bottom:15px; width:100%}
 th{background:#FFBB00; color:#000;}
-
+tr{height:40px;}
 td{width:90px;}
-.selectbox{float:right;}
+.selectbox{float:right; margin-bottom:20px;}
 }
 </style>
 <script src="js/jquery-3.2.1.min.js"></script> 
@@ -77,7 +77,7 @@ td{width:90px;}
 					</c:forEach>
 				</table>
 				<br>
-<%-- 				<br>
+			<br>
 				
 				<c:if test="${requestScope.paging.prevPage > 0 }">
 					<c:url var="prevUrl" value="/totalInfoRetrieveList.do" scope="page">
@@ -110,7 +110,7 @@ td{width:90px;}
 				<c:if test="${requestScope.paging.endPage == requestScope.paging.totalPage }">
 					[다음]&nbsp;&nbsp;
 				</c:if>
-				 --%>
+
 				<%--</form> --%>
 		
 			</div>

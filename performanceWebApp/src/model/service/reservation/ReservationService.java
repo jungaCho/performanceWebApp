@@ -66,9 +66,10 @@ public class ReservationService {
 			conn.setAutoCommit(false);
 
 			ReservationDAO reservationDAO = ReservationDAO.getInstance();
-			reservationDAO.checkCanceledReservation(conn, rNo);
+			Boolean isSuccess = reservationDAO.checkCanceledReservation(conn, rNo);
 			reservationDAO.updateReservation(rNo, conn);
 			reservationDAO.deleteReservedSeat(rNo, conn);
+			reservationDAO.insertRefund(conn, rNo);
 
 		} catch (Exception e) {
 			conn.rollback();
