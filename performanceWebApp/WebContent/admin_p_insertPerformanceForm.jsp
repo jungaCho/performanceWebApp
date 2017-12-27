@@ -9,7 +9,7 @@
 <style>
 form {
 	padding: 30px;
-	background-color: gray;
+	color: gray;
 	width: 900px;
 	height: 750px;
 }
@@ -52,7 +52,7 @@ form {
 		enctype="multipart/form-data" method="post">
 
 		<div id="pannel">
-			<h1>공연 등록</h1>
+			<h2><strong>공연 등록</strong></h2><br>
 			<input type="file" name="mainPoster" size="20">메인 포스터</input><br>
 			<input type="file" name="poster" size="20"></input><br>
 			<input type="file" name="poster" size="20"></input><br>

@@ -11,7 +11,7 @@
 <style>
 form {
 	padding: 30px;
-	background-color: gray;
+	color: gray;
 	width: 600px;
 	height: 550px;
 }
