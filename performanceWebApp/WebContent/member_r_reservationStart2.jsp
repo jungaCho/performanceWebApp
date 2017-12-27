@@ -129,33 +129,34 @@ label {
 		var  price = "${requestScope.performance.price}";
 		console.log(price);
 		var discount = "${sessionScope.member.rank.discount}";		
-		var seatArray = new Array();		
+		var seatNumberArray = [];		
+		var seatNoArray = [];
 	
 		$('label').on('click', function() {
-			var seatNo = $(this).text();
-			var index = seatArray.indexOf(seatNo);
-	
-			if(index == -1) {
-				
+			var index = seatNumberArray.indexOf($(this).text());	
+			if(index == -1) {				
 				$(this).css('backgroundColor','blue');
-				seatArray.push(seatNo);
+				seatNumberArray.push($(this).text());
+				seatNoArray.push($(this).attr('id'));
 		
 			} else {
 				$(this).css('backgroundColor','gray');
-				seatArray.splice(seatArray.indexOf(seatNo), 1);
-			}
-			
+				seatNumberArray.splice(seatNumberArray.indexOf($(this).text()), 1);
+				seatNoArray.splice(seatNoArray.indexOf($(this).attr('id')), 1);
+			}			
 								
-			$('#selectTd').text(seatArray.join());
-			$('#sumPrice').text(seatArray.length * price);
-			$('#disCount').text((seatArray.length * 0.05).toFixed(1));
-			$('#totalPrice').text(((seatArray.length * 0.95).toFixed(1) * (seatArray.length * price)).toFixed(0));
+			$('#selectTd').text(seatNumberArray.join());
+			$('#sumPrice').text(seatNumberArray.length * price);
+			$('#disCount').text((seatNumberArray.length * 0.05).toFixed(1));
+			$('#totalPrice').text(((seatNumberArray.length * 0.95).toFixed(1) * (seatNumberArray.length * price)).toFixed(0));	
 			
 		});
 		
 		
+			
 		$('#selectBtn').on('click', function() {
-			var queryStr = 'pNo=${param.pNo }&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice='+$('#totalPrice').text()+'&selectTd='+$('#selectTd').text()+'&oTime=${param.oTime}'+'&title=${param.title}&sDate=${param.sDate}';
+			var queryStr = 'pNo=${param.pNo }&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice='+$('#totalPrice').text()+'&selectTd='+$('#selectTd').text()
+				+'&oTime=${param.oTime}'+'&title=${param.title}&sDate=${param.sDate}&seatNo='+seatNoArray.join();
 			location.href="${pageContext.request.contextPath}/member_r_reservationStart3.do?"+queryStr;		
 		
 		});
@@ -172,18 +173,18 @@ label {
 				<dl>
 					<dt class="seatPadding">
 						<c:forEach var="seat" items="${requestScope.seats}">					
-								<c:if test="${fn:length(requestScope.reservedSeats) > 0 }">
-								<c:forEach var="reservedSeat" items="${requestScope.reservedSeats}">	
+								<c:if test="${fn:length(requestScope.vo.reservedSeats) > 0 }">
+								<c:forEach var="reservedSeat" items="${requestScope.vo.reservedSeats}">	
 									<c:if test="${pageScope.seat.seatNumber == pageScope.reservedSeat.seatNumber}">
-											<label class="reservedSeat">${pageScope.seat.seatNumber}</label>
+											<label class="reservedSeat" id="${pageScope.seat.seatNo }">${pageScope.seat.seatNumber}</label>
 									</c:if>
 									<c:if test="${pageScope.seat.seatNumber != pageScope.reservedSeat.seatNumber}">
-											<label>${pageScope.seat.seatNumber}</label>
+											<label id="${pageScope.seat.seatNo }">${pageScope.seat.seatNumber}</label>
 									</c:if>														   
 								</c:forEach>
 								</c:if>
-								<c:if test="${fn:length(requestScope.reservedSeats) ==  0 }">
-									<label>${pageScope.seat.seatNumber}</label>		
+								<c:if test="${fn:length(requestScope.vo.reservedSeats) ==  0 }">
+									<label id="${pageScope.seat.seatNo }">${pageScope.seat.seatNumber}</label>		
 								</c:if>																											
 						</c:forEach>						
 					</dt>

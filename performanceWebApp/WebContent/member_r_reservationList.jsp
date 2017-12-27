@@ -120,7 +120,7 @@
 							공연을 예매해 주셔서 진심으로 감사드립니다!<br> 2017년 11월 20일 예매가 정상적으로 이루어
 							졌습니다.<br> 아래 예매내역을 확인해 주세요.
 						</dt>
-						<dd>예매번호 : ${requestScope.reservation.rNo}</dd>
+						<dd>예매번호 : ${requestScope.vo.rNo}</dd>
 					</dl>
 				</div>
 				<div class="r_content1_sub2">
@@ -151,7 +151,7 @@
 					</tr>
 					<tr>
 						<td>신용카드 승인번호</td>
-						<td>${requestScope.reservation.approveNumber}</td>
+						<td>${requestScope.vo.approveNumber}</td>
 					</tr>
 				</table>
 				<div class="r_button2">
