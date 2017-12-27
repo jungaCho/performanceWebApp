@@ -119,7 +119,7 @@ public class PerformanceService {
 			
 			posterDao.deletePosterList(conn, pNo);
 			detailfileDao.deleteDetailFileList(conn, pNo);
-			String[] sNOs = scheduleDao.selectSchedule(conn, pNo);
+			ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
 			for (String sNo : sNOs) {
 				orderDao.deleteOrder(conn, sNo);
 			}

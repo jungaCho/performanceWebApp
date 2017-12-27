@@ -296,7 +296,7 @@ public class PerformanceDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select poster.system_file_Name, detailFile.system_File_Name, poster.main_poster				");
+			sql.append("select poster.system_file_Name, detailFile.system_File_Name, poster.main_poster, detailFile.original_file_name				");
 			sql.append("from poster,performance,detailFile											");
 			sql.append(
 					"where poster.p_no=performance.P_NO																		");
@@ -330,6 +330,7 @@ public class PerformanceDAO {
 						System.out.println("~~~" + rs.getString(2));
 						DetailFileVO detailfile = new DetailFileVO();
 						detailfile.setSystemFileName(rs.getString(2));
+						detailfile.setOriginalFileName(rs.getString(4));
 						files[num] = rs.getString(2);
 						num++;
 						performance.addDetailFile(detailfile);

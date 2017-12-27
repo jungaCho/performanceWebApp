@@ -77,19 +77,19 @@ a {
 <script>
 	$(document).ready(function() {
     	  	
-		/* $('#btn1').click(function(){
+		$('#btn1').click(function(){
 	      	$("input[name=check]:checked").each(function() {
 	      		var checked = $(this).val();
 	      		alert(checked);
 			});
-		}); */
+		});
 		
-		$('#btn1').click(function(){
+		/* $('#btn1').click(function(){
 			var param = "";
 			$("input[name=check]:checked").each(function() {
 				if
 			}
-		}
+		} */
     	  
     	  
             $("#btn3").on('click', function() {

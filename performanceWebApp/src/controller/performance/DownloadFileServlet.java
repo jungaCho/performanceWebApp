@@ -20,20 +20,20 @@ public class DownloadFileServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//1. 오리지널 파일명과 시스템 파일명을 구한다.
-		String orignalFileName = req.getParameter("orignalFileName");
+		String originalFileName = req.getParameter("originalFileName");
 		String systemFileName = req.getParameter("systemFileName");
 		
 		String userAgent = req.getHeader("User-Agent");
 		if(userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1) {
 			//IE인 경우
-			orignalFileName = URLEncoder.encode(orignalFileName, "utf-8"); 
+			originalFileName = URLEncoder.encode(originalFileName, "utf-8"); 
 		} else {
 			//다른 웹 브라우저인 경우
-			orignalFileName = new String(orignalFileName.getBytes("utf-8"), "ISO-8859-1");			
+			originalFileName = new String(originalFileName.getBytes("utf-8"), "ISO-8859-1");			
 		}
 		
 		resp.setContentType("application/octet-stream");		
-		resp.setHeader("Content-Disposition", "attachment; filename=\"" + orignalFileName + "\";");
+		resp.setHeader("Content-Disposition", "attachment; filename=\"" + originalFileName + "\";");
 	
 		
 		FileInputStream fis = null;

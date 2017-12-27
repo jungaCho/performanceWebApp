@@ -80,8 +80,19 @@ form {
      		  $(this).parents('tr:first').empty();
      	   })
      	   
-    	      	  
-
+     	  $(document).ready(function(){
+     			
+     			$('#btn2').on("click",function(){
+     				
+     				window.close();
+     				
+     			});
+     					
+     		});
+    	   
+    	   $('#btn2').click(function() {
+   			location.href="${pageContext.request.contextPath}/admin_p_detailPerformance.do?pNo=${requestScope.performance.pNo }";
+   		   });
     	   
       });
 </script>
