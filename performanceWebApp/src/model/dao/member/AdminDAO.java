@@ -69,7 +69,6 @@ public class AdminDAO {
 
 	}
 
-	// 관리자 로그아웃 //
 
 	// 관리자모드 시 DB접근에 회원의 모든 정보를 리턴해주는 메소드
 
@@ -86,7 +85,7 @@ public class AdminDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("select m_no, m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address,  		");
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from member								");
 
@@ -136,7 +135,7 @@ public class AdminDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("select m_no, m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address,  		");
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from (select rownum as rn, member1.*								");
 			sql.append("		from(select * from member									");
@@ -200,7 +199,7 @@ public class AdminDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("select m_no, m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address,  		");
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from member															");
 			sql.append("where m_no = ?														");
@@ -245,7 +244,7 @@ public class AdminDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("select m_no, m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address,  		");
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from (select rownum as rn, member1.*								");
 			sql.append("		from(select * from member									");
