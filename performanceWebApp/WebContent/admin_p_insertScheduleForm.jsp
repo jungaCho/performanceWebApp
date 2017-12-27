@@ -54,17 +54,21 @@ button {
 			var sDate = $('#sDate').val();
 			var oTime1 = $('#oTime1').val();
 			var oTime2 = $('#oTime2').val();
-			var oTime3 = $('#oTime3').val();
+			
 
 			
 			if(sDate != "" && oTime1 != "") {
-				$('#table1').append("<tr><td id='td1'>"+ sDate + "</td><td id='td2'>"+ oTime1 + " , " + oTime2 + " , " + oTime3 + "</td></tr>");
-				sDateList.push(sDate);
-				oTimeList.push(oTime1 + "," + oTime2 + "," + oTime3);
+				if(oTime2!=""){
+					$('#table1').append("<tr><td id='td1'>"+ sDate + "</td><td id='td2'>"+ oTime1 + " , " + oTime2 + "</td></tr>");
+					sDateList.push(sDate);
+					oTimeList.push(oTime1 + "," + oTime2 );
+				}else{
+					$('#table1').append("<tr><td id='td1'>"+ sDate + "</td><td id='td2'>"+ oTime1 + "</td></tr>");
+					sDateList.push(sDate);
+					oTimeList.push(oTime1);
+				}
+				
 			} 
-
-			console.log($('#td1').text());
-			console.log($('#td2').text());
 			
 		});
 		
@@ -131,9 +135,9 @@ button {
 				</c:forEach>
 			</select><br>
 			공연일자 : <input type="date" id="sDate" name="sDate" size="30"></input><br>
-			공연시간 : <input type="time" id="oTime1" name="oTime1" size="10"></input>
-					   <input type="time" id="oTime2" name="oTime2" size="10"></input>
-					   <input type="time" id="oTime3" name="oTime3" size="10"></input>
+			공연시간 : <input type="text" id="oTime1" name="oTime1" size="10" placeholder="시간과 분을 붙여"></input>
+					   <input type="text" id="oTime2" name="oTime2" size="10" placeholder="쓰세요ex)1530"></input>
+					 
 			<br> <br>
 			<button type="button" id="btn1">확인</button>
 			<button type="reset" id="btn2">취소</button>
