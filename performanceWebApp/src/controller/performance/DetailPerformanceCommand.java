@@ -27,6 +27,7 @@ public class DetailPerformanceCommand implements Command {
 		try {
 			PerformanceService performanceService = PerformanceService.getInstance();
 			PerformanceVO performance = performanceService.retirevePerformance(pNo);
+			System.out.println("****%%***"+performance.toString());
 			List<DetailFileVO> detailFiles = (List<DetailFileVO>)performance.getDetailFiles();
 			
 			req.setAttribute("performance", performance);
