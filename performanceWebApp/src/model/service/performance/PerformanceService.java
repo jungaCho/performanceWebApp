@@ -258,6 +258,14 @@ public class PerformanceService {
 		return titles;		
 	}*/
 	public List<PerformanceVO> retrievePerformance() throws Exception {
-		return PerformanceDAO.getInstance().selectPerformance();
+		List<PerformanceVO> performances= PerformanceDAO.getInstance().selectPerformance();
+		System.out.println("***"+performances.toString());
+		 return performances;
+	}
+	
+	//공연 정보 리스트를 조회하다 (사용자)
+	public List<PerformanceVO> retrievePerformanceList(int startRow, int endRow) throws Exception {
+		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
+		return performanceDao.selectPerformance();
 	}
 }

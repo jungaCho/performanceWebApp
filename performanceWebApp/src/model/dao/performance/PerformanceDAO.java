@@ -278,63 +278,8 @@ public class PerformanceDAO {
 		return performance;
 	}
 
-	// 공연 번호에 해당하는 공연 정보 리스트를 조회하다.
-	public List<PerformanceVO> selectPerformanceList(String pNo) throws Exception {
-		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 
-		try {
-			conn = DBConn.getConnection();
 
-			StringBuffer sql = new StringBuffer();
-			sql.append(
-					"select po.SYSTEM_FILE_NAME, perf.title, to_char(perf.start_Date,'YYYY/MM/DD'), to_char(perf.end_Date,'YYYY/MM/DD'),	");
-			sql.append(
-					"to_char(sch.s_date, 'YYYY/MM/DD'), to_char(o.o_time,'HH24:MI'), perf.price											");
-			sql.append(
-					"from poster po, performance perf																					");
-			sql.append(
-					"where perf.p_no = po.p_no																							");
-			sql.append(
-					"and perf.p_no = sch.p_no																							");
-			sql.append(
-					"and sch.s_no = o.s_no																								");
-			sql.append(
-					"and po.main_poster = '1'																							");
-			sql.append(
-					"and perf.p_no = ?																									");
-
-			pstmt = conn.prepareStatement(sql.toString());
-
-			pstmt.setString(1, pNo);
-
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				PosterVO poster = new PosterVO();
-				poster.setSystemFileName(rs.getString(1));
-
-				PerformanceVO performance = new PerformanceVO();
-				performance.setTitle(rs.getString(2));
-				performance.setStartDate(rs.getString(3));
-				performance.setEndDate(rs.getString(4));
-				performance.setPrice(rs.getInt(7));
-
-				ScheduleVO schedule = new ScheduleVO();
-				schedule.setsDate(rs.getString(5));
-
-				OrderVO order = new OrderVO();
-				order.setoTime(rs.getString(6));
-			}
-		} finally {
-			if (pstmt != null)
-				pstmt.close();
-			if (conn != null)
-				conn.close();
-		}
-		return performances;
-	}
 
 	// 공연 번호에 해당하는 공연 상세 정보를 조회하다.(파일들만)
 	public PerformanceVO selectFiles(String pNo) throws Exception {
@@ -720,16 +665,16 @@ public class PerformanceDAO {
 		return totalPost;
 	}
 /*
-	// 모든 공연의 제목 구하기
-	public List<String> selectTitles() throws Exception {
-		PreparedStatement pstmt = null;
-		Connection conn = null;
-		ResultSet rs = null;
-		List<String> titles = new ArrayList<String>();
+	//모든 공연의 제목 구하기
+	public List<String> selectTitles() throws Exception{
+		PreparedStatement pstmt=null;
+		Connection conn=null;
+		ResultSet rs=null;
+		List<String> titles=new ArrayList<String>();
 		try {
 			conn = DBConn.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select title     ");
+			sql.append("select title ,     ");
 			sql.append("from performance  ");
 			pstmt = conn.prepareStatement(sql.toString());
 
@@ -751,12 +696,13 @@ public class PerformanceDAO {
 		}
 	}
 */
+	
 	public List<PerformanceVO> selectPerformance() throws Exception {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		ResultSet rs = null;
 		List<PerformanceVO> performances = new ArrayList<PerformanceVO>();
-		PerformanceVO performance = new PerformanceVO();
+		
 		try {
 			conn = DBConn.getConnection();
 			StringBuffer sql = new StringBuffer();
@@ -767,6 +713,7 @@ public class PerformanceDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				PerformanceVO performance = new PerformanceVO();
 				performance.setpNo(rs.getString(1));
 				performance.setTitle(rs.getString(2));
 				performances.add(performance);
@@ -782,5 +729,65 @@ public class PerformanceDAO {
 				conn.close();
 		}
 	}
+	
+
+	// 공연 번호에 해당하는 공연 정보 리스트를 조회하다.
+	public List<PerformanceVO> selectPerformanceList(String pNo) throws Exception {
+		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConn.getConnection();
+
+			StringBuffer sql = new StringBuffer();
+			sql.append(
+					"select po.SYSTEM_FILE_NAME, perf.title, to_char(perf.start_Date,'YYYY/MM/DD'), to_char(perf.end_Date,'YYYY/MM/DD'),	");
+			sql.append(
+					"to_char(sch.s_date, 'YYYY/MM/DD'), to_char(o.o_time,'HH24:MI'), perf.price											");
+			sql.append(
+					"from poster po, performance perf																					");
+			sql.append(
+					"where perf.p_no = po.p_no																							");
+			sql.append(
+					"and perf.p_no = sch.p_no																							");
+			sql.append(
+					"and sch.s_no = o.s_no																								");
+			sql.append(
+					"and po.main_poster = '1'																							");
+			sql.append(
+					"and perf.p_no = ?																									");
+
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setString(1, pNo);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				PosterVO poster = new PosterVO();
+				poster.setSystemFileName(rs.getString(1));
+
+				PerformanceVO performance = new PerformanceVO();
+				performance.setTitle(rs.getString(2));
+				performance.setStartDate(rs.getString(3));
+				performance.setEndDate(rs.getString(4));
+				performance.setPrice(rs.getInt(7));
+
+				ScheduleVO schedule = new ScheduleVO();
+				schedule.setsDate(rs.getString(5));
+
+				OrderVO order = new OrderVO();
+				order.setoTime(rs.getString(6));
+			}
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+		return performances;
+	}
+
 
 }
