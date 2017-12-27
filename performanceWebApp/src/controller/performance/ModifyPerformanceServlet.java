@@ -3,13 +3,14 @@ package controller.performance;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,19 +27,20 @@ public class ModifyPerformanceServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String pNo = getStringFromStream(req.getPart("pNo").getInputStream());
-		String posterNo = getStringFromStream(req.getPart("posterNo").getInputStream());
-		String fileNo = getStringFromStream(req.getPart("fileNo").getInputStream());
+		String pNo = getStringFromStream(req.getPart("no").getInputStream());
 
 		try {
 			PerformanceService service = PerformanceService.getInstance();
 			PerformanceVO performance = service.retirevePerformance(pNo);
 			
-			service.removePoster(posterNo);
-			service.removeDetailFile(fileNo);
+			performance.getPosters().clear();
+			performance.getDetailFiles().clear();
+			
+		
 
 			Collection<Part> parts = req.getParts();
-
+			String removeDetailFile = null;
+			String removePoster=null;
 			for (Part part : parts) {
 				if (part.getContentType() == null) { // 일반 데이터는 contentType 을 null값을 가지고, 업로드된파일은 contentType설정되어있음
 					// 일반 데이터인 경우
@@ -67,11 +69,12 @@ public class ModifyPerformanceServlet extends HttpServlet {
 						performance.setPrice(Integer.parseInt(getStringFromStream(part.getInputStream())));
 						System.out.println(getStringFromStream(part.getInputStream()));
 						break;
-					case "theater":
+					/*case "theater":
+						
 						performance.settName(getStringFromStream(part.getInputStream()));
 						System.out.println(getStringFromStream(part.getInputStream()));
-						break;
-					case "viewNo":
+						break;*/
+					case "viewClass":
 						performance.setViewNo(getStringFromStream(part.getInputStream()));
 						System.out.println(getStringFromStream(part.getInputStream()));
 						break;
@@ -95,6 +98,14 @@ public class ModifyPerformanceServlet extends HttpServlet {
 						performance.setRunningTime(Integer.parseInt(getStringFromStream(part.getInputStream())));
 						System.out.println(getStringFromStream(part.getInputStream()));
 						break;
+					case "removeDetailFile":
+						removeDetailFile=getStringFromStream(part.getInputStream());
+						System.out.println(getStringFromStream(part.getInputStream()));
+						break;
+					case "removePoster":
+						removePoster=getStringFromStream(part.getInputStream());
+						System.out.println(getStringFromStream(part.getInputStream()));
+						break;	
 					}
 				} else {
 					// uploadfile인경우
@@ -120,7 +131,19 @@ public class ModifyPerformanceServlet extends HttpServlet {
 				}
 			} // end of for clause
 			// update
-			service.modifyPerformance(performance);
+			
+			
+			List<String> removePosters = new ArrayList<String>();// 포스터 파일 목록
+			if(removeDetailFile != null) {				
+				removePosters = Arrays.asList(removePoster.split(","));			
+			}
+			
+			List<String> removeDetailFiles = new ArrayList<String>();// 상세설명 파일 목록
+			if(removeDetailFile != null) {				
+				removeDetailFiles = Arrays.asList(removeDetailFile.split(","));			
+			}
+			
+			service.modifyPerformance(performance, removePosters,removeDetailFiles);
 			resp.sendRedirect(req.getContextPath() + "/admin_p_selectPerformanceList.do");
 
 		} catch (Exception e) {
