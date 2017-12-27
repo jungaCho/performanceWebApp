@@ -138,8 +138,23 @@ public class MemberVO {
 		this.rankNo = rankNo;
 	}
 
-	public void setrName(int rankNo) {
-		this.rankNo = rankNo;
+	public void setRName(int rNo ,String rName) {
+		
+
+		if(rNo == 1) {
+			
+		this.rName = "ÀÏ¹Ý";
+		
+		}else if(rNo == 2){
+			this.rName = "Silver";
+		}else if(rNo == 3) {
+			this.rName = "Gold";
+		}else if(rNo == 4){
+			this.rName = "Diamond";
+		} else {
+			this.rName = "Å»ÅðÈ¸¿ø";
+		}
+		
 	}
 
 	public String getWithdrawal() {
@@ -172,6 +187,27 @@ public class MemberVO {
 
 	public void setRank(RankVO rank) {
 		this.rank = rank;
+	}
+	
+	public String getrName() {
+		
+
+		/*if(rNo == 1) {
+			
+		this.rName = "ÀÏ¹Ý";
+		
+		}else if(rNo == 2){
+			this.rName = "Silver";
+		}else if(rNo == 3) {
+			this.rName = "Gold";
+		}else {
+			this.rName = "Diamond";
+		}
+		
+		return rName;
+		*/
+		
+		return rName;
 	}
 
 	@Override

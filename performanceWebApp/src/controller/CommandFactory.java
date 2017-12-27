@@ -32,6 +32,8 @@ public class CommandFactory {
 		map.put("/modifyPwd.do", "controller.member.ModifyPwdFormCommand");
 		
 		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
+		
+		map.put("/retrieveMemberDetail.do", "controller.member.retrieveMemberDetailCommand");
 
 		map.put("/findId.do", "controller.member.FindIdCommand");
 		
@@ -62,6 +64,8 @@ public class CommandFactory {
 		map.put("/authNumberForm.do", "controller.member.AuthNumberFormCommand");
 		
 		map.put("/sendTempPwd.do", "controller.member.sendTempPwdCommand");
+		
+		map.put("/selectMemberList.do", "controller.member.SelectMemberListCommand");
 
 		
 		//¿¹¸Å

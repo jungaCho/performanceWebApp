@@ -189,11 +189,14 @@ public class AdminDAO {
 	}
 
 	public MemberVO selectMemberDetail(String mNo) throws Exception {
+		
 		MemberVO member = new MemberVO();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
+			
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();

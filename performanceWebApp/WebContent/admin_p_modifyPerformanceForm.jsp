@@ -102,11 +102,11 @@ form {
 					<td><a href="#"  id="${pageScope.poster.posterNo }">삭제</a></td>
 				</tr>
 			</c:forEach>
-		</table>
+		</table><br>
 		<div id="pannel">
-			<input type="file" name="poster" size="20"></input><br> <input
-				type="hidden" name="no" value="${requestScope.performance.pNo }">
-			<input type="file" name="poster" size="20"></input><br> <input
+			메인포스터<br><input type="file" name="mainPoster" size="20"></input><br>
+			 <input type="hidden" name="no" value="${requestScope.performance.pNo }">
+			부가포스터<br><input type="file" name="poster" size="20"></input><br> <input
 				type="file" name="poster" size="20"></input><br> <input
 				type="file" name="poster" size="20"></input><br>
 		</div>
