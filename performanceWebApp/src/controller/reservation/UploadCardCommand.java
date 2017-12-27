@@ -29,8 +29,9 @@ public class UploadCardCommand implements Command{
 			String cardNumber = req.getParameter("cardNumber");
 			int cardCoNo = Integer.parseInt(req.getParameter("cardCoNo"));
 			String oNo = req.getParameter("oNo");
-			String rNo = req.getParameter("rNo");
-			String approveNumber = req.getParameter("approveNumber");
+			/*ReservationVO reser = new ReservationVO();
+			String rNo = reser.getrNo();
+			String approveNumber = req.getParameter("approveNumber");*/
 			
 			System.out.println("cardNumber : " + cardNumber);
 			System.out.println("cardCoNo : " + cardCoNo);
@@ -46,14 +47,15 @@ public class UploadCardCommand implements Command{
 			String title = req.getParameter("title");
 			String sDate = req.getParameter("sDate");
 			
-			ReservationVO reservation = new ReservationVO(cardNumber, totalPrice, cardCoNo, mNo, oNo, rNo,approveNumber);
-			List<ReservedSeatVO> reservedSeats = new ArrayList<ReservedSeatVO>();
 			
+			List<ReservedSeatVO> reservedSeats = new ArrayList<ReservedSeatVO>();
+			ReservationVO reservation = new ReservationVO(cardNumber, totalPrice, cardCoNo, mNo, oNo);
 			try {
 			
 				//예매 정보를 등록한다.
 				ReservationService reservationService = ReservationService.getInstance();
 				reservationService.createReservation(reservation, reservedSeats);
+				ReservationVO reser = new ReservationVO(cardNumber, totalPrice, cardCoNo, mNo, oNo, reservation.getrNo(), reservation.getApproveNumber());
 				
 				req.setAttribute("reservation", reservation);
 				req.setAttribute("reservedSeats", reservedSeats);
@@ -67,8 +69,8 @@ public class UploadCardCommand implements Command{
 				req.setAttribute("oTime", oTime);
 				req.setAttribute("title", title);
 				req.setAttribute("sDate", sDate);
-				req.setAttribute("rNo", rNo);
-				req.setAttribute("approveNumber", approveNumber);
+				req.setAttribute("reser", reser);
+				System.out.println("rNo : "+ reser.getrNo());
 				
 				forward.setPath("/member_r_reservationStart4.jsp");
 				forward.setRedirect(false);

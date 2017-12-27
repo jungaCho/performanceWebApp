@@ -49,11 +49,7 @@ public class UploadReservationCommand implements Command{
 			ReservationVO reservation = new ReservationVO(cardNumber, totalPrice, cardCoNo,mNo, oNo ,rNo, approveNumber);
 			List<ReservedSeatVO> reservedSeats = new ArrayList<ReservedSeatVO>();
 			
-			try {
-			
-				//예매 정보를 등록한다.
-				ReservationService reservationService = ReservationService.getInstance();
-				reservationService.createReservation(reservation, reservedSeats);
+		
 				
 				req.setAttribute("reservation", reservation);
 				req.setAttribute("reservedSeats", reservedSeats);
@@ -74,12 +70,7 @@ public class UploadReservationCommand implements Command{
 				forward.setRedirect(false);
 				return forward;
 				
-			} catch (Exception e) {
-				req.setAttribute("exception", e);
-				forward.setPath("/error.jsp");
-				forward.setRedirect(false);
-				return forward;
-			}
+		
 		
 	}
 
