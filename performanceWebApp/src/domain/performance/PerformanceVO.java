@@ -205,7 +205,7 @@ public class PerformanceVO {
 		return detailFiles;
 	}
 
-	public void setDetaileFiles(List<DetailFileVO> detaileFiles) {
+	public void setDetailFiles(List<DetailFileVO> detailFiles) {
 		this.detailFiles = detailFiles;
 	}
 

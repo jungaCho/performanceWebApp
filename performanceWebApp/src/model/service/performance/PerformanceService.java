@@ -46,7 +46,8 @@ public class PerformanceService {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
 		PerformanceVO performance = performanceDao.selectPerformance(pNo);
 		PerformanceVO files=performanceDao.selectFiles(pNo);
-		performance.setDetaileFiles(files.getDetailFiles());
+		
+		performance.setDetailFiles(files.getDetailFiles());
 		performance.setPosters(files.getPosters()); 
 		return performance;
 	}
