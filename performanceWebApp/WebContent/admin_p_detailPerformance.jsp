@@ -41,7 +41,8 @@ div {
 
 #div2 {
 	margin-top: 20px;
-	text-align: left;
+	float: right;
+	text-align: center;
 }
 
 #schedule {
@@ -52,12 +53,6 @@ div {
 	float: right;;
 	margin-right: 150px;
 	margin-bottom: 20px;
-}
-
-}
-#div2 {
-	float: right;
-	text-align: center;
 }
 
 #div3 {
@@ -113,17 +108,23 @@ a#modify {
 		<h1>공연상세조회</h1>
 	</div>
 	<div>
-		<c:forEach var="poster" items="${requestScope.performance.posters}">
-			<img
-				src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.originalFileName}"
-				alt="사진">
+		<c:forEach var="poster" items="${requestScope.performance.posters}" >
+			<c:if test="${pageScope.poster.mainPoster == 1}">
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+								width="100px" height="150px" id="img">
+			</c:if>
+			<c:if test="${pageScope.poster.mainPoster != 1}">
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+								width="50px" height="50px" id="img">
+			</c:if>
 		</c:forEach>
 	</div>
+	
 	<div id="div2">
 		<table id="schedule" border="1">
 			<tr>
 				<th>날짜</th>
-				<th>공연시간</th>
+				<th>공연&nbsp;시간</th>
 			</tr>
 			<c:forEach var="schedule"
 				items="${requestScope.performance.schedules }" varStatus="loop">
@@ -152,7 +153,7 @@ a#modify {
 				<th>동영상</th>
 				<td>${requestScope.performance.video }</td>
 				<th>가격</th>
-				<td>${requestScope.performance.price }</td>
+				<td>${requestScope.performance.price }원</td>
 			</tr>
 			<tr>
 				<th>시작일</th>
@@ -180,7 +181,7 @@ a#modify {
 			</tr>
 			<tr>
 				<th>런닝타임</th>
-				<td>${requestScope.performance.runningTime }</td>
+				<td>${requestScope.performance.runningTime }분</td>
 				<th>비고</th>
 				<td>${requestScope.performance.note }</td>
 			</tr>
@@ -188,14 +189,20 @@ a#modify {
 		<br> <br>
 	</div>
 	<div id="div4">
-		<table border="1">
-			<tr>
-				<td>상세설명${pageScope.loop.count }</td>
-				<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
-			</tr>
-		</table>
+			<table border="1">
+				<c:forEach var="detailFile" items="${requestScope.detailFiles }" varStatus="loop">
+	 				<c:url var="url" value="/downloadFile" scope="page">
+	 					<c:param name="originalFileName" value="${pageScope.detailFile.originalFileName }" />
+	 					<c:param name="systemFileName" value="${pageScope.detailFile.systemFileName }" />
+	 				</c:url>
+					<tr>
+						<td>상세설명${pageScope.loop.count }</td>
+						<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
+					</tr>
+				</c:forEach>
+			</table>
 	</div>
-
+	
 	<br>
 
 	<div>

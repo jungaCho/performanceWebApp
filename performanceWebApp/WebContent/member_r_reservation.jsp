@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -84,111 +86,31 @@
 			<h3>예매</h3>
 			<span style="font-size: 17px;">공연 예매</span> <br>
 			<!-- reservation -->
-			<div class="reservation">
-				<!-- r_img -->
-				<div class="r_img">
-					<c:forEach var="img" items= "${requestScope.perfomance.posters }">
-					</c:forEach>
-					<a href="#">포스터</a>
+			<forEach var="performance" items="${requestScope.performance}" varStatus="loop">
+				<div class="reservation">
+					<!-- r_img -->
+					<div class="r_img">
+						<a href="#">
+						<c:forEach var="poster" items="${requestScope.performance.posters}">
+								${pageScope.poster.systemFileName}
+							</c:forEach>
+						</a>
+					</div>
+					<!-- r_text -->
+					<div class="r_text">
+						<ul>
+							<!-- r_text_title -->
+							<li class="r_text_title">공연명 : ${pageScope.performance.title }</li>
+							<!-- t_text_date -->
+							<li class="r_text_date">기간 : ${pageScope.performance.startDate}~${pageScope.performance.endDate }<br> 
+															가격 : ${pageScope.performance.price}원
+							</li>
+							<!-- r_text_button -->
+							<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
+						</ul>
+					</div>
 				</div>
-				<!-- r_text -->
-				<div class="r_text">
-					<ul>
-						<!-- r_text_title -->
-						<li class="r_text_title">공연명 : 싸이콘서트</li>
-						<!-- t_text_date -->
-						<li class="r_text_date">기간 : 17/01/01~17/02/02<br> 가격 :
-							30,000원
-						</li>
-						<!-- r_text_button -->
-						<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- /reservation -->
-			<!-- reservation -->
-			<div class="reservation">
-				<!-- r_img -->
-				<div class="r_img">
-					<a href="#">포스터</a>
-				</div>
-				<!-- r_text -->
-				<div class="r_text">
-					<ul>
-						<!-- r_text_title -->
-						<li class="r_text_title">공연명 : 싸이콘서트</li>
-						<!-- t_text_date -->
-						<li class="r_text_date">기간 : 17/01/01~17/02/02<br> 가격 :
-							30,000원
-						</li>
-						<!-- r_text_button -->
-						<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- /reservation -->
-			<!-- reservation -->
-			<div class="reservation">
-				<!-- r_img -->
-				<div class="r_img">
-					<a href="#">포스터</a>
-				</div>
-				<!-- r_text -->
-				<div class="r_text">
-					<ul>
-						<!-- r_text_title -->
-						<li class="r_text_title">공연명 : 싸이콘서트</li>
-						<!-- t_text_date -->
-						<li class="r_text_date">기간 : 17/01/01~17/02/02<br> 가격 :
-							30,000원
-						</li>
-						<!-- r_text_button -->
-						<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- /reservation -->
-			<!-- reservation -->
-			<div class="reservation">
-				<!-- r_img -->
-				<div class="r_img">
-					<a href="#">포스터</a>
-				</div>
-				<!-- r_text -->
-				<div class="r_text">
-					<ul>
-						<!-- r_text_title -->
-						<li class="r_text_title">공연명 : 싸이콘서트</li>
-						<!-- t_text_date -->
-						<li class="r_text_date">기간 : 17/01/01~17/02/02<br> 가격 :
-							30,000원
-						</li>
-						<!-- r_text_button -->
-						<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- /reservation -->
-			<!-- reservation -->
-			<div class="reservation" style="margin-bottom: 50px;">
-				<!-- r_img -->
-				<div class="r_img">
-					<a href="#">포스터</a>
-				</div>
-				<!-- r_text -->
-				<div class="r_text">
-					<ul>
-						<!-- r_text_title -->
-						<li class="r_text_title">공연명 : 싸이콘서트</li>
-						<!-- t_text_date -->
-						<li class="r_text_date">기간 : 17/01/01~17/02/02<br> 가격 :
-							30,000원
-						</li>
-						<!-- r_text_button -->
-						<li class="r_text_button"><a href="#" id="open">예매하기</a></li>
-					</ul>
-				</div>
-			</div>
+			</forEach>
 			<!-- /reservation -->
 
 

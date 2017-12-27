@@ -20,8 +20,9 @@ public class ScheduleDAO {
 	}
 	
 	//공연일정을 등록한다.
-	public void insertSchedule(Connection conn, ScheduleVO schedule)throws Exception{
+	public String insertSchedule(Connection conn, ScheduleVO schedule)throws Exception{
 		PreparedStatement pstmt=null;
+		Statement stmt=null;
 		try {
 			StringBuffer sql=new StringBuffer();
 			
@@ -35,8 +36,22 @@ public class ScheduleDAO {
 			pstmt.setString(3, schedule.gettNo());
 			
 			pstmt.executeUpdate();
-	
-			
+			pstmt.close();
+
+			sql.delete(0, sql.length());
+
+			stmt = conn.createStatement();
+
+			sql.append("select 'S'||lpad(schedule_seq.currVal,5,0) from dual ");
+
+			ResultSet rs = stmt.executeQuery(sql.toString());
+
+			String sNo = "";
+			if (rs.next()) {
+				sNo = rs.getString(1);
+			}
+			return sNo;
+
 		} finally {
 			if(pstmt!=null) pstmt.close();
 		}
@@ -64,7 +79,7 @@ public class ScheduleDAO {
 	}
 	
 	//공연번호에 해당하는 회차번호 조회
-		public String[] selectSchedule(Connection conn, String pNo) throws Exception{
+		public ArrayList<String> selectSchedule(Connection conn, String pNo) throws Exception{
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			try {
@@ -79,12 +94,11 @@ public class ScheduleDAO {
 				pstmt.setString(1,pNo);
 				
 				rs=pstmt.executeQuery();
-				String[] sNos=null;
-				int i=0;
+				ArrayList<String> sNos =new ArrayList<String>();
+				
 				while(rs.next()) {
 					String sNo=rs.getString(1);
-					sNos[i]=sNo;
-					i++;
+					sNos.add(sNo);
 				}
 				return sNos;	
 				

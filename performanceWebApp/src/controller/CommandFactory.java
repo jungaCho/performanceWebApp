@@ -32,10 +32,14 @@ public class CommandFactory {
 		map.put("/modifyPwd.do", "controller.member.ModifyPwdFormCommand");
 		
 		map.put("/retrieveMember.do", "controller.member.RetrieveMemberCommand");
+		
+		map.put("/retrieveMemberDetail.do", "controller.member.retrieveMemberDetailCommand");
 
 		map.put("/findId.do", "controller.member.FindIdCommand");
 		
 		map.put("/findIdForm.do", "controller.member.FindIdFormCommand");
+		
+		map.put("/findIdRetrieve.do", "controller.member.FindIdRetrieveCommand");
 		
 		map.put("/withdrawalForm.do", "controller.member.WithdrawalFormCommand");
 		
@@ -60,6 +64,18 @@ public class CommandFactory {
 		map.put("/authNumberForm.do", "controller.member.AuthNumberFormCommand");
 		
 		map.put("/sendTempPwd.do", "controller.member.sendTempPwdCommand");
+		
+		map.put("/selectMemberList.do", "controller.member.SelectMemberListCommand");
+		
+		map.put("/searchMember.do", "controller.member.SearchMemberCommand");
+		
+		map.put("/adminLogout.do", "controller.member.AdminLogoutCommand");
+		
+		map.put("/selectMenu.do", "controller.member.SelectMenuCommand");
+		
+		
+		
+		
 
 		
 		//예매
@@ -77,7 +93,8 @@ public class CommandFactory {
 		
 		map.put("/member_r_layout2.do","controller.reservation.UploadReservationCommand");
 		
-
+		map.put("/totalInfoRetrieveList.do", "controller.reservation.TotalInfoRetrieveListCommand");
+		
 		
 		//공연
 		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");
@@ -101,6 +118,10 @@ public class CommandFactory {
 		map.put("/member_p_selectPerformance.do","controller.performance.ListPerformanceByMemberCommand" );
 		
 		map.put("/member_p_detailPerformance.do", "controller.performance.DetailPerformanceByMemberCommand" );
+		
+		map.put("/admin_p_removePerformanceList.do", "controller.performance.RemovePerformanceListCommand" );
+
+
 	}
 	
 	public static CommandFactory getInstance() {

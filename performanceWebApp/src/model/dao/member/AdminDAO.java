@@ -69,7 +69,6 @@ public class AdminDAO {
 
 	}
 
-	// 관리자 로그아웃 //
 
 	// 관리자모드 시 DB접근에 회원의 모든 정보를 리턴해주는 메소드
 
@@ -86,7 +85,7 @@ public class AdminDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("select m_no, m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address,  		");
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from member								");
 
@@ -136,7 +135,7 @@ public class AdminDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("select m_no, m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address,  		");
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from (select rownum as rn, member1.*								");
 			sql.append("		from(select * from member									");
@@ -189,15 +188,18 @@ public class AdminDAO {
 	}
 
 	public MemberVO selectMemberDetail(String mNo) throws Exception {
+		
 		MemberVO member = new MemberVO();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
+			
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("select m_no, m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address,  		");
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from member															");
 			sql.append("where m_no = ?														");
@@ -231,8 +233,9 @@ public class AdminDAO {
 		return member;
 	}
 
-	public List<MemberVO> searchByMember(String sortkey, String keyfield, String keyword, int startRow, int endRow)
+	public List<MemberVO> searchByMember(String sortkey, String keyword, int startRow, int endRow)
 			throws Exception {
+		
 		List<MemberVO> members = new ArrayList<MemberVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -241,37 +244,46 @@ public class AdminDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no, m_id, m_pw, m_name, birthday, email, address,  		");
+			sql.append("select m_no, m_id, m_pw, m_name, to_char(birthday,'YYYY/MM/DD'), email, address,  		");
 			sql.append("		score, withdrawal, wd_date, wd_reason, rank_no				");
 			sql.append("from (select rownum as rn, member1.*								");
 			sql.append("		from(select * from member									");
+			
 			if (sortkey.equals("m_no")) {
 				sql.append("                order by m_no desc)member1)							");
+				sql.append("where m_no like '%' || ? || '%'									");
 			} else if (sortkey.equals("m_id")) {
 				sql.append("                order by m_id desc)member1)							");
+				sql.append("where m_id like '%' || ? || '%'									");
 			} else if (sortkey.equals("m_name")) {
 				sql.append("                order by m_name desc)member1)							");
+				sql.append("where m_name like '%' || ? || '%'								");
 			} else if (sortkey.equals("rank_no")) {
 				sql.append("                order by rank_no desc)member1)							");
+				sql.append("where rank_no like '%' || ? || '%'									");
 			} else if (sortkey.equals("withdrawal")) {
 				sql.append("                order by withdrawal asc)member1)							");
-			}
-
-			if (keyfield.equals("m_no")) {
-				sql.append("where m_no like '%' || ? || '%'									");
-			} else if (keyfield.equals("m_id")) {
-				sql.append("where m_id like '%' || ? || '%'									");
-			} else if (keyfield.equals("m_name")) {
-				sql.append("where m_name like '%' || ? || '%'								");
-			} else if (keyfield.equals("birthday")) {
-				sql.append("where m_id like '%' || ? || '%'									");
-			} else if (keyfield.equals("rank_no")) {
-				sql.append("where rank_no like '%' || ? || '%'								");
-			} else if (keyfield.equals("withdrawal")) {
 				sql.append("where withdrawal like '%' || ? || '%'							");
 			}
-			sql.append("	and rn >= ? and rn =< ?											");
 
+		/*	if (sortkey.equals("m_no")) {
+				sql.append("where m_no like '%' || ? || '%'									");
+			} else if (sortkey.equals("m_id")) {
+				sql.append("where m_id like '%' || ? || '%'									");
+			} else if (sortkey.equals("m_name")) {
+				sql.append("where m_name like '%' || ? || '%'								");
+			} else if (sortkey.equals("birthday")) {
+				sql.append("where m_id like '%' || ? || '%'									");
+			} else if (sortkey.equals("rank_no")) {
+				sql.append("where rank_no like '%' || ? || '%'								");
+			} else if (sortkey.equals("withdrawal")) {
+				sql.append("where withdrawal like '%' || ? || '%'							");
+			}*/
+			sql.append("	and rn >= ? and rn <= ?											");
+
+			
+			System.out.println(sql.toString());
+			
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, keyword);
@@ -281,6 +293,7 @@ public class AdminDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				
 				MemberVO member = new MemberVO();
 				member.setmNo(rs.getString(1));
 				member.setmId(rs.getString(2));

@@ -80,6 +80,38 @@ a {
     	  $('#btn1').click(function(){
     		  alert('$(check:checked)'.text());
     	  });
+	$(document).ready(function() {
+		
+		
+		
+		/* $('#btn1').click(function(){
+	      	$("input[name=check]:checked").each(function() {
+	      		var checked = $(this).val();
+	      		location.href= '${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked='+checked;
+			});
+		}); */
+		
+		/* $('#btn1').click(function(){
+			var param = "";
+			$("input[name=check]:checked").each(function() {
+				if
+			}
+		} */
+		
+			$('#btn1').on("click",function(){
+				
+				//string[] 공연번호를 배열로 넘긴다.
+				
+				
+				var pNoArrays = [];
+				
+				$('#checkSelect:checked').each(function(){
+				
+					pNoArrays.push($(this).val());		
+				});	
+				location.href= "${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked="+pNoArrays;
+				
+			});
     	  
     	  
             $("#btn3").on('click', function() {
@@ -113,6 +145,7 @@ a {
             });
             
             $('#btn2').click(function(){
+            	
             	$("input[name=check]").prop("checked",false);
             });
       });
@@ -123,6 +156,7 @@ a {
 
 	<div id="pannel">
 		<h1>공연 조회</h1>
+		
 		<button type="button" id="btn1">선택삭제</button>
 		<button type="button" id="btn2">선택해제</button>
 	</div>
@@ -140,6 +174,8 @@ a {
 	<br>
 	<br>
 	<div id="div3">
+
+	<input type="hidden" value="${pageScope.performance.pNo }">
 		<table id="table" border="1" width=670>
 			<tr>
 				<th>선택</th>
@@ -155,7 +191,7 @@ a {
 					<c:param name="pNo" value="${pageScope.performance.pNo }" />
 				</c:url>
 				<tr>
-					<td><input type="checkbox" name="check"></td>
+					<td><input type="checkbox" name="box[]" value="${pageScope.performance.pNo }" id="checkSelect"></td>
 					<td>${pageScope.performance.pNo }</td>
 					<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
 					<td>${pageScope.performance.startDate }</td>
@@ -164,6 +200,7 @@ a {
 				</tr>
 			</c:forEach>
 		</table>
+		
 	</div>
 	
 	<br>

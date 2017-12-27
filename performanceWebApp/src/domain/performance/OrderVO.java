@@ -16,7 +16,12 @@ public class OrderVO {
 		this.oTime = oTime;
 		this.sNo = sNo;
 	}
+	public OrderVO(String oTime) {
+		super();
 
+		this.oTime = oTime;
+
+	}
 	public String getoNo() {
 		return oNo;
 	}

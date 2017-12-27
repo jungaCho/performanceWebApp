@@ -24,7 +24,7 @@ public class FindPwdCommand implements Command {
 		
 		try {
 			MemberService service = MemberService.getInstance();
-			boolean isExist = service.findPwd(mId, mName, email);
+		/*	//boolean isExist = service.findPwd(mId, mName, email);
 			
 			System.out.println("isExist: " + isExist);
 			//req.setAttribute("name", mName);
@@ -37,7 +37,7 @@ public class FindPwdCommand implements Command {
 				forward.setRedirect(false);
 			}
 			return forward;
-			
+			*/
 		} catch (Exception e) {
 			// 모든 에러는 error.jsp에서 잡는다
 			req.setAttribute("exception", e);
@@ -45,6 +45,7 @@ public class FindPwdCommand implements Command {
 			forward.setRedirect(false);
 			return forward;
 		}
+		return null;
 		
 	}
 	

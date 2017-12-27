@@ -20,46 +20,8 @@
 			location.href="${pageContext.request.contextPath}/loginForm.do";
 		});
 		
-		
 		$('#findPwd').click(function() {
-			
-			//임시비밀번호발급 팝업창으로 넘어가기.		
-			
 			event.preventDefault();
-			
-			$.ajax({
-				
-				
-				url: "${pageContext.request.contextPath}/sendTempPwd.do"
-				,
-				method: "POST"
-				,
-				async: true
-				,
-				dataType: "json"
-				,
-				data: {
-					email: $('#email').val()
-				}
-				,
-				success: function(data){
-					if(data.success == true){
-						var newWin = window.open("${pageContext.request.contextPath}/tempPwdForm.jsp","","width=700, height=600, top=200,left=200");
-					}else{
-						$('#findPwd').after("<span id=span1>올바른 이메일 주소를 입력해주세요.</span1>");
-					}
-				}
-				,
-				
-				error: function(jqXHR){
-					$('#findPwd').after("<span id=span1>임시비밀번호 발급에 실패했습니다.</span1>");
-				}
-				
-			});
-			
-			//임시비밀번호발송이 submit이니까 이 이벤트를 무시해주는 메소드써주기.
-		
-			
 			if($('#id').val().trim().length == 0) {
 				alert("아이디를 입력해주세요!");
 				return false;
@@ -70,15 +32,38 @@
 				alert("이메일을 입력해주세요!");
 				return false;
 			}
-			return true;
-			
-			
-			
+					
+			//임시비밀번호발급 팝업창으로 넘어가기.	
+			$.ajax({
+				url: "${pageContext.request.contextPath}/sendTempPwd.do"
+				,
+				method: "POST"
+				,
+				async: true
+				,
+				dataType: "json"
+				,
+				data: {
+					id: $('#id').val(),
+					name: $('#name').val(),
+					email: $('#email').val()
+				}
+				,
+				success: function(data) {
+					if(data.success == true){
+						var newWin = window.open("${pageContext.request.contextPath}/tempPwdForm.jsp","","width=400, height=300, top=200,left=200");
+					} else {
+						alert("입력하신 정보에 해당하는 회원정보가 없습니다!");
+						return false;
+					}
+				}
+				,
+				error: function(jqXHR) {
+					alert("임시비밀번호 발급에 실패했습니다!!");
+				}
+			});
 		});
-		
-		
 	});
-	
 	
 </script>
 </head>
@@ -87,7 +72,7 @@
 		<div id="box">
 			아이디와 이름, 이메일을 입력해주세요!<br>
 			ID<br>
-			<input type="text" id="id" name="id" size="30" placeholder="ID를 입력해주세요"/><br>
+			<input type="text" id="id" name="id" value="${sessionScope.findIdSession.mId }" size="30" placeholder="ID를 입력해주세요"/><br>
 			Name<br>
 			<input type="text" id="name" name="name" size="30" placeholder="이름을 입력해주세요"/><br>
 			Email<br>

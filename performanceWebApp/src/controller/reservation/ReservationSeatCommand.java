@@ -44,7 +44,6 @@ public class ReservationSeatCommand implements Command{
 			
 			
 			//예매된 좌석을 조회하다.
-			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			List<ReservedSeatVO> reservedSeats = reservationService.retrieveReservedSeatByOrders(oNo);
 			for(ReservedSeatVO reservedSeat : reservedSeats ) {
 				System.out.println("reservedSeat : " + reservedSeat.getSeatNumber());
@@ -54,10 +53,6 @@ public class ReservationSeatCommand implements Command{
 			req.setAttribute("performance", performance);
 			req.setAttribute("reservedSeats", reservedSeats);
 			req.setAttribute("reservation", reservation);
-			req.setAttribute("oNo", oNo);
-			req.setAttribute("oTime", oTime);
-			req.setAttribute("title", title);
-			req.setAttribute("sDate", sDate);
 			
 			forward.setPath("/member_r_reservationStart2.jsp");
 			forward.setRedirect(false);

@@ -51,15 +51,17 @@ a {
 #div3 {
 	float: right;
 	text-align: center;
+	margin-top: 50px;
 }
 
 #btn2 {
-	width: 80px;
+	width: 100px;
+	height: 50px;
 }
 
 #div1 {
 	float: left;
-	margin-left: 45px;
+	margin-left: 30px;
 	text-align: center;
 }
 
@@ -72,25 +74,34 @@ a {
 	<form>
 		<div id="div2">
 			<div id="div2-1">
-				<input id="keyword" type="search" placeholder="검색어를 입력하세요" size=60>
+				<input type="hidden" name="keyfield" value="title"/>
+				<input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요" size=60>
 				<button id="btn1" type="submit">검색</button>
 			</div>
 		</div>
 		<br> <br>
 		<div id="div1">
-			<div>
-				<c:forEach var="poster" items="${requestScope.performance.posters}">
-					<img
-						src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
-						alt="사진">
-				</c:forEach>
-			</div>
-
+			<c:forEach var="poster" items="${requestScope.performance.posters}" >
+				<c:if test="${pageScope.poster.mainPoster == 1}">
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+									width="100px" height="150px" id="img">
+				</c:if>
+				<br>
+				<c:if test="${pageScope.poster.mainPoster != 1}">
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+									width="50px" height="50px" id="img">
+				</c:if>
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+									width="50px" height="50px" id="img">
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+									width="50px" height="50px" id="img">
+			</c:forEach>
+			<br>
 			<button type="button" id="btn2" type="button">예매하기</button>
-
 		</div>
+
 		<div id="div3">
-			<table id="detailPerformance" border="1" width=600>
+			<table id="detailPerformance" border="1" width=550>
 				<tr>
 					<td colspan='2'>${requestScope.performance.title }</td>
 				<tr>
@@ -112,7 +123,7 @@ a {
 				</tr>
 				<tr>
 					<th>관람시간</th>
-					<td>${requestScope.performance.runningTime }</td>
+					<td>${requestScope.performance.runningTime }분</td>
 				</tr>
 				<tr>
 					<th>장르</th>
@@ -134,16 +145,23 @@ a {
 			<table id="detailFile" border="1" width=800>
 				<tr>
 					<th>할인정보</th>
-					<td>할인정보</td>
+					<td><img src="${pageContext.request.contextPath}/upload/할인정보.jpg" 
+									width="600px" height="200px" id="img"></td>
 				</tr>
 			</table>
 		</div>
 		<div id="div4">
 			<table id="detailFile" border="1" width=800>
-				<tr>
-					<th>상세설명${pageScope.loop.count }</th>
-					<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
-				</tr>
+				<c:forEach var="detailFile" items="${requestScope.detailFiles }" varStatus="loop">
+	 				<c:url var="url" value="/downloadFile" scope="page">
+	 					<c:param name="originalFileName" value="${pageScope.detailFile.originalFileName }" />
+	 					<c:param name="systemFileName" value="${pageScope.detailFile.systemFileName }" />
+	 				</c:url>
+					<tr>
+						<td>상세설명${pageScope.loop.count }</td>
+						<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</form>

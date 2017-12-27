@@ -52,28 +52,33 @@ input {
 				alert("비밀번호를 입력해주세요");
 				return false;
 			}		
-/*
+
 			$.ajax({
-				url: "${pageContext.request.contextPath}/member_m_newMember.jsp";
+				url: "${pageContext.request.contextPath}/login.do"
 				,
 				method: 'POST'
 				,
 				dataType: 'json'
 				,
-				data: $('form').serialize();
+				data: $('form').serialize()
 				,
 				success: function(data) {
-					
-					if(data.success == true) {
-						location.href="${pageContext.request.contextPath}/login.do";
+					if(data.success == 0) {
+						location.href="${pageContext.request.contextPath}/member_index.jsp";
+					} else if(data.success == 1) {
+						alert("탈퇴된 회원정보입니다");
+						location.href="${pageContext.request.contextPath}/loginForm.do";
+					} else {
+						alert("존재하지 않는 회원정보입니다 아이디 혹은 비밀번호를 확인해 주세요");
+						location.href="${pageContext.request.contextPath}/loginForm.do";
 					}
 				}
 				,
 				error: function(){
-					
+					alert("error : " + jqXHR.status);
 				}
 			});
-		*/
+		
 		});
 		
 		$("#btn2").click(function() {

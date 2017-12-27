@@ -22,7 +22,7 @@ public class PosterDAO {
 	}
 	
 	//공연 포스터를 일괄 등록한다.
-	public void insertPoster(Connection conn,ArrayList<PosterVO> posters) throws Exception{
+	public void insertPoster(Connection conn,ArrayList<PosterVO> posters,String pNo) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
 			StringBuffer sql=new StringBuffer();
@@ -33,16 +33,14 @@ public class PosterDAO {
 			System.out.println(sql.toString());
 			
 			pstmt=conn.prepareStatement(sql.toString());
-			System.out.println("~~~~~~~~~~"+posters.get(0).getOriginalFileName());
 			
 			for(int i=0;i<posters.size();i++) {
 				PosterVO poster=posters.get(i);
-				System.out.println("~~~~~~~~~~"+poster.toString());
 				pstmt.setString(1, poster.getSystemFileName());
 				pstmt.setString(2, poster.getOriginalFileName());
 				pstmt.setLong(3, poster.getFileSize());
 				pstmt.setInt(4, poster.getMainPoster());
-				pstmt.setString(5, poster.getpNo());
+				pstmt.setString(5, pNo);
 				pstmt.addBatch();
 			}
 			pstmt.executeBatch();			
@@ -72,8 +70,8 @@ public class PosterDAO {
 		}
 	}
 	
-	//공연 포스터를 일괄 삭제한다.
-	public void deletePosterList(Connection conn, String p_no) throws Exception{
+	//해당 공연의 공연 포스터를 일괄 삭제한다.
+	public void deletePosterList(Connection conn, String pNo) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
 			StringBuilder sql=new StringBuilder();
@@ -81,7 +79,7 @@ public class PosterDAO {
 			sql.append("where p_no=?   " );
 			
 			pstmt=conn.prepareStatement(sql.toString());
-			pstmt.setString(1, p_no);
+			pstmt.setString(1, pNo);
 			
 			pstmt.executeUpdate();
 			
@@ -90,7 +88,28 @@ public class PosterDAO {
 		}
 	}
 	
-	//공연 포스터 정보를 수정한다.
+	//공연 리스트에 해당하는 공연 일괄 삭제
+	public void deletePosterList(Connection conn, List<String> posters)throws Exception{
+		PreparedStatement pstmt=null;
+		try {
+			StringBuffer sql=new StringBuffer();
+			sql.append("delete from poster     ");
+			sql.append("where poster_no= ?			");
+			
+			pstmt=conn.prepareStatement(sql.toString());
+			for(String posterNo : posters) {
+				pstmt.setString(1, posterNo);
+				pstmt.addBatch();
+			}
+			pstmt.executeBatch();			
+		
+			
+		}finally {
+			if(pstmt!=null) pstmt.close();
+		}
+	}
+	
+	/*//공연 포스터 정보를 수정한다.
 	public void updatePoster(Connection conn,PosterVO poster) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
@@ -107,7 +126,7 @@ public class PosterDAO {
 		} finally {
 			if(pstmt!=null) pstmt.close();
 		}
-	}
+	}*/
 	
 	//공연에 해당하는 업로드된 포스터 파일 목록을 조회하다.
 		public List<PosterVO> selectPoster(String pNo) throws Exception {

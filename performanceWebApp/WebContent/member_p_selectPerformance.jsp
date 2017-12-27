@@ -8,21 +8,22 @@
 <style>
 form {
 	padding: 30px;
-	background-color: gray;
-	width: 800px;
+	color: gray;
+	width: 100%;
 	height: 750px;
 }
 
 #div1 {
 	width: 100%;
 	height: 35px;
-	background-color: white;
+	background-color: yellow;
 	text-align: center;
 }
 
 li {
 	display: inline-block;
-	margin: 5px 50px;
+	margin: 5px 10px;
+	color:black;
 }
 
 a {
@@ -63,14 +64,35 @@ a {
 	
 }
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		
+		$('#btnText').on("click",function(){
+			
+			location.href="${pageContext.request.contextPath}/selectMenu.do";
+			
+		});
+		
+	});
+</script>
 </head>
 <body>
 	<form>
 		<div id="div1">
 			<ul>
-				<li><a href='#'>이전달</a></li>
-				<li><a href='#'>현재달</a></li>
-				<li><a href='#'>다음달</a></li>
+				<li><a href='#'>1월</a></li>
+				<li><a href='#'>2월</a></li>
+				<li><a href='#'>3월</a></li>
+				<li><a href='#'>4월</a></li>
+				<li><a href='#'>5월</a></li>
+				<li><a href='#'>6월</a></li>
+				<li><a href='#'>7월</a></li>
+				<li><a href='#'>8월</a></li>
+				<li><a href='#'>9월</a></li>
+				<li><a href='#'>10월</a></li>
+				<li><a href='#'>11월</a></li>
+				<li><a href='#'>12월</a></li>
 			</ul>
 		</div>
 		<div id="div2">
@@ -80,7 +102,7 @@ a {
 			</div>
 			<div id="div2-2">
 				<button type="button">이미지보기</button>
-				<button type="button">텍스트보기</button>
+				<button type="button" id="btnText">텍스트보기</button>
 				<select id="genre">
 					<option value="G002">뮤지컬</option>
 					<option value="G001">연극</option>
