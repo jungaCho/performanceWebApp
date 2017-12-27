@@ -24,27 +24,29 @@
 	<c:param name="article" value="member_welcome" />
 </c:url>
 
-<c:if test="${empty sessionScope.member}">
 <script src=js/jquery-3.2.1.min.js></script>
 <script>
+
 	$(document).ready(function () {
-		$('#loginm').text("로그인이 필요합니다");
-		$('#link').click(function () {
-			alert("로그인이 필요한 서비스입니다.");
-			event.preventDefault();
-		});
-		$('#loginm2').text("로그인").unwrap().wrap('<a href="${pageScope.urlLogin}"></a>');
+		var noSession = ${ empty sessionScope.member};
+		if(noSession) { 
+			$('#loginm').text("로그인이 필요합니다");	
+			$('#mypage, #reservation').click(function () {
+				alert("로그인이 필요한 서비스입니다.");
+				event.preventDefault();
+			});
+			$('#loginm2').text("로그인").unwrap().wrap('<a href="${pageScope.urlLogin}"></a>'); 
+		}
 	});
  
 </script>
-</c:if>
 
 <nav>
 	<a href ="${ pageScope.urlHome }"><h1>로고</h1></a>
 	<ul style="float:right; margin-right:30px;">
 		<li><a href="${pageScope.url1 }">공연정보</a></li>
-		<li><a href="${pageScope.url2 }">예매</a></li>
-		<li><a href="${pageScope.url3 }" id="link">마이페이지</a></li>
+		<li><a href="${pageScope.url2 }" id="reservation">예매</a></li>
+		<li><a href="${pageScope.url3 }" id="mypage">마이페이지</a></li>
 		<li><span id="loginm">${sessionScope.member.mId }님 환영합니다</span></li>
 		<li><a href="${pageScope.urlLogout }"><span id="loginm2">로그아웃</span></a></li>
 	</ul>
