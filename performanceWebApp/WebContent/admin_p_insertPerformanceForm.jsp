@@ -45,7 +45,15 @@ form {
 	text-align: left;
 }
 </style>
-
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+      $(document).ready(function() {
+    	  
+    	  $('#btn2').click(function() {
+     			location.href="${pageContext.request.contextPath}/admin_p_selectPerformanceList.do";
+     	  });
+      });
+</script>
 </head>
 <body>
 	<form action="${pageContext.request.contextPath}/uploadFile"

@@ -28,8 +28,6 @@ public class ReservationStartCommand implements Command{
 			PerformanceService performanceService = PerformanceService.getInstance();
 			PerformanceVO performance = performanceService.retirevePerformance(pNo);
 
-			
-			
 			req.setAttribute("performance", performance);
 			
 			forward.setPath("/member_r_reservationStart.jsp");

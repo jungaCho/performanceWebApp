@@ -167,20 +167,21 @@ a:hover {
 		<div class="title_bg">예 매</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
-				<c:if test="${fn:length(requestScope.performance.posters) > 0 }">
+				<%-- <c:if test="${fn:length(requestScope.performance.posters) > 0 }"> --%>
 					<dl>
 						<dt>
-							<c:forEach var="poster"
-								items="${requestScope.performance.posters}" varStatus="loop">
-								<c:if test="${loop.first}">
-								${pageScope.poster.systemFileName}
-							</c:if>
+							<c:forEach var="poster" items="${requestScope.performance.posters}" >
+								<c:if test="${pageScope.poster.mainPoster == 1}">
+									<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
+											width="350px" height="340px" id="img">
+								</c:if>
 							</c:forEach>
+
 						</dt>
 						<dd class="reservation_title">${requestScope.performance.title}</dd>
 						<dd class="reservation_text">※만석일 경우, 공연시간이 선택되지 않습니다.</dd>
 					</dl>
-				</c:if>
+				<%-- </c:if> --%>
 			</div>
 			<div class="reservation_content02">
 				<table>
