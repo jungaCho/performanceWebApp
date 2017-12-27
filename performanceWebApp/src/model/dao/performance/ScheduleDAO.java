@@ -20,8 +20,9 @@ public class ScheduleDAO {
 	}
 	
 	//공연일정을 등록한다.
-	public void insertSchedule(Connection conn, ScheduleVO schedule)throws Exception{
+	public String insertSchedule(Connection conn, ScheduleVO schedule)throws Exception{
 		PreparedStatement pstmt=null;
+		Statement stmt=null;
 		try {
 			StringBuffer sql=new StringBuffer();
 			
@@ -35,8 +36,22 @@ public class ScheduleDAO {
 			pstmt.setString(3, schedule.gettNo());
 			
 			pstmt.executeUpdate();
-	
-			
+			pstmt.close();
+
+			sql.delete(0, sql.length());
+
+			stmt = conn.createStatement();
+
+			sql.append("select 'S'||lpad(schedule_seq.currVal,5,0) from dual ");
+
+			ResultSet rs = stmt.executeQuery(sql.toString());
+
+			String sNo = "";
+			if (rs.next()) {
+				sNo = rs.getString(1);
+			}
+			return sNo;
+
 		} finally {
 			if(pstmt!=null) pstmt.close();
 		}

@@ -107,6 +107,8 @@ public class CommandFactory {
 		map.put("/member_p_selectPerformance.do","controller.performance.ListPerformanceByMemberCommand" );
 		
 		map.put("/member_p_detailPerformance.do", "controller.performance.DetailPerformanceByMemberCommand" );
+		
+		
 	}
 	
 	public static CommandFactory getInstance() {

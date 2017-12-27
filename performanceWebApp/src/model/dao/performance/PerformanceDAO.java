@@ -503,7 +503,6 @@ public class PerformanceDAO {
 			pstmt.setString(11, performance.getViewNo());
 			pstmt.setString(12, performance.getGenreNo());
 
-			System.out.println("!!!!!!!!!!!!1" + performance.getGenreNo() + "~!!!!" + performance.getViewNo());
 			pstmt.executeUpdate();
 
 			pstmt.close();

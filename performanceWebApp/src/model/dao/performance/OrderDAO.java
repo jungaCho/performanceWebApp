@@ -22,26 +22,22 @@ public class OrderDAO {
 	}
 	
 	//공연 회차 정보 일괄 등록
-	public void insertOrder(Connection conn, ArrayList<OrderVO> orders)throws Exception{
+	public void insertOrder(Connection conn, OrderVO order)throws Exception{
 		PreparedStatement pstmt=null;
 		try {
-			conn=DBConn.getConnection();
-			
+						
 			StringBuffer sql=new StringBuffer();
 			sql.append("insert into orders(o_no, o_time,s_no)    ");
-			sql.append("values('O'||lpad(order_seq.nextVal,5,0),? ,?)    ");
+			sql.append("values('O'||lpad(order_seq.nextVal,5,0) , to_date(?,'HH24:MI') , (select max(s_no) from schedule))");
 			
 			pstmt=conn.prepareStatement(sql.toString());
+
+			pstmt.setString(1,order.getoTime() );
 			
-			for(int i=0;i<orders.size();i++) { 
-				OrderVO order =orders.get(i);
-				pstmt.setString(1,order.getoTime() );
-				pstmt.setString(2, order.getsNo());
-				pstmt.addBatch();
-				
-			} 
-			pstmt.executeBatch();
+		
 			
+			pstmt.executeUpdate();
+	
 		} finally {
 			if(pstmt!=null)pstmt.close();
 		}
