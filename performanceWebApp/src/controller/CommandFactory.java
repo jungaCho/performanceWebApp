@@ -68,6 +68,10 @@ public class CommandFactory {
 		map.put("/selectMemberList.do", "controller.member.SelectMemberListCommand");
 		
 		map.put("/searchMember.do", "controller.member.SearchMemberCommand");
+		
+		map.put("/adminLogout.do", "controller.member.AdminLogoutCommand");
+		
+		
 
 		
 		//¿¹¸Å

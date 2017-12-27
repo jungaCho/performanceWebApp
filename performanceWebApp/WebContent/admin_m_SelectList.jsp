@@ -163,7 +163,7 @@
 	<select id="view">
 	<option value="m_no">회원번호</option>
 	<option value="m_name">이름</option>
-	<option value="rankNo">등급</option>
+	<option value="rank_no">등급</option>
 	<option value="withdrawal">탈퇴여부</option>
 		
 	</select>
