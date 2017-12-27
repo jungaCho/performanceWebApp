@@ -22,6 +22,7 @@ public class ListCardCommand implements Command{
 		String oTime = req.getParameter("oTime");
 		String title = req.getParameter("title");
 		String sDate = req.getParameter("sDate");
+		String seatNo = req.getParameter("seatNo");
 		
 		ReservationVO reservation = new ReservationVO();
 		ActionForward forward = new ActionForward();
@@ -30,10 +31,6 @@ public class ListCardCommand implements Command{
 		req.setAttribute("reservation", reservation);
 		req.setAttribute("totalPrice", totalPrice);
 		req.setAttribute("selectTd", selectTd);
-		req.setAttribute("oNo", oNo);	
-		req.setAttribute("oTime", oTime);
-		req.setAttribute("title", title);
-		req.setAttribute("sDate", sDate);
 		
 		forward.setPath("/member_r_reservationStart3.jsp");
 		forward.setRedirect(false);
