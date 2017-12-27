@@ -4,13 +4,24 @@
 <head>
 <meta charset="utf-8">
 <title>비밀번호 찾기</title>
+<style>
+
+	#span1{
+	color: red;
+	font-size: 12px;
+	}
+	
+</style>
 <script src = "js/jquery-3.2.1.min.js"></script>
 <script>
 	$(document).ready(function(){
+		
 		$('#cancel').click(function() {
 			location.href="${pageContext.request.contextPath}/loginForm.do";
 		});
+		
 		$('#findPwd').click(function() {
+			event.preventDefault();
 			if($('#id').val().trim().length == 0) {
 				alert("아이디를 입력해주세요!");
 				return false;
@@ -21,9 +32,40 @@
 				alert("이메일을 입력해주세요!");
 				return false;
 			}
-			return true;
+			
+			//임시비밀번호발급 팝업창으로 넘어가기.	
+			$.ajax({
+				url: "${pageContext.request.contextPath}/sendTempPwd.do"
+				,
+				method: "POST"
+				,
+				async: true
+				,
+				dataType: "json"
+				,
+				data: {
+					id: $('#id').val(),
+					name: $('#name').val(),
+					email: $('#email').val()
+				}
+				,
+				success: function(data){
+					if(data.success == true){
+						var newWin = window.open("${pageContext.request.contextPath}/tempPwdForm.jsp","","width=400, height=300, top=200,left=200");
+						//alert("해당 정보의 이메일로 임시비밀번호가 발송되었습니다.")
+					} else {
+						alert("올바른 이메일 주소를 입력해주세요.");
+						return false;
+					}
+				}
+				,
+				error: function(jqXHR){
+					$('#findPwd').after("<span id=span1>임시비밀번호 발급에 실패했습니다.</span1>");
+				}
+			});
 		});
 	});
+	
 </script>
 </head>
 <body>
@@ -31,7 +73,7 @@
 		<div id="box">
 			아이디와 이름, 이메일을 입력해주세요!<br>
 			ID<br>
-			<input type="text" id="id" name="id" size="30" placeholder="ID를 입력해주세요"/><br>
+			<input type="text" id="id" name="id" value="${sessionScope.findIdSession.mId }" size="30" placeholder="ID를 입력해주세요"/><br>
 			Name<br>
 			<input type="text" id="name" name="name" size="30" placeholder="이름을 입력해주세요"/><br>
 			Email<br>

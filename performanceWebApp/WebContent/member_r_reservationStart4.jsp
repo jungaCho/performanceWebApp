@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html >
 <html>
 <head>
@@ -77,7 +80,9 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 			if(confirm("선택한 좌석 정보로 예약하시겠습니까?") == true){
 				console.log("OK");
 				self.close();
-				$(opener.location).attr('href', '${pageContext.request.contextPath}/member_r_layout2.jsp?nav=member_r_menu&article=member_r_reservationList');
+				var rNo = '${requestScope.reservation.rNo}';
+				var select = 'pNo=${param.pNo}&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice=${param.totalPrice}&selectTd=${param.selectTd}&cardNumber=${param.cardNumber}&cardCoNo=${param.cardCoNo}&oTime=${param.oTime}&title=${param.title}&sDate=${param.sDate}&rNo=${requestScope.reservation.rNo}';
+				$(opener.location).attr('href', '${pageContext.request.contextPath}/member_r_layout2.do?nav=member_r_menu&article=member_r_reservationList'+select);
 			}else{
 				return;
 			}
@@ -87,7 +92,6 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form method="get">
 		<div class="title_bg">결 제 정 보</div>
 		<div class="reservation_padding">
 			<div class="ulText">▣ 최종 결제정보</div>
@@ -98,15 +102,15 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 					</tr>
 					<tr>
 						<td>공연명</td>
-						<td>${requestScope.performance.title}</td>
+						<td>${param.title}</td>
 					</tr>
 					<tr>
 						<td>공연일</td>
-						<td>2018/01/01 (월)</td>
+						<td>${param.sDate}</td>
 					</tr>
 					<tr>
 						<td>공연시간</td>
-						<td>15:00~18:00</td>
+						<td>${param.oTime }</td>
 					</tr>
 					<tr>
 						<td>좌석정보</td>
@@ -122,11 +126,16 @@ tr{line-height:25px; background:#D5D5D5; border-bottom:1px solid #ddd;}
 					'확인'버튼을 클릭하면 결제가 진행됩니다.
 				</div>
 				<div class="btnLeft">
-					<a href="${pageContext.request.contextPath}/member_r_reservationStart3.jsp" id="closeBtn">뒤로가기</a> &nbsp;&nbsp;
+					<c:url var="url" value="/member_r_reservationStart3.do">
+						<c:param name="pNo" value="${param.pNo }" />
+						<c:param name="tNo" value="${param.tNo}" />
+						<c:param name="oNo" value="${param.oNo }"/>
+						<c:param name="totalPrice" value="${param.totalPrice }"/>
+						<c:param name="selectTd" value="${param.selectTd }"/>
+					</c:url> 
+					<a href="${pageScope.url }" id="closeBtn">뒤로가기</a> 
 					<a href="#" id="selectBtn">확인</a>
 				</div>
 		</div>
-
-	</form>
 </body>
 </html>

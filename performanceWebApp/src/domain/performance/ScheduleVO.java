@@ -15,6 +15,14 @@ public class ScheduleVO {
 		// TODO Auto-generated constructor stub
 	}
 
+	public ScheduleVO(String sDate, String pNo, String tNo, List<OrderVO> orders) {
+		super();
+		this.sDate = sDate;
+		this.pNo = pNo;
+		this.tNo = tNo;
+		this.orders = orders;
+	}
+
 	public ScheduleVO(String sNo, String sDate, String pNo, String tNo, List<OrderVO> orders) {
 		super();
 		this.sNo = sNo;

@@ -2,6 +2,7 @@
 
 {
 
-   "success": ${param.success} 
+   "success": ${requestScope.loginSuccess}
+  
 
 }

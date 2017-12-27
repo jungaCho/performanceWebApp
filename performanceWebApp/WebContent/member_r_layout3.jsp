@@ -10,14 +10,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<title>메인 페이지</title>
+<title>2단 Layout</title>
 <style>
-
 body, a {
-	
 	font: 20px '돋움';
-	color : #ebebeb;
+	color: white;
 	font-weight: bolder;
 }
 
@@ -26,15 +23,15 @@ section {
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: #8BC34A;
+	background-color: #4C566E;
 	overflow: hidden;
 }
 
 section article {
 	width: 100%;
-	height: 100%;
+	height: 600px;
 	background-color: #ebebeb;
-	/* float: left; */
+	float: left;
 }
 
 footer {
@@ -45,8 +42,31 @@ footer {
 	background-color: #f03535;
 }
 
+nav ul {
+	list-style-type: none;
+}
+
+nav ul a {
+	text-decoration: none;
+}
+
+section nav {
+	width: 25%;
+	height: 100%;
+	background-color: #4C566E;
+	float: left;
+}
+
+section article {
+	color: black;
+	width: 75%;
+	height: 100%;
+	background-color: #ebebeb;
+	float: left;
+}
+
 #loginm {
-	font-size: 18px;	
+	
 	font-weight: none;
 
 }
@@ -57,12 +77,6 @@ footer {
 	color: #f03535;
 
 }
-
-nav ul {
-	list-style-type: none;
-}
-
-
 
 header {
 	width: 960px;
@@ -82,8 +96,6 @@ header nav ul li {
 	margin: 10px;
 }
 
-
-
 header nav h1 {
 	float: left;
 	width: 100px;
@@ -92,18 +104,7 @@ header nav h1 {
 }
 
 header nav ul a:hover {
-	color: #ffffff;
-}
-
-
-nav ul a {
-	text-decoration: none;
-}
-
-section article {
-	width: 100%;
-	height: 600px;
-	background-color: #ebebeb;
+	color: #607d8b;
 }
 
 section nav ul li {
@@ -116,18 +117,13 @@ a:hover {
 </style>
 </head>
 <body>
-
 	<header>
 		<jsp:include page="member_header.jsp" />
 	</header>
-
 	<section>
-
+		<nav><jsp:include page="<%=nav%>" /></nav>
 		<article><jsp:include page="<%=article%>" /></article>
-
 	</section>
-
-
 	<footer>Footer</footer>
 </body>
 </html>

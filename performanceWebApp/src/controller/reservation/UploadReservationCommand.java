@@ -17,7 +17,7 @@ import domain.reservation.ReservationVO;
 import domain.reservation.ReservedSeatVO;
 import model.service.reservation.ReservationService;
 
-public class UploadCardCommand implements Command{
+public class UploadReservationCommand implements Command{
 
 	//예매정보 등록을 요청할 커맨드
 	@Override
@@ -28,7 +28,8 @@ public class UploadCardCommand implements Command{
 			String selectTd =req.getParameter("selectTd");
 			String cardNumber = req.getParameter("cardNumber");
 			int cardCoNo = Integer.parseInt(req.getParameter("cardCoNo"));
-			String oNo = req.getParameter("oNo");
+			String oNo = req.getParameter("oNo");		
+			String sDate = req.getParameter("sDate");
 			String rNo = req.getParameter("rNo");
 			String approveNumber = req.getParameter("approveNumber");
 			
@@ -44,9 +45,8 @@ public class UploadCardCommand implements Command{
 			String mNo = member.getmNo();
 			String oTime = req.getParameter("oTime");
 			String title = req.getParameter("title");
-			String sDate = req.getParameter("sDate");
 			
-			ReservationVO reservation = new ReservationVO(cardNumber, totalPrice, cardCoNo, mNo, oNo, rNo,approveNumber);
+			ReservationVO reservation = new ReservationVO(cardNumber, totalPrice, cardCoNo,mNo, oNo ,rNo, approveNumber);
 			List<ReservedSeatVO> reservedSeats = new ArrayList<ReservedSeatVO>();
 			
 			try {
@@ -70,7 +70,7 @@ public class UploadCardCommand implements Command{
 				req.setAttribute("rNo", rNo);
 				req.setAttribute("approveNumber", approveNumber);
 				
-				forward.setPath("/member_r_reservationStart4.jsp");
+				forward.setPath("/member_r_layout2.jsp?nav=member_r_menu&article=member_r_reservationList");
 				forward.setRedirect(false);
 				return forward;
 				

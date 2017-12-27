@@ -1,4 +1,4 @@
-<%-- member_signup --%>
+<%-- member_m_signup --%>
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <!doctype html>
@@ -40,18 +40,11 @@
 	}
 	
 	span {
-	
-	color: red;
-	font-size: 12px;
-	
-	}
-	
-	#span1 {
 		color: red;
 		font-size: 12px;
 	}
 	
-	#span2 {
+	#accept {
 		color: green;
 		font-size: 12px;
 	}
@@ -61,102 +54,15 @@
 <script>
 
 	$(document).ready(function(){
-		/*
-		$('input[type=text], input[type=password], input[type=email], input[type=date]').on('focus',function() {
-			$(this).next('span').remove();
-			$('#btnCheckId').next('span').remove();
-			$('#btnCheckEmail').next('span').remove();
-		});
-		
-		$('input[type=text], input[type=password], input[type=email], input[type=date]').on('blur',function() {
-			if($(this).val().length == 0 ) {
-				if($(this).attr('name') == 'id') {
-					$('#btnCheckId').after("<span> 아이디를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'pwd') {
-					$(this).after("<span> 비밀번호를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'pwdcheck') {
-					$(this).after("<span> 비밀번호를 한번더 입력하세요.</span>");
-				} else if($(this).attr('name') == 'name') {
-					$(this).after("<span> 비밀번호를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'email') {
-					$('#btnCheckEmail').after("<span> 비밀번호를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'birthday') {
-					$(this).after("<span> 비밀번호를 입력하세요.</span>");
-				} else if($(this).attr('name') == 'address') {
-					$(this).after("<span> 비밀번호를 입력하세요.</span>");
-				}
-			}
-		});
-		*/
-		
+	
 		$('#id').on('focus', function() {
 			if($('#btnCheckId').next('span').val() != null) {
-				$('#btnCheckId').next('span').remove();
+				if($('#btnCheckId').next('accept').val() == null) {
+					$('#btnCheckId').next('span').remove();
+				}
 			}
 		});
-		
-		var idCheckCount = 0;
-		$('#btnCheckId').on('click',function() {
-			if($('#btnCheckId').next('span').val() != null) {
-				$('#btnCheckId').next('span').remove();
-			} 
-			$.ajax({
-				//ajax는 부메랑. url에 있는 곳으로 먼저 이동 - 거기선 "/member_m_newMember.jsp"로 이동된다.
-				url: "${pageContext.request.contextPath}/IdOverlapCheck.do"
-				,
-				method: 'POST' 
-				,
-				async: true
-				,
-				dataType : 'json'
-				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. "/member_m_newMember.jsp"에 있는 json 데이터이다.
-				data : $('form').serialize() 
-				,
-				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
-					if(data.success == true ) {
-						$('#btnCheckId').after("<span id='span1'> 중복된 아이디입니다. </span>");
-						idCheckCount = 0;
-					} else {
-						$('#btnCheckId').after("<span id='span2'> 사용가능한 아이디입니다. </span>");
-						idCheckCount = 1;
-					}
-				}
-				,
-				error : function(jqXHR) {
-					jqXHR = null;
-				}
-
-			});
-			
-		});
-		
-		$('#btnCheckEmail').on('click',function(){
-			$.ajax({
-				url: "${pageContext.request.contextPath}/sendEmail.do"
-				,
-				method: 'POST' 
-				,
-				async: true
-				,
-				dataType : 'json'
-				, 
-				data : {
-					email: $('#email').val()				
-				}
-				,
-				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
-					if(data.success == true ) {
-						$('#btnCheckEmail').after("<span id='span1'> 이메일 인증이 완료되었습니다. </span>");
-					}
-				}
-				,
-				error : function(jqXHR) {
-					$('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패했습니다. </span>");
-				}
-			});
-		});
-
-
+	
 		$('#pwd').on('focus',function(){
 			$(this).next('span').remove();
 		});
@@ -185,15 +91,52 @@
 		$('#id').on('blur', function() {
 			if($(this).val() == 0 ) {
 				$('#btnCheckId').after("<span> 아이디를 입력하세요</span>");
-			} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
-				$('#btnCheckId').after("<span id='span1'> 아이디 양식을 확인해주세요! </span>");
-				idCheckCount = 0;
+			} else if($(this).val().length < 5 && $(this).val().length < 16) {
+				$('#btnCheckId').after("<span id='problem'> 최소5~15글자 특수문자 불가 </span>");
 			}
+		});
+		
+		var checkIdCount = 0;
+		$('#btnCheckId').on('click',function() {
+			if($('#btnCheckId').next('span').val() != null) {
+				$('#btnCheckId').next('span').remove();
+			} 
+			$.ajax({
+				url: "${pageContext.request.contextPath}/IdOverlapCheck.do"
+				,
+				method: 'POST' 
+				,
+				async: true
+				,
+				dataType : 'json'
+				, 
+				data : $('form').serialize() 
+				,
+				success : function(data){
+					if(data.success == true ) {
+						$('#btnCheckId').after("<span id='problem'> 중복된 아이디입니다. </span>");
+						checkIdCount = 0;
+					} else if($('#id').val().length < 5 && $('#id').val().length < 16) {
+						$('#btnCheckId').after("<span id='problem'> 아이디 양식을 확인해주세요! </span>");
+						checkIdCount = 0;
+					} else if(data.success == false){
+						$('#btnCheckId').after("<span id='accept'> 사용가능한 아이디입니다. </span>");
+						checkIdCount = 1;
+					}
+					console.log("checkIdCount : " + checkIdCount);
+				}
+				,
+				error : function(jqXHR) {
+					jqXHR = null;
+				}
+			});
 		});
 		
 		$('#pwd').on('blur',function(){
 			if($(this).val() == 0 ) {
 				$(this).after("<span> 비밀번호를 입력하세요</span>");
+			} else if($(this).val().length < 5 && $(this).val().length < 16) {
+				$(this).after("<span id='problem'> 최소8~12글자 동일숫자 연속 3자리 불가 </span>");
 			}
 		});
 
@@ -201,7 +144,7 @@
 			if($(this).val() == 0 ) {
 				$(this).after("<span> 비밀번호를 한번더 입력하세요</span>");
 			} else if($('#pwd').val() != $(this).val()) {
-				$(this).after("<span> 비밀번호가 일치하지 않습니다</span>")
+				$(this).after("<span id='problem'> 비밀번호가 일치하지 않습니다</span>")
 			}
 		});
 
@@ -222,6 +165,52 @@
 				$('#btnCheckEmail').after("<span> 이메일를 입력하세요</span>");
 			}
 		});
+		
+		var checkEmailCount = 0;
+		$('#btnCheckEmail').on('click',function(){
+			event.preventDefault();
+			if($('#btnCheckEmail').next('span').val() != null) {
+				$('#btnCheckEmail').next('span').remove();
+			}
+			
+			if($('#btnCheckEmail').next('br').next('span').val() != null) {
+				if($('#btnCheckEmail').next('br').next('#accept').val() == null) {
+					$('#btnCheckEmail').next('br').next('span').remove();
+					$('#btnCheckEmail').next('br').remove();
+				} else {
+					alert("인증이 완료되었습니다!!");
+					return false;
+				}
+			}
+
+			$.ajax({
+				url: "${pageContext.request.contextPath}/sendEmail.do"
+				,
+				method: 'POST' 
+				,
+				async: true
+				,
+				dataType : 'json'
+				, 
+				data : {
+					email: $('#email').val()				
+				}
+				,
+				success : function(data){ 
+					if(data.success == true ) {						
+						var newWin = window.open("${pageContext.request.contextPath}/authNumberForm.jsp", "", "width=700, height=600, top=200, left=200");
+					} else {
+						$('#btnCheckEmail').after("<br><span id='problem'> 이메일 양식에 맞지 않거나 존재하지 않는 이메일 입니다! </span>");
+						checkEmailCount = 0;
+					}
+				}
+				,
+				error : function(jqXHR) {
+					$('#btnCheckEmail').after("<span id='problem'> 이메일 인증에 실패했습니다. </span>");
+					checkEmailCount = 0;
+				}
+			});
+		});		
 
 		$('#address').on('blur',function(){
 			if($(this).val() == 0 ) {
@@ -229,14 +218,31 @@
 			}
 		});	
 
+
 		$('#btn1').click(function () {
 			location.href="${pageContext.request.contextPath}/loginForm.do";
 		});
 
 		$('#btn2').click(function(){
+			if($('#btnCheckEmail').next('br').next('#accept').val() != null) {
+				checkEmailCount = 1;
+				console.log("checkEmailCount :" + checkEmailCount)
+			} else {
+				checkEmailCount = 0;
+			}		
+			
+			if($('#problem').val() != null) {
+				alert("입력한 정보를 확인해주세요!");
+				return false;
+			} else if(checkIdCount == 0) {
+				alert("아이디 중복확인이 필요합니다!!");
+				return false;
+			} else if(checkEmailCount == 0) {
+				alert("이메일 인증이 필요합니다!!");	
+				return false;
+			}
 			
 			$.ajax({
-				//ajax는 부메랑. url에 있는 곳으로 먼저 이동 - 거기선 "/member_m_newMember.jsp"로 이동된다.
 				url: "${pageContext.request.contextPath}/SignUp.do"
 				,
 				method: 'POST' 
@@ -244,15 +250,11 @@
 				async: true
 				,
 				dataType : 'json'
-				, //이걸 꼭 지정해줘야 데이터를 받아올수있다. "/member_m_newMember.jsp"에 있는 json 데이터이다.
+				,
 				data : $('form').serialize() 
 				,
-				success : function(data){ //부메랑이니까 다시 돌아와 이 json데이터를 받아오는게 성공했다면 밑 내용이 수행된다. 
-					if($('#span1').val() != null) {
-						data.success == false;
-						alert("입력한 정보를 확인해주세요!");
-						return false;
-					} else if(data.success  == true) { //data에 있는 successs 에 대한 값이 true라면 밑 명령수행
+				success : function(data){ 
+					if(data.success  == true) { 
 						alert("회원가입에 성공하셨습니다!!");
 						location.href = "${pageContext.request.contextPath}/member_index.jsp";
 					}
@@ -262,17 +264,15 @@
 					jqXHR = null;
 					alert("회원정보를 정확히 입력해주세요!!");
 				}
-
 			});
-			
 		});
-		
 	});
 
 </script>
 </head>
 <body>
-	<form>
+	<form name="form">
+		<input type="hidden" name="success" id="success">
 	<div id="box">
 		ID<br>
 		<input type="text" id="id" name="id" size="25" placeholder="최소 5~15글자 특수문자 불가"/>&nbsp;

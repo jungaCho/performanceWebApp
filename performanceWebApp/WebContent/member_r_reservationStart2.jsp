@@ -155,7 +155,7 @@ label {
 		
 		
 		$('#selectBtn').on('click', function() {
-			var queryStr = 'pNo=${param.pNo }&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice='+$('#totalPrice').text()+'&selectTd='+$('#selectTd').text();
+			var queryStr = 'pNo=${param.pNo }&tNo=${param.tNo}&oNo=${param.oNo}&totalPrice='+$('#totalPrice').text()+'&selectTd='+$('#selectTd').text()+'&oTime=${param.oTime}'+'&title=${param.title}&sDate=${param.sDate}';
 			location.href="${pageContext.request.contextPath}/member_r_reservationStart3.do?"+queryStr;		
 		
 		});
@@ -166,7 +166,6 @@ label {
 </head>
 <body>
 	<!-- 예매페이지 -->
-	<form  method="get">
 		<div class="title_bg">결 제 정 보</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
@@ -215,6 +214,5 @@ label {
 				</div>
 			</div>
 		</div>
-	</form>
 </body>
 </html>

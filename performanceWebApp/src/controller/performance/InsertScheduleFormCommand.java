@@ -1,14 +1,13 @@
 package controller.performance;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
+import domain.performance.PerformanceVO;
 import model.service.performance.PerformanceService;
 
 public class InsertScheduleFormCommand implements Command{
@@ -18,9 +17,10 @@ public class InsertScheduleFormCommand implements Command{
 		ActionForward forward=new ActionForward();
 		try {
 			PerformanceService service=PerformanceService.getInstance();
-			ArrayList<String> titles=(ArrayList<String>)service.retrieveTitle();
+			//ArrayList<String> titles=(ArrayList<String>)service.retrieveTitle();
+			List<PerformanceVO> performances = service.retrievePerformance();
 			
-			req.setAttribute("titles", titles);
+			req.setAttribute("performances", performances);
 			forward.setPath("/admin_layout.jsp?nav=admin_p_menu&article=admin_p_insertScheduleForm");
 			forward.setRedirect(false);
 			return forward;
