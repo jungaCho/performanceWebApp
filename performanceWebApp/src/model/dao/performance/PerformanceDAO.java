@@ -296,7 +296,7 @@ public class PerformanceDAO {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select poster.system_file_Name, detailFile.system_File_Name				");
+			sql.append("select poster.system_file_Name, detailFile.system_File_Name, poster.main_poster				");
 			sql.append("from poster,performance,detailFile											");
 			sql.append(
 					"where poster.p_no=performance.P_NO																		");
@@ -344,6 +344,7 @@ public class PerformanceDAO {
 					System.out.println("~~~" + rs.getString(1));
 					PosterVO poster = new PosterVO();
 					poster.setSystemFileName(rs.getString(1));
+					poster.setMainPoster(rs.getInt(3));
 					performance.addPoster(poster);
 					posterName = rs.getString(1);
 				}
@@ -600,29 +601,31 @@ public class PerformanceDAO {
 		try {
 			conn = DBConn.getConnection();
 			sql.append(
-					"update performance set title=?,video=?,start_date=?,end_date=?,production=?,													");
+					"update performance												");
 			sql.append(
-					"genre_no=(select genre_no from performancegenre where genre=?),view_no=(select view_no from viewclass where view_class=?),		");
+					"set title=?  ,video=?, start_date=? , end_date=?,production=?, price=?,		");
 			sql.append(
-					"contact_name=?,contact_number=?,note=?,running_time=?																			");
+					"genre_no=?, view_no=?,  contact_name=?,	contact_number=?, note=?, running_time=? 																	");
 			sql.append(
-					"where pNo=?																														");
+					"where p_no=? 																													");
 
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setString(1, performance.getpNo());
-			pstmt.setString(2, performance.getTitle());
-			pstmt.setString(3, performance.getVideo());
-			pstmt.setString(4, performance.getStartDate());
-			pstmt.setString(5, performance.getEndDate());
-			pstmt.setString(6, performance.getProduction());
+			pstmt.setString(1, performance.getTitle());
+			pstmt.setString(2, performance.getVideo());
+			pstmt.setString(3, performance.getStartDate());
+			pstmt.setString(4, performance.getEndDate());
+			pstmt.setString(5, performance.getProduction());
+			pstmt.setInt(6, performance.getPrice());
 			pstmt.setString(7, performance.getGenreNo());
 			pstmt.setString(8, performance.getViewNo());
 			pstmt.setString(9, performance.getContactName());
 			pstmt.setString(10, performance.getContactNumber());
 			pstmt.setString(11, performance.getNote());
 			pstmt.setInt(12, performance.getRunningTime());
-
+			
+			
+			pstmt.setString(13, performance.getpNo());
 			pstmt.executeUpdate();
 
 		} finally {
@@ -732,7 +735,7 @@ public class PerformanceDAO {
 	
 
 	//  공연 정보 리스트를 조회하다(for 예매 페이지).
-	public List<PerformanceVO> selectPerformanceList() throws Exception {
+	public List<PerformanceVO> selectPerformanceList(int startRow, int endRow) throws Exception {
 		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -743,7 +746,7 @@ public class PerformanceDAO {
 
 			StringBuffer sql = new StringBuffer();
 			sql.append(
-					"select pos.system_file_name, perf.title, perf.start_date, perf.end_date, perf.price 	");
+					"select pos.system_file_name, perf.title, perf.start_date, perf.end_date, perf.price, perf.pno	");
 			sql.append(
 					"from (select rownum as rn, p.* 									");
 			sql.append(
@@ -754,12 +757,16 @@ public class PerformanceDAO {
 					" (select system_file_name,p_no,main_poster from poster where main_poster=1) pos																						");
 			sql.append(
 					"where perf.p_no=pos.p_no																							");
+			sql.append("and rn >= ? and rn <= ?                                                       ");
 			
 
 			pstmt = conn.prepareStatement(sql.toString());
-
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 
 			rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
 				PosterVO poster = new PosterVO();
 				poster.setSystemFileName(rs.getString(1));
@@ -769,6 +776,7 @@ public class PerformanceDAO {
 				performance.setStartDate(rs.getString(3));
 				performance.setEndDate(rs.getString(4));
 				performance.setPrice(rs.getInt(5));
+				performance.setpNo(rs.getString(6));
 				performances.add(performance);
 			}
 		} finally {

@@ -1,5 +1,8 @@
 package domain.reservation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ReservationVO {
 
 	String rNo;
@@ -12,8 +15,16 @@ public class ReservationVO {
 	int cardCoNo;
 	String mNo;
 	String oNo;
+	List<ReservedSeatVO> reservedSeat = new ArrayList<ReservedSeatVO>();
 	
-	
+	public List<ReservedSeatVO> getReservedSeat() {
+		return reservedSeat;
+	}
+
+	public void setReservedSeat(List<ReservedSeatVO> reservedSeat) {
+		this.reservedSeat = reservedSeat;
+	}
+
 	public ReservationVO() {
 		
 	}

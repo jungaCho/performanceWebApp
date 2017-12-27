@@ -37,12 +37,11 @@ public class ReservationDAO {
 			StringBuffer sql = new StringBuffer();
 
 			sql.append("insert into reserved_seat(seat_no, r_no)  ");
-			sql.append("values(?, ?)                              ");
+			sql.append("values(?, (select max(r_no) from reservation)) ");
 			pstmt = conn.prepareStatement(sql.toString());
 
 			for (ReservedSeatVO seat : seats) {
 				pstmt.setString(1, seat.getSeatNo());
-				pstmt.setString(2, seat.getrNo());
 				pstmt.addBatch();
 			}
 
@@ -213,10 +212,9 @@ public class ReservationDAO {
 	}
 
 	// 예매정보를 등록한다.
-	public String insertReservation(ReservationVO reservation, Connection conn) throws Exception {
+	public ReservationVO insertReservation(Connection conn, ReservationVO reservation) throws Exception {
 
-		PreparedStatement pstmt = null;
-		String rNo = "";
+		PreparedStatement pstmt = null;	
 		Statement stmt = null;
 
 		try {
@@ -239,19 +237,19 @@ public class ReservationDAO {
 			stmt = conn.createStatement();
 
 			sql.delete(0, sql.length());
-			sql.append("select ('R'||to_char(sysdate,'YYMMDD') || lpad(reservation_seq.currval,6,'0')) from dual                                                      ");
+			sql.append("select ('R'||to_char(sysdate,'YYMMDD') || lpad(reservation_seq.currval,6,'0')),lpad(round(dbms_random.value(0,999999),0),6,'0') from dual                                                      ");
 
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			if (rs.next()) {
-				rNo = rs.getString(1);
-				System.out.println("rNo : " + rNo);
+				reservation.setrNo(rs.getString(1));
+				reservation.setApproveNumber(rs.getString(2));				
 			}
 
 		} finally {
 			if (stmt != null) stmt.close();
 		}
 
-		return rNo;
+		return reservation;
 	}
 
 	// 환불 정보를 등록한다. (취소일자 등록, 예매상태 변경)
@@ -399,7 +397,7 @@ public class ReservationDAO {
 
 	// 특정 공연회차의 예매된 좌석을 조회한다.
 	public List<ReservedSeatVO> selectReservedSeat(String oNo) throws Exception {
-
+		System.out.println("회차번호 : " + oNo);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
