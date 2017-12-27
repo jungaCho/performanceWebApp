@@ -76,13 +76,15 @@ a {
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
 	$(document).ready(function() {
-    	  	
-		$('#btn1').click(function(){
+		
+		
+		
+		/* $('#btn1').click(function(){
 	      	$("input[name=check]:checked").each(function() {
 	      		var checked = $(this).val();
-	      		alert(checked);
+	      		location.href= '${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked='+checked;
 			});
-		});
+		}); */
 		
 		/* $('#btn1').click(function(){
 			var param = "";
@@ -90,9 +92,24 @@ a {
 				if
 			}
 		} */
+		
+			$('#btn1').on("click",function(){
+				
+				//string[] 공연번호를 배열로 넘긴다.
+				
+				var pNoArrays = [];
+				
+				pNoArrays.push($('#checkSelect:checked').val());
+	
+				location.href= "${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked="+pNoArrays;
+						
+				
+			});
     	  
     	  
             $("#btn3").on('click', function() {
+            	
+            
                   $.ajax({
                         url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
                         method : 'GET',
@@ -122,6 +139,7 @@ a {
             });
             
             $('#btn2').click(function(){
+            	
             	$("input[name=check]").prop("checked",false);
             });
       });
@@ -150,6 +168,8 @@ a {
 	<br>
 	<br>
 	<div id="div3">
+
+	<input type="hidden" value="${pageScope.performance.pNo }">
 		<table id="table" border="1" width=670>
 			<tr>
 				<th>선택</th>
@@ -165,7 +185,7 @@ a {
 					<c:param name="pNo" value="${pageScope.performance.pNo }" />
 				</c:url>
 				<tr>
-					<td><input type="checkbox" name="check" value="${pageScope.performance.pNo }"></td>
+					<td><input type="checkbox" name="box[]" value="${pageScope.performance.pNo }" id="checkSelect"></td>
 					<td>${pageScope.performance.pNo }</td>
 					<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
 					<td>${pageScope.performance.startDate }</td>
@@ -174,6 +194,7 @@ a {
 				</tr>
 			</c:forEach>
 		</table>
+		
 	</div>
 	<br>
 	<br>

@@ -578,7 +578,7 @@ public class PerformanceDAO {
 		try {
 			conn = DBConn.getConnection();
 			sql.append("delete from performance ");
-			sql.append("where pNo=? ");
+			sql.append("where p_no=? ");
 
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, pNo);
