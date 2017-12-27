@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import conn.DBConn;
 import domain.member.MemberVO;
@@ -80,7 +81,7 @@ public class MemberDAO {
 				member.setBirthday(rs.getString(4));
 				member.setEmail(rs.getString(5));
 				member.setAddress(rs.getString(6));
-				if(rs.getString(7) != null) {
+				if (rs.getString(7) != null) {
 					RankVO rank = new RankVO();
 					rank.setrName(rs.getString(7));
 					member.setRank(rank);
@@ -158,43 +159,30 @@ public class MemberDAO {
 				conn.close();
 		}
 	}
-/*
-	public String loginMember(String mId, String mPw) throws Exception {
-		String mNo = "";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = DBConn.getConnection();
 
-			StringBuffer sql = new StringBuffer();
-			sql.append("select m_no						");
-			sql.append("from member						");
-			sql.append("where m_id = ? and m_pw = ? 	");
-
-			pstmt = conn.prepareStatement(sql.toString());
-			
-			pstmt.setString(1, mId);
-			pstmt.setString(2, mPw);
-
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				mNo = rs.getString(1);
-			}
-				
-		} finally {
-			if (rs!=null)
-				rs.close();
-			if (pstmt != null)
-				pstmt.close();
-			if (conn != null)
-				conn.close();
-		}
-		return mNo;
-	}
-*/
+	/*
+	 * public String loginMember(String mId, String mPw) throws Exception { String
+	 * mNo = ""; Connection conn = null; PreparedStatement pstmt = null; ResultSet
+	 * rs = null;
+	 * 
+	 * try { conn = DBConn.getConnection();
+	 * 
+	 * StringBuffer sql = new StringBuffer();
+	 * sql.append("select m_no						");
+	 * sql.append("from member						");
+	 * sql.append("where m_id = ? and m_pw = ? 	");
+	 * 
+	 * pstmt = conn.prepareStatement(sql.toString());
+	 * 
+	 * pstmt.setString(1, mId); pstmt.setString(2, mPw);
+	 * 
+	 * rs = pstmt.executeQuery();
+	 * 
+	 * while(rs.next()) { mNo = rs.getString(1); }
+	 * 
+	 * } finally { if (rs!=null) rs.close(); if (pstmt != null) pstmt.close(); if
+	 * (conn != null) conn.close(); } return mNo; }
+	 */
 	public MemberVO loginMember(String mId, String mPw) throws Exception {
 		MemberVO member = new MemberVO();
 		String mNo = "";
@@ -202,7 +190,7 @@ public class MemberDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			conn = DBConn.getConnection();
 
@@ -212,15 +200,15 @@ public class MemberDAO {
 			sql.append("where m_id = ? and m_pw = ? 	");
 
 			pstmt = conn.prepareStatement(sql.toString());
-			
+
 			pstmt.setString(1, mId);
 			pstmt.setString(2, mPw);
 
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				mNo = rs.getString(1);
-				if(mNo!=null) {
+				if (mNo != null) {
 					member.setmId(mId);
 				}
 				member.setmNo(mNo);
@@ -228,7 +216,7 @@ public class MemberDAO {
 				member.setWithdrawal(withdrawal);
 			}
 		} finally {
-			if (rs!=null)
+			if (rs != null)
 				rs.close();
 			if (pstmt != null)
 				pstmt.close();
@@ -237,13 +225,13 @@ public class MemberDAO {
 		}
 		return member;
 	}
-	
+
 	public boolean checkOverLapId(String mId) throws Exception {
 		// 1. DB에 접속해 회원 아이디를 조회한다.
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			conn = DBConn.getConnection();
 
@@ -259,21 +247,16 @@ public class MemberDAO {
 
 			while (rs.next()) {
 
-				String memberId = rs.getString(1);
-				String wdCheck = rs.getString(2);
-
+				String memberId = rs.getString(2);
+				String wdCheck = rs.getString(3);
+				System.out.println("wdCheck : " + wdCheck);
 				// 똑같은 이름의 아이디가 존재하는 지 먼저 체크
 				if (memberId.equals(mId)) {
-
-					// 탈퇴여부가 F일때는
-					if (wdCheck != "T") {
+					if (wdCheck.equals("T")) {
 						return false; // false
 					}
-					
-				} else {
 					return true;
 				}
-
 			}
 			return false;
 
@@ -285,7 +268,7 @@ public class MemberDAO {
 			if (conn != null)
 				conn.close();
 		}
-		
+
 	}
 
 	public boolean checkOverLapEmail(String email) throws Exception {
@@ -352,17 +335,13 @@ public class MemberDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		String mId ="";
+		String mId = "";
 		MemberVO member = new MemberVO();
-		
-		try 
-			{
-			
+		try {
 			conn = DBConn.getConnection();
 
 			StringBuffer sql = new StringBuffer();
-			sql.append("select m_id						");
+			sql.append("select m_id	,withdrawal			");
 			sql.append("from member						");
 			sql.append("where m_name = ? and email = ?	");
 
@@ -370,24 +349,18 @@ public class MemberDAO {
 
 			pstmt.setString(1, mName);
 			pstmt.setString(2, email);
-			
+
 			rs = pstmt.executeQuery();
-			
-			
-			
-			while(rs.next()) {
-				
-				
-				if(rs.getString(1) != null) {
-					mId = rs.getString(1);
-					member.setmId(mId); 
-					
+
+			while (rs.next()) {
+				if (rs.getString(1) != null) {
+					if(rs.getString(2).equals("F")) {
+						mId = rs.getString(1);
+						member.setmId(mId);	
+					}
 				}
-						
-										
 			}
 			return member;
-						
 		} finally {
 			if (rs != null)
 				rs.close();
@@ -400,7 +373,7 @@ public class MemberDAO {
 	}
 
 	public boolean searchPwd(String mId, String mName, String email) throws Exception {
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -415,7 +388,7 @@ public class MemberDAO {
 			sql.append("where m_id = ? and m_name = ? and email = ? 		");
 
 			pstmt = conn.prepareStatement(sql.toString());
-			
+
 			pstmt.setString(1, mId);
 			pstmt.setString(2, mName);
 			pstmt.setString(3, email);
@@ -426,7 +399,7 @@ public class MemberDAO {
 
 			while (rs.next()) {
 
-				if(rs.getString(1) != null ) {
+				if (rs.getString(1) != null) {
 					return true;
 				}
 			}
@@ -443,5 +416,42 @@ public class MemberDAO {
 		}
 	}
 
+	public void sendPwd(String tempPwd, String mId, String mName, String email) throws Exception {
+		/*Random random = new Random();
+
+		String randomN[] = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,0,1,2,3,4,5,6,7,8,9".split(",");
+
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < 10; i++) {
+			buffer.append(randomN[random.nextInt(randomN.length)]);
+		}
+
+		String tempPwd = buffer.toString();
+*/
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConn.getConnection();
+
+			StringBuffer sql = new StringBuffer();
+			sql.append("update member												");
+			sql.append("set m_pw = ? 												");
+			sql.append("where m_id = ? and m_name = ? and email = ?					");
+
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, tempPwd);
+			pstmt.setString(2, mId);
+			pstmt.setString(3, mName);
+			pstmt.setString(4, email);
+
+			pstmt.executeUpdate();
+
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+	}
 
 }

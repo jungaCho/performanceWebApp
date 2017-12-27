@@ -27,10 +27,10 @@ public class InsertScheduleCommand implements Command {
 		String sDate = req.getParameter("sDate");
 		String oTime = req.getParameter("oTime");
 		
-		OrderVO order = new OrderVO();
-		oTime = order.getoTime();
 		
-		List<ScheduleVO> schedules = new ArrayList<ScheduleVO>(sDate, pNo, tNo, order);		
+		List<OrderVO> orders = new ArrayList<OrderVO>();
+		List<ScheduleVO> schedules = new ArrayList<ScheduleVO>();
+		
 		ActionForward forward = new ActionForward();
 		try {
 			// 2. DB에 일정 정보 등록
@@ -46,5 +46,6 @@ public class InsertScheduleCommand implements Command {
 
 			return forward;
 		}
+		return null;
 	}
 }

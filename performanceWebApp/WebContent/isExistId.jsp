@@ -18,7 +18,7 @@
 
 <div id="box">
 
-<span id="span1">"${requestScope.member.mId }"</span><br>
+<span id="span1">"${sessionScope.findIdSession.mId }"</span><br>
 <span id="span2">현재 조회된 아이디입니다!</span><br>
 
 </div>

@@ -15,12 +15,10 @@
 			 var authNumber1 = '${sessionScope.authNumber}';
 			 var authNumber2 =  $(':text[name=authNumber]').val();
 			 if(authNumber1 == authNumber2) {
-				$(opener.document).find('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 성공하였습니다. </span>"); 					
-				  
+				$(opener.document).find('#btnCheckEmail').after("<br><span id='accept'> 이메일 인증에 성공하였습니다. </span>");
 			 } else {				 
-				 $(opener.document).find('#btnCheckEmail').after("<span id='span1'> 이메일 인증에 실패하였습니다. </span>");				
+				 $(opener.document).find('#btnCheckEmail').after("<br><span id='problem'> 이메일 인증에 실패하였습니다. </span>");
 			 }
-			 
 			 window.close();
 		});		
 		

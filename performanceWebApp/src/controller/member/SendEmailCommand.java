@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
-import model.service.member.MemberService;
+import model.service.member.EmailService;
 
 public class SendEmailCommand implements Command {
 
@@ -33,17 +33,13 @@ public class SendEmailCommand implements Command {
 		String authNumber = buffer.toString();
 		System.out.println("authNumber : " + authNumber);
 		
-		
 		HttpSession session = req.getSession();		
 		session.setAttribute("authNumber", authNumber);
 		
-		
 		ActionForward forward = new ActionForward();
-		try {			
-			
-			MemberService service = MemberService.getInstance();	
+		try {
+			EmailService service = EmailService.getInstance();	
 			boolean flag = service.sendEmail(email, authNumber);
-			
 			
 			System.out.println("flag : " + flag);
 			if(flag) {

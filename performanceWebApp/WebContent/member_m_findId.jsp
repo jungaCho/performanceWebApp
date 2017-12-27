@@ -22,7 +22,32 @@ $(document).ready(function(){
 			alert("이메일을 입력해주세요!!");
 			return false;
 		}
-		return true;
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/findId.do"
+			,
+			method: 'POST'
+			,
+			dataType: 'json'
+			,
+			data: {
+				name: $('#name').val(),
+				email: $('#email').val()
+			}
+			,
+			success: function(data) {
+				if(data.success == true) {
+					location.href="${pageContext.request.contextPath}/findIdRetrieve.do";
+				} else if (data.success == false) {
+					alert("해당 정보의 아이디가 존재하지 않습니다!!");
+					return false;
+				}
+			}
+			,
+			error: function() {
+				alert("error : " + jqXHR.status);
+			}
+		});
 	}); 
 });
 
@@ -30,16 +55,17 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath }/findId.do" method="post">
+	<%-- <form action="${pageContext.request.contextPath }/findId.do" method="post"> --%>
+	<form>
 		<div id="box">
 			이름과 이메일을 입력해주세요!<br>
-			<input type="hidden" name="member" value="${requestScope.member }">
+		<%-- 	<input type="hidden" name="member" value="${requestScope.member }"> --%>
 			이름<br>
 			<input type="text" id="name" name="name" size="30" placeholder="이름을 입력해주세요"/><br>
 			Email<br>
 			<input type="email" id="email" name="email" size="30" placeholder="이메일을 입력해주세요"/><br>
 			<br>
-			<button id ="findId">아이디 찾기</button>&nbsp;
+			<button type="submit" id ="findId">아이디 찾기</button>&nbsp;
 			<button type="button" id ="cancel">취소</button>
 		</div>
 	</form>

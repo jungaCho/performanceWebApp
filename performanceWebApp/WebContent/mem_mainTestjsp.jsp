@@ -46,7 +46,7 @@ footer {
 }
 
 #loginm {
-	
+	font-size: 18px;	
 	font-weight: none;
 
 }
