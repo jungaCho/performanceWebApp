@@ -660,7 +660,7 @@ public class PerformanceDAO {
 		}
 		return totalPost;
 	}
-
+/*
 	//모든 공연의 제목 구하기
 	public List<String> selectTitles() throws Exception{
 		PreparedStatement pstmt=null;
@@ -670,7 +670,7 @@ public class PerformanceDAO {
 		try {
 			conn=DBConn.getConnection();
 			StringBuffer sql=new StringBuffer();
-			sql.append("select title     ");
+			sql.append("select title ,     ");
 			sql.append("from performance  ");
 			pstmt=conn.prepareStatement(sql.toString());
 			
@@ -681,6 +681,36 @@ public class PerformanceDAO {
 				titles.add(title);
 			}
 			return titles;
+			
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+	}*/
+	
+	public PerformanceVO selectPerformance() throws Exception {
+		PreparedStatement pstmt=null;
+		Connection conn=null;
+		ResultSet rs=null;
+		PerformanceVO performance = new PerformanceVO();
+		try {
+			conn=DBConn.getConnection();
+			StringBuffer sql=new StringBuffer();
+			sql.append("select p_no, title    ");
+			sql.append("from performance  ");
+			pstmt=conn.prepareStatement(sql.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				performance.setpNo(rs.getString(1));
+				performance.setTitle(rs.getString(2));
+			}
+			return performance;
 			
 		} finally {
 			if (rs != null)

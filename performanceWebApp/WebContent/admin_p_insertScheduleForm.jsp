@@ -77,8 +77,8 @@ button {
 				dataType: 'json'
 				,
 				data: {
-					sDate: $('#td1').text()
-					oTime: $('#td2').text();
+					sDate: $('#td1').text(),
+					oTime: $('#td2').text()
 				}
 				,
 				success: function() {
