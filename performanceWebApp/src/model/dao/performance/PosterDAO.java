@@ -90,7 +90,7 @@ public class PosterDAO {
 		}
 	}
 	
-	//공연 포스터 정보를 수정한다.
+	/*//공연 포스터 정보를 수정한다.
 	public void updatePoster(Connection conn,PosterVO poster) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
@@ -107,7 +107,7 @@ public class PosterDAO {
 		} finally {
 			if(pstmt!=null) pstmt.close();
 		}
-	}
+	}*/
 	
 	//공연에 해당하는 업로드된 포스터 파일 목록을 조회하다.
 		public List<PosterVO> selectPoster(String pNo) throws Exception {

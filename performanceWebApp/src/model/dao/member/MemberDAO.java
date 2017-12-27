@@ -372,12 +372,9 @@ public class MemberDAO {
 
 	}
 
-	public boolean searchPwd(String mId, String mName, String email) throws Exception {
-
-		Connection conn = null;
+	public boolean searchPwd(Connection conn, String mId, String mName, String email) throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
 		try {
 
 			conn = DBConn.getConnection();
@@ -398,12 +395,10 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-
 				if (rs.getString(1) != null) {
 					return true;
 				}
 			}
-
 			return false;
 
 		} finally {
@@ -411,24 +406,11 @@ public class MemberDAO {
 				rs.close();
 			if (pstmt != null)
 				pstmt.close();
-			if (conn != null)
-				conn.close();
 		}
 	}
 
-	public void sendPwd(String tempPwd, String mId, String mName, String email) throws Exception {
-		/*Random random = new Random();
+	public void sendPwd(Connection conn, String tempPwd, String mId, String mName, String email) throws Exception {
 
-		String randomN[] = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,0,1,2,3,4,5,6,7,8,9".split(",");
-
-		StringBuffer buffer = new StringBuffer();
-		for (int i = 0; i < 10; i++) {
-			buffer.append(randomN[random.nextInt(randomN.length)]);
-		}
-
-		String tempPwd = buffer.toString();
-*/
-		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = DBConn.getConnection();
@@ -449,8 +431,6 @@ public class MemberDAO {
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
-			if (conn != null)
-				conn.close();
 		}
 	}
 

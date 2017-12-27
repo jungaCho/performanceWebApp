@@ -32,7 +32,7 @@
 				alert("이메일을 입력해주세요!");
 				return false;
 			}
-			
+					
 			//임시비밀번호발급 팝업창으로 넘어가기.	
 			$.ajax({
 				url: "${pageContext.request.contextPath}/sendTempPwd.do"
@@ -49,18 +49,17 @@
 					email: $('#email').val()
 				}
 				,
-				success: function(data){
+				success: function(data) {
 					if(data.success == true){
 						var newWin = window.open("${pageContext.request.contextPath}/tempPwdForm.jsp","","width=400, height=300, top=200,left=200");
-						//alert("해당 정보의 이메일로 임시비밀번호가 발송되었습니다.")
 					} else {
-						alert("올바른 이메일 주소를 입력해주세요.");
+						alert("입력하신 정보에 해당하는 회원정보가 없습니다!");
 						return false;
 					}
 				}
 				,
-				error: function(jqXHR){
-					$('#findPwd').after("<span id=span1>임시비밀번호 발급에 실패했습니다.</span1>");
+				error: function(jqXHR) {
+					alert("임시비밀번호 발급에 실패했습니다!!");
 				}
 			});
 		});

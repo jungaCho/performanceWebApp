@@ -29,6 +29,14 @@ public ReservationVO(String cardNumber, int totalPrice, int cardCoNo, String mNo
 		this.approveNumber = approveNumber;
 	}
 
+public ReservationVO(String cardNumber, int totalPrice, int cardCoNo, String mNo, String oNo) {
+	super();
+	this.cardNumber = cardNumber;
+	this.totalPrice = totalPrice;
+	this.cardCoNo = cardCoNo;
+	this.mNo = mNo;
+	this.oNo = oNo;
+}
 
 
 	public ReservationVO(String rNo, String rStatus, String rDate, String cardNumber, String approveNumber,
