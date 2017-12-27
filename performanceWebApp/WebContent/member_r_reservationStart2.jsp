@@ -173,17 +173,17 @@ label {
 				<dl>
 					<dt class="seatPadding">
 						<c:forEach var="seat" items="${requestScope.seats}">					
-								<c:if test="${fn:length(requestScope.vo.reservedSeats) > 0 }">
-								<c:forEach var="reservedSeat" items="${requestScope.vo.reservedSeats}">	
-									<c:if test="${pageScope.seat.seatNumber == pageScope.reservedSeat.seatNumber}">
-											<label class="reservedSeat" id="${pageScope.seat.seatNo }">${pageScope.seat.seatNumber}</label>
-									</c:if>
-									<c:if test="${pageScope.seat.seatNumber != pageScope.reservedSeat.seatNumber}">
-											<label id="${pageScope.seat.seatNo }">${pageScope.seat.seatNumber}</label>
-									</c:if>														   
-								</c:forEach>
+								<c:if test="${fn:length(requestScope.reservedSeats) > 0 }">
+									<c:forEach var="reservedSeat" items="${requestScope.reservedSeats}">	
+										<c:if test="${pageScope.seat.seatNumber == pageScope.reservedSeat.seatNumber}">
+												<label class="reservedSeat" id="${pageScope.seat.seatNo }">${pageScope.seat.seatNumber}</label>
+										</c:if>
+										<c:if test="${pageScope.seat.seatNumber != pageScope.reservedSeat.seatNumber}">
+												<label id="${pageScope.seat.seatNo }">${pageScope.seat.seatNumber}</label>
+										</c:if>														   
+									</c:forEach>
 								</c:if>
-								<c:if test="${fn:length(requestScope.vo.reservedSeats) ==  0 }">
+								<c:if test="${fn:length(requestScope.reservedSeats) ==  0 }">
 									<label id="${pageScope.seat.seatNo }">${pageScope.seat.seatNumber}</label>		
 								</c:if>																											
 						</c:forEach>						
