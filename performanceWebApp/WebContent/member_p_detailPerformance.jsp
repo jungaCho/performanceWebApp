@@ -91,10 +91,6 @@ a {
 					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
 									width="50px" height="50px" id="img">
 				</c:if>
-					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
-									width="50px" height="50px" id="img">
-					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
-									width="50px" height="50px" id="img">
 			</c:forEach>
 			<br>
 			<button type="button" id="btn2" type="button">예매하기</button>

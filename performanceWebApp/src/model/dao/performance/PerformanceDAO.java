@@ -687,13 +687,12 @@ public class PerformanceDAO {
 	}
 
 	// 공연 정보를 삭제한다.
-	public void deletePerformance(String pNo) throws Exception {
-		Connection conn = null;
+	public void deletePerformance(Connection conn, String pNo) throws Exception {
+		
 		PreparedStatement pstmt = null;
 		StringBuffer sql = new StringBuffer();
-
 		try {
-			conn = DBConn.getConnection();
+			
 			sql.append("delete from performance ");
 			sql.append("where p_no=? ");
 
@@ -705,8 +704,7 @@ public class PerformanceDAO {
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
-			if (conn != null)
-				conn.close();
+			
 		}
 	}
 
