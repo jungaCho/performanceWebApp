@@ -59,9 +59,9 @@ public class PerformanceDAO {
 						"from performance order by title asc) p) perf , poster pos															");
 				sql.append(
 						"where perf.p_no = pos.P_NO																						 	");
-				sql.append(
+			/*	sql.append(
 						"and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||?  and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?    ");
-				sql.append(
+		*/		sql.append(
 						"and pos.main_poster = 1    																														 ");
 			/*	sql.append(
 						"and perf.rn>=? and perf.rn<=? 																							");*/
@@ -101,7 +101,7 @@ public class PerformanceDAO {
 */
 			pstmt = conn.prepareStatement(sql.toString());
 
-			// 월 선택
+		/*	// 월 선택
 			String month = (String) map.get("month");
 			if (month != null) {
 				pstmt.setString(1, month);
@@ -113,7 +113,7 @@ public class PerformanceDAO {
 				month = String.valueOf(today.get(today.MONTH) + 1);
 				pstmt.setString(1, month);
 				pstmt.setString(2, month);
-			}
+			}*/
 
 			/*int startRow = (Integer) map.get("startRow");
 			int endRow = (Integer) map.get("endRow");

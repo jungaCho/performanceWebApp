@@ -2,8 +2,8 @@
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
         pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core";; %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions";; %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
         [
 
@@ -11,47 +11,47 @@
 
         {
 
-        "mNo" : ${pageScope.perfomances.pNo }
+        "mNo" : ${pageScope.sortedMember.pNo }
         ,
 
-        "title" : "${pageScope.perfomances.title }"
+        "title" : "${pageScope.sortedMember.title }"
         ,
 
-        "video" : "${pageScope.perfomances.video }"
+        "video" : "${pageScope.sortedMember.video }"
         ,
 
-        "startDate" : "${pageScope.perfomances.startDate }"
+        "startDate" : "${pageScope.sortedMember.startDate }"
         ,
 
-        "endDate" : "${pageScope.perfomances.endDate }"
+        "endDate" : "${pageScope.sortedMember.endDate }"
         ,
 
-        "production" : "${pageScope.perfomances.production }"
+        "production" : "${pageScope.sortedMember.production }"
         ,
 
-        "contactName" : "${pageScope.perfomances.contactName }"
+        "contactName" : "${pageScope.sortedMember.contactName }"
         ,
-        "contactNumber" : "${pageScope.perfomances.contactNumber }"
+        "contactNumber" : "${pageScope.sortedMember.contactNumber }"
         ,
-        "runningTime" : "${pageScope.perfomances.runningTime }"
+        "runningTime" : "${pageScope.sortedMember.runningTime }"
         ,
-        "note" : "${pageScope.perfomances.note }"
+        "note" : "${pageScope.sortedMember.note }"
         ,
-        "price" : "${pageScope.perfomances.price }"
+        "price" : "${pageScope.sortedMember.price }"
         ,
-        "viewNo" : "${pageScope.perfomances.viewNo }"
+        "viewNo" : "${pageScope.sortedMember.viewNo }"
         ,
-        "viewClass" : "${pageScope.perfomances.viewClass }"
+        "viewClass" : "${pageScope.sortedMember.viewClass }"
         ,
-        "genreNo" : "${pageScope.perfomances.genreNo }"
+        "genreNo" : "${pageScope.sortedMember.genreNo }"
         ,
-        "viewNo" : "${pageScope.perfomances.viewNo }"
+        "viewNo" : "${pageScope.sortedMember.viewNo }"
         ,
-        "genre" : "${pageScope.perfomances.genre }"
+        "genre" : "${pageScope.sortedMember.genre }"
         ,
-        "tNo" : "${pageScope.perfomances.tNo }"
+        "tNo" : "${pageScope.sortedMember.tNo }"
         ,
-        "tName" : "${pageScope.perfomances.tName }"
+        "tName" : "${pageScope.sortedMember.tName }"
 
         }
 
