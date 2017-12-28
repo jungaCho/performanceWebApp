@@ -45,7 +45,7 @@ public class PerformanceDAO {
 			conn = DBConn.getConnection();
 			StringBuffer sql = new StringBuffer();
 
-			String mode = (String) map.get("mod");
+			String mode = (String) map.get("mode");
 			// 이미지 보기 텍스트 보기
 			
 			if (mode.equals("image")) {
