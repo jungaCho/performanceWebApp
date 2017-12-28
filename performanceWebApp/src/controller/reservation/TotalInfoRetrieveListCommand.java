@@ -30,7 +30,7 @@ public class TotalInfoRetrieveListCommand implements Command {
 		
 		PagingVO paging = new PagingVO();
 		
-		paging.setPostPerpage(11);
+		paging.setPostPerpage(5);
 		paging.setPageBlock(5);
 		paging.setCurrentPage(currentPage);
 		
