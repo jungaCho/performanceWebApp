@@ -67,7 +67,6 @@
 			<br><br>
 			등급이름 : ${requestScope.member.rank.rName }<br>
 			예매 공연 횟수 : ${requestScope.reservedCount} <br>
-			
 			</div>
 		</div>
 	

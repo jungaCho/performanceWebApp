@@ -93,9 +93,8 @@ form {
 		</div>
 		<div id="box2">
 			${requestScope.member.rank.rName } 회원<br>
-			<br>
-			예매 공연 횟수 :	<br> 
-			총 결제액 : 
+			예매 공연 횟수 : ${requestScope.reservedCount} <br>
+			총 결제액 : ${requestScope.totalPrice }<br>
 		</div>
 
 		<div id="box3">

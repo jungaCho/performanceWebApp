@@ -11,6 +11,7 @@ import controller.ActionForward;
 import controller.Command;
 import domain.member.MemberVO;
 import model.service.member.MemberService;
+import model.service.reservation.ReservationService;
 
 public class RetrieveMemberCommand implements Command {
 
@@ -20,12 +21,15 @@ public class RetrieveMemberCommand implements Command {
 		
 		HttpSession session = req.getSession();
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		
+		String mNo = member.getmNo(); 
+				
 		ActionForward forward = new ActionForward();
 		try {
 			MemberVO vo = MemberService.getInstance().retrieveMember(member.getmNo());			
-
+			int reservedCount = ReservationService.getInstance().selectTotalList(mNo);
+			
 			req.setAttribute("member", vo);
+			req.setAttribute("reservedCount", reservedCount);
 			
 			System.out.println("session : " + member.getmNo());
 			System.out.println("member : " + req.getAttribute("member"));

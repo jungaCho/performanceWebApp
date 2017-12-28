@@ -48,7 +48,7 @@ $(document).ready(function(){
 		}
 		
 		$.ajax({
-			url: '${pageContext.request.contextPath}/canceledReservation.do'
+			url: '${pageContext.request.contextPath}/canceledReservation.do?rNo=${sessionScope.totalInfos.rNo}'
 			,
 			method: 'POST'
 			,
@@ -58,7 +58,7 @@ $(document).ready(function(){
 				pwd: $('#pwd').val()
 			}
 			,
-			success: function() {
+			success: function(data) {
 				if(data.success == 0) {
 					alert("예매가 취소되었습니다!!");
 					location.href="${pageContext.request.contextPath}/totalInfoRetrieveList.do"

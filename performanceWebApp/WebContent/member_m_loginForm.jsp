@@ -78,6 +78,7 @@ input {
 				,
 				error: function(){
 					alert("error : " + jqXHR.status);
+					return false;
 				}
 			});
 		
