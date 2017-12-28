@@ -69,6 +69,13 @@ a {
 	$(document).ready(function(){
 		
 		
+		$('#btnImage').on("click", function(){
+			
+			location.href = "${pageContext.request.contextPath}/member_p_selectPerformance.do";
+			
+		});
+		
+		
 		$('#btnText').on("click",function(){
 		
 			
@@ -94,12 +101,20 @@ a {
 			},
 			
 			success: function(data){
+					
+					$('#datas').css({
+						
+						width: "800px",
+						height: "800px"
+						
+						
+						
+					});
 				
 					$('#datas').find('tr').remove(); 
 					
 					var htmlStr = "";
 					
-					 htmlStr += "<table id='table' border='1' width=600>"; 
 					
 					 for(var i=0; i<data.length; i++){
 											
@@ -126,7 +141,6 @@ a {
 						
 					}
 					 
-				htmlStr += "</table>"; 
 					
 			}
 		
@@ -141,8 +155,176 @@ a {
 		});
 		
 		
+		//뮤지컬 장르 선택
 		
-	});
+		$('#btnGenre').on("click",function(){
+			
+			
+			
+			$.ajax({
+				
+				url: "${pageContext.request.contextPath}/member_r_selectpByview.do"
+				,
+				method : "POST"
+				,
+				dataType: 'json'
+				,
+				data: {
+					
+					
+					startRow: 1,
+					endRow: 10,
+					mode: $('#btnText').val(),
+					genre: $('#genre').find('option:selected').val(),
+					keyword: $('#keyword').val(),
+					month: $('div1').find('li').val()			
+					
+				},
+				
+				success: function(data){
+					
+						$('#datas').css({
+						
+						width: "800px",
+						height: "800px"
+						
+						
+						
+						});
+					
+						$('#datas').find('tr').remove(); 
+						
+						
+						var htmlStr = "";
+						
+						
+						 for(var i=0; i<data.length; i++){
+												
+							
+							htmlStr += "<tr>";
+							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
+							htmlStr += "<th>" +"기간"+ "</th>";
+							htmlStr += "<th>" +"장소"+ "</th>";
+							htmlStr += "<th>" +"예매"+ "</th>";
+							htmlStr += "</tr>";
+							
+							htmlStr += "<tr>";
+							htmlStr += "<td>" + data[i].title +"</td>";
+							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
+							htmlStr += "<td>" + data[i].tName + "</td>";
+							
+						    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+							htmlStr += "</tr>";
+									
+							
+							$(htmlStr).appendTo('#datas');
+							
+							htmlStr = "";
+							
+						}
+						 
+	
+						
+				}
+			
+				,
+				error: function(jaXHR){
+					alert("error: " + jaXHR.error );
+					
+				}
+				
+			});
+			
+			});
+		
+		//검색
+	
+		
+		$('#btn1').on("click",function(){
+			
+			
+			
+			$.ajax({
+				
+				url: "${pageContext.request.contextPath}/member_r_selectpByview.do"
+				,
+				method : "POST"
+				,
+				dataType: 'json'
+				,
+				data: {
+					
+					
+					startRow: 1,
+					endRow: 10,
+					mode: $('#btnText').val(),
+					keyword: $('#keyword').val(),
+					month: $('div1').find('li').val()			
+					
+				},
+				
+				success: function(data){
+					
+						$('#datas').css({
+						
+						width: "800px",
+						height: "800px"
+						
+						
+						
+						});
+					
+						$('#datas').find('tr').remove(); 
+						
+						var htmlStr = "";
+						
+						
+						 for(var i=0; i<data.length; i++){
+												
+							
+							htmlStr += "<tr>";
+							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
+							htmlStr += "<th>" +"기간"+ "</th>";
+							htmlStr += "<th>" +"장소"+ "</th>";
+							htmlStr += "<th>" +"예매"+ "</th>";
+							htmlStr += "</tr>";
+							
+							htmlStr += "<tr>";
+							htmlStr += "<td>" + data[i].title +"</td>";
+							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
+							htmlStr += "<td>" + data[i].tName + "</td>";
+							
+						    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+							htmlStr += "</tr>";
+									
+							
+							$(htmlStr).appendTo('#datas');
+							
+							htmlStr = "";
+							
+						}
+						 
+	
+						
+				}
+			
+				,
+				error: function(jaXHR){
+					alert("error: " + jaXHR.error );
+					
+				}
+				
+			});
+			
+			});
+			
+			
+			
+			
+		});
+
+		
+
 </script>
 </head>
 <body>
@@ -171,47 +353,48 @@ a {
 			<div id="div2-2">
 				<button type="button" id="btnImage" value="image">이미지보기</button>
 				<button type="button" id="btnText" value="text">텍스트보기</button>
+				
+				
 				<select id="genre">
 					<option value="뮤지컬">뮤지컬</option>
 					<option value="연극">연극</option>
 					<option value="콘서트">콘서트</option>
 				</select>
+				
+				<button type="button" id="btnGenre" value="text">만 보기</button>
 			</div>
 		</div>
 		<br> <br>
-		<div id="div3">
-			<table id="datas" border="1" width=180>
-				<tr>
-					<td>${pageScope.performance.sDate }</td>
-					<td><button type="submit" id="btn2">예매하기</button>
-				</tr>
-				<tr>
-					<c:forEach var="performance" items="${requestScope.performances }"
-						varStatus="loop">
-						<c:url var="url" value="/member_p_detailPerformance.do"
-							scope="page">
-							<c:param name="pNo" value="${pageScope.performance.pNo }" />
-						</c:url>
-						<c:forEach var="poster"
-							items="${requestScope.performance.posters}">
-							<td colspan='2'><a href="${pageScope.url }"><img
-									src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
-									alt="사진"></td>
-						</c:forEach>
-					</c:forEach>
-				</tr>
-				<tr>
-					<c:forEach var="performance" items="${requestScope.performances }"
-						varStatus="loop">
-						<c:url var="url" value="/member_p_detailPerformance.do"
-							scope="page">
-							<c:param name="pNo" value="${pageScope.performance.pNo }" />
-						</c:url>
-						<td><a href="${pageScope.url }">${pageScope.performance.title }</td>
-					</c:forEach>
-				</tr>
-			</table>
-		</div>
+		<div class="reservation">
+                     <!-- r_img -->
+                    
+                           <c:forEach var="performance" items="${requestScope.performances }"
+                                  varStatus="loop">
+                                  <c:url var="url" value="/member_p_detailPerformance.do" scope="page">
+                                         <c:param name="pNo" value="${pageScope.performance.pNo }" />
+                                  </c:url>
+                                  <c:forEach var="poster" items="${pageScope.performance.posters}">
+                                         <c:if test="${pageScope.poster.mainPoster == 1}">
+                                            <a href="${pageScope.url}"><img
+                                                       src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}.jpg"
+                                                       width="100px" height="150px" id="img"></a>
+                                         </c:if>
+                                    </c:forEach>     
+                                          <ul id="ul">
+			                                  <!-- r_text_title -->
+			                                  <li class="r_text_title"><h1><a href="${pageScope.url}"><bold>공연명 : ${pageScope.performance.title }</bold></a></h1></li>
+			                                  <!-- t_text_date -->
+			                                  
+			                                  <!-- r_text_button -->
+			                                  <li class="r_text_button">
+			                                  	<a href="${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=${pageScope.performance.pNo}" id="open">예매하기</a></li>
+			                           </ul><br>
+                                  
+                           </c:forEach>
+                   
+                     <!-- r_text -->
+                   
+              </div>
 	</form>
 </body>
 </html>

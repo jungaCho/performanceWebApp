@@ -50,12 +50,14 @@ public class ListPerformanceByMemberCommand implements Command {
             map.put("month",month);*/
 
             PerformanceService service = PerformanceService.getInstance();
-            List<PerformanceVO> perfomances = service.retrievePerformanceListByMember(map);
-
-            if(perfomances != null) {
-                req.setAttribute("perfomances", perfomances);
+            PerformanceDAO performanceDao = PerformanceDAO.getInstance();
+            List<PerformanceVO> performances = service.retrievePerformanceListByMember(map);
+          
+            if(performances != null) {
+                req.setAttribute("performances", performances);
                 forward.setPath("/member_p_layout2.jsp?article=member_p_selectPerformance"); 
                 forward.setRedirect(false);
+                
             } else {
             	forward.setPath("/member_p_layout2.jsp?article=member_m_findId");
     			forward.setRedirect(false);
