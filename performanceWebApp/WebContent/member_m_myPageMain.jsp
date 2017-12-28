@@ -4,9 +4,14 @@
 <head>
 <meta charset="utf-8">
 <title>아이디 찾기</title>
+<style>
+.wrap{padding:50px;}
+</style>
 </head>
 <body>
+	<div class="wrap">
 	<h3>나의 관람내역</h3><br>
 	session : ${not empty sessionScope.member}
+	</div>
 </body>
 </html>

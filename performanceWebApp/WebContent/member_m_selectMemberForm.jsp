@@ -25,9 +25,11 @@
 		float: left;	
 	}
 	
+	.wrap{padding:50px;}
 	</style>
 </head>
 <body>
+<div class="wrap">
 session : ${not empty sessionScope.member}<br>
 	<form action="${pageContext.request.contextPath }/modifyForm.do" method="post">
 		<div id="pannel">
@@ -56,5 +58,6 @@ session : ${not empty sessionScope.member}<br>
 	
 	
 	</form>
+</div>
 </body>
 </html>

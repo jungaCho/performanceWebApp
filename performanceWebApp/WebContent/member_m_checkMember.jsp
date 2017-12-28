@@ -11,6 +11,7 @@
 	#box {
 		margin-top:100px;
 	}
+	.wrap{padding:50px;}
 </style>
 </head>
 <script src="js/jquery-3.2.1.min.js"></script>
@@ -26,6 +27,7 @@
 	});
 </script>
 <body>
+	<div class="wrap">
 	<form action="${pageContext.request.contextPath }/checkMember.do" method="POST">
 		<h3>본인확인</h3><br>
 		본인확인을 위해 비밀번호를 입력해주세요.<br>
@@ -33,5 +35,6 @@
 			<input type="password" id="pwd" name="pwd" placeholder="비밀번호 확인"/>&nbsp;<button type="submit" id="btn1">next></button>
 		</div>
 	</form>
+	</div>
 </body>
 </html>
