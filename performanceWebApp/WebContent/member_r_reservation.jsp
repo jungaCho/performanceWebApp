@@ -75,20 +75,23 @@
 		list-style:none;
 		color:gray;
 	}
-	#open{
+	.reservation a{
 		margin-top:10px;
 	 	-webkit-appearance: button;
 	      -moz-appearance: button;
 	      appearance: button;
 	      color:red;
+	      cursor:pointer;
 
 	}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
        $(document).ready(function() {
-              $('#open').click(function() {
-                     window.open(url, "예매확인","width=700, height=600");
+              $('.reservation  a').click(function() {
+            	  	var p_no = $(this).attr('id');
+            	  	var url = '${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=' + p_no;
+            	  	window.open(url, "예매확인","width=700, height=600");
               });
        });
 </script>
@@ -124,7 +127,7 @@
 			                                  </li>
 			                                  <!-- r_text_button -->
 			                                  <li class="r_text_button">
-			                                  	<a href="${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=${pageScope.performance.pNo}" id="open">예매하기</a></li>
+			                                  	<a id="${pageScope.performance.pNo}">예매하기</a></li>
 			                           </ul><br>
                                   
                            </c:forEach>

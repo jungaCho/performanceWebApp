@@ -1,4 +1,6 @@
 <%@page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,7 +10,7 @@
 <style>
 form {
 	padding: 30px;
-	background-color: gray;
+	color: gray;
 	width: 800px;
 	height: 750px;
 }
@@ -75,7 +77,7 @@ a {
 		<div id="div2">
 			<div id="div2-1">
 				<input type="hidden" name="keyfield" value="title"/>
-				<input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요" size=60>
+				<input id="keyword" type="text" name="keyword"  placeholder="검색어를 입력하세요" size=60>
 				<button id="btn1" type="submit">검색</button>
 			</div>
 		</div>
@@ -106,10 +108,6 @@ a {
 						${requestScope.performance.endDate }</td>
 				</tr>
 				<tr>
-					<th>시간</th>
-					<td>${requestScope.performance.oTime }</td>
-				</tr>
-				<tr>
 					<th>장소</th>
 					<td>${requestScope.performance.tName }</td>
 				</tr>
@@ -137,15 +135,6 @@ a {
 		<hr width="800" align="center" color="black" size="1">
 		<br>
 
-		<div id="div4">
-			<table id="detailFile" border="1" width=800>
-				<tr>
-					<th>할인정보</th>
-					<td><img src="${pageContext.request.contextPath}/upload/할인정보.jpg" 
-									width="600px" height="200px" id="img"></td>
-				</tr>
-			</table>
-		</div>
 		<div id="div4">
 			<table id="detailFile" border="1" width=800>
 				<c:forEach var="detailFile" items="${requestScope.detailFiles }" varStatus="loop">
