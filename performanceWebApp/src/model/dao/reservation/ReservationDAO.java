@@ -471,19 +471,20 @@ public class ReservationDAO {
 			sql.append("  						   and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                   																    ");
 			sql.append("					   	   and mem.m_no = ?																													");
 			if (keyfield.equals("title")) {
-				sql.append("					   	   and 																													");
+				sql.append("					   and title like '%' || ? || '%'																													");
 			} else if (keyfield.equals("sDate")) {
-				sql.append("					   	   and mem.m_no = ?																													");
+				sql.append("					   and s_date like '%' || ? || '%'																									");
 			} else if (keyfield.equals("rStatus")) {
-				sql.append("					   	   and mem.m_no = ?																													");
+				sql.append("					   and r_status like '%' || ? || '%'																												");
 			}
 			sql.append("					   order by r_no desc ) rs ) res                                     																				    ");		
 			sql.append("where res.rn >= ? and res.rn <= ?                                  																					");
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setString(1, mNo);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, mNo);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			
 			rs = pstmt.executeQuery();
 

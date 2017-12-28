@@ -30,7 +30,7 @@ td{width:90px;}
 			alert("call");
 		});
 		
-		$('#reservedCancel').on('click','button',function() {
+		$('#table').on('click','button',function() {
 			alert("call");
 		});
 		
@@ -42,14 +42,29 @@ td{width:90px;}
 				,
 				dataType:'json'
 				,
-				data:
+				data: $('#keyfieldBox').serialize()
 				,
 				success: function() {
-					
+					$('#table').find('tr:not(:first)').remove();
+					var htmlStr ="";
+					for(var i=0;i<data.length;i++) {
+						htmlStr += "<tr>";
+						htmlStr += "<td>"+data[i].rNo+"</td>";
+						htmlStr += "<td>"+data[i].rDate+"</td>";
+						htmlStr += "<td>"+data[i].title+"</td>";
+						htmlStr += "<td>"+data[i].sDate+"</td>";
+						htmlStr += "<td>"+2+"</td>";
+						htmlStr += "<td>"+data[i].rStatus+"</td>";
+						htmlStr += "<td><button id='detailView' type="submit">상세보기</button></td>";
+						htmlStr += "<td><button id='reservedCancel' type="submit">예약취소</button></td>";
+						htmlStr += "<tr>";
+						$(htmlStr).appendTo("#table");
+						htmlStr += "";
+					}
 				}
 				,
 				error: function() {
-					
+					alert("error : " + jqXHR.status);
 				}
 			});
 		});
@@ -66,7 +81,7 @@ td{width:90px;}
 			<span style="font-size: 17px;">예매 내역</span> <br>
 		
 			<div class="reservation">
-				<form id="form">
+				<form id="keyfieldBox">
 				<div class="selectbox">
 					<select name="keyfield">
 						<option value="title">공연명</option>
@@ -75,8 +90,9 @@ td{width:90px;}
 					</select>
 					<input type="text" name="keyword" size="20"><button type="button" id="searchBtn">검색</button>
 				</div>
+				</form>
 
-				<table cellspacing="0" cellpadding="0">
+				<table id="table" cellspacing="0" cellpadding="0">
 					<tr>
 						<th>예매번호</th>
 						<th>예매일자</th>
@@ -97,7 +113,7 @@ td{width:90px;}
 						<td>2</td>
 						<td>${pageScope.totalInfo.rStatus }</td>
 						<td><button id="detailView" type="submit">상세보기</button></td>
-						<td><button id="reservedCancel" type="submit">예약취소</button></td>
+						<td><button id="reservedCancel" type="button">예약취소</button></td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -135,8 +151,6 @@ td{width:90px;}
 				<c:if test="${requestScope.paging.endPage == requestScope.paging.totalPage }">
 					[다음]&nbsp;&nbsp;
 				</c:if>
-
-				</form>
 		
 			</div>
 		</div>

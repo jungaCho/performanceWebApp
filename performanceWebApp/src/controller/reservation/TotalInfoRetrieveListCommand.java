@@ -44,6 +44,7 @@ public class TotalInfoRetrieveListCommand implements Command {
 			System.out.println("총 게시글 수 : " + paging.getTotalPost());
 			System.out.println("총 페이지 수 : " + paging.getTotalPage());
 			System.out.println("startPage : " + paging.getStartPage());
+			System.out.println("currentPage : " + paging.getCurrentPage());
 			System.out.println("endPage : " + paging.getEndPage());
 			
 			HttpSession session = req.getSession();
