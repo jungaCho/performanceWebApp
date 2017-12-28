@@ -76,28 +76,7 @@ a {
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
       $(document).ready(function() {
-    	  	
-    	  $('#btn1').click(function(){
-    		  alert('$(check:checked)'.text());
-    	  });
-	$(document).ready(function() {
-		
-		
-		
-		/* $('#btn1').click(function(){
-	      	$("input[name=check]:checked").each(function() {
-	      		var checked = $(this).val();
-	      		location.href= '${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked='+checked;
-			});
-		}); */
-		
-		/* $('#btn1').click(function(){
-			var param = "";
-			$("input[name=check]:checked").each(function() {
-				if
-			}
-		} */
-		
+   
 			$('#btn1').on("click",function(){
 				
 				//string[] 공연번호를 배열로 넘긴다.

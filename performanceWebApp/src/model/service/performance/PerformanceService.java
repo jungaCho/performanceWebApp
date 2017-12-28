@@ -106,7 +106,7 @@ public class PerformanceService {
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
-
+			
 			// 트랜잭션
 			conn.setAutoCommit(false);
 
@@ -116,16 +116,19 @@ public class PerformanceService {
 			ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
 			OrderDAO orderDao = OrderDAO.getInstance();
 			
-			
 			posterDao.deletePosterList(conn, pNo);
+			System.out.println("안녕11!!!!!!!!!!!");
 			detailfileDao.deleteDetailFileList(conn, pNo);
+			System.out.println("안녕55!!!!!!!!!!!");
 			ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
+			System.out.println("안녕22!!!!!!!!!!!");
 			for (String sNo : sNOs) {
 				orderDao.deleteOrder(conn, sNo);
 			}
+			System.out.println("안녕33!!!!!!!!!!!");
 			scheduleDao.deleteSchedule(conn, pNo);
 			performanceDao.deletePerformance(pNo); 
-			
+			System.out.println("안녕44!!!!!!!!!!!");
 			conn.commit();
 		} catch (Exception e) {
 			conn.rollback();
@@ -136,8 +139,8 @@ public class PerformanceService {
 		}
 	}
 	
-	/*// 공연 정보를 삭제하다.
-		public void removePerformance2(String[] pNos) throws Exception {
+	// 공연 정보를 삭제하다.
+		public void removePerformanceList(String[] pNos) throws Exception {
 			Connection conn = null;
 			try {
 				conn = DBConn.getConnection();
@@ -151,16 +154,16 @@ public class PerformanceService {
 				ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
 				OrderDAO orderDao = OrderDAO.getInstance();
 				
-				
-				posterDao.deletePosterList(conn, pNo);
-				detailfileDao.deleteDetailFileList(conn, pNo);
-				ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
-				for (String sNo : sNOs) {
-					orderDao.deleteOrder(conn, sNo);
+				for(String pNo: pNos) {
+					posterDao.deletePosterList(conn, pNo);
+					detailfileDao.deleteDetailFileList(conn, pNo);
+					ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
+					for (String sNo : sNOs) {
+						orderDao.deleteOrder(conn, sNo);
+					}
+					scheduleDao.deleteSchedule(conn, pNo);
+					performanceDao.deletePerformance(pNo); 
 				}
-				scheduleDao.deleteSchedule(conn, pNo);
-				performanceDao.deletePerformance(pNo); 
-				
 				conn.commit();
 			} catch (Exception e) {
 				conn.rollback();
@@ -169,7 +172,7 @@ public class PerformanceService {
 				if (conn != null)
 					conn.close();
 			}
-		}*/
+		}
 
 
 	// 공연 포스터를 삭제하다.
