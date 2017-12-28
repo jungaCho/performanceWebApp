@@ -1,4 +1,4 @@
-/*package controller.reservation;
+package controller.reservation;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +34,9 @@ public class TotalInfoRetrieveListCommand implements Command {
 		paging.setPageBlock(5);
 		paging.setCurrentPage(currentPage);
 		
+		String keyfield =req.getParameter("keyfield");
+		String keyword = req.getParameter("keyword");
+		
 		ActionForward forward = new ActionForward();
 		try {
 			HttpSession session = req.getSession();
@@ -52,7 +55,7 @@ public class TotalInfoRetrieveListCommand implements Command {
 			System.out.println("endPage : " + paging.getEndPage());
 			
 			List<TotalInfoVO> totalInfos = ReservationService.getInstance().
-												retrieveReservationByMember(startRow, endRow, mNo);
+												retrieveReservationByMember(keyfield, keyword, startRow, endRow, mNo);
 			
 			req.setAttribute("totalInfos",totalInfos);
 			req.setAttribute("paging", paging);
@@ -69,4 +72,3 @@ public class TotalInfoRetrieveListCommand implements Command {
 	}
 
 }
-*/

@@ -265,7 +265,7 @@ public class PerformanceService {
 				ArrayList<OrderVO> orders = (ArrayList<OrderVO>) schedule.getOrders();
 				for(OrderVO order:orders) {
 					OrderDAO dao1 = OrderDAO.getInstance();
-					dao1.insertOrder(conn, order);
+					dao1.insertOrder(conn, order,sNo);
 				}
 			}
 			conn.commit();

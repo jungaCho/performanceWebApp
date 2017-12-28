@@ -86,17 +86,17 @@ public class ReservationDAO {
 	}
 
 	// 환불 정보를 등록하다.
-	public void insertRefund(Connection conn, String rNo) throws Exception {
+	/*public void insertRefund(Connection conn, String rNo) throws Exception {
 
 		PreparedStatement pstmt = null;
 		try {
 
 			StringBuffer sql = new StringBuffer();
 			sql.append("insert into refund(refund_no, refund_date, refund_value, r_no)                 ");
-			/*sql.append("select to_char(sysdate, 'YYYYMMDD') || lpad(refund_seq.nextval, 6, '0'),   ");
+			sql.append("select to_char(sysdate, 'YYYYMMDD') || lpad(refund_seq.nextval, 6, '0'),   ");
 			sql.append("to_char(sysdate, 'YYYY/MM/DD'), total_price, r_no                                 ");
 			sql.append("from reservation                                                                               ");
-			sql.append("where r_no = ?                                                                                 ");*/
+			sql.append("where r_no = ?                                                                                 ");
 			sql.append("values(to_char(sysdate, 'YYYYMMDD') || lpad(refund_seq.nextval, 6, '0'), to_char(sysdate, 'YYYY/MM/DD'),                ");
 			sql.append("		(select total_price from reservation where r_no = ? ), ? ) 											);
 			
@@ -109,7 +109,7 @@ public class ReservationDAO {
 			if (pstmt != null)
 				pstmt.close();
 		}
-	}
+	}*/
 
 	// 검색조건에 해당하는 전체 회원의 예매내역을 조회한다. (관리자)
 		public List<TotalInfoVO> selectReservationListByAdmin(String keyfield, String keyword, int startRow, int endRow)

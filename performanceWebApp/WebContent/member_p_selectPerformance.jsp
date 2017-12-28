@@ -11,7 +11,7 @@ form {
 	padding: 30px;
 	color: gray;
 	width: 100%;
-	height: 750px;
+	height: 100%;
 }
 
 #div1 {

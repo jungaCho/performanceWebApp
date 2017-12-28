@@ -70,7 +70,7 @@ public class ReservationService {
 			ReservationDAO reservationDAO = ReservationDAO.getInstance();
 			reservationDAO.updateReservation(rNo, conn);
 			reservationDAO.deleteReservedSeat(rNo, conn);
-			reservationDAO.insertRefund(conn, rNo);
+		//	reservationDAO.insertRefund(conn, rNo);
 		} catch (Exception e) {
 			conn.rollback();
 			throw e;
@@ -81,8 +81,8 @@ public class ReservationService {
 	}
 
 	// 특정 회원의 예매내역을 조회한다.
-	public List<TotalInfoVO> retrieveReservationByMember(int startRow, int endRow, String keyfield, 
-															 String keyword, String mNo) throws Exception {
+	public List<TotalInfoVO> retrieveReservationByMember(String keyfield, String keyword, 
+			int startRow, int endRow, String mNo) throws Exception {
 		return ReservationDAO.getInstance().selectReservationListByMember(keyfield, keyword, mNo, startRow, endRow);
 	}
 	
