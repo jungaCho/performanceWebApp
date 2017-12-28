@@ -129,6 +129,7 @@ public class PerformanceService {
 			scheduleDao.deleteSchedule(conn, pNo);
 			performanceDao.deletePerformance(pNo); 
 			System.out.println("¾È³ç44!!!!!!!!!!!");
+			
 			conn.commit();
 		} catch (Exception e) {
 			conn.rollback();

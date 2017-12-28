@@ -74,16 +74,16 @@ public class PosterDAO {
 	public void deletePosterList(Connection conn, String pNo) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
-			System.out.println("gkdl11!!!!!!!!!!!");
+			
 			StringBuilder sql=new StringBuilder();
 			sql.append("delete from poster     ");
 			sql.append("where p_no=?   " );
-			System.out.println("gkdl22!!!!!!!!!!!");
+			
 			pstmt=conn.prepareStatement(sql.toString());
 			pstmt.setString(1, pNo);
 			
 			pstmt.executeUpdate();
-			System.out.println("gkdl32!!!!!!!!!!!");
+			
 		} finally {
 			if(pstmt!=null) pstmt.close();
 		}
