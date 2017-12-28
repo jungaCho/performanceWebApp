@@ -112,7 +112,7 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 </head>	
 	<div class="wrapper">
 	<div id="pannel">
-		<h1>공연 조회</h1>
+		<h1>예매관리</h1>
 		
 	<!-- 	<form action="remove.do" method="get"  id="remove"> -->
 			<button type="button" id="btn1">선택삭제</button>
@@ -123,11 +123,12 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 
 	<form id="search">
 		<select id="keyfield" name="keyfield">
-			<option value="title">예매일자</option>
-			<option value="date">공연제목</option>
-			<option value="genre">예매자</option>
-			<option value="genre">공연날짜</option>
-			<option value="genre">예매상태</option>
+			<option value="mName">예매자</option>
+			<option value=rDate>예매일자</option>
+			<option value="title">공연제목</option>
+			
+			<option value="sDate">공연날짜</option>
+			<option value="rStatus">예매상태</option>
 		</select> <input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요">
 		<button id="btn3" type="button">검색</button>
 	</form>

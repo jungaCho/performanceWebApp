@@ -110,7 +110,7 @@ public class ReservationDAO {
 	}
 
 	// 검색조건에 해당하는 전체 회원의 예매내역을 조회한다. (관리자)
-		public List<TotalInfoVO> selectReservationListByAdmin(int startRow, int endRow, String keyfield, String keyword)
+		public List<TotalInfoVO> selectReservationListByAdmin(String keyfield, String keyword, int startRow, int endRow)
 				throws Exception {
 
 			Connection conn = null;
@@ -132,25 +132,30 @@ public class ReservationDAO {
 				sql.append("orders ord, schedule sch,  performance perf,  theater t                            ");
 				sql.append("   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                                      ");
 				sql.append("  and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                        ");
-				if (keyfield.equals("mId")) {
-					sql.append("and mem.m_id LIKE '%' || ? || '%'                                                                                       ");
-				} else if (keyfield.equals("rDate")) {
-					sql.append("and res.r_date = ?                                                                                                            ");
-				} else if (keyfield.equals("title")) {
+				if (keyfield != null && keyfield.equals("mName")) {
+					sql.append("and mem.m_name LIKE '%' || ? || '%'                                                                                       ");
+				} else if (keyfield != null && keyfield.equals("rDate"))  {
+					sql.append("and res.r_date like '%' || ? || '%'	                                                                                                       ");
+				} else if (keyfield != null &&keyfield.equals("title")) {
 					sql.append("and perf.title LIKE '%' || ? || '%'                                                                                         ");
-				} else if (keyfield.equals("sDate")) {
-					sql.append("and sch.s_date = ?                                                                                                           ");
-				} else if (keyfield.equals("rStatus")) {
-					sql.append("and res.r_status = ?                                                                                                          ");
+				} else if (keyfield != null &&keyfield.equals("sDate")) {
+					sql.append("and sch.s_date = like '%' || ? || '%'	                                                                                                         ");
+				} else if (keyfield != null &&keyfield.equals("rStatus")) {
+					sql.append("and res.r_status = like '%' || ? || '%'	                                                                                                        ");
 				}
 				sql.append("order by r_no desc ) rs ) res                                          ");
 				sql.append("where res.rn >= ? and res.rn <= ?                                   ");
 				
 				pstmt = conn.prepareStatement(sql.toString());
-				pstmt.setString(1, keyword);
-				pstmt.setInt(1, startRow);
-				pstmt.setInt(2, endRow);
 				
+				if(keyfield != null) {
+					pstmt.setString(1, keyword);
+					pstmt.setInt(2, startRow);
+					pstmt.setInt(3, endRow);
+				}else {
+					pstmt.setInt(1, startRow);
+					pstmt.setInt(2, endRow);
+				}
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
@@ -192,6 +197,8 @@ public class ReservationDAO {
 			return totalInfos;
 		}
 
+	
+		
 	// 예매정보를 등록한다.
 	public ReservationVO insertReservation(Connection conn, ReservationVO reservation) throws Exception {
 
@@ -402,6 +409,7 @@ public class ReservationDAO {
 		return totalPost;
 	}
 	
+	//총게시글 수를 구하다 (관리자)
 	public int selectTotalPost() throws Exception {
 		int totalPost = 0;
 		Connection conn = null;
@@ -410,6 +418,7 @@ public class ReservationDAO {
 		try {
 			conn = DBConn.getConnection();
 
+			stmt = conn.createStatement();
 			StringBuilder sql = new StringBuilder();
 			sql.append("select count(*)				");
 			sql.append("		from ( select ROWNUM as rn, rs.*                           																					");
@@ -422,7 +431,7 @@ public class ReservationDAO {
 			sql.append("					   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                              ");
 			sql.append("  						   and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                   																    ");
 			sql.append("					   order by r_no desc ) rs ) res                                     																				    ");		
-
+		
 			rs = stmt.executeQuery(sql.toString());
 
 			if(rs.next()) {
@@ -437,75 +446,6 @@ public class ReservationDAO {
 		return totalPost;
 	}
 	
-	// 검색조건에 해당하는 회원의 예매 내역을 조회한다. (특정회원)
-	public List<TotalInfoVO> selectReservationListByMember(String mNo,	int startRow, int endRow) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<TotalInfoVO> totalInfos = new ArrayList<TotalInfoVO>();
-		try {
-			conn = DBConn.getConnection();
-			StringBuffer sql = new StringBuffer();
-
-			sql.append("select r_no, r_status, r_date, card_number, approve_number, total_price, cardco_name,                											    ");
-			sql.append(" 	   m_id, title, s_date, o_time, t_name, seat_no                 												   								");
-			sql.append("		from ( select ROWNUM as rn, rs.*                           																					");
-			sql.append("				from (select res.r_no, res.r_status, to_char(res.r_date, 'YYYY/MM/DD') as r_date, res.card_number,									");
-			sql.append("					  res.approve_number, res.total_price, card.cardco_name, mem.m_id, perf.title,              									");
-			sql.append("					  to_char(sch.s_date, 'YYYY/MM/DD') as s_date, to_char(ord.o_time, 'HH24:MI') as o_time, t.t_name,          										    ");
-			sql.append("					  (select listagg(rseat.seat_no, ',') within group (order by rseat.seat_no ) from reserved_seat rseat where  rseat.r_no = res.r_no) as seat_no        ");
-			sql.append("					   from reservation res, card_company card, member mem,                      																	     	");
-			sql.append("					   orders ord, schedule sch,  performance perf,  theater t                    																			");
-			sql.append("					   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                              ");
-			sql.append("  						   and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                   																    ");
-			sql.append("					   	   and mem.m_no = ?																													");
-			sql.append("					   order by r_no desc ) rs ) res                                     																				    ");		
-			sql.append("where res.rn >= ? and res.rn <= ?                                  																					");
-			pstmt = conn.prepareStatement(sql.toString());
-
-			pstmt.setString(1, mNo);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				TotalInfoVO totalInfo = new TotalInfoVO();
-
-				if (totalInfo != null) {
-
-					totalInfo.setrNo(rs.getString(1));
-					totalInfo.setrStatus(rs.getString(2));
-					totalInfo.setrDate(rs.getString(3));
-					totalInfo.setCardNumber(rs.getString(4));
-					totalInfo.setApproveNumber(rs.getString(5));
-					totalInfo.setTotalPrice(rs.getInt(6));
-					totalInfo.setCardCoName(rs.getString(7));
-					totalInfo.setmId(rs.getString(8));
-					totalInfo.setTitle(rs.getString(9));
-					totalInfo.setsDate(rs.getString(10));
-					totalInfo.setoTime(rs.getString(11));
-					totalInfo.settName(rs.getString(12));
-				}
-
-				if (rs.getString(13) != null) {
-					ReservedSeatVO seat = new ReservedSeatVO();
-					seat.setrNo(rs.getString(1));
-					seat.setSeatNo(rs.getString(13));
-
-					totalInfo.addSeats(seat);
-				}
-				totalInfos.add(totalInfo);
-			}
-
-		} finally {
-			if (pstmt != null)
-				pstmt.close();
-			if (rs != null)
-				rs.close();
-		}
-		return totalInfos;
-	}
 	
 	public List<TotalInfoVO> selectReservationListByMember(String keyfield, String keyword, 
 															String mNo,	int startRow, int endRow) throws Exception {
@@ -529,21 +469,27 @@ public class ReservationDAO {
 			sql.append("					   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                              ");
 			sql.append("  						   and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                   																    ");
 			sql.append("					   	   and mem.m_no = ?																													");
-			if (keyfield.equals("title")) {
+			if (keyfield != null &&keyfield.equals("title")) {
 				sql.append("					   and perf.title like '%' || ? || '%'																													");
-			} else if (keyfield.equals("sDate")) {
+			} else if (keyfield != null &&keyfield.equals("sDate")) {
 				sql.append("					   and sch.s_date like '%' || ? || '%'																									");
-			} else if (keyfield.equals("rStatus")) {
+			} else if (keyfield != null &&keyfield.equals("rStatus")) {
 				sql.append("					   and res.r_status like '%' || ? || '%'																												");
 			}
 			sql.append("					   order by r_no desc ) rs ) res                                     																				    ");		
 			sql.append("where res.rn >= ? and res.rn <= ?                                  																					");
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setString(1, keyword);
-			pstmt.setString(2, mNo);
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
+			if(keyfield != null) {
+				pstmt.setString(1, keyword);
+				pstmt.setString(2, mNo);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+			} else {
+				pstmt.setString(1, mNo);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+			}
 			
 			rs = pstmt.executeQuery();
 

@@ -1,4 +1,4 @@
-package controller.reservation;
+/*package controller.reservation;
 
 import java.io.IOException;
 import java.util.List;
@@ -69,3 +69,4 @@ public class TotalInfoRetrieveListCommand implements Command {
 	}
 
 }
+*/
