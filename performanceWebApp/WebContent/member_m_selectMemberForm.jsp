@@ -52,7 +52,7 @@ session : ${not empty sessionScope.member}<br>
 		<h4>등급 포인트 안내</h4>
 		
 		등급이름 : ${requestScope.member.rank.rName }<br>
-		예매 공연 횟수 : use el<br>
+		예매 공연 횟수 : ${requestScope.reservedCount} <br>
 		
 		</div>
 	
