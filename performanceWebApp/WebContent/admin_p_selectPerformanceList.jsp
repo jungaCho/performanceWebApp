@@ -87,9 +87,14 @@ a {
 				
 					pNoArrays.push($(this).val());		
 				});	
+				alert("선택한 공연이 삭제되었습니다!!");
 				location.href= "${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked="+pNoArrays;
 				
 			});
+			
+			$('#btn2').click(function(){
+            	$("input[name=check]").prop("checked",false);
+            });
     	  
     	  
             $("#btn3").on('click', function() {
@@ -120,11 +125,6 @@ a {
                               alert('Error : ' + jqXHR.status);
                         }
                   });
-            });
-            
-            $('#btn2').click(function(){
-            	
-            	$("input[name=check]").prop("checked",false);
             });
       });
 </script>
@@ -169,7 +169,7 @@ a {
 					<c:param name="pNo" value="${pageScope.performance.pNo }" />
 				</c:url>
 				<tr>
-					<td><input type="checkbox" name="box[]" value="${pageScope.performance.pNo }" id="checkSelect"></td>
+					<td><input type="checkbox" name="check" value="${pageScope.performance.pNo }" id="checkSelect"></td>
 					<td>${pageScope.performance.pNo }</td>
 					<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
 					<td>${pageScope.performance.startDate }</td>

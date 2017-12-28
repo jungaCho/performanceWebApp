@@ -49,6 +49,10 @@ form {
 <script>
       $(document).ready(function() {
     	  
+    	  $('#btn1').click(function() {
+    		  alert("공연 정보가 등록되었습니다! 일정 등록을 해주세요!") 	  
+    	  });
+    	  
     	  $('#btn2').click(function() {
      			location.href="${pageContext.request.contextPath}/admin_p_selectPerformanceList.do";
      	  });

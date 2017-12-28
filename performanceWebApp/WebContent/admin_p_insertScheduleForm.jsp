@@ -98,7 +98,7 @@ button {
 				,
 				success: function(data) {
 					if(data.isSuccess=='true'){
-						alert("공연정보가 등록되었습니다!!");
+						alert("일정이 등록되었습니다!!");
 						location.href="${pageContext.request.contextPath}/admin_p_selectPerformanceList.do";
 					}
 				}
