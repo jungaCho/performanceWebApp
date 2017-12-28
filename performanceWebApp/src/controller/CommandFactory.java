@@ -126,6 +126,10 @@ public class CommandFactory {
 		map.put("/member_p_selectPerformance_text.do", "controller.performance.ListPerformanceByTextByMemberCommand" );
 		
 		map.put("/member_r_layout.do","controller.performance.ListReservationCommand");
+	
+		map.put("/member_r_selectpByview.do","controller.performance.SelectPerformanceByTextCommand");
+		
+		
 
 
 	}

@@ -47,7 +47,7 @@ public class DetailFileDAO {
 	}
 	
 	//공연 상세 설명을 삭제한다.
-	public void deleteDetailFile(Connection conn,String file_no)throws Exception{
+	public void deleteDetailFile(Connection conn,String fileNo)throws Exception{
 		PreparedStatement pstmt=null;
 		try {
 			StringBuilder sql=new StringBuilder();
@@ -55,7 +55,7 @@ public class DetailFileDAO {
 			sql.append("where file_no=?    ");
 			
 			pstmt=conn.prepareStatement(sql.toString());
-			pstmt.setString(1, file_no);
+			pstmt.setString(1, fileNo);
 			pstmt.executeUpdate();
 		
 			
@@ -65,7 +65,7 @@ public class DetailFileDAO {
 	}
 	
 	//공연 상세 설명을 일괄 삭제한다.(공연번호에 해당하는)
-	public void deleteDetailFileList(Connection conn,String p_no) throws Exception{
+	public void deleteDetailFileList(Connection conn,String pNo) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
 			StringBuilder sql=new StringBuilder();
@@ -73,7 +73,7 @@ public class DetailFileDAO {
 			sql.append("where p_no=?    ");
 			
 			pstmt=conn.prepareStatement(sql.toString());
-			pstmt.setString(1, p_no);
+			pstmt.setString(1, pNo);
 			pstmt.executeUpdate();
 			
 		} finally {

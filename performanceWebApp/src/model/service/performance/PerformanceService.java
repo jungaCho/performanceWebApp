@@ -34,6 +34,13 @@ public class PerformanceService {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
 		return performanceDao.selectPerformanceListByMember(map);
 	}
+	
+	// 공연 목록 조회(사용자)2
+		public List<PerformanceVO> retrievePerformanceListByMember2(HashMap<String,Object> map)
+				throws Exception {
+			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
+			return performanceDao.selectPerformanceListByMember2(map);
+		}
 
 	// 전체 공연 목록 조회(관리자)
 	public List<PerformanceVO> retrievePerformanceListByAdmin(int startRow, int endRow) throws Exception {
@@ -106,27 +113,34 @@ public class PerformanceService {
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
-
+			
 			// 트랜잭션
 			conn.setAutoCommit(false);
 
-			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-			PosterDAO posterDao = PosterDAO.getInstance();
-			DetailFileDAO detailfileDao = DetailFileDAO.getInstance();
-			ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
-			OrderDAO orderDao = OrderDAO.getInstance();
 			
-			
+			PosterDAO posterDao = PosterDAO.getInstance();			
 			posterDao.deletePosterList(conn, pNo);
+		
+			
+			DetailFileDAO detailfileDao = DetailFileDAO.getInstance();
 			detailfileDao.deleteDetailFileList(conn, pNo);
+			
+			ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
 			ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
+		
+			OrderDAO orderDao = OrderDAO.getInstance();
 			for (String sNo : sNOs) {
 				orderDao.deleteOrder(conn, sNo);
 			}
+		
 			scheduleDao.deleteSchedule(conn, pNo);
-			performanceDao.deletePerformance(pNo); 
+			
+			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
+			performanceDao.deletePerformance(conn, pNo); 
+	
 			
 			conn.commit();
+		
 		} catch (Exception e) {
 			conn.rollback();
 			throw e;
@@ -136,8 +150,8 @@ public class PerformanceService {
 		}
 	}
 	
-	/*// 공연 정보를 삭제하다.
-		public void removePerformance2(String[] pNos) throws Exception {
+	// 공연 정보를 삭제하다.
+		public void removePerformanceList(String[] pNos) throws Exception {
 			Connection conn = null;
 			try {
 				conn = DBConn.getConnection();
@@ -151,16 +165,16 @@ public class PerformanceService {
 				ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
 				OrderDAO orderDao = OrderDAO.getInstance();
 				
-				
-				posterDao.deletePosterList(conn, pNo);
-				detailfileDao.deleteDetailFileList(conn, pNo);
-				ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
-				for (String sNo : sNOs) {
-					orderDao.deleteOrder(conn, sNo);
+				for(String pNo: pNos) {
+					posterDao.deletePosterList(conn, pNo);
+					detailfileDao.deleteDetailFileList(conn, pNo);
+					ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
+					for (String sNo : sNOs) {
+						orderDao.deleteOrder(conn, sNo);
+					}
+					scheduleDao.deleteSchedule(conn, pNo);
+					performanceDao.deletePerformance(conn, pNo); 
 				}
-				scheduleDao.deleteSchedule(conn, pNo);
-				performanceDao.deletePerformance(pNo); 
-				
 				conn.commit();
 			} catch (Exception e) {
 				conn.rollback();
@@ -169,7 +183,7 @@ public class PerformanceService {
 				if (conn != null)
 					conn.close();
 			}
-		}*/
+		}
 
 
 	// 공연 포스터를 삭제하다.
