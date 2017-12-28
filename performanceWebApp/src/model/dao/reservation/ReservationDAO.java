@@ -72,11 +72,11 @@ public class ReservationDAO {
 
 			while (rs.next()) {
 				int checkStatus = rs.getInt(1);
-				if (checkStatus != 0) {
-					return false;
+				if (checkStatus == 1) { 
+					return true;
 				}
 			}
-			return true;
+			return false;
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
@@ -93,11 +93,13 @@ public class ReservationDAO {
 
 			StringBuffer sql = new StringBuffer();
 			sql.append("insert into refund(refund_no, refund_date, refund_value, r_no)                 ");
-			sql.append("select to_char(sysdate, 'YYYYMMDD') || lpad(refund_seq.nextval, 6, '0'),   ");
+			/*sql.append("select to_char(sysdate, 'YYYYMMDD') || lpad(refund_seq.nextval, 6, '0'),   ");
 			sql.append("to_char(sysdate, 'YYYY/MM/DD'), total_price, r_no                                 ");
 			sql.append("from reservation                                                                               ");
-			sql.append("where r_no = ?                                                                                 ");
-
+			sql.append("where r_no = ?                                                                                 ");*/
+			sql.append("values(to_char(sysdate, 'YYYYMMDD') || lpad(refund_seq.nextval, 6, '0'), to_char(sysdate, 'YYYY/MM/DD'),                ");
+			sql.append("		(select total_price from reservation where r_no = ? ), ? ) 											);
+			
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, rNo);

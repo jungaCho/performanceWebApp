@@ -64,7 +64,7 @@ td{width:90px;}
 				}
 				,
 				error: function() {
-					alert("error : " + jqXHR.status);
+
 				}
 			});
 		});

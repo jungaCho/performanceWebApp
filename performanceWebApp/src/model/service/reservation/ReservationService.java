@@ -60,7 +60,7 @@ public class ReservationService {
 	}
 	
 	// 예매를 취소한다.
-	public void modifyReservation(String rNo) throws Exception {
+	public void modifyReservation(int totalPrice, String rNo) throws Exception {
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
@@ -71,7 +71,6 @@ public class ReservationService {
 			reservationDAO.updateReservation(rNo, conn);
 			reservationDAO.deleteReservedSeat(rNo, conn);
 			reservationDAO.insertRefund(conn, rNo);
-			
 		} catch (Exception e) {
 			conn.rollback();
 			throw e;
