@@ -122,46 +122,19 @@ public class ReservationDAO {
 			conn = DBConn.getConnection();
 			StringBuffer sql = new StringBuffer();
 
-			sql.append(
-					"select res.r_no, res.r_status, to_char(res.r_date, 'YYYY/MM/DD'), res.card_number, res.approve_number, res.total_price, card.cardco_name, mem.m_id, perf.title,                             ");
-			sql.append(
-					"to_char(sch.s_date, 'YYYY/MM/DD'), to_char(ord.o_time, 'HH24:MI'), t.t_name, rseat.seat_no                                     ");
-			sql.append(
-					"from (select ROWNUM as rn, rs.* from (select * from reservation order by r_no desc) rs) res,                          ");
-			sql.append("card_company card, member mem, performance perf, schedule sch, orders ord, theater t,                ");
-			sql.append("reserved_seat rseat, seat seat                                               ");
-			sql.append(
-					"where res.CARDCO_NO = card.CARDCO_NO                                                                                                           ");
-			sql.append(
-					"and res.R_NO = rseat.R_NO                                                                                                              ");
-			sql.append(
-					"and rseat.SEAT_NO = seat.SEAT_NO                                                                                                             ");
-			sql.append(
-					"and res.O_NO = ord.O_NO                                                                                                                 ");
-			sql.append(
-					"and ord.S_NO = sch.S_NO                                                                                                            ");
-			sql.append(
-					"and sch.P_NO = perf.P_NO                                                                                                  ");
-			sql.append(
-					"and sch.T_NO = t.T_NO                                                                                                                ");
-			sql.append(
-					" and res.M_NO = mem.M_NO                                                                                                            ");
-		/*	if (keyfield.equals("mId")) {
-				sql.append("and mem.m_id LIKE '%' || ? || '%'                                                                                       ");
-			} else if (keyfield.equals("rDate")) {
-				sql.append("and res.r_date = ?                                                                                                            ");
-			} else if (keyfield.equals("title")) {
-				sql.append("and perf.title LIKE '%' || ? || '%'                                                                                         ");
-			} else if (keyfield.equals("sDate")) {
-				sql.append("and sch.s_date = ?                                                                                                           ");
-			} else if (keyfield.equals("rStatus")) {
-				sql.append("and res.r_status = ?                                                                                                          ");
-			}*/
-
-			sql.append("and res.rn>=? and res.rn <= ?                ");
-			sql.append("order by r_no desc                                                                                                                ");
-			
-
+			sql.append("select r_no, r_status, r_date, card_number, approve_number, total_price, cardco_name,                    ");
+			sql.append(" m_id, title, s_date, o_time, t_name, seat_no                    ");
+			sql.append("from ( select ROWNUM as rn, rs.*                                       ");
+			sql.append("from (select res.r_no, res.r_status, to_char(res.r_date, 'YYYY/MM/DD') as r_date, res.card_number,             ");
+			sql.append("res.approve_number, res.total_price, card.cardco_name, mem.m_id, perf.title,                  ");
+			sql.append("to_char(sch.s_date, 'YYYY/MM/DD') as s_date, to_char(ord.o_time, 'HH24:MI') as o_time, t.t_name,               ");
+			sql.append("(select listagg(rseat.seat_no, ',') within group (order by rseat.seat_no ) from reserved_seat rseat where  rseat.r_no = res.r_no) as seat_no             ");
+			sql.append("from reservation res, card_company card, member mem,                           ");
+			sql.append("orders ord, schedule sch,  performance perf,  theater t                            ");
+			sql.append("   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                                      ");
+			sql.append("  and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                        ");
+			sql.append("order by r_no desc ) rs ) res                                          ");
+			sql.append("where res.rn >= ? and res.rn <= ?                                   ");
 			pstmt = conn.prepareStatement(sql.toString());
 			/*pstmt.setString(1, keyword);*/
 			pstmt.setInt(1, startRow);

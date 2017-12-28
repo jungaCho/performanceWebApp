@@ -26,6 +26,7 @@
         "endDate" : "${pageScope.sortedPerf.endDate }"
         ,
 
+
         "production" : "${pageScope.sortedPerf.production }"
         ,
 
