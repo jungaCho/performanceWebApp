@@ -185,10 +185,10 @@ public class PerformanceDAO {
 			String genre = (String) map.get("genre");
 			if (genre != null && genre.equals("¹ÂÁöÄÃ")) {
 				sql.append("and perf.genre_no= 'G002' ");
-		
+
 			} else if (genre != null && genre.equals("¿¬±Ø")) {
 				sql.append("and perf.genre_no= 'G001' ");
-		
+
 			} else if (genre != null && genre.equals("ÄÜ¼­Æ®")) {
 				sql.append("and perf.genre_no= 'G003' ");
 			}
