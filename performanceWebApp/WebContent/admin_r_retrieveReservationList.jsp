@@ -131,16 +131,18 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 				
 				<tr>
 				
-					<td style="border-left:1px solid gray">예매번호</td>
-					<td>예매일자</td>
-					<td>공연제목</td>
-					<td>공연날짜</td>
-					<td>예매매수</td>
-					<td>상태</td>
-					<th>회원번호</th>
-					<td>예매자</td>
-					<td>공연관</td>
-					<td>좌석번호</td>
+					<td style="border-left:1px solid gray">${pageScope.totalInfos.rNo }</td>
+					<td>${pageScope.totalInfos.rDate }</td>
+					<td>${pageScope.totalInfos.title }</td>
+					<td>${pageScope.totalInfos.sDate }</td>
+					<td>2</td>
+					<td>${pageScope.totalInfos.rStatus }</td>
+					<th>${pageScope.totalInfos.mNo }</th>
+					<td>${pageScope.totalInfos.mName }</td>
+					<td>${pageScope.totalInfos.tName }</td>
+					<c:forEach var="seats" items="${pageScope.totalInfos.seats }" varStatus="loop">
+					<td>${pageScope.seats.seatNo }</td>
+					</c:forEach>
 				
 				</tr>
 			</c:forEach> 
@@ -151,38 +153,45 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 	&nbsp;
 	
 	<%-- 페이지 네비게이션 처리  --%>
-	<form id="page">
-        <c:if test="${requestScope.paging.prevPage >= 0 }">
-                <c:url var="prevUrl" value="/admin_r_layout.do" scope="page">
-                        <c:param name="currentPage" value="${requestScope.paging.prevPage }" />
-                </c:url>
-                <a href="${pageScope.prevUrl }">[이전]</a>&nbsp;&nbsp;
+	<%-- 페이지 네비게이션 처리  --%>
+       <form id="page">
+              <c:if test="${requestScope.paging.prevPage >= 1 }">
+                     <c:url var="prevUrl" value="/admin_r_layout.do"
+                           scope="page">
+                           <c:param name="currentPage" value="${requestScope.paging.prevPage }" />
+                     </c:url>
+                     <a href="${pageScope.prevUrl }">[이전]</a>&nbsp;&nbsp;
         </c:if>
-        <c:if test="${requestScope.paging.prevPage < 1 }">
+              <c:if test="${requestScope.paging.prevPage < 1 }">
                 [이전]&nbsp;&nbsp;
         </c:if>
-        <c:forEach var="i" begin="${requestScope.paging.startPage }"
-                        end="${requestScope.paging.endPage }" step="1">
-                <c:if test="${requestScope.paging.currentPage == pageScope.i }">
+              <c:forEach var="i" begin="${requestScope.paging.startPage }"
+                     end="${requestScope.paging.endPage }" step="1">
+                     <c:if test="${requestScope.paging.currentPage == pageScope.i }">
                         ${pageScope.i } &nbsp;&nbsp;
                 </c:if>
-                <c:if test="${requestScope.paging.currentPage != pageScope.i }">
-                        <c:url var="url" value="/admin_r_layout.do" scope="page">
-                                <c:param name="currentPage" value="${pageScope.i }" />
-                        </c:url>
-                        <a href="${pageScope.url }">${pageScope.i }</a> &nbsp;&nbsp;                      
-                </c:if>        
-        </c:forEach>
-        <c:if test="${requestScope.paging.endPage < requestScope.paging.totalPage }">
-                <c:url var="nextUrl" value="/admin_r_layout.do" scope="page">
-                        <c:param name="currentPage" value="${requestScope.paging.nextPage }" />
-                </c:url>
-                <a href="${pageScope.nextUrl }">[다음]</a>
-        </c:if>
-        <c:if test="${requestScope.paging.endPage >= requestScope.paging.totalPage  }">
+                     <c:if test="${requestScope.paging.currentPage != pageScope.i }">
+                           <c:url var="url" value="/admin_r_layout.do"
+                                  scope="page">
+                                  <c:param name="currentPage" value="${pageScope.i }" />
+                           </c:url>
+                           <a href="${pageScope.url }">${pageScope.i }</a> &nbsp;&nbsp;                     
+                </c:if>
+              </c:forEach>
+              <c:if
+                     test="${requestScope.paging.endPage < requestScope.paging.totalPage }">
+                     <c:url var="nextUrl" value="/admin_r_layout.do"
+                           scope="page">
+                           <c:param name="currentPage" value="${requestScope.paging.nextPage }" />
+                     </c:url>
+                     <a href="${pageScope.nextUrl }">[다음]</a>
+              </c:if>
+              <c:if
+                     test="${requestScope.paging.endPage >= requestScope.paging.totalPage  }">
                 [다음]&nbsp;&nbsp;
         </c:if>
-	</form> 
+       </form>
+
     </div>
 
 </body>
