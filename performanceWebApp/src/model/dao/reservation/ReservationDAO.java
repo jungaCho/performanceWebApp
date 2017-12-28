@@ -508,8 +508,8 @@ public class ReservationDAO {
 			
 			StringBuffer sql = new StringBuffer();
 			sql.append("select r.r_no, to_char(r.r_date,'yyyy/mm/dd'), p.title , to_char(s.s_date,'yyyy/mm/dd'), r.r_status		");
-		/*	sql.append("	  ,r.card_number, r.approve_number, r.total_price,	c.cardCo_name, m.m_id, t.t_name, rs.seat_no		");
-			sql.append("	   to_char(o.o_time,'HH24:MI')																		");*/
+			sql.append("	  ,r.card_number, r.approve_number, r.total_price,	c.cardCo_name, m.m_id, t.t_name, rs.seat_no		");
+			sql.append("	   to_char(o.o_time,'HH24:MI')																		");
 			sql.append("from (select rownum as rn, totalinfo1.*																	");
 			sql.append("	 from (select *																						");
 			sql.append("		   from reservation																				");
@@ -549,7 +549,6 @@ public class ReservationDAO {
 				totalInfo.setTitle(rs.getString(3));
 				totalInfo.setsDate(rs.getString(4));
 				totalInfo.setrStatus(rs.getString(5));
-				/*
 				totalInfo.setCardNumber(rs.getString(6));
 				totalInfo.setApproveNumber(rs.getString(7));
 				totalInfo.setTotalPrice(rs.getInt(8));
@@ -563,7 +562,7 @@ public class ReservationDAO {
 					seat.setrNo(rs.getString(1));
 					seat.setSeatNo(rs.getString(12));
 					totalInfo.addSeats(seat);
-				}*/
+				}
 				totalInfos.add(totalInfo);
 			}
 			return totalInfos;		
