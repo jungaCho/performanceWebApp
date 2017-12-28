@@ -84,7 +84,7 @@ public class ReservationService {
 	// 특정 회원의 예매내역을 조회한다.
 	public List<TotalInfoVO> retrieveReservationByMember(int startRow, int endRow, String keyfield, 
 															 String keyword, String mNo) throws Exception {
-		return null;
+		return ReservationDAO.getInstance().selectReservationListByMember(keyfield, keyword, mNo, startRow, endRow);
 	}
 	
 	//특정 회원의 예매내역을 조회한다.
