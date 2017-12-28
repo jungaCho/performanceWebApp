@@ -135,6 +135,42 @@ public class PerformanceService {
 				conn.close();
 		}
 	}
+	
+	/*// 공연 정보를 삭제하다.
+		public void removePerformance2(String[] pNos) throws Exception {
+			Connection conn = null;
+			try {
+				conn = DBConn.getConnection();
+
+				// 트랜잭션
+				conn.setAutoCommit(false);
+
+				PerformanceDAO performanceDao = PerformanceDAO.getInstance();
+				PosterDAO posterDao = PosterDAO.getInstance();
+				DetailFileDAO detailfileDao = DetailFileDAO.getInstance();
+				ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
+				OrderDAO orderDao = OrderDAO.getInstance();
+				
+				
+				posterDao.deletePosterList(conn, pNo);
+				detailfileDao.deleteDetailFileList(conn, pNo);
+				ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
+				for (String sNo : sNOs) {
+					orderDao.deleteOrder(conn, sNo);
+				}
+				scheduleDao.deleteSchedule(conn, pNo);
+				performanceDao.deletePerformance(pNo); 
+				
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				throw e;
+			} finally {
+				if (conn != null)
+					conn.close();
+			}
+		}*/
+
 
 	// 공연 포스터를 삭제하다.
 	public void removePoster(String posterNo) throws Exception {

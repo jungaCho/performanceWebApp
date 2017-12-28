@@ -31,6 +31,7 @@ public class FindPerformanceCommand implements Command {
 			ArrayList<PerformanceVO> performances = service.findPerformance(keyfield, keyword, startRow, endRow);
 
 			req.setAttribute("performances", performances);
+			System.out.println("~~~~!!!!"+performances.size()); 
 			
 			forward.setPath("/admin_p_selectPerformanceListView.jsp");
 			forward.setRedirect(false);

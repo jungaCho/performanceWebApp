@@ -89,11 +89,13 @@ public class CommandFactory {
 		
 		map.put("/order.do","controller.reservation.OrderCommand");
 		
-		map.put("/member_r_layout.do","controller.reservation.ListReservationCommand");
+		
 		
 		map.put("/member_r_layout2.do","controller.reservation.UploadReservationCommand");
 		
 		map.put("/totalInfoRetrieveList.do", "controller.reservation.TotalInfoRetrieveListCommand");
+		
+		map.put("/admin_r_layout.do", "controller.reservation.ListReservationByAdminCommand");
 		
 		
 		//°ø¿¬
@@ -115,11 +117,16 @@ public class CommandFactory {
 		
 		map.put("/admin_p_insertSchedule.do","controller.performance.InsertScheduleCommand" );
 		
+		map.put("/admin_p_removePerformanceList.do", "controller.performance.RemovePerformanceListCommand" );
+		
 		map.put("/member_p_selectPerformance.do","controller.performance.ListPerformanceByMemberCommand" );
 		
 		map.put("/member_p_detailPerformance.do", "controller.performance.DetailPerformanceByMemberCommand" );
+		
+		map.put("/member_p_selectPerformance_text.do", "controller.performance.ListPerformanceByTextByMemberCommand" );
+		
+		map.put("/member_r_layout.do","controller.performance.ListReservationCommand");
 
-		map.put("/admin_p_removePerformanceList.do", "controller.performance.RemovePerformanceListCommand" );
 
 	}
 	

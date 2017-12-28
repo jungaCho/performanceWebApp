@@ -9,49 +9,52 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
-import domain.performance.PerformanceVO;
 import domain.pub.PagingVO;
-import model.dao.performance.PerformanceDAO;
-import model.service.performance.PerformanceService;
+import domain.reservation.TotalInfoVO;
+import model.service.reservation.ReservationService;
 
-public class ListPerformanceByMemberCommand implements Command{
+public class ListReservationByAdminCommand implements Command{
 
-	//공연 목록 조회를 요청하는 커맨드
+	//전체 회원의 예매내역을 조회를 요청할 커맨드
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 		
-		//1. 현재 페이지 번호를 구하다.
 		int currentPage = 0;
 		try {
 			currentPage = Integer.parseInt(req.getParameter("currentPage"));
-		} catch (NumberFormatException ne) {
+		} catch (NumberFormatException e) {
 			currentPage = 1;
-		}	
+		}
+		
 		PagingVO paging = new PagingVO();
 		
+		//한 페이지에 보여줄 수
 		paging.setPostPerpage(5);
-		paging.setPageBlock(5);
+		//한 페이지에 보여줄 목록 수
+		paging.setPageBlock(10);
+		//현재 페이지 번호 관리
 		paging.setCurrentPage(currentPage);
 		
-		ActionForward forward = new ActionForward();	
+		//검색 조건 및 검색어 
+		/*String keyfield = req.getParameter("keyfield");
+		String keyword = req.getParameter("keyword");*/
+		
+		ActionForward forward = new ActionForward();
 		try {
-			PerformanceService performanceService = PerformanceService.getInstance();
-			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-			paging.setTotalPost(performanceDao.selectTotalPost());
+		
+			ReservationService reservationService = ReservationService.getInstance();
+			paging.setTotalPost(reservationService.selectTotalList());
 			
-			int startRow = paging.getStartRow();
+			int startRow = paging.getStartPage();
 			int endRow = paging.getEndRow();
 			
-			System.out.printf("startRow : %d, endRow: %d%n", startRow, endRow);
+			List<TotalInfoVO> totalInfos = reservationService.retrieveReservationByMember(startRow, endRow);
 			
-			
-			List<PerformanceVO> performance = performanceService.retrievePerformanceList(startRow, endRow);
-			
-			req.setAttribute("performance", performance);
+			req.setAttribute("totalInfos", totalInfos);
 			req.setAttribute("paging", paging);
 			
-			forward.setPath("/member_r_layout.jsp?nav=member_r_menu&article=member_r_reservation");
+			forward.setPath("/admin_r_layout.jsp?nav=admin_r_menu&article=admin_r_retrieveReservationList");
 			forward.setRedirect(false);
 			return forward;
 			
@@ -61,8 +64,6 @@ public class ListPerformanceByMemberCommand implements Command{
 			forward.setRedirect(false);
 			return forward;
 		}
-		
-		
 	}
 	
 }

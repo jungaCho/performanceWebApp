@@ -46,7 +46,6 @@ public class PerformanceDAO {
 			StringBuffer sql = new StringBuffer();
 
 			String mode = (String) map.get("mod");
-
 			// 이미지 보기 텍스트 보기
 			
 			if (mode.equals("image")) {
@@ -64,8 +63,8 @@ public class PerformanceDAO {
 						"and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||?  and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?    ");
 				sql.append(
 						"and pos.main_poster = 1    																														 ");
-				sql.append(
-						"and perf.rn>=? and perf.rn<=? 																							");
+			/*	sql.append(
+						"and perf.rn>=? and perf.rn<=? 																							");*/
 			
 			} else if (mode.equals("text")) {
 				
@@ -82,7 +81,7 @@ public class PerformanceDAO {
 						"and perf.rn>=? and perf.rn<=? 																							");
 			}
 
-			// 장르 선택시
+		/*	// 장르 선택시
 			String genre = (String) map.get("genre");
 			if (genre.equals("뮤지컬")) {
 				sql.append("and perf.genre_no='G002");
@@ -99,7 +98,7 @@ public class PerformanceDAO {
 			if (keyword != null) {
 				sql.append("and perf.title Like'%'|| ? || '%'  ");
 			}
-
+*/
 			pstmt = conn.prepareStatement(sql.toString());
 
 			// 월 선택
@@ -116,10 +115,10 @@ public class PerformanceDAO {
 				pstmt.setString(2, month);
 			}
 
-			int startRow = (Integer) map.get("startRow");
+			/*int startRow = (Integer) map.get("startRow");
 			int endRow = (Integer) map.get("endRow");
 			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
+			pstmt.setInt(4, endRow);*/
 
 			rs = pstmt.executeQuery(sql.toString());
 			if (mode.equals("image")) {
@@ -595,6 +594,34 @@ public class PerformanceDAO {
 				conn.close();
 		}
 	}
+	
+	// 공연 정보를 삭제한다.
+		public void deletePerformance2(String[] pNos) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			StringBuffer sql = new StringBuffer();
+			
+			for(int i = 0; i<pNos.length; i++) {
+				String pNo = pNos[i];
+			
+			try {
+				conn = DBConn.getConnection();
+				sql.append("delete from performance ");
+				sql.append("where p_no=? ");
+
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, pNo);
+
+				pstmt.executeUpdate();
+
+			} finally {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			}
+		}
+		}
 
 	// 공연 정보를 수정한다.
 	public void updatePerformance(PerformanceVO performance) throws Exception {
