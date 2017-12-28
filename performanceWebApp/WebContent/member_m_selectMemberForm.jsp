@@ -49,8 +49,13 @@
 		<h4>등급 포인트 안내</h4>
 		
 		등급이름 : ${requestScope.member.rank.rName }<br>
-		예매 공연 횟수 : ${requestScope.reservedCount} <br>
-		
+		<br>
+		<c:if test="${requestScope.reservedCount == 0 }">
+		예매 공연 횟수 : ${requestScope.reservedCount}<br>
+		</c:if>
+		<c:if test="${requestScope.reservedCount < 0 }">
+		예매 공연 횟수 : ${requestScope.reservedCount}<br>
+		</c:if>
 		</div>
 	
 	

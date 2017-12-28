@@ -69,6 +69,13 @@ a {
 <script>
 	$(document).ready(function(){
 		
+		$('#div3').on('click','.goRv',(function() {
+			var p_no = $('.goRv').attr('id');
+    	  	var url = '${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=' + p_no;
+    	  	window.open(url, "예매확인","width=700, height=600");
+    	  	
+		}));
+		
 		
 		$('#btnImage').on("click", function(){
 			
@@ -215,7 +222,7 @@ a {
 							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
 							htmlStr += "<td>" + data[i].tName + "</td>";
 							
-						    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+						    htmlStr += "<td>" + "<button type='submit' id='goReserved'>예매하기</button>"+ "</td>";
 							htmlStr += "</tr>";
 							
 									
@@ -379,7 +386,7 @@ a {
         				<td>
         					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }" width="200" height="200">
         					<span>${pageScope.poster.title }</span>
-        					<button type="button">예매</button>
+        					<button class="goRv" id="${pageScope.poster.pNo }" type="button">예매</button>
         				</td>
         				<c:if test="${loop.count % 3  == 0 }">
         					</tr><tr>

@@ -71,8 +71,10 @@ public class ListPerformanceByMemberCommand implements Command {
 			for(PerformanceVO performance : performances) {
 				for(PosterVO poster : performance.getPosters()) {
 					poster.setTitle(performance.getTitle());
+					
 					if(poster.getMainPoster() == 1) {						
 						posters.add(poster);
+						System.out.println("===============================" + poster.getpNo()+"@"+poster.getTitle());
 						
 					}
 				}

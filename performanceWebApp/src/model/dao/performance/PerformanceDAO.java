@@ -119,6 +119,7 @@ public class PerformanceDAO {
 					ArrayList<PosterVO> posters = new ArrayList<PosterVO>();
 					poster.setMainPoster(1); //¡÷¿«
 					poster.setSystemFileName(rs.getString(2));
+					poster.setpNo(rs.getString(5));
 					posters.add(poster);
 					performance.setPosters(posters);			
 					performances.add(performance);
