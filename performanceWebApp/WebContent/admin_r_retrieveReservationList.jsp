@@ -83,7 +83,28 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 <script>
 	$(document).ready(function() {
 		
+		$('#btn1').on("click",function(){
+			
+			//string[] 예매번호를 배열로 넘긴다.
+
+			var rNoArrays = [];
+			
+			$('#checkSelect:checked').each(function(){
+			
+				rNoArrays.push($(this).val());		
+			});	
+			
+			/* $('#remove').prepend("<input type='hidden' name='rNo' value='" + rNoArrays + "'>  "); */
+			alert("선택한 공연이 삭제되었습니다!!");
+			location.href= "${pageContext.request.contextPath}/remove.do?checked="+rNoArrays;
+			
+			
+			
+		});
 		
+		$('#btn2').click(function(){
+        	$("input[name=check]").prop("checked",false);
+        });
 	
       });
 </script>
@@ -93,7 +114,9 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 	<div id="pannel">
 		<h1>공연 조회</h1>
 		
-		<button type="button" id="btn1">선택삭제</button>
+	<!-- 	<form action="remove.do" method="get"  id="remove"> -->
+			<button type="button" id="btn1">선택삭제</button>
+<!-- 		</form> -->
 		<button type="button" id="btn2">선택해제</button>
 	</div>
 
@@ -113,9 +136,10 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 	<br>
 	<div id="div3">
 
-	<input type="hidden">
+	<input type="hidden" value="${pageScope.totalInfos.rNo }">
 		<table id="table" cellspacing=0>
 			<tr>
+				<th></th>
 				<th style="border-left:1px solid gray">예매번호</th>
 				<th>예매일자</th>
 				<th>공연제목</th>
@@ -130,14 +154,14 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 			<c:forEach var="totalInfos" items="${requestScope.totalInfos }" varStatus="loop">
 				
 				<tr>
-				
+					<td><input type="checkbox" name="check"  id="checkSelect" value="${pageScope.totalInfos.rNo }"></td>
 					<td style="border-left:1px solid gray">${pageScope.totalInfos.rNo }</td>
 					<td>${pageScope.totalInfos.rDate }</td>
 					<td>${pageScope.totalInfos.title }</td>
 					<td>${pageScope.totalInfos.sDate }</td>
 					<td>2</td>
 					<td>${pageScope.totalInfos.rStatus }</td>
-					<th>${pageScope.totalInfos.mNo }</th>
+					<td>${pageScope.totalInfos.mNo }</td>
 					<td>${pageScope.totalInfos.mName }</td>
 					<td>${pageScope.totalInfos.tName }</td>
 					<c:forEach var="seats" items="${pageScope.totalInfos.seats }" varStatus="loop">
@@ -151,45 +175,40 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 	<br>
 	<br>
 	&nbsp;
-	
-	<%-- 페이지 네비게이션 처리  --%>
+
 	<%-- 페이지 네비게이션 처리  --%>
        <form id="page">
-              <c:if test="${requestScope.paging.prevPage >= 1 }">
-                     <c:url var="prevUrl" value="/admin_r_layout.do"
-                           scope="page">
-                           <c:param name="currentPage" value="${requestScope.paging.prevPage }" />
-                     </c:url>
-                     <a href="${pageScope.prevUrl }">[이전]</a>&nbsp;&nbsp;
-        </c:if>
-              <c:if test="${requestScope.paging.prevPage < 1 }">
-                [이전]&nbsp;&nbsp;
-        </c:if>
-              <c:forEach var="i" begin="${requestScope.paging.startPage }"
-                     end="${requestScope.paging.endPage }" step="1">
-                     <c:if test="${requestScope.paging.currentPage == pageScope.i }">
-                        ${pageScope.i } &nbsp;&nbsp;
-                </c:if>
-                     <c:if test="${requestScope.paging.currentPage != pageScope.i }">
-                           <c:url var="url" value="/admin_r_layout.do"
-                                  scope="page">
-                                  <c:param name="currentPage" value="${pageScope.i }" />
-                           </c:url>
-                           <a href="${pageScope.url }">${pageScope.i }</a> &nbsp;&nbsp;                     
-                </c:if>
-              </c:forEach>
-              <c:if
-                     test="${requestScope.paging.endPage < requestScope.paging.totalPage }">
-                     <c:url var="nextUrl" value="/admin_r_layout.do"
-                           scope="page">
-                           <c:param name="currentPage" value="${requestScope.paging.nextPage }" />
-                     </c:url>
-                     <a href="${pageScope.nextUrl }">[다음]</a>
-              </c:if>
-              <c:if
-                     test="${requestScope.paging.endPage >= requestScope.paging.totalPage  }">
-                [다음]&nbsp;&nbsp;
-        </c:if>
+              <c:if test="${requestScope.paging.prevPage > 0 }">
+					<c:url var="prevUrl" value="/admin_r_layout.do" scope="page">
+						<c:param name="currentPage" value="${requestScope.paging.prevPage }" />
+					</c:url>
+					<a href="${pageScope.prevUrl }">[이전]</a>&nbsp;&nbsp;
+				</c:if>
+				<c:if test="${requestScope.paging.prevPage < 1 }">
+					[이전]&nbsp;&nbsp;
+				</c:if>
+				
+				<c:forEach var="i" begin="${requestScope.paging.startPage }" end="${requestScope.paging.endPage }" step="1">
+					<c:if test="${requestScope.paging.currentPage == pageScope.i }">
+						${pageScope.i } &nbsp;&nbsp;
+					</c:if>
+					<c:if test="${requestScope.paging.currentPage != pageScope.i }">
+						<c:url var="url" value="/admin_r_layout.do" scope="page">
+							<c:param name="currentPage" value="${pageScope.i }"/>
+						</c:url>
+						<a href="${pageScope.url }">${pageScope.i }</a> &nbsp;&nbsp;
+					</c:if>
+				</c:forEach>
+				
+				<c:if test="${requestScope.paging.endPage < requestScope.paging.totalPage }">
+					<c:url var="nextUrl" value="/admin_r_layout.do" scope="page">
+						<c:param name="currentPage" value="${requestScope.paging.nextPage }"/>
+					</c:url>
+					<a href="${pageScope.nextUrl }">[다음]</a>&nbsp;&nbsp;
+				</c:if>
+				<c:if test="${requestScope.paging.endPage == requestScope.paging.totalPage }">
+					[다음]&nbsp;&nbsp;
+				</c:if>
        </form>
 
     </div>

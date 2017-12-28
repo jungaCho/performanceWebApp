@@ -111,7 +111,7 @@ public class ReservationDAO {
 	}
 
 	// 검색조건에 해당하는 전체 회원의 예매내역을 조회한다. (관리자)
-		public List<TotalInfoVO> selectReservationListByAdmin(int startRow, int endRow)
+		public List<TotalInfoVO> selectReservationListByAdmin(int startRow, int endRow, String keyfield, String keyword)
 				throws Exception {
 
 			Connection conn = null;
@@ -133,9 +133,7 @@ public class ReservationDAO {
 				sql.append("orders ord, schedule sch,  performance perf,  theater t                            ");
 				sql.append("   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                                      ");
 				sql.append("  and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                        ");
-				sql.append("order by r_no desc ) rs ) res                                          ");
-				sql.append("where res.rn >= ? and res.rn <= ?                                   ");
-			/*	if (keyfield.equals("mId")) {
+				if (keyfield.equals("mId")) {
 					sql.append("and mem.m_id LIKE '%' || ? || '%'                                                                                       ");
 				} else if (keyfield.equals("rDate")) {
 					sql.append("and res.r_date = ?                                                                                                            ");
@@ -145,9 +143,12 @@ public class ReservationDAO {
 					sql.append("and sch.s_date = ?                                                                                                           ");
 				} else if (keyfield.equals("rStatus")) {
 					sql.append("and res.r_status = ?                                                                                                          ");
-				}*/
+				}
+				sql.append("order by r_no desc ) rs ) res                                          ");
+				sql.append("where res.rn >= ? and res.rn <= ?                                   ");
+				
 				pstmt = conn.prepareStatement(sql.toString());
-				/*pstmt.setString(1, keyword);*/
+				pstmt.setString(1, keyword);
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, endRow);
 				
@@ -537,5 +538,32 @@ public class ReservationDAO {
 	}
 	
 
+	
+	// 예매 정보를 삭제한다.
+		public void deleteReservation(String rNo) throws Exception {
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			StringBuffer sql = new StringBuffer();
+
+			try {
+				conn = DBConn.getConnection();
+				
+				sql.append("delete from reservation ");
+				sql.append("where r_no=? ");
+
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, rNo);
+
+				pstmt.executeUpdate();
+
+			} finally {
+				if (pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+				
+			}
+		}
 
 }

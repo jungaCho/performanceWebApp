@@ -102,10 +102,10 @@ public class ReservationService {
 		}
 		
 		//전체 회원의 예매내역을 조회한다.
-		public List<TotalInfoVO> retrieveReservationByMember(int startRow, int endRow) throws Exception{
+		public List<TotalInfoVO> retrieveReservationByMember(int startRow, int endRow, String keyfield, String keyword) throws Exception{
 		
 			ReservationDAO reservationDAO = ReservationDAO.getInstance();
-			return reservationDAO.selectReservationListByAdmin(startRow, endRow);
+			return reservationDAO.selectReservationListByAdmin(startRow, endRow, keyfield, keyword);
 			
 		}
 		
@@ -124,6 +124,9 @@ public class ReservationService {
 			return ReservationDAO.getInstance().selectTotalPost();
 		}
 
+		
+		
+		
 		
 /*	// 특정 공연장의 모든 좌석을 조회한다.
 	public List<SeatVO> retrieveAllSeatByTheater(String tNo) throws Exception {

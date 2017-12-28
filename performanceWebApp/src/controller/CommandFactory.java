@@ -97,6 +97,8 @@ public class CommandFactory {
 		
 		map.put("/admin_r_layout.do", "controller.reservation.ListReservationByAdminCommand");
 		
+		map.put("/remove.do", "controller.reservation.RemoveReservationCommand");
+		
 		
 		//°ø¿¬
 		map.put("/admin_p_selectPerformanceList.do","controller.performance.ListPerformanceByAdminCommand");
