@@ -55,22 +55,23 @@ public class ReservationService {
 
 	}
 
+	public boolean checkCanceldReservations(String rNo) throws Exception {
+		return ReservationDAO.getInstance().checkCanceledReservation(rNo);
+	}
+	
 	// 예매를 취소한다.
 	public void modifyReservation(String rNo) throws Exception {
-
 		Connection conn = null;
-
 		try {
 			conn = DBConn.getConnection();
 
 			conn.setAutoCommit(false);
 
 			ReservationDAO reservationDAO = ReservationDAO.getInstance();
-			Boolean isSuccess = reservationDAO.checkCanceledReservation(conn, rNo);
 			reservationDAO.updateReservation(rNo, conn);
 			reservationDAO.deleteReservedSeat(rNo, conn);
 			reservationDAO.insertRefund(conn, rNo);
-
+			
 		} catch (Exception e) {
 			conn.rollback();
 			throw e;
@@ -78,13 +79,12 @@ public class ReservationService {
 			if (conn != null)
 				conn.close();
 		}
-
 	}
 
 	// 특정 회원의 예매내역을 조회한다.
 	public List<TotalInfoVO> retrieveReservationByMember(int startRow, int endRow, String keyfield, 
 															 String keyword, String mNo) throws Exception {
-		return null;
+		return ReservationDAO.getInstance().selectReservationListByMember(keyfield, keyword, mNo, startRow, endRow);
 	}
 	
 	//특정 회원의 예매내역을 조회한다.
@@ -120,10 +120,13 @@ public class ReservationService {
 		}
 		
 		//게시글 수를 조회하다.
+		public int selectTotalList(String mNo) throws Exception {
+			return ReservationDAO.getInstance().selectTotalPost(mNo);
+		}
+		
 		public int selectTotalList() throws Exception {
 			return ReservationDAO.getInstance().selectTotalPost();
 		}
-
 		
 		
 		

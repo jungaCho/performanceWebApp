@@ -29,12 +29,16 @@ public class CanceledReservationCommand implements Command{
 			MemberVO member = (MemberVO)session.getAttribute("member");
 			//예매를 취소한다.
 			// 취소 상태의 취소여부를 확인한다.
-			if(member.getmPw().equals(pwd)) {
-				reservationService.modifyReservation(rNo);
+			int checkCount = 0;
+			boolean isTrue = reservationService.checkCanceldReservations(rNo);
+			if(member.getmPw().equals(pwd) && isTrue) {
+				req.setAttribute("checkCount", checkCount);
 				forward.setPath("/member_r_layout3.jsp?nav=member_r_menu&article=member_r_reservationInfo");
 				forward.setRedirect(true);
 				return forward;
-			}else {
+			} else {
+				checkCount = 1;
+				req.setAttribute("checkCount", checkCount);
 				forward.setPath("/member_r_layout3.jsp?nav=member_r_menu&article=member_r_reservationInfo");
 				forward.setRedirect(false);
 				return forward;

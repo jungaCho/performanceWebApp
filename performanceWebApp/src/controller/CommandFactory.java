@@ -97,7 +97,9 @@ public class CommandFactory {
 		
 		map.put("/admin_r_layout.do", "controller.reservation.ListReservationByAdminCommand");
 		
-		map.put("/remove.do", "controller.reservation.RemoveReservationCommand");
+		map.put("/canceledReservation.do", "controller.reservation.CanceledReservationCommand");
+		
+		map.put("/cancelReservationForm.do", "controller.reservation.CancelReservationFormCommand");
 		
 		
 		//°ø¿¬

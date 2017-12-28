@@ -24,7 +24,7 @@
 		<servlet-class>controller.performance.UploadFileServlet</servlet-class>
 		<multipart-config>
 			<location>C:/tempUpload</location>
-			<max-file-size>2000000</max-file-size>
+			<max-file-size>2000000000000</max-file-size>
 			<max-request-size>100000000</max-request-size>
 			<file-size-threshold>100000</file-size-threshold>
 		</multipart-config>
@@ -40,7 +40,7 @@
 		<servlet-class>controller.performance.ModifyPerformanceServlet</servlet-class>
 		<multipart-config>
 			<location>C:/tempUpload</location>
-			<max-file-size>2000000</max-file-size>
+			<max-file-size>2000000000000</max-file-size>
 			<max-request-size>100000000</max-request-size>
 			<file-size-threshold>100000</file-size-threshold>
 		</multipart-config>
