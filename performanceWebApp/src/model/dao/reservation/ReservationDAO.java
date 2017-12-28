@@ -518,11 +518,11 @@ public class ReservationDAO {
 			sql.append("  						   and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                   																    ");
 			sql.append("					   	   and mem.m_no = ?																													");
 			if (keyfield.equals("title")) {
-				sql.append("					   and title like '%' || ? || '%'																													");
+				sql.append("					   and perf.title like '%' || ? || '%'																													");
 			} else if (keyfield.equals("sDate")) {
-				sql.append("					   and s_date like '%' || ? || '%'																									");
+				sql.append("					   and sch.s_date like '%' || ? || '%'																									");
 			} else if (keyfield.equals("rStatus")) {
-				sql.append("					   and r_status like '%' || ? || '%'																												");
+				sql.append("					   and res.r_status like '%' || ? || '%'																												");
 			}
 			sql.append("					   order by r_no desc ) rs ) res                                     																				    ");		
 			sql.append("where res.rn >= ? and res.rn <= ?                                  																					");
