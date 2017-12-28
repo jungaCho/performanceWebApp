@@ -938,6 +938,37 @@ public class PerformanceDAO {
 		}
 		return performances;
 	}
+	
+/*	//관람등급, 장르 조회
+	public ArrayList<String> selectGenre() {
+		ArrayList<String> viewClasses=new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
+		try {
+			conn = DBConn.getConnection();
+
+			StringBuffer sql = new StringBuffer();
+			sql.append("select view_no 			");
+			sql.append("from viewclass       ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String view=rs.getString(1);
+				viewClasses.add(view);
+			}
+		} finally {
+			if(rs!=null) rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+		return viewClasses;
+	}*/
 
 }

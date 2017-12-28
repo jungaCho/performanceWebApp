@@ -322,4 +322,10 @@ public class PerformanceService {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
 		return performanceDao.selectPerformanceList(startRow, endRow);
 	}
+	
+	/*//관람등급, 장르 갖고오기
+	public void retrieveGenre() throws Exception{
+		PerformanceDAO performanceDAO=PerformanceDAO.getInstance();
+		
+	}*/
 }
