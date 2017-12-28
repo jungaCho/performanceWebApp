@@ -89,7 +89,7 @@ public class CommandFactory {
 		
 		map.put("/order.do","controller.reservation.OrderCommand");
 		
-		
+		map.put("/totalKeywordSearch.do", "controller.reservation.TotalKeywordSearchCommand");
 		
 		map.put("/member_r_layout2.do","controller.reservation.UploadReservationCommand");
 		

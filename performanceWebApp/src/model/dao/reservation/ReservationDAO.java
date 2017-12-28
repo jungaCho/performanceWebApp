@@ -272,96 +272,6 @@ public class ReservationDAO {
 
 	}
 
-	// 검색조건에 해당하는 회원의 예매 내역을 조회한다. (특정회원)
-
-	public List<TotalInfoVO> selectReservationListByMember(Connection conn, String keyfield,
-															String keyword, String mNo,	int startRow, int endRow) throws Exception {
-
-		List<TotalInfoVO> totalInfos = new ArrayList<TotalInfoVO>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			StringBuffer sql = new StringBuffer();
-			sql.append(
-					"select r.r_no , r.r_status, to_char(r.r_date,'YYYY/MM/DD'), r.card_number, r.approve_number, r.total_price,                             ");
-			sql.append(
-					"c.cardCo_name, m.m_id, p.title, to_char(s.s_date,'YYYY/MM/DD'), to_char(o.o_time,'HH24:MI') , t.t_name , rs.seat_no        			");
-			sql.append(
-					"from reservation r, card_company c, member m , performance p, schedule s, orders o , theater t,  reserved_seat rs                 			");
-			sql.append(
-					"where r.o_no = o.o_no                                                                                                        ");
-			sql.append(
-					"and r.cardCo_no = c.cardCo_no                                                                                                 ");
-			sql.append(
-					"and r.m_no = m.m_no                                                                                                                ");
-			sql.append(
-					"and o.s_no = s.s_no                                                                                                                        ");
-			sql.append(
-					"and s.p_no = p.p_no                                                                                                                       ");
-			sql.append(
-					"and s.t_no = t.t_no                                                                                                                         ");
-			sql.append(
-					"and r.r_no = rs.r_no                                                                                                                       ");
-			if (keyfield.equals("title")) {
-				sql.append("and p.title like '%' || ? || '%'                                                                                                ");
-			} else if (keyfield.equals("sDate")) {
-				sql.append("and s.s_date like '%' || ? ||'%'                                                                                                     ");
-			} else if (keyfield.equals("rStatus")) {
-				sql.append("and r.r_status like '%' || ? || '%'                                                                                             ");
-			}
-			sql.append(
-					"m.m_no = ?																														");
-			sql.append(
-					"order by r.r_no desc                                                                                                                ");
-
-			pstmt = conn.prepareStatement(sql.toString());
-
-			pstmt.setString(1, keyword);
-			pstmt.setString(2, mNo);
-
-			rs = pstmt.executeQuery();
-
-			String rNo = "";
-			while (rs.next()) {
-				TotalInfoVO totalInfo = null;
-				if (!rNo.equals(rs.getString(1))) {
-					totalInfo = new TotalInfoVO();
-
-					totalInfo.setrNo(rs.getString(1));
-					totalInfo.setrStatus(rs.getString(2));
-					totalInfo.setrDate(rs.getString(3));
-					totalInfo.setCardNumber(rs.getString(4));
-					totalInfo.setApproveNumber(rs.getString(5));
-					totalInfo.setTotalPrice(rs.getInt(6));
-					totalInfo.setCardCoName(rs.getString(7));
-					totalInfo.setmId(rs.getString(8));
-					totalInfo.setTitle(rs.getString(9));
-					totalInfo.setsDate(rs.getString(10));
-					totalInfo.setoTime(rs.getString(11));
-					totalInfo.settName(rs.getString(12));
-
-					totalInfos.add(totalInfo);
-
-				}
-
-				if (rs.getString(13) != null) {
-					ReservedSeatVO seat = new ReservedSeatVO();
-					seat.setrNo(rs.getString(1));
-					seat.setSeatNo(rs.getString(2));
-					totalInfo.addSeats(seat);
-				}
-
-			}
-		} finally {
-			if (pstmt != null)
-				pstmt.close();
-			if (rs != null)
-				rs.close();
-		}
-		return totalInfos;
-	}
-
 	// 특정 공연회차의 예매된 좌석을 조회한다.
 	public List<ReservedSeatVO> selectReservedSeat(String oNo) throws Exception {
 		System.out.println("회차번호 : " + oNo);
@@ -391,7 +301,6 @@ public class ReservationDAO {
 				rSeat.setSeatNumber(rs.getString(2));
 				rSeats.add(rSeat);
 			}
-
 		} finally {
 			if (rs != null)
 				rs.close();
@@ -399,11 +308,8 @@ public class ReservationDAO {
 				pstmt.close();
 			if (conn != null)
 				conn.close();
-		
 		}
-
 		return rSeats;
-
 	}
 
 	// 특정 공연장의 모든 좌석을 조회한다.
@@ -472,82 +378,151 @@ public class ReservationDAO {
 		}
 		return totalPost;
 	}
-
-	public List<TotalInfoVO> selectReservationListByMember(Connection conn, String mNo,	int startRow, int endRow) throws Exception {
-		List<TotalInfoVO> totalInfos = new ArrayList<TotalInfoVO>();
+	// 검색조건에 해당하는 회원의 예매 내역을 조회한다. (특정회원)
+	public List<TotalInfoVO> selectReservationListByMember(String mNo,	int startRow, int endRow) throws Exception {
+		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		List<TotalInfoVO> totalInfos = new ArrayList<TotalInfoVO>();
 		try {
 			conn = DBConn.getConnection();
-			
 			StringBuffer sql = new StringBuffer();
-			sql.append("select r.r_no, to_char(r.r_date,'yyyy/mm/dd'), p.title , to_char(s.s_date,'yyyy/mm/dd'), r.r_status		");
-		/*	sql.append("	  ,r.card_number, r.approve_number, r.total_price,	c.cardCo_name, m.m_id, t.t_name, rs.seat_no		");
-			sql.append("	   to_char(o.o_time,'HH24:MI')																		");*/
-			sql.append("from (select rownum as rn, totalinfo1.*																	");
-			sql.append("	 from (select *																						");
-			sql.append("		   from reservation																				");
-			sql.append("		   order by r_no desc) totalinfo1) r,									 							");
-			sql.append("	 ,card_company c, member m , performance p,															");
-			sql.append("	 schedule s, orders o , theater t,  reserved_seat rs 												");
-			sql.append("where r.o_no = o.o_no																					");
-			sql.append("and r.cardCo_no = c.cardCo_no																			");
-			sql.append("and r.m_no = m.m_no																						");
-			sql.append("and o.s_no = s.s_no																						");
-			sql.append("and s.p_no = p.p_no																						");
-			sql.append("and s.t_no = t.t_no																						");
-			sql.append("and r.r_no = rs.r_no																					");
-			/*if(keyfield.equals("title")) {
-				sql.append("and p.title like '%' || ? || '%'																	");
-			} else if (keyfield.equals("sDate")) {
-				sql.append("and s.s_date like '%' || ? || '%'																	");
-			} else if (keyfield.equals("rStatus")) {
-				sql.append("and r.r_status like '%' || ? || '%'																	");
-			}*/
-			sql.append("and m.m_no = ?																							");
-			sql.append("and rn >= ? and rn <= ?																					");
-			sql.append("order by r.r_no desc																					");
-			
+
+			sql.append("select r_no, r_status, r_date, card_number, approve_number, total_price, cardco_name,                											    ");
+			sql.append(" 	   m_id, title, s_date, o_time, t_name, seat_no                 												   								");
+			sql.append("		from ( select ROWNUM as rn, rs.*                           																					");
+			sql.append("				from (select res.r_no, res.r_status, to_char(res.r_date, 'YYYY/MM/DD') as r_date, res.card_number,									");
+			sql.append("					  res.approve_number, res.total_price, card.cardco_name, mem.m_id, perf.title,              									");
+			sql.append("					  to_char(sch.s_date, 'YYYY/MM/DD') as s_date, to_char(ord.o_time, 'HH24:MI') as o_time, t.t_name,          										    ");
+			sql.append("					  (select listagg(rseat.seat_no, ',') within group (order by rseat.seat_no ) from reserved_seat rseat where  rseat.r_no = res.r_no) as seat_no        ");
+			sql.append("					   from reservation res, card_company card, member mem,                      																	     	");
+			sql.append("					   orders ord, schedule sch,  performance perf,  theater t                    																			");
+			sql.append("					   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                              ");
+			sql.append("  						   and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                   																    ");
+			sql.append("					   	   and mem.m_no = ?																													");
+			sql.append("					   order by r_no desc ) rs ) res                                     																				    ");		
+			sql.append("where res.rn >= ? and res.rn <= ?                                  																					");
 			pstmt = conn.prepareStatement(sql.toString());
-			/*pstmt.setString(1, keyword);*/
+
 			pstmt.setString(1, mNo);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				TotalInfoVO	totalInfo = new TotalInfoVO();
-				totalInfo.setrNo(rs.getString(1));
-				totalInfo.setrDate(rs.getString(2));
-				totalInfo.setTitle(rs.getString(3));
-				totalInfo.setsDate(rs.getString(4));
-				totalInfo.setrStatus(rs.getString(5));
-				/*
-				totalInfo.setCardNumber(rs.getString(6));
-				totalInfo.setApproveNumber(rs.getString(7));
-				totalInfo.setTotalPrice(rs.getInt(8));
-				totalInfo.setCardCoName(rs.getString(9));
-				totalInfo.setmId(rs.getString(10));
-				totalInfo.settName(rs.getString(11));
-				totalInfo.setoTime(rs.getString(13));
-				
-				if (rs.getString(12) != null) {
+
+			while (rs.next()) {
+				TotalInfoVO totalInfo = new TotalInfoVO();
+
+				if (totalInfo != null) {
+
+					totalInfo.setrNo(rs.getString(1));
+					totalInfo.setrStatus(rs.getString(2));
+					totalInfo.setrDate(rs.getString(3));
+					totalInfo.setCardNumber(rs.getString(4));
+					totalInfo.setApproveNumber(rs.getString(5));
+					totalInfo.setTotalPrice(rs.getInt(6));
+					totalInfo.setCardCoName(rs.getString(7));
+					totalInfo.setmId(rs.getString(8));
+					totalInfo.setTitle(rs.getString(9));
+					totalInfo.setsDate(rs.getString(10));
+					totalInfo.setoTime(rs.getString(11));
+					totalInfo.settName(rs.getString(12));
+				}
+
+				if (rs.getString(13) != null) {
 					ReservedSeatVO seat = new ReservedSeatVO();
 					seat.setrNo(rs.getString(1));
-					seat.setSeatNo(rs.getString(12));
+					seat.setSeatNo(rs.getString(13));
+
 					totalInfo.addSeats(seat);
-				}*/
+				}
 				totalInfos.add(totalInfo);
 			}
-			return totalInfos;		
+
 		} finally {
-			if(rs!=null)
-				rs.close();
-			if(pstmt!=null)
+			if (pstmt != null)
 				pstmt.close();
+			if (rs != null)
+				rs.close();
 		}
-		
+		return totalInfos;
+	}
+	
+	public List<TotalInfoVO> selectReservationListByMember(String keyfield, String keyword, 
+															String mNo,	int startRow, int endRow) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<TotalInfoVO> totalInfos = new ArrayList<TotalInfoVO>();
+		try {
+			conn = DBConn.getConnection();
+			StringBuffer sql = new StringBuffer();
+
+			sql.append("select r_no, r_status, r_date, card_number, approve_number, total_price, cardco_name,                											    ");
+			sql.append(" 	   m_id, title, s_date, o_time, t_name, seat_no                 												   								");
+			sql.append("		from ( select ROWNUM as rn, rs.*                           																					");
+			sql.append("				from (select res.r_no, res.r_status, to_char(res.r_date, 'YYYY/MM/DD') as r_date, res.card_number,									");
+			sql.append("					  res.approve_number, res.total_price, card.cardco_name, mem.m_id, perf.title,              									");
+			sql.append("					  to_char(sch.s_date, 'YYYY/MM/DD') as s_date, to_char(ord.o_time, 'HH24:MI') as o_time, t.t_name,          										    ");
+			sql.append("					  (select listagg(rseat.seat_no, ',') within group (order by rseat.seat_no ) from reserved_seat rseat where  rseat.r_no = res.r_no) as seat_no        ");
+			sql.append("					   from reservation res, card_company card, member mem,                      																	     	");
+			sql.append("					   orders ord, schedule sch,  performance perf,  theater t                    																			");
+			sql.append("					   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                              ");
+			sql.append("  						   and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                   																    ");
+			sql.append("					   	   and mem.m_no = ?																													");
+			if (keyfield.equals("title")) {
+				sql.append("					   	   and 																													");
+			} else if (keyfield.equals("sDate")) {
+				sql.append("					   	   and mem.m_no = ?																													");
+			} else if (keyfield.equals("rStatus")) {
+				sql.append("					   	   and mem.m_no = ?																													");
+			}
+			sql.append("					   order by r_no desc ) rs ) res                                     																				    ");		
+			sql.append("where res.rn >= ? and res.rn <= ?                                  																					");
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setString(1, mNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				TotalInfoVO totalInfo = new TotalInfoVO();
+
+				if (totalInfo != null) {
+
+					totalInfo.setrNo(rs.getString(1));
+					totalInfo.setrStatus(rs.getString(2));
+					totalInfo.setrDate(rs.getString(3));
+					totalInfo.setCardNumber(rs.getString(4));
+					totalInfo.setApproveNumber(rs.getString(5));
+					totalInfo.setTotalPrice(rs.getInt(6));
+					totalInfo.setCardCoName(rs.getString(7));
+					totalInfo.setmId(rs.getString(8));
+					totalInfo.setTitle(rs.getString(9));
+					totalInfo.setsDate(rs.getString(10));
+					totalInfo.setoTime(rs.getString(11));
+					totalInfo.settName(rs.getString(12));
+				}
+
+				if (rs.getString(13) != null) {
+					ReservedSeatVO seat = new ReservedSeatVO();
+					seat.setrNo(rs.getString(1));
+					seat.setSeatNo(rs.getString(13));
+
+					totalInfo.addSeats(seat);
+				}
+				totalInfos.add(totalInfo);
+			}
+
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (rs != null)
+				rs.close();
+		}
+		return totalInfos;
 	}
 	
 
