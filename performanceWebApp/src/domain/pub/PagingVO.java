@@ -82,19 +82,20 @@ public class PagingVO {
 
 	// [다음] 클릭시 다음 페이지 그룹의 시작 페이지 번호를 구한다.
 	public int getNextPage() {
-		this.nextPage = endPage + 1;
+		this.nextPage = getEndPage() + 1;
 		return nextPage;
 	}
 
 	public int getStartRow() {
-		this.startRow = (currentPage - 1) * postPerpage + 1;
-		return startRow;
+		this.startRow = (getCurrentPage() - 1) * getPostPerpage() + 1;
+		System.out.println("=================================" + this.startRow);
+		return this.startRow;
 	}
 
 	public int getEndRow() {
-		this.endRow = currentPage * postPerpage;
-		if (this.endRow > totalPost) {
-			this.endRow = totalPost;
+		this.endRow = getCurrentPage() * getPostPerpage();
+		if (this.endRow > getTotalPost()) {
+			this.endRow = getTotalPost();
 		}
 		return endRow;
 	}

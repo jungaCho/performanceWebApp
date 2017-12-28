@@ -1,4 +1,5 @@
-<%@page contentType="text/html; charset=utf-8"%>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -331,7 +332,7 @@ a {
 </script>
 </head>
 <body>
-	<form>
+	
 		<div id="div1">
 			<ul>
 				<li value="month"><a href='#'>1월</a></li>
@@ -372,36 +373,27 @@ a {
 		
 		<br><br>
 		<div id="div3">
-                 <table id="datas" border="1" width=180>
-                        <tr>
-                              <td>${pageScope.performance.sDate }</td>
-                              <td><button type="submit" id="btn2">예매하기</button>
-                        </tr>
-                        <tr>
-                              <c:forEach var="performance" items="${requestScope.performances }" varStatus="loop">
-                                    <c:url var="url" value="/member_p_detailPerformance.do" scope="page">
-                                          <c:param name="pNo" value="${pageScope.performance.pNo }" />
-                                    </c:url>
-                                    <c:forEach var="poster" items="${requestScope.performance.posters}">
-                                          <td colspan='2'><a href="${pageScope.url }"><img
-                                                      src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
-                                                      alt="사진"></td>
-                                    </c:forEach>
-                              </c:forEach>
-                        </tr>
-                        <tr>
-                              <c:forEach var="performance" items="${requestScope.performances }"
-                                    varStatus="loop">
-                                    <c:url var="url" value="/member_p_detailPerformance.do"
-                                          scope="page">
-                                          <c:param name="pNo" value="${pageScope.performance.pNo }" />
-                                    </c:url>
-                                    <td><a href="${pageScope.url }">${pageScope.performance.title }</td>
-                              </c:forEach>
-                        </tr>
-                  </table>
-            </div>
-      
-	</form>
+        	<table id="datas" border="1" width=180>
+        		<tr>
+        			<c:forEach var="poster" items="${requestScope.posters}" varStatus="loop">       			        			
+        				<td>
+        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }" width="200" height="200">
+        					<span>${pageScope.poster.title }</span>
+        					<button type="button">예매</button>
+        				</td>
+        				<c:if test="${loop.count % 3  == 0 }">
+        					</tr><tr>
+        				</c:if>
+        					        			
+        		    </c:forEach>
+        		</tr>
+            </table>
+       </div>       
+                 
 </body>
 </html>
+
+
+
+
+

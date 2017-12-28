@@ -29,27 +29,42 @@ public class ListReservationByAdminCommand implements Command{
 		
 		PagingVO paging = new PagingVO();
 		
-		//한 페이지에 보여줄 수
+		//한 페이지에 보여줄 게시글 수
 		paging.setPostPerpage(5);
-		//한 페이지에 보여줄 목록 수
+		//한 페이지에 보여줄 페이지 목록 수
 		paging.setPageBlock(10);
-		//현재 페이지 번호 관리
+		//현재 페이지 번호 설정
 		paging.setCurrentPage(currentPage);
 		
-		//검색 조건 및 검색어 
-		/*String keyfield = req.getParameter("keyfield");
-		String keyword = req.getParameter("keyword");*/
+		//1. 검색 조건 및 검색어를 구한다.
+		String keyfield = req.getParameter("keyfield");
+		String keyword = req.getParameter("keyword");
+		
+		
 		
 		ActionForward forward = new ActionForward();
 		try {
 		
 			ReservationService reservationService = ReservationService.getInstance();
 			paging.setTotalPost(reservationService.selectTotalList());
+		
+			System.out.println("currentPage : " + paging.getCurrentPage());
+			System.out.println("postPerpage : " + paging.getPostPerpage());
+			System.out.println("총 게시글 수 : " + paging.getTotalPost());
+			System.out.println("총 페이지 수 : " + paging.getTotalPage());
+			System.out.println("startPage : " + paging.getStartPage());
+			System.out.println("endPage : " + paging.getEndPage());
 			
-			int startRow = paging.getStartPage();
+			
+			int startRow = paging.getStartRow();
 			int endRow = paging.getEndRow();
 			
-			List<TotalInfoVO> totalInfos = reservationService.retrieveReservationByMember(startRow, endRow);
+			System.out.printf("startRow : %d%n", startRow);
+			System.out.printf("endRow : %d%n", endRow);
+			
+			List<TotalInfoVO> totalInfos = reservationService.retrieveReservationByMember(keyfield, keyword, startRow, endRow);
+			
+			System.out.printf("totalInfos.size : %d%n", totalInfos.size());
 			
 			req.setAttribute("totalInfos", totalInfos);
 			req.setAttribute("paging", paging);

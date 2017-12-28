@@ -15,7 +15,7 @@
 body, a {
 	font: 20px '돋움';
 	color: white;
-	font-weight: bolder;
+ 	font-weight: bolder; 
 }
 
 header {

@@ -12,6 +12,8 @@ public class TotalInfoVO {
 	private int totalPrice;
 	private String cardCoName;
 	private String mId;
+	private String mName;
+	private String mNo;
 	private String title;
 	private String sDate;
 	private String oTime;
@@ -24,7 +26,7 @@ public class TotalInfoVO {
 
 	public TotalInfoVO(String rNo, String rStatus, String rDate, String cardNumber, String approveNumber,
 			int totalPrice, String cardCoName, String mId, String title, String sDate, String oTime, String tName,
-			List<ReservedSeatVO> seats) {
+			List<ReservedSeatVO> seats, String mName, String mNo) {
 		super();
 		this.rNo = rNo;
 		this.rStatus = rStatus;
@@ -33,6 +35,8 @@ public class TotalInfoVO {
 		this.approveNumber = approveNumber;
 		this.totalPrice = totalPrice;
 		this.cardCoName = cardCoName;
+		this.mName = mName;
+		this.mNo = mNo;
 		this.mId = mId;
 		this.title = title;
 		this.sDate = sDate;
@@ -85,6 +89,14 @@ public class TotalInfoVO {
 		return totalPrice;
 	}
 
+	public String getmId() {
+		return mId;
+	}
+
+	public void setmId(String mId) {
+		this.mId = mId;
+	}
+
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
@@ -97,12 +109,23 @@ public class TotalInfoVO {
 		this.cardCoName = cardCoName;
 	}
 
-	public String getmId() {
-		return mId;
+	
+	
+
+	public String getmName() {
+		return mName;
 	}
 
-	public void setmId(String mId) {
-		this.mId = mId;
+	public void setmName(String mName) {
+		this.mName = mName;
+	}
+
+	public String getmNo() {
+		return mNo;
+	}
+
+	public void setmNo(String mNo) {
+		this.mNo = mNo;
 	}
 
 	public String getTitle() {

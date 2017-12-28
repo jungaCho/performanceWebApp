@@ -50,7 +50,7 @@ public class PerformanceDAO {
 			// 이미지 보기 텍스트 보기
 		
 			if (mode.equals("image")) {
-				sql.append("select perf.title, pos.SYSTEM_FILE_NAME, perf.start_date, perf.end_date,perf.p_no ");
+				sql.append("select perf.title, pos.SYSTEM_FILE_NAME, perf.start_date, perf.end_date, perf.p_no   ");
 				sql.append("from (select rownum as rn, p.* ");
 				sql.append(" from(select * ");
 				sql.append("from performance order by title asc) p) perf , poster pos ");
@@ -76,6 +76,7 @@ public class PerformanceDAO {
 				"and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||? and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||? ");
 				sql.append("and perf.rn>=? and perf.rn<=? ");
 			}
+		
 		
 			/*
 			* // 장르 선택시 String genre = (String) map.get("genre"); if (genre.equals("뮤지컬"))
@@ -116,12 +117,14 @@ public class PerformanceDAO {
 				
 					PosterVO poster = new PosterVO();
 					ArrayList<PosterVO> posters = new ArrayList<PosterVO>();
+					poster.setMainPoster(1); //주의
 					poster.setSystemFileName(rs.getString(2));
 					posters.add(poster);
-					performance.setPosters(posters);
-				
+					performance.setPosters(posters);			
 					performances.add(performance);
+					
 				}
+				
 			} else if (mode.equals("text")) {
 				while (rs.next()) {
 					PerformanceVO performance = new PerformanceVO();
@@ -938,6 +941,37 @@ public class PerformanceDAO {
 		}
 		return performances;
 	}
+	
+/*	//관람등급, 장르 조회
+	public ArrayList<String> selectGenre() {
+		ArrayList<String> viewClasses=new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
+		try {
+			conn = DBConn.getConnection();
+
+			StringBuffer sql = new StringBuffer();
+			sql.append("select view_no 			");
+			sql.append("from viewclass       ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String view=rs.getString(1);
+				viewClasses.add(view);
+			}
+		} finally {
+			if(rs!=null) rs.close();
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+		}
+		return viewClasses;
+	}*/
 
 }
