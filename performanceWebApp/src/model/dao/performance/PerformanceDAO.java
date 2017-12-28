@@ -49,7 +49,7 @@ public class PerformanceDAO {
 			// 이미지 보기 텍스트 보기
 
 			if (mode.equals("image")) {
-				sql.append("select perf.title, pos.SYSTEM_FILE_NAME, perf.start_date, perf.end_date ");
+				sql.append("select perf.title, pos.SYSTEM_FILE_NAME, perf.start_date, perf.end_date, perf.p_no ");
 				sql.append("from (select rownum as rn, p.* ");
 				sql.append(" from(select * ");
 				sql.append("from performance order by title asc) p) perf , poster pos ");
@@ -111,6 +111,7 @@ public class PerformanceDAO {
 					performance.setTitle(rs.getString(1));
 					performance.setStartDate(rs.getString(3));
 					performance.setEndDate(rs.getString(4));
+					performance.setpNo(rs.getString(5));
 
 					PosterVO poster = new PosterVO();
 					ArrayList<PosterVO> posters = new ArrayList<PosterVO>();
