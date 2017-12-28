@@ -21,10 +21,13 @@ public class ListPerformanceByMemberCommand implements Command {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		
-		int startRow = Integer.parseInt(req.getParameter("startRow"));
-        int endRow = Integer.parseInt(req.getParameter("endRow"));
-        String mode = req.getParameter("mode");
-        
+	//	int startRow = Integer.parseInt(req.getParameter("startRow"));
+    //    int endRow = Integer.parseInt(req.getParameter("endRow"));
+	//	 String mode = req.getParameter("mode");
+		int startRow=1;
+		int endRow=3;
+		String mod="image";
+ /*       
 		//1. 현재 페이지 번호를 구하다.
         int currentPage = 0;
         try {
@@ -42,18 +45,19 @@ public class ListPerformanceByMemberCommand implements Command {
         //3. 현재 페이지 번호를 구한다.
         paging.setCurrentPage(currentPage);
         //4. 총 게시글 수를 설정한다.
-
+*/
 		ActionForward forward = new ActionForward();
 		try {
 			PerformanceService performs = PerformanceService.getInstance();
 			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-			paging.setTotalPost(performanceDao.selectTotalPost());
+		//	paging.setTotalPost(performanceDao.selectTotalPost());
 
             HashMap<String, Object> map = new HashMap<String, Object>();
             
             map.put("startRow",startRow);
             map.put("endRow",endRow);
-            map.put("mode",mode);
+            map.put("mod",mod);
+            
 
             PerformanceService service = PerformanceService.getInstance();
             List<PerformanceVO> perfomances = service.retrievePerformanceListByMember(map);

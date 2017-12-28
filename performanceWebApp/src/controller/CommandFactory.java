@@ -117,11 +117,13 @@ public class CommandFactory {
 		
 		map.put("/admin_p_insertSchedule.do","controller.performance.InsertScheduleCommand" );
 		
+		map.put("/admin_p_removePerformanceList.do", "controller.performance.RemovePerformanceListCommand" );
+		
 		map.put("/member_p_selectPerformance.do","controller.performance.ListPerformanceByMemberCommand" );
 		
 		map.put("/member_p_detailPerformance.do", "controller.performance.DetailPerformanceByMemberCommand" );
 		
-		map.put("/admin_p_removePerformanceList.do", "controller.performance.RemovePerformanceListCommand" );
+		map.put("/member_p_selectPerformance_text.do", "controller.performance.ListPerformanceByTextByMemberCommand" );
 		
 		map.put("/member_r_layout.do","controller.performance.ListReservationCommand");
 

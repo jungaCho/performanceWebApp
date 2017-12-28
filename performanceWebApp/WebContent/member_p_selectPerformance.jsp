@@ -70,7 +70,7 @@ a {
 		
 		$('#btnText').on("click",function(){
 			
-			location.href="${pageContext.request.contextPath}/selectMenu.do";
+			location.href="${pageContext.request.contextPath}/member_p_selectPerformance_text.do";
 			
 		});
 		
