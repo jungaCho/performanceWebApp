@@ -7,4 +7,4 @@
 	}
 </style>
 
-session : ${not empty sessionScope.member}
+<img src="upload/bg2.jpg" width=100% height=100%>
