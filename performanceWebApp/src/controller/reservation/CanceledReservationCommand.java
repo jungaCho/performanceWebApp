@@ -24,22 +24,31 @@ public class CanceledReservationCommand implements Command{
 		
 		ActionForward forward = new ActionForward();
 		try {
-			ReservationService reservationService = ReservationService.getInstance();
 			HttpSession session = req.getSession();
 			MemberVO member = (MemberVO)session.getAttribute("member");
-			//예매를 취소한다.
-			// 취소 상태의 취소여부를 확인한다.
-			if(member.getmPw().equals(pwd)) {
-				reservationService.modifyReservation(rNo);
-				forward.setPath("/member_r_layout3.jsp?nav=member_r_menu&article=member_r_reservationInfo");
-				forward.setRedirect(true);
-				return forward;
-			}else {
-				forward.setPath("/member_r_layout3.jsp?nav=member_r_menu&article=member_r_reservationInfo");
+			boolean isTrue = ReservationService.getInstance().checkCanceldReservations(rNo);
+			int checkCount = 0;
+			System.out.println("isTrue = " + isTrue);
+			if(pwd.equals(member.getmPw()) && isTrue==true) {
+				checkCount = 0;
+				System.out.println("checkCount = " + checkCount);
+				req.setAttribute("checkCount", checkCount);
+				forward.setPath("/zzCancelReservation.jsp");
 				forward.setRedirect(false);
-				return forward;
+			} else if(member.getmPw().equals(pwd) && isTrue==false) {
+					checkCount = 1;
+					System.out.println("checkCount = " + checkCount);
+					req.setAttribute("checkCount", checkCount);
+					forward.setPath("/zzCancelReservation.jsp");
+					forward.setRedirect(false);
+			} else {
+				checkCount = 2;
+				System.out.println("checkCount = " + checkCount);
+				req.setAttribute("checkCount", checkCount);
+				forward.setPath("/zzCancelReservation.jsp");
+				forward.setRedirect(false);
 			}
-			
+			return forward;
 		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");

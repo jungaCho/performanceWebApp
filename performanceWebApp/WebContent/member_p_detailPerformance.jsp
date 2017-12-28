@@ -1,4 +1,6 @@
 <%@page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,9 +10,9 @@
 <style>
 form {
 	padding: 30px;
-	background-color: gray;
+	color: gray;
 	width: 800px;
-	height: 750px;
+	height: 100%;
 }
 
 li {
@@ -51,12 +53,12 @@ a {
 #div3 {
 	float: right;
 	text-align: center;
-	margin-top: 50px;
+	
 }
 
 #btn2 {
 	width: 100px;
-	height: 50px;
+	height: 35px;
 }
 
 #div1 {
@@ -68,50 +70,66 @@ a {
 #div4 {
 	text-align: center;
 }
+#detailPerformance {
+	border-collapse:separate;
+	border-spacing:0px;
+	color:black;
+	font:20px '돋움';
+}
+
+#detailPerformance th {
+	
+	background-color:#FFBB00;
+	border-left:1px solid gray;
+}
+#btn2{
+	margin-bottom:20px;
+	margin-top:15px;
+}
+#titlee{
+	background-color:#F5A9BC;
+}
+
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+       $(document).ready(function() {
+              $('#btn2').click(function() {
+            	  	var p_no = '${requestScope.performance.pNo}';
+            	  	var url = '${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=' + p_no;
+            	  	window.open(url, "예매확인","width=700, height=600");
+              });
+       });
+</script>
 </head>
 <body>
 	<form>
-		<div id="div2">
-			<div id="div2-1">
-				<input type="hidden" name="keyfield" value="title"/>
-				<input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요" size=60>
-				<button id="btn1" type="submit">검색</button>
-			</div>
-		</div>
-		<br> <br>
+		<h1 id='strong'><strong>공연 상세정보</strong></h1>
+		<br> 
 		<div id="div1">
 			<c:forEach var="poster" items="${requestScope.performance.posters}" >
 				<c:if test="${pageScope.poster.mainPoster == 1}">
 					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
-									width="100px" height="150px" id="img">
+									width="220" height="270px" id="img">
 				</c:if>
 				<br>
 				<c:if test="${pageScope.poster.mainPoster != 1}">
 					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
 									width="50px" height="50px" id="img">
 				</c:if>
-					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
-									width="50px" height="50px" id="img">
-					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
-									width="50px" height="50px" id="img">
 			</c:forEach>
 			<br>
 			<button type="button" id="btn2" type="button">예매하기</button>
 		</div>
 
 		<div id="div3">
-			<table id="detailPerformance" border="1" width=550>
+			<table id="detailPerformance" width=500 height="270" cellspacing=0>
 				<tr>
-					<td colspan='2'>${requestScope.performance.title }</td>
+					<td id="titlee" colspan='2' style="border-left:1px solid gray">${requestScope.performance.title }</td>
 				<tr>
 					<th>기간</th>
 					<td>${requestScope.performance.startDate }~
 						${requestScope.performance.endDate }</td>
-				</tr>
-				<tr>
-					<th>시간</th>
-					<td>${requestScope.performance.oTime }</td>
 				</tr>
 				<tr>
 					<th>장소</th>
@@ -138,31 +156,21 @@ a {
 		</div>
 
 		<br>
-		<hr width="800" align="center" color="black" size="1">
+		<hr id="hr" width="800" align="center" color="black" size="1">
 		<br>
 
 		<div id="div4">
-			<table id="detailFile" border="1" width=800>
-				<tr>
-					<th>할인정보</th>
-					<td><img src="${pageContext.request.contextPath}/upload/할인정보.jpg" 
-									width="600px" height="200px" id="img"></td>
-				</tr>
-			</table>
-		</div>
-		<div id="div4">
-			<table id="detailFile" border="1" width=800>
+			<h2>상세설명</h2>
 				<c:forEach var="detailFile" items="${requestScope.detailFiles }" varStatus="loop">
 	 				<c:url var="url" value="/downloadFile" scope="page">
 	 					<c:param name="originalFileName" value="${pageScope.detailFile.originalFileName }" />
 	 					<c:param name="systemFileName" value="${pageScope.detailFile.systemFileName }" />
 	 				</c:url>
-					<tr>
-						<td>상세설명${pageScope.loop.count }</td>
-						<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
-					</tr>
+					<img src="${pageContext.request.contextPath}/upload/${pageScope.detailFile.systemFileName}" 
+									width="100%" height="100%" id="img">
+					
 				</c:forEach>
-			</table>
+			
 		</div>
 	</form>
 </body>

@@ -1,6 +1,7 @@
 package controller.performance;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import controller.ActionForward;
 import controller.Command;
 import domain.performance.PerformanceVO;
-import domain.pub.PagingVO;
+import domain.performance.PosterVO;
 import model.dao.performance.PerformanceDAO;
 import model.service.performance.PerformanceService;
 
@@ -20,54 +21,85 @@ public class ListPerformanceByMemberCommand implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
+
+		// commandFactory에 SelectPerformanceByText.do 로 매핑부탁드려여
+
+		/*
+		 * int startRow = Integer.parseInt(req.getParameter("startRow")); int endRow =
+		 * Integer.parseInt(req.getParameter("endRow")); String mode =
+		 * req.getParameter("mod"); String genre = req.getParameter("genre"); String
+		 * keyword = req.getParameter("keyword"); String month =
+		 * req.getParameter("month");
+		 */
+
 		
-		//1. 현재 페이지 번호를 구하다.
-        int currentPage = 0;
-        try {
-            currentPage = Integer.parseInt(req.getParameter("currentPage"));
-        } catch(NumberFormatException ne) {
-            currentPage = 1;
-        }
-        
-        PagingVO paging = new PagingVO();
-        
-        //1. 한 페이지에 보여줄 게시글 수를 설정한다.
-        paging.setPostPerpage(9);
-        //2. 한 페이지에 보여줄 페이지 목록 수를 설정한다.
-        paging.setPageBlock(3);
-        //3. 현재 페이지 번호를 구한다.
-        paging.setCurrentPage(currentPage);
-        //4. 총 게시글 수를 설정한다.
 
 		ActionForward forward = new ActionForward();
+
 		try {
-			PerformanceService performs = PerformanceService.getInstance();
+
+			HashMap<String, Object> map = new HashMap<String, Object>();
+
+			int startRow = 1;
+			int endRow = 9;
+			String mode = "image";
+			String genre = "";
+			String keyword = "";
+			String month = "";
+
+			map.put("startRow", startRow);
+			map.put("endRow", endRow);
+			map.put("mode", mode);
+			map.put("genre", genre);
+			map.put("keyword", keyword);
+			map.put("month", month);
+
+			System.out.println(startRow);
+			System.out.println(endRow);
+			System.out.println(keyword);
+			System.out.println(mode);
+			System.out.println(genre);
+
+			PerformanceService service = PerformanceService.getInstance();
 			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-			paging.setTotalPost(performanceDao.selectTotalPost());
-
-			int startRow = paging.getStartRow();
-			int endRow = paging.getEndRow();
-			System.out.printf("startRow : %d, endRow : %d%n", startRow, endRow);
-
-			HashMap<String,Object> map = new HashMap<String, Object>();
-			List<PerformanceVO> performances = performs.retrievePerformanceListByMember(map);
+			List<PerformanceVO> performances = service.retrievePerformanceListByMember(map);
 			
-			System.out.println(performances.size());
+			System.out.println("===============================" + performances.size());
 			
-			req.setAttribute("performances", performances);
-			req.setAttribute("paging", paging);
+			
+			List<PosterVO> posters = new ArrayList<PosterVO>();
+			for(PerformanceVO performance : performances) {
+				for(PosterVO poster : performance.getPosters()) {
+					poster.setTitle(performance.getTitle());
+					if(poster.getMainPoster() == 1) {						
+						posters.add(poster);
+						
+					}
+				}
+			}
+			
+			
 
-			forward.setPath("/admin_layout.jsp?nav=admin_p_menu&article=admin_p_selectPerformanceList");
-			forward.setRedirect(false);
+			if (performances != null) {
+				req.setAttribute("performances", performances);
+				req.setAttribute("posters", posters);
+				forward.setPath("/member_p_layout2.jsp?article=member_p_selectPerformance");
+				forward.setRedirect(false);
+
+			} else {
+				forward.setPath("/member_p_layout2.jsp?article=member_m_findId");
+				forward.setRedirect(false);
+
+			}
+
 			return forward;
-			
+
 		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
 			forward.setRedirect(false);
 			return forward;
 		}
-
 	}
 
 }

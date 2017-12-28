@@ -17,11 +17,11 @@
   <meta name="Description" content="">
   <title>2단 Layout</title>
   <style>
-	body, a {
+/* 	body, a {
 		font: 20px '돋움';
 		color: white;
-		font-weight: bolder;
-	}
+		font-weight: bolder; 
+	} */
 
 	header {
 		width: 100%;
@@ -29,6 +29,9 @@
 		margin-left: auto;
 		margin-right: auto;
 		background-color: #3c394a;
+		font: 20px '돋움';
+		color: white;
+		font-weight: bolder;
 	}
 
 	section {
@@ -65,6 +68,7 @@
 
 	  nav ul a {
 			text-decoration: none;
+			color:white;
 	  }
 
 section nav {
@@ -72,6 +76,9 @@ section nav {
 		
 		background-color: #4C566E;
 		float: left;
+		font: 20px '돋움';
+		color: white;
+		font-weight: bolder;
 	}
 
 	section article {
@@ -79,6 +86,7 @@ section nav {
 		height: 100%;
 		background-color: #ebebeb;
 		float: left;
+		color:gray;
 		
 	}
 

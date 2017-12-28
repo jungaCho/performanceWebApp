@@ -21,8 +21,9 @@
 	}
 	
 	#div1{
-		margin-bottom: 20px;
 		text-align: left;
+		line-height:35px;
+		margin-top:50px;
 	}
 	
 	#div1 > #btn2 {
@@ -30,9 +31,29 @@
 	}
 	
 	#div2{
-		margin-top:20px;
-		text-align: left;
+		    margin-top: 20px;
+    text-align: left;
+    line-height: 35px;
+    border-top: 1px solid #5b5b5b;
+    padding-top: 20px;
 	}
+	
+	.wrap{padding:50px;}
+	.content{font-size:15px; overflow:hidden; width:950px; }
+	#btn1{background:blue;width: 50px;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
+    margin-top: -3px;}
+    
+    
+    #btn2{background:gray;width: 50px;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
+    margin-top: -3px;}
+    
+    input{border:1px solid #5b5b5b; margin-top:5px; margin-left:15px; height:25px; font-size:15px;}
 	
 	</style>
 	<script src="js/jquery-3.2.1.min.js"></script>
@@ -86,18 +107,20 @@
 	</script>
 </head>
 <body>
+	<div class="wrap">
 	<form>
 		<div id="pannel">
 		<h2>회원정보수정</h2>
 		<button type="button" id="btn1">확인</button>
 		<button type="button" id="btn2">취소</button>
 		</div>
-
+		
+		<div class="content">
 		<div id="div1">
 		아 이 디 : ${requestScope.member.mId }</input><br>
 		비밀번호 : <input type="password" id="newPwd" name="newPwd" value="${requestScope.member.mPw }" size="25"  placeholder="최소 8~12글자 동일숫자 연속 3자리 불가"/><br>
 		<span>최소 8~12자리 동일숫자 3자리 이상 불가</span><br>
-		비밀번호 확인 : <input type="password" id="npCheck" name="npCheck" size="25"  placeholder="비밀번호를 한번더 입력해주세요"/><br>
+		비밀번호 확인 : <input type="password" id="npCheck" name="npCheck" size="30"  placeholder="비밀번호를 한번더 입력해주세요"/><br>
 		<span>본인확인을 위해 변경하지 않을시에도 한번더 입력해주시기 바랍니다</span><br>
 		</div>
 		<hr width="500" align = "center" color = "black" size ="1">
@@ -107,8 +130,9 @@
 		이메일 :<input type="text" name="email" value="${requestScope.member.email }" size="30"/><br>
 		주  소 : <input type="text" name="address" value="${requestScope.member.address }" size="30"/><br>
 		</div>
-	
+		</div>
 	
 	</form>
+	</div>
 </body>
 </html>

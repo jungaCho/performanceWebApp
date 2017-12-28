@@ -74,6 +74,7 @@ public class PosterDAO {
 	public void deletePosterList(Connection conn, String pNo) throws Exception{
 		PreparedStatement pstmt=null;
 		try {
+			
 			StringBuilder sql=new StringBuilder();
 			sql.append("delete from poster     ");
 			sql.append("where p_no=?   " );
@@ -81,7 +82,8 @@ public class PosterDAO {
 			pstmt=conn.prepareStatement(sql.toString());
 			pstmt.setString(1, pNo);
 			
-			pstmt.executeUpdate();
+			int rowCount = pstmt.executeUpdate();
+			System.out.println("rowCount : " + rowCount);
 			
 		} finally {
 			if(pstmt!=null) pstmt.close();

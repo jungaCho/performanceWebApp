@@ -22,18 +22,18 @@ public class OrderDAO {
 	}
 	
 	//공연 회차 정보 일괄 등록
-	public void insertOrder(Connection conn, OrderVO order)throws Exception{
+	public void insertOrder(Connection conn, OrderVO order,String sNo)throws Exception{
 		PreparedStatement pstmt=null;
 		try {
 						
 			StringBuffer sql=new StringBuffer();
 			sql.append("insert into orders(o_no, o_time,s_no)    ");
-			sql.append("values('O'||lpad(order_seq.nextVal,5,0) , to_date(?,'HH24:MI') , (select max(s_no) from schedule))");
+			sql.append("values('O'||lpad(order_seq.nextVal,5,0) , to_date(?,'HH24:MI') , ?)		");
 			
 			pstmt=conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1,order.getoTime() );
-			
+			pstmt.setString(2, sNo);
 		
 			
 			pstmt.executeUpdate();

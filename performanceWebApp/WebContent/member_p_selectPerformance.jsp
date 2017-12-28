@@ -1,4 +1,5 @@
-<%@page contentType="text/html; charset=utf-8"%>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,7 +11,7 @@ form {
 	padding: 30px;
 	color: gray;
 	width: 100%;
-	height: 750px;
+	height: 100%;
 }
 
 #div1 {
@@ -68,82 +69,331 @@ a {
 <script>
 	$(document).ready(function(){
 		
-		$('#btnText').on("click",function(){
+		
+		$('#btnImage').on("click", function(){
 			
-			location.href="${pageContext.request.contextPath}/selectMenu.do";
+			location.href = "${pageContext.request.contextPath}/member_p_selectPerformance.do";
 			
 		});
 		
-	});
+		
+		$('#btnText').on("click",function(){
+		
+			
+		
+		$.ajax({
+			
+			url: "${pageContext.request.contextPath}/member_r_selectpByview.do"
+			,
+			method : "POST"
+			,
+			dataType: 'json'
+			,
+			data: {	
+				
+				startRow: 1,
+				endRow: 10,
+				mode: $('#btnText').val(),
+				genre: $('#genre:selected').val(),
+				keyword: $('#keyword').val(),
+				month: $('div1').find('li').val()			
+				
+			},
+			
+			success: function(data){
+				
+				 $('#datas').css({
+						
+						width: "800px",
+						height: "700px",
+						
+											
+					});   
+				 
+									
+				 $('#datas').find('tr').remove();
+					
+					var htmlStr = "";
+					
+					 for(var i=0; i<data.length; i++) {
+											
+						
+								
+						htmlStr += "<tr>";
+						htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
+						htmlStr += "<th>" +"기간"+ "</th>";
+						htmlStr += "<th>" +"장소"+ "</th>";
+						htmlStr += "<th>" +"예매"+ "</th>";
+						htmlStr += "</tr>";
+						
+						htmlStr += "<tr>";
+						htmlStr += "<td>" + data[i].title +"</td>";
+						htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
+						htmlStr += "<td>" + data[i].tName + "</td>";
+						
+					    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+						htmlStr += "</tr>";
+						
+								
+						
+						$(htmlStr).appendTo('#datas');
+						
+						htmlStr = "";
+						 
+						
+					}
+					 
+					  						 
+					
+			}
+		
+			,
+			error: function(jaXHR){
+				alert("error: " + jaXHR.error );
+				
+			}
+			
+		});
+		
+		});
+		
+		
+		//뮤지컬 장르 선택
+		
+		$('#btnGenre').on("click",function(){
+			
+			
+			
+			$.ajax({
+				
+				url: "${pageContext.request.contextPath}/member_r_selectpByview.do"
+				,
+				method : "POST"
+				,
+				dataType: 'json'
+				,
+				data: {
+					
+					
+					startRow: 1,
+					endRow: 10,
+					mode: $('#btnText').val(),
+					genre: $('#genre').find('option:selected').val(),
+					keyword: $('#keyword').val(),
+					month: $('div1').find('li').val()			
+					
+				},
+				
+				success: function(data){
+					
+					 $('#datas').css({
+							
+							width: "800px",
+							height: "700px",
+							
+												
+						});   
+					 
+										
+					 $('#datas').find('tr').remove();
+						
+						var htmlStr = "";
+						
+						 for(var i=0; i<data.length; i++) {
+												
+							
+									
+							htmlStr += "<tr>";
+							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
+							htmlStr += "<th>" +"기간"+ "</th>";
+							htmlStr += "<th>" +"장소"+ "</th>";
+							htmlStr += "<th>" +"예매"+ "</th>";
+							htmlStr += "</tr>";
+							
+							htmlStr += "<tr>";
+							htmlStr += "<td>" + data[i].title +"</td>";
+							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
+							htmlStr += "<td>" + data[i].tName + "</td>";
+							
+						    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+							htmlStr += "</tr>";
+							
+									
+							
+							$(htmlStr).appendTo('#datas');
+							
+							htmlStr = "";
+							 
+							
+						}
+						 
+						  						 
+						
+				}
+				,
+				error: function(jaXHR){
+					alert("error: " + jaXHR.error );
+					
+				}
+				
+			});
+			
+			});
+		
+		//검색
+	
+		
+		$('#btn1').on("click",function(){
+			
+			
+			
+			$.ajax({
+				
+				url: "${pageContext.request.contextPath}/member_r_selectpByview.do"
+				,
+				method : "POST"
+				,
+				dataType: 'json'
+				,
+				data: {
+					
+					
+					startRow: 1,
+					endRow: 10,
+					mode: $('#btnText').val(),
+					keyword: $('#keyword').val(),
+					month: $('div1').find('li').val()			
+					
+				},
+				
+				success: function(data){
+					
+					 $('#datas').css({
+							
+							width: "800px",
+							height: "700px",
+							
+												
+						});   
+					 
+										
+					 $('#datas').find('tr').remove();
+						
+						var htmlStr = "";
+						
+						 for(var i=0; i<data.length; i++) {
+												
+							
+									
+							htmlStr += "<tr>";
+							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
+							htmlStr += "<th>" +"기간"+ "</th>";
+							htmlStr += "<th>" +"장소"+ "</th>";
+							htmlStr += "<th>" +"예매"+ "</th>";
+							htmlStr += "</tr>";
+							
+							htmlStr += "<tr>";
+							htmlStr += "<td>" + data[i].title +"</td>";
+							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
+							htmlStr += "<td>" + data[i].tName + "</td>";
+							
+						    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+							htmlStr += "</tr>";
+							
+									
+							
+							$(htmlStr).appendTo('#datas');
+							
+							htmlStr = "";
+							 
+							
+						}
+						 
+						  						 
+						
+				}
+				,
+				error: function(jaXHR){
+					alert("error: " + jaXHR.error );
+					
+				}
+				
+			});
+			
+			});
+			
+			
+			
+			
+		});
+
+		
+
 </script>
 </head>
 <body>
-	<form>
+	
 		<div id="div1">
 			<ul>
-				<li><a href='#'>1월</a></li>
-				<li><a href='#'>2월</a></li>
-				<li><a href='#'>3월</a></li>
-				<li><a href='#'>4월</a></li>
-				<li><a href='#'>5월</a></li>
-				<li><a href='#'>6월</a></li>
-				<li><a href='#'>7월</a></li>
-				<li><a href='#'>8월</a></li>
-				<li><a href='#'>9월</a></li>
-				<li><a href='#'>10월</a></li>
-				<li><a href='#'>11월</a></li>
-				<li><a href='#'>12월</a></li>
+				<li value="month"><a href='#'>1월</a></li>
+				<li value="month"><a href='#'>2월</a></li>
+				<li value="month"><a href='#'>3월</a></li>
+				<li value="month"><a href='#'>4월</a></li>
+				<li value="month"><a href='#'>5월</a></li>
+				<li value="month"><a href='#'>6월</a></li>
+				<li value="month"><a href='#'>7월</a></li>
+				<li value="month"><a href='#'>8월</a></li>
+				<li value="month"><a href='#'>9월</a></li>
+				<li value="month"><a href='#'>10월</a></li>
+				<li value="month"><a href='#'>11월</a></li>
+				<li value="month"><a href='#'>12월</a></li>
 			</ul>
 		</div>
 		<div id="div2">
 			<div id="div2-1">
 				<input id="keyword" type="text" placeholder="검색어를 입력하세요">
-				<button id="btn1" type="submit">검색</button>
+				<button id="btn1" type="button">검색</button>
 			</div>
 			<div id="div2-2">
-				<button type="button">이미지보기</button>
-				<button type="button" id="btnText">텍스트보기</button>
+				<button type="button" id="btnImage" value="image">이미지보기</button>
+				<button type="button" id="btnText" value="text">텍스트보기</button>
+				
+				
 				<select id="genre">
-					<option value="G002">뮤지컬</option>
-					<option value="G001">연극</option>
-					<option value="G003">콘서트</option>
+					<option value="뮤지컬">뮤지컬</option>
+					<option value="연극">연극</option>
+					<option value="콘서트">콘서트</option>
 				</select>
+				
+				<button type="button" id="btnGenre" value="text">만 보기</button>
+				
 			</div>
 		</div>
-		<br> <br>
+		
+		
+		<br><br>
 		<div id="div3">
-			<table border="1" width=180>
-				<tr>
-					<td>${pageScope.performance.sDate }</td>
-					<td><button type="submit" id="btn2">예매하기</button>
-				</tr>
-				<tr>
-					<c:forEach var="performance" items="${requestScope.performances }"
-						varStatus="loop">
-						<c:url var="url" value="/member_p_detailPerformance.do"
-							scope="page">
-							<c:param name="pNo" value="${pageScope.performance.pNo }" />
-						</c:url>
-						<c:forEach var="poster"
-							items="${requestScope.performance.posters}">
-							<td colspan='2'><a href="${pageScope.url }"><img
-									src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
-									alt="사진"></td>
-						</c:forEach>
-					</c:forEach>
-				</tr>
-				<tr>
-					<c:forEach var="performance" items="${requestScope.performances }"
-						varStatus="loop">
-						<c:url var="url" value="/member_p_detailPerformance.do"
-							scope="page">
-							<c:param name="pNo" value="${pageScope.performance.pNo }" />
-						</c:url>
-						<td><a href="${pageScope.url }">${pageScope.performance.title }</td>
-					</c:forEach>
-				</tr>
-			</table>
-		</div>
-	</form>
+        	<table id="datas" border="1" width=180>
+        		<tr>
+        			<c:forEach var="poster" items="${requestScope.posters}" varStatus="loop">       			        			
+        				<td>
+        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }" width="200" height="200">
+        					<span>${pageScope.poster.title }</span>
+        					<button type="button">예매</button>
+        				</td>
+        				<c:if test="${loop.count % 3  == 0 }">
+        					</tr><tr>
+        				</c:if>
+        					        			
+        		    </c:forEach>
+        		</tr>
+            </table>
+       </div>       
+                 
 </body>
 </html>
+
+
+
+
+

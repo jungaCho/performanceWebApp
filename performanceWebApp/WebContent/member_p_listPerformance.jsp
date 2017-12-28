@@ -75,7 +75,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#open').click(function(){
-			var url = '${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=P00001';
+			var url = '${pageContext.request.contextPath}/member_r_layout.do?pNo=P00001';
 			window.open(url, "예매확인", "width=700, height=600");
 		});
 	});

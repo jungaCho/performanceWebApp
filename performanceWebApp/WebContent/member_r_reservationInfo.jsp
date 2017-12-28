@@ -25,12 +25,52 @@ td{width:90px;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript">
-	/* $(document).ready(function(){
-		$('#open').click(function(){
-			var url = '${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=P00001';
-			window.open(url, "예매확인", "width=700, height=600");
+	$(document).ready(function() {
+		$('#table').on('click', '#detailView', function () {
+			alert("call");
 		});
-	}); */
+		
+		$('#table').on('click','#reservedCancel',function() {
+			location.href="${pageContext.request.contextPath}/cancelReservationForm.do";
+		});
+		
+		$('#searchBtn').on('click',function() {
+			$.ajax ({
+				url: '${pageContext.request.contextPath}/totalKeywordSearch.do'
+				,
+				method:'POST'
+				,
+				dataType:'json'
+				,
+				data: $('.selectbox').serialize()
+				,
+				success: function() {
+					$('#table').find('tr:not(:first)').remove();
+					var htmlStr ="";
+					for(var i=0;i<data.length;i++) {
+						htmlStr += "<tr>";
+						htmlStr += "<td>"+data[i].rNo+"</td>";
+						htmlStr += "<td>"+data[i].rDate+"</td>";
+						htmlStr += "<td>"+data[i].title+"</td>";
+						htmlStr += "<td>"+data[i].sDate+"</td>";
+						htmlStr += "<td>"+2+"</td>";
+						htmlStr += "<td>"+data[i].rStatus+"</td>";
+						htmlStr += "<td><button id='detailView' type='button'>상세보기</button></td>";
+						htmlStr += "<td><button id='reservedCancel' type='button'>예약취소</button></td>";
+						htmlStr += "<tr>";
+						$(htmlStr).appendTo("#table");
+						htmlStr += "";
+					}
+				}
+				,
+				error: function() {
+
+				}
+			});
+		});
+		
+	});
+	
 </script>
 </head>
 
@@ -41,17 +81,18 @@ td{width:90px;}
 			<span style="font-size: 17px;">예매 내역</span> <br>
 		
 			<div class="reservation">
-				<form id="form">
+				<form id="keyfieldBox">
 				<div class="selectbox">
 					<select name="keyfield">
 						<option value="title">공연명</option>
 						<option value="sDate">공연날짜</option>
 						<option value="rStatus">상태</option>
 					</select>
-					<input type="text" name="keyword" size="20"><button type="button" id="sendBtn">검색</button>
+					<input type="text" name="keyword" size="20"><button type="button" id="searchBtn">검색</button>
 				</div>
+				</form>
 
-				<table cellspacing="0" cellpadding="0">
+				<table id="table" cellspacing="0" cellpadding="0">
 					<tr>
 						<th>예매번호</th>
 						<th>예매일자</th>
@@ -71,8 +112,8 @@ td{width:90px;}
 						<td>${pageScope.totalInfo.sDate }</td>
 						<td>2</td>
 						<td>${pageScope.totalInfo.rStatus }</td>
-						<td><button type="submit">상세보기</button></td>
-						<td><button type="submit">예약취소</button></td>
+						<td><button id="detailView" type="submit">상세보기</button></td>
+						<td><button id="reservedCancel" type="button">예약취소</button></td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -110,8 +151,6 @@ td{width:90px;}
 				<c:if test="${requestScope.paging.endPage == requestScope.paging.totalPage }">
 					[다음]&nbsp;&nbsp;
 				</c:if>
-
-				</form>
 		
 			</div>
 		</div>

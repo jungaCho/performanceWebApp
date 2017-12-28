@@ -40,14 +40,41 @@ input{width:300px; height:25px;}
 <script src="js/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#selectBtn').on('click',function(){
-		$('#pwd').on('blur',function(){
-			var pwd = "${session.member.mPw}"
-			if($('#pwd').val() != pwd) {
-				$(this).after("<span id='problem'> 비밀번호가 틀렸습니다.<br>재입력 바랍니다.</span>")
-			}else{
-				location.href="${pageContext.request.contextPath}/totalInfoRetrieveList.do";		
-			} 
+	$('#selectBtn').click(function() {
+		
+		if($('#pwd').val().length == 0) {
+			alert("본인확인을 위해 비밀번호를 입력해주세요!");
+			return false;
+		}
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/canceledReservation.do'
+			,
+			method: 'POST'
+			,
+			dataType: 'json'
+			,
+			data: {
+				pwd: $('#pwd').val()
+			}
+			,
+			success: function() {
+				if(data.success == 0) {
+					alert("예매가 취소되었습니다!!");
+					location.href="${pageContext.request.contextPath}/totalInfoRetrieveList.do"
+				} else if(data.success == 1) {
+					alert("이미 취소된 예매정보입니다!!");
+					return false;
+				} else if(data.success == 2){
+					alert("비밀번호가 일치하지 않습니다!!");
+					return false;
+				}
+			}
+			,
+			error: function(jqXHR) {
+				alert("error : " + jqXHR.status);
+				return false;
+			}
 		});
 	});
 });
@@ -93,7 +120,8 @@ $(document).ready(function(){
 							</tbody>
 						</table>
 					<br>
-					<input type="text" name="pwdConfirm" id="pwd" placeholder="비밀번호 확인">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="selectBtn">next></a>
+					<input type="password" name="pwdConfirm" id="pwd" placeholder="비밀번호 확인">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#" id="selectBtn">next></a>
 			</div>
 			<!-- /reservation -->
 			 

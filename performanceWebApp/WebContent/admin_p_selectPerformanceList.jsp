@@ -11,17 +11,13 @@
 <title>공연 검색</title>
 
 <style>
-/* form {
-	padding: 30px;
-	background-color: gray;
-	width: 900px;
-	height: 750px;
-}
- */
-body {
-	color: gray;
-}
 
+#body{
+	padding-left:30px;
+}
+#body2{
+	padding-left:30px;
+}
 #btn1 {
 	width: 70px;
 	height: 30px;
@@ -65,53 +61,53 @@ body {
 
 a {
 	color: gray;
+	text-decoration: none;
 }
 
 #page {
 	margin-top: 290px;
+	padding-left:30px;
 }
 
+#table {
+	border-collapse:separate;
+	border-spacing:5px;
+	color:black;
+	border: 1px solid;
+	font:15px;
+	
+}
+#table th{
+	background-color:#FFBB00;
+	font:15px;
+}
 
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
       $(document).ready(function() {
-    	  	
-    	  $('#btn1').click(function(){
-    		  alert('$(check:checked)'.text());
-    	  });
-	$(document).ready(function() {
-		
-		
-		
-		/* $('#btn1').click(function(){
-	      	$("input[name=check]:checked").each(function() {
-	      		var checked = $(this).val();
-	      		location.href= '${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked='+checked;
-			});
-		}); */
-		
-		/* $('#btn1').click(function(){
-			var param = "";
-			$("input[name=check]:checked").each(function() {
-				if
-			}
-		} */
-		
+   
 			$('#btn1').on("click",function(){
 				
 				//string[] 공연번호를 배열로 넘긴다.
-				
-				
+
 				var pNoArrays = [];
 				
 				$('#checkSelect:checked').each(function(){
 				
 					pNoArrays.push($(this).val());		
 				});	
-				location.href= "${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked="+pNoArrays;
 				
+				if(confirm("선택한 공연을 삭제하시겠습니까?")==true){
+					location.href= "${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked="+pNoArrays;
+				}else{
+					return;
+				}
 			});
+			
+			$('#btn2').click(function(){
+            	$("input[name=check]").prop("checked",false);
+            });
     	  
     	  
             $("#btn3").on('click', function() {
@@ -143,23 +139,18 @@ a {
                         }
                   });
             });
-            
-            $('#btn2').click(function(){
-            	
-            	$("input[name=check]").prop("checked",false);
-            });
       });
 </script>
 
 </head>
 <body>
-
+	<form id="body">
 	<div id="pannel">
 		<h1>공연 조회</h1>
 		
 		<button type="button" id="btn1">선택삭제</button>
 		<button type="button" id="btn2">선택해제</button>
-	</div>
+	
 
 
 	<form id="search">
@@ -170,13 +161,15 @@ a {
 		</select> <input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요">
 		<button id="btn3" type="button">검색</button>
 	</form>
-
+	</div>
+</form>
 	<br>
 	<br>
+	<form id="body2">
 	<div id="div3">
 
 	<input type="hidden" value="${pageScope.performance.pNo }">
-		<table id="table" border="1" width=670>
+		<table id="table"  width=670  >
 			<tr>
 				<th>선택</th>
 				<th>공연번호</th>
@@ -191,7 +184,7 @@ a {
 					<c:param name="pNo" value="${pageScope.performance.pNo }" />
 				</c:url>
 				<tr>
-					<td><input type="checkbox" name="box[]" value="${pageScope.performance.pNo }" id="checkSelect"></td>
+					<td><input type="checkbox" name="check" value="${pageScope.performance.pNo }" id="checkSelect"></td>
 					<td>${pageScope.performance.pNo }</td>
 					<td><a href="${pageScope.url }">${pageScope.performance.title }</a></td>
 					<td>${pageScope.performance.startDate }</td>
@@ -202,7 +195,7 @@ a {
 		</table>
 		
 	</div>
-	
+	</form>
 	<br>
 	<br>
 	&nbsp;

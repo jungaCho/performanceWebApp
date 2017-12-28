@@ -78,43 +78,15 @@ section article {
 
 }
 
-header {
-	width: 960px;
-	height: 100px;
-	margin-left: auto;
-	margin-right: auto;
-	background-color: #3c394a;
-}
 
 
-header nav {
-	padding-top: 10px;
-}
-
-header nav ul li {
-	display: inline;
-	margin: 10px;
-}
-
-header nav h1 {
-	float: left;
-	width: 100px;
-	margin-left: 30px;
-	color: #f25c5c;
-}
-
-header nav ul a:hover {
-	color: #607d8b;
-}
-
-section nav ul li {
-	margin: 30px 0px;
-}
+section article{width:75%; float:right;}
 
 a:hover {
 	color: #607d8b;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="css/common.css" />   
 </head>
 <body>
 	<header>
