@@ -12,7 +12,7 @@
 <style>
 form {
 	padding: 30px;
-	background-color: gray;
+	color: gray;
 	width: 900px;
 	height: 100%;
 }
@@ -51,6 +51,15 @@ form {
 #posterList {
 	float: right;
 	margin-right: 500px;
+}
+a{
+	text-decoration:none;
+}
+.posterA{
+	color:red;
+}
+.detailA{
+	color:red;
 }
 </style>
 
@@ -100,7 +109,7 @@ form {
 				<tr>
 					<td>포스터${pageScope.loop.count }</td>
 					<td>${pageScope.poster.originalFileName }</td>
-					<td><a href="#"  id="${pageScope.poster.posterNo }">삭제</a></td>
+					<td><a href="#"  id="${pageScope.poster.posterNo }" class="posterA">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table><br>
@@ -144,6 +153,10 @@ form {
 					<th>관람등급</th>
 					<td><select id="view_Class" name="viewClass"
 						value="${requestScope.performance.viewNo }">
+							<%-- <c:if test="${requestScope.performance.viewNo == 'V001'}">
+								<option value="V001" selected>전체관람가</option>
+							</c:if> --%>
+						
 							<option value="V001">전체관람가</option>
 							<option value="V002">12세 이상</option>
 							<option value="V003">15세 이상</option>
@@ -200,7 +213,7 @@ form {
 				<tr>
 					<td>상세설명${pageScope.loop.count }</td>
 					<td>${pageScope.detailFile.originalFileName }</td>
-					<td><a href="#"  id="${pageScope.detailFile.fileNo }">삭제</a></td>
+					<td><a href="#"  id="${pageScope.detailFile.fileNo }" class="detailA">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>
