@@ -9,7 +9,6 @@
 <head>
 <meta charset="utf-8">
 <title>공연 검색</title>
-
 <style>
 /* form {
 	padding: 30px;
@@ -85,77 +84,11 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 	$(document).ready(function() {
 		
 		
-		
-		/* $('#btn1').click(function(){
-	      	$("input[name=check]:checked").each(function() {
-	      		var checked = $(this).val();
-	      		location.href= '${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked='+checked;
-			});
-		}); */
-		
-		/* $('#btn1').click(function(){
-			var param = "";
-			$("input[name=check]:checked").each(function() {
-				if
-			}
-		} */
-		
-			$('#btn1').on("click",function(){
-				
-				//string[] 공연번호를 배열로 넘긴다.
-				
-				
-				var pNoArrays = [];
-				
-				$('#checkSelect:checked').each(function(){
-				
-					pNoArrays.push($(this).val());		
-				});	
-				location.href= "${pageContext.request.contextPath}/admin_p_removePerformanceList.do?checked="+pNoArrays;
-				
-			});
-    	  
-    	  
-            $("#btn3").on('click', function() {
-            	
-            
-                  $.ajax({
-                        url : '${pageContext.request.contextPath}/admin_p_findPerformance.do',
-                        method : 'GET',
-                        dataType : 'json',
-                        data : $('#search').serialize(),
-                        success : function(data) {                            	  
-                        	  $("#table").find('tr:not(:first)').remove();
-                              var htmlStr = "";
-                              for (var i = 0; i < data.length; i++) {
-                                    htmlStr += "<tr>";
-                                    htmlStr += "<td><input type='checkbox' name='check'></td>";
-                                    htmlStr += "<td>" + data[i].pNo + "</td>";
-                                    htmlStr += "<td><a href=/performanceWebApp/admin_p_detailPerformance.do?pNo="+data[i].pNo+">" + data[i].title + "</td>";
-                                    htmlStr += "<td>" + data[i].startDate + "</td>";
-                                    htmlStr += "<td>" + data[i].endDate + "</td>";
-                                    htmlStr += "<td>" + data[i].genre + "</td>";
-                                    htmlStr += "</tr>";
-                                    $(htmlStr).appendTo("#table");
-                                    htmlStr = "";
-                              }
-                             
-                        },
-                        error : function(jqXHR) {
-                              alert('Error : ' + jqXHR.status);
-                        }
-                  });
-            });
-            
-            $('#btn2').click(function(){
-            	
-            	$("input[name=check]").prop("checked",false);
-            });
+	
       });
 </script>
 
-</head>
-<body>
+</head>	
 	<div class="wrapper">
 	<div id="pannel">
 		<h1>공연 조회</h1>
@@ -180,7 +113,7 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 	<br>
 	<div id="div3">
 
-	<input type="hidden" value="${pageScope.performance.pNo }">
+	<input type="hidden">
 		<table id="table" cellspacing=0>
 			<tr>
 				<th style="border-left:1px solid gray">예매번호</th>
@@ -189,24 +122,29 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 				<th>공연날짜</th>
 				<th>예매매수</th>
 				<th>상태</th>
+				<th>회원번호</th>
 				<th>예매자</th>
 				<th>공연관</th>
 				<th>좌석번호</th>
 			</tr>
-			<tr>
-				<td style="border-left:1px solid gray">예매번호</td>
-				<td>예매일자</td>
-				<td>공연제목</td>
-				<td>공연날짜</td>
-				<td>예매매수</td>
-				<td>상태</td>
-				<td>예매자</td>
-				<td>공연관</td>
-				<td>좌석번호</td>
-			</tr>
-			
-		</table>
-		
+			<c:forEach var="totalInfos" items="${requestScope.totalInfos }" varStatus="loop">
+				
+				<tr>
+				
+					<td style="border-left:1px solid gray">예매번호</td>
+					<td>예매일자</td>
+					<td>공연제목</td>
+					<td>공연날짜</td>
+					<td>예매매수</td>
+					<td>상태</td>
+					<th>회원번호</th>
+					<td>예매자</td>
+					<td>공연관</td>
+					<td>좌석번호</td>
+				
+				</tr>
+			</c:forEach> 
+		</table>	
 	</div>
 	<br>
 	<br>
@@ -214,8 +152,8 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 	
 	<%-- 페이지 네비게이션 처리  --%>
 	<form id="page">
-        <c:if test="${requestScope.paging.prevPage >= 1 }">
-                <c:url var="prevUrl" value="/admin_p_selectPerformanceList.do" scope="page">
+        <c:if test="${requestScope.paging.prevPage >= 0 }">
+                <c:url var="prevUrl" value="/admin_r_layout.do" scope="page">
                         <c:param name="currentPage" value="${requestScope.paging.prevPage }" />
                 </c:url>
                 <a href="${pageScope.prevUrl }">[이전]</a>&nbsp;&nbsp;
@@ -229,14 +167,14 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
                         ${pageScope.i } &nbsp;&nbsp;
                 </c:if>
                 <c:if test="${requestScope.paging.currentPage != pageScope.i }">
-                        <c:url var="url" value="/admin_p_selectPerformanceList.do" scope="page">
+                        <c:url var="url" value="/admin_r_layout.do" scope="page">
                                 <c:param name="currentPage" value="${pageScope.i }" />
                         </c:url>
                         <a href="${pageScope.url }">${pageScope.i }</a> &nbsp;&nbsp;                      
                 </c:if>        
         </c:forEach>
         <c:if test="${requestScope.paging.endPage < requestScope.paging.totalPage }">
-                <c:url var="nextUrl" value="/admin_p_selectPerformanceList.do" scope="page">
+                <c:url var="nextUrl" value="/admin_r_layout.do" scope="page">
                         <c:param name="currentPage" value="${requestScope.paging.nextPage }" />
                 </c:url>
                 <a href="${pageScope.nextUrl }">[다음]</a>
@@ -244,7 +182,7 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
         <c:if test="${requestScope.paging.endPage >= requestScope.paging.totalPage  }">
                 [다음]&nbsp;&nbsp;
         </c:if>
-	</form>
+	</form> 
     </div>
 
 </body>
