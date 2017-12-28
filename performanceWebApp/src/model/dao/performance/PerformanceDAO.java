@@ -182,13 +182,13 @@ public class PerformanceDAO {
 			// 장르 선택시
 			String genre = (String) map.get("genre");
 			if (genre != null && genre.equals("뮤지컬")) {
-				sql.append("and perf.genre_no='G002");
+				sql.append("and perf.genre_no= 'G002' ");
 
 			} else if (genre != null && genre.equals("연극")) {
-				sql.append("and perf.genre_no='G001");
+				sql.append("and perf.genre_no= 'G001' ");
 
 			} else if (genre != null && genre.equals("콘서트")) {
-				sql.append("and perf.genre_no='G003");
+				sql.append("and perf.genre_no= 'G003' ");
 			}
 
 			// 키워드 검색시

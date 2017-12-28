@@ -21,7 +21,8 @@ public class SelectPerformanceByTextCommand implements Command {
             throws IOException, ServletException {
 
         //commandFactory에 SelectPerformanceByText.do 로 매핑부탁드려여
-
+    		
+    
         int startRow = Integer.parseInt(req.getParameter("startRow"));
         int endRow = Integer.parseInt(req.getParameter("endRow"));
         String mode = req.getParameter("mode");
@@ -49,6 +50,7 @@ public class SelectPerformanceByTextCommand implements Command {
             System.out.println(endRow);
             System.out.println(keyword);
             System.out.println(mode);
+            System.out.println(genre);
             
          
             PerformanceService service = PerformanceService.getInstance();

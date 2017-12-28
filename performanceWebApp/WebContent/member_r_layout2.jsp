@@ -27,12 +27,6 @@ section {
 	overflow: hidden;
 }
 
-section article {
-	width: 100%;
-	height: 600px;
-	background-color: #ebebeb;
-	float: left;
-}
 
 footer {
 	width: 960px;
@@ -58,6 +52,7 @@ section nav {
 }
 
 section article {
+
 	color: black;
 	width: 100%;
 	height: 100%;
