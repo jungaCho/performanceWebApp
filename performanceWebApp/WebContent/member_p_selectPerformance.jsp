@@ -88,9 +88,8 @@ a {
 			,
 			dataType: 'json'
 			,
-			data: {
+			data: {	
 				
-				sortkey: $('#view').find('option:selected').val(),
 				startRow: 1,
 				endRow: 10,
 				mode: $('#btnText').val(),
@@ -101,24 +100,24 @@ a {
 			},
 			
 			success: function(data){
-					
-					$('#datas').css({
+				
+				 $('#datas').css({
 						
 						width: "800px",
-						height: "800px"
+						height: "700px",
 						
-						
-						
-					});
-				
-					$('#datas').find('tr').remove(); 
+											
+					});   
+				 
+									
+				 $('#datas').find('tr').remove();
 					
 					var htmlStr = "";
 					
-					
-					 for(var i=0; i<data.length; i++){
+					 for(var i=0; i<data.length; i++) {
 											
 						
+								
 						htmlStr += "<tr>";
 						htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
 						htmlStr += "<th>" +"기간"+ "</th>";
@@ -133,14 +132,17 @@ a {
 						
 					    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
 						htmlStr += "</tr>";
+						
 								
 						
 						$(htmlStr).appendTo('#datas');
 						
 						htmlStr = "";
+						 
 						
 					}
 					 
+					  						 
 					
 			}
 		
@@ -183,24 +185,23 @@ a {
 				
 				success: function(data){
 					
-						$('#datas').css({
-						
-						width: "800px",
-						height: "800px"
-						
-						
-						
-						});
-					
-						$('#datas').find('tr').remove(); 
-						
+					 $('#datas').css({
+							
+							width: "800px",
+							height: "700px",
+							
+												
+						});   
+					 
+										
+					 $('#datas').find('tr').remove();
 						
 						var htmlStr = "";
 						
-						
-						 for(var i=0; i<data.length; i++){
+						 for(var i=0; i<data.length; i++) {
 												
 							
+									
 							htmlStr += "<tr>";
 							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
 							htmlStr += "<th>" +"기간"+ "</th>";
@@ -215,18 +216,19 @@ a {
 							
 						    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
 							htmlStr += "</tr>";
+							
 									
 							
 							$(htmlStr).appendTo('#datas');
 							
 							htmlStr = "";
+							 
 							
 						}
 						 
-	
+						  						 
 						
 				}
-			
 				,
 				error: function(jaXHR){
 					alert("error: " + jaXHR.error );
@@ -265,23 +267,23 @@ a {
 				
 				success: function(data){
 					
-						$('#datas').css({
-						
-						width: "800px",
-						height: "800px"
-						
-						
-						
-						});
-					
-						$('#datas').find('tr').remove(); 
+					 $('#datas').css({
+							
+							width: "800px",
+							height: "700px",
+							
+												
+						});   
+					 
+										
+					 $('#datas').find('tr').remove();
 						
 						var htmlStr = "";
 						
-						
-						 for(var i=0; i<data.length; i++){
+						 for(var i=0; i<data.length; i++) {
 												
 							
+									
 							htmlStr += "<tr>";
 							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
 							htmlStr += "<th>" +"기간"+ "</th>";
@@ -296,18 +298,19 @@ a {
 							
 						    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
 							htmlStr += "</tr>";
+							
 									
 							
 							$(htmlStr).appendTo('#datas');
 							
 							htmlStr = "";
+							 
 							
 						}
 						 
-	
+						  						 
 						
 				}
-			
 				,
 				error: function(jaXHR){
 					alert("error: " + jaXHR.error );
@@ -362,39 +365,43 @@ a {
 				</select>
 				
 				<button type="button" id="btnGenre" value="text">만 보기</button>
+				
 			</div>
 		</div>
-		<br> <br>
-		<div class="reservation">
-                     <!-- r_img -->
-                    
-                           <c:forEach var="performance" items="${requestScope.performances }"
-                                  varStatus="loop">
-                                  <c:url var="url" value="/member_p_detailPerformance.do" scope="page">
-                                         <c:param name="pNo" value="${pageScope.performance.pNo }" />
-                                  </c:url>
-                                  <c:forEach var="poster" items="${pageScope.performance.posters}">
-                                         <c:if test="${pageScope.poster.mainPoster == 1}">
-                                            <a href="${pageScope.url}"><img
-                                                       src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}.jpg"
-                                                       width="100px" height="150px" id="img"></a>
-                                         </c:if>
-                                    </c:forEach>     
-                                          <ul id="ul">
-			                                  <!-- r_text_title -->
-			                                  <li class="r_text_title"><h1><a href="${pageScope.url}"><bold>공연명 : ${pageScope.performance.title }</bold></a></h1></li>
-			                                  <!-- t_text_date -->
-			                                  
-			                                  <!-- r_text_button -->
-			                                  <li class="r_text_button">
-			                                  	<a href="${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=${pageScope.performance.pNo}" id="open">예매하기</a></li>
-			                           </ul><br>
-                                  
-                           </c:forEach>
-                   
-                     <!-- r_text -->
-                   
-              </div>
+		
+		
+		<br><br>
+		<div id="div3">
+                 <table id="datas" border="1" width=180>
+                        <tr>
+                              <td>${pageScope.performance.sDate }</td>
+                              <td><button type="submit" id="btn2">예매하기</button>
+                        </tr>
+                        <tr>
+                              <c:forEach var="performance" items="${requestScope.performances }" varStatus="loop">
+                                    <c:url var="url" value="/member_p_detailPerformance.do" scope="page">
+                                          <c:param name="pNo" value="${pageScope.performance.pNo }" />
+                                    </c:url>
+                                    <c:forEach var="poster" items="${requestScope.performance.posters}">
+                                          <td colspan='2'><a href="${pageScope.url }"><img
+                                                      src="C:/eclipse/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/performanceWebApp/upload/${pageScope.poster.systemFileName}"
+                                                      alt="사진"></td>
+                                    </c:forEach>
+                              </c:forEach>
+                        </tr>
+                        <tr>
+                              <c:forEach var="performance" items="${requestScope.performances }"
+                                    varStatus="loop">
+                                    <c:url var="url" value="/member_p_detailPerformance.do"
+                                          scope="page">
+                                          <c:param name="pNo" value="${pageScope.performance.pNo }" />
+                                    </c:url>
+                                    <td><a href="${pageScope.url }">${pageScope.performance.title }</td>
+                              </c:forEach>
+                        </tr>
+                  </table>
+            </div>
+      
 	</form>
 </body>
 </html>
