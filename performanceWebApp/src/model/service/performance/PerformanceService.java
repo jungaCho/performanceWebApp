@@ -34,6 +34,13 @@ public class PerformanceService {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
 		return performanceDao.selectPerformanceListByMember(map);
 	}
+	
+	// 공연 목록 조회(사용자)2
+		public List<PerformanceVO> retrievePerformanceListByMember2(HashMap<String,Object> map)
+				throws Exception {
+			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
+			return performanceDao.selectPerformanceListByMember2(map);
+		}
 
 	// 전체 공연 목록 조회(관리자)
 	public List<PerformanceVO> retrievePerformanceListByAdmin(int startRow, int endRow) throws Exception {

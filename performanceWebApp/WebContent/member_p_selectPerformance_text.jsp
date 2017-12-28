@@ -63,6 +63,7 @@ a {
 	width: 80px;
 }
 </style>
+
 </head>
 <body>
 	<form>
@@ -97,7 +98,7 @@ a {
 					<th>장소</th>
 					<th>예매하기</th>
 				</tr>
-				<tr>
+			<%-- 	<tr>
 					<c:forEach var="performance" items="${requestScope.performances }"
 						varStatus="loop">
 						<c:url var="url" value="/member_p_detailPerformance.do"
@@ -110,6 +111,12 @@ a {
 						<td>${pageScope.performance.tNo }</td>
 						<td><button type="submit" id="btn2">예매하기</button></td>
 					</c:forEach>
+				</tr> --%>
+				
+				<tr>
+					<td id="data[i].title">data[i].title</td>
+					<td>data[i].startDate ~ data[i].endDate</td>
+					<td>data[i].tName</td>
 				</tr>
 			</table>
 		</div>

@@ -54,10 +54,10 @@ public class ListPerformanceByMemberCommand implements Command {
 
             if(perfomances != null) {
                 req.setAttribute("perfomances", perfomances);
-                forward.setPath("/performanceList.jsp"); //json에 객체들 바인딩되어있는 페이지
+                forward.setPath("/member_p_layout2.jsp?article=member_p_selectPerformance"); 
                 forward.setRedirect(false);
             } else {
-            	forward.setPath("/member_p_layout2.jsp/article=member_m_findId");
+            	forward.setPath("/member_p_layout2.jsp?article=member_m_findId");
     			forward.setRedirect(false);
     			
             }
