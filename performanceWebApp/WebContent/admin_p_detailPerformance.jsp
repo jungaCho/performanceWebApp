@@ -101,6 +101,15 @@ a#modify {
 	width: 40px;
 }
 </style>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+      $(document).ready(function() {
+    	  
+    	  $('remove').click(function() {
+    		  alert("공연 정보가 삭제되었습니다!!") 	  
+    	  });
+      });
+</script>
 
 </head>
 <body>

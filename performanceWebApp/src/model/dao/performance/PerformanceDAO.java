@@ -49,22 +49,14 @@ public class PerformanceDAO {
 			// 이미지 보기 텍스트 보기
 			
 			if (mode.equals("image")) {
-				sql.append(
-						"select perf.title, pos.SYSTEM_FILE_NAME, perf.start_date, perf.end_date		 				");
-				sql.append(
-						"from (select rownum as rn, p.*  																	");
-				sql.append(
-						" from(select *   																						");
-				sql.append(
-						"from performance order by title asc) p) perf , poster pos															");
-				sql.append(
-						"where perf.p_no = pos.P_NO																						 	");
-			/*	sql.append(
-						"and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||?  and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?    ");
-		*/		sql.append(
-						"and pos.main_poster = 1    																														 ");
-			/*	sql.append(
-						"and perf.rn>=? and perf.rn<=? 																							");*/
+				sql.append("select perf.title, pos.SYSTEM_FILE_NAME, perf.start_date, perf.end_date		 				");
+				sql.append("from (select rownum as rn, p.*  																	");
+				sql.append(" from(select *   																						");
+				sql.append("from performance order by title asc) p) perf , poster pos															");
+				sql.append("where perf.p_no = pos.P_NO																						 	");
+			/*	sql.append("and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||?  and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||?    ");
+		*/		sql.append("and pos.main_poster = 1    																														 ");
+			/*	sql.append("and perf.rn>=? and perf.rn<=? 																							");*/
 			
 			} else if (mode.equals("text")) {
 				
@@ -572,13 +564,13 @@ public class PerformanceDAO {
 	}
 
 	// 공연 정보를 삭제한다.
-	public void deletePerformance(String pNo) throws Exception {
-		Connection conn = null;
+	public void deletePerformance(Connection conn, String pNo) throws Exception {
+		
 		PreparedStatement pstmt = null;
 		StringBuffer sql = new StringBuffer();
 
 		try {
-			conn = DBConn.getConnection();
+			
 			sql.append("delete from performance ");
 			sql.append("where p_no=? ");
 
@@ -590,8 +582,7 @@ public class PerformanceDAO {
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
-			if (conn != null)
-				conn.close();
+			
 		}
 	}
 	
@@ -654,8 +645,7 @@ public class PerformanceDAO {
 			pstmt.setString(10, performance.getContactNumber());
 			pstmt.setString(11, performance.getNote());
 			pstmt.setInt(12, performance.getRunningTime());
-			
-			
+
 			pstmt.setString(13, performance.getpNo());
 			pstmt.executeUpdate();
 

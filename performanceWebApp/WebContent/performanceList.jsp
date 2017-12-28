@@ -1,4 +1,4 @@
-///performanceList.jsp
+<%-- performanceList.jsp --%>
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
         pageEncoding="EUC-KR"%>
@@ -7,54 +7,56 @@
 
         [
 
-<c:forEach var="sortedMember" items= "${requestScope.perfomances}" varStatus= "loop">
+<c:forEach var="sortedPerf" items= "${requestScope.perfomances}" varStatus= "loop">
 
         {
 
-        "mNo" : ${pageScope.sortedMember.pNo }
+        "mNo" : "${pageScope.sortedPerf.pNo }"
         ,
 
-        "title" : "${pageScope.sortedMember.title }"
+        "title" : "${pageScope.sortedPerf.title }"
         ,
 
-        "video" : "${pageScope.sortedMember.video }"
+        "video" : "${pageScope.sortedPerf.video }"
         ,
 
-        "startDate" : "${pageScope.sortedMember.startDate }"
+        "startDate" : "${pageScope.sortedPerf.startDate }"
         ,
 
-        "endDate" : "${pageScope.sortedMember.endDate }"
-
-        "production" : "${pageScope.sortedMember.production }"
+        "endDate" : "${pageScope.sortedPerf.endDate }"
         ,
 
-        "contactName" : "${pageScope.sortedMember.contactName }"
+
+        "production" : "${pageScope.sortedPerf.production }"
         ,
-        "contactNumber" : "${pageScope.sortedMember.contactNumber }"
+
+        "contactName" : "${pageScope.sortedPerf.contactName }"
         ,
-        "runningTime" : "${pageScope.sortedMember.runningTime }"
+        "contactNumber" : "${pageScope.sortedPerf.contactNumber }"
         ,
-        "note" : "${pageScope.sortedMember.note }"
+        "runningTime" : "${pageScope.sortedPerf.runningTime }"
         ,
-        "price" : "${pageScope.sortedMember.price }"
+        "note" : "${pageScope.sortedPerf.note }"
         ,
-        "viewNo" : "${pageScope.sortedMember.viewNo }"
+        "price" : "${pageScope.sortedPerf.price }"
         ,
-        "viewClass" : "${pageScope.sortedMember.viewClass }"
+        "viewNo" : "${pageScope.sortedPerf.viewNo }"
         ,
-        "genreNo" : "${pageScope.sortedMember.genreNo }"
+        "viewClass" : "${pageScope.sortedPerf.viewClass }"
         ,
-        "viewNo" : "${pageScope.sortedMember.viewNo }"
+        "genreNo" : "${pageScope.sortedPerf.genreNo }"
         ,
-        "genre" : "${pageScope.sortedMember.genre }"
+        "viewNo" : "${pageScope.sortedPerf.viewNo }"
         ,
-        "tNo" : "${pageScope.sortedMember.tNo }"
+        "genre" : "${pageScope.sortedPerf.genre }"
         ,
-        "tName" : "${pageScope.sortedMember.tName }"
+        "tNo" : "${pageScope.sortedPerf.tNo }"
+        ,
+        "tName" : "${pageScope.sortedPerf.tName }"
 
         }
 
-<c:if test="${loop.index < fn:length(requestScope.sortedMembers) - 1}">
+<c:if test="${loop.index < fn:length(requestScope.perfomances) - 1}">
         ,
 </c:if>
 

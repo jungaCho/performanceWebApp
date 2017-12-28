@@ -68,11 +68,79 @@ a {
 <script>
 	$(document).ready(function(){
 		
+		
 		$('#btnText').on("click",function(){
+		
 			
-			location.href="${pageContext.request.contextPath}/member_p_selectPerformance_text.do";
+		
+		$.ajax({
+			
+			url: "${pageContext.request.contextPath}/member_r_selectpByview.do"
+			,
+			method : "POST"
+			,
+			dataType: 'json'
+			,
+			data: {
+				
+				sortkey: $('#view').find('option:selected').val(),
+				startRow: 1,
+				endRow: 10,
+				mode: $('#btnText').val(),
+				genre: $('#genre:selected').val(),
+				keyword: $('#keyword').val(),
+				month: $('div1').find('li').val()			
+				
+			},
+			
+			success: function(data){
+				
+					$('#datas').find('tr').remove(); 
+					
+					var htmlStr = "";
+					
+					 htmlStr += "<table id='table' border='1' width=600>"; 
+					
+					 for(var i=0; i<data.length; i++){
+											
+						
+						htmlStr += "<tr>";
+						htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
+						htmlStr += "<th>" +"기간"+ "</th>";
+						htmlStr += "<th>" +"장소"+ "</th>";
+						htmlStr += "<th>" +"예매"+ "</th>";
+						htmlStr += "</tr>";
+						
+						htmlStr += "<tr>";
+						htmlStr += "<td>" + data[i].title +"</td>";
+						htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
+						htmlStr += "<td>" + data[i].tName + "</td>";
+						
+					    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+						htmlStr += "</tr>";
+								
+						
+						$(htmlStr).appendTo('#datas');
+						
+						htmlStr = "";
+						
+					}
+					 
+				htmlStr += "</table>"; 
+					
+			}
+		
+			,
+			error: function(jaXHR){
+				alert("error: " + jaXHR.error );
+				
+			}
 			
 		});
+		
+		});
+		
+		
 		
 	});
 </script>
@@ -81,18 +149,18 @@ a {
 	<form>
 		<div id="div1">
 			<ul>
-				<li><a href='#'>1월</a></li>
-				<li><a href='#'>2월</a></li>
-				<li><a href='#'>3월</a></li>
-				<li><a href='#'>4월</a></li>
-				<li><a href='#'>5월</a></li>
-				<li><a href='#'>6월</a></li>
-				<li><a href='#'>7월</a></li>
-				<li><a href='#'>8월</a></li>
-				<li><a href='#'>9월</a></li>
-				<li><a href='#'>10월</a></li>
-				<li><a href='#'>11월</a></li>
-				<li><a href='#'>12월</a></li>
+				<li value="month"><a href='#'>1월</a></li>
+				<li value="month"><a href='#'>2월</a></li>
+				<li value="month"><a href='#'>3월</a></li>
+				<li value="month"><a href='#'>4월</a></li>
+				<li value="month"><a href='#'>5월</a></li>
+				<li value="month"><a href='#'>6월</a></li>
+				<li value="month"><a href='#'>7월</a></li>
+				<li value="month"><a href='#'>8월</a></li>
+				<li value="month"><a href='#'>9월</a></li>
+				<li value="month"><a href='#'>10월</a></li>
+				<li value="month"><a href='#'>11월</a></li>
+				<li value="month"><a href='#'>12월</a></li>
 			</ul>
 		</div>
 		<div id="div2">
@@ -101,18 +169,18 @@ a {
 				<button id="btn1" type="button">검색</button>
 			</div>
 			<div id="div2-2">
-				<button type="button">이미지보기</button>
-				<button type="button" id="btnText">텍스트보기</button>
+				<button type="button" id="btnImage" value="image">이미지보기</button>
+				<button type="button" id="btnText" value="text">텍스트보기</button>
 				<select id="genre">
-					<option value="G002">뮤지컬</option>
-					<option value="G001">연극</option>
-					<option value="G003">콘서트</option>
+					<option value="뮤지컬">뮤지컬</option>
+					<option value="연극">연극</option>
+					<option value="콘서트">콘서트</option>
 				</select>
 			</div>
 		</div>
 		<br> <br>
 		<div id="div3">
-			<table border="1" width=180>
+			<table id="datas" border="1" width=180>
 				<tr>
 					<td>${pageScope.performance.sDate }</td>
 					<td><button type="submit" id="btn2">예매하기</button>
