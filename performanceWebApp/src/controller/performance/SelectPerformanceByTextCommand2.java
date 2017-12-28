@@ -11,26 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import controller.ActionForward;
 import controller.Command;
 import domain.performance.PerformanceVO;
-import domain.pub.PagingVO;
-import model.dao.performance.PerformanceDAO;
 import model.service.performance.PerformanceService;
 
-public class ListPerformanceByMemberCommand implements Command {
+public class SelectPerformanceByTextCommand2 implements Command {
 
-	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
-		
-		   //commandFactory에 SelectPerformanceByText.do 로 매핑부탁드려여
+    @Override
+    public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
 
-    /*    int startRow = Integer.parseInt(req.getParameter("startRow"));
+        //commandFactory에 SelectPerformanceByText.do 로 매핑부탁드려여
+
+        int startRow = Integer.parseInt(req.getParameter("startRow"));
         int endRow = Integer.parseInt(req.getParameter("endRow"));
-        String mode = req.getParameter("mod");
+        String mode = req.getParameter("mode");
         String genre = req.getParameter("genre");
         String keyword = req.getParameter("keyword");
-        String month = req.getParameter("month");*/
-		
-		String mode="image";
+        String month = req.getParameter("month");
+
 
         ActionForward forward = new ActionForward();
 
@@ -42,12 +39,13 @@ public class ListPerformanceByMemberCommand implements Command {
 
             //걍 따로할필요없이 이렇게 다 합쳐서 넘기면 될듯
 
-           /* map.put("startRow",startRow);
-            map.put("endRow",endRow);*/
+            map.put("startRow",startRow);
+            map.put("endRow",endRow);
             map.put("mode",mode);
-           /* map.put("genre",genre);
+            map.put("mode",mode);
+            map.put("genre",genre);
             map.put("keyword",keyword);
-            map.put("month",month);*/
+            map.put("month",month);
 
             PerformanceService service = PerformanceService.getInstance();
             List<PerformanceVO> perfomances = service.retrievePerformanceListByMember(map);
@@ -57,9 +55,7 @@ public class ListPerformanceByMemberCommand implements Command {
                 forward.setPath("/performanceList.jsp"); //json에 객체들 바인딩되어있는 페이지
                 forward.setRedirect(false);
             } else {
-            	forward.setPath("/member_p_layout2.jsp/article=member_m_findId");
-    			forward.setRedirect(false);
-    			
+                //음 그냥 여기선 아무페이지나 이동
             }
 
             return forward;
@@ -69,6 +65,7 @@ public class ListPerformanceByMemberCommand implements Command {
             forward.setPath("/error.jsp");
             forward.setRedirect(false);
             return forward;
+
         }
     }
 
