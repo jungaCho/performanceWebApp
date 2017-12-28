@@ -52,11 +52,12 @@ public class ListPerformanceByMemberCommand implements Command {
             PerformanceService service = PerformanceService.getInstance();
             PerformanceDAO performanceDao = PerformanceDAO.getInstance();
             List<PerformanceVO> performances = service.retrievePerformanceListByMember(map);
-
+          
             if(performances != null) {
                 req.setAttribute("performances", performances);
                 forward.setPath("/member_p_layout2.jsp?article=member_p_selectPerformance"); 
                 forward.setRedirect(false);
+                
             } else {
             	forward.setPath("/member_p_layout2.jsp?article=member_m_findId");
     			forward.setRedirect(false);
