@@ -155,7 +155,7 @@
 					</tr>
 				</table>
 				<div class="r_button2">
-					<a href="#">예매내역 확인</a>
+					<a href="${pageContext.request.contextPath}/totalInfoRetrieveList.do">예매내역 확인</a>
 				</div>
 			</div>
 		</div>

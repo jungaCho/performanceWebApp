@@ -26,12 +26,12 @@ td{width:90px;}
 <script src="js/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#detailView').on('click', 'button', function () {
+		$('#table').on('click', '#detailView', function () {
 			alert("call");
 		});
 		
-		$('#table').on('click','button',function() {
-			alert("call");
+		$('#table').on('click','#reservedCancel',function() {
+			location.href="${pageContext.request.contextPath}/cancelReservationForm.do";
 		});
 		
 		$('#searchBtn').on('click',function() {
@@ -42,7 +42,7 @@ td{width:90px;}
 				,
 				dataType:'json'
 				,
-				data: $('#keyfieldBox').serialize()
+				data: $('.selectbox').serialize()
 				,
 				success: function() {
 					$('#table').find('tr:not(:first)').remove();
@@ -55,8 +55,8 @@ td{width:90px;}
 						htmlStr += "<td>"+data[i].sDate+"</td>";
 						htmlStr += "<td>"+2+"</td>";
 						htmlStr += "<td>"+data[i].rStatus+"</td>";
-						htmlStr += "<td><button id='detailView' type="submit">상세보기</button></td>";
-						htmlStr += "<td><button id='reservedCancel' type="submit">예약취소</button></td>";
+						htmlStr += "<td><button id='detailView' type='button'>상세보기</button></td>";
+						htmlStr += "<td><button id='reservedCancel' type='button'>예약취소</button></td>";
 						htmlStr += "<tr>";
 						$(htmlStr).appendTo("#table");
 						htmlStr += "";

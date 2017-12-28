@@ -53,16 +53,17 @@ public class ReservationDAO {
 	}
 
 	// 예매상태의 취소 여부를 확인하다
-	public boolean checkCanceledReservation(Connection conn, String rNo) throws Exception {
-
-		boolean flag = false; // 이미 취소되었으면 0, 취소 안됐으면 1
+	public boolean checkCanceledReservation(String rNo) throws Exception {
+		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
 		try {
+			conn = DBConn.getConnection();
+			
 			StringBuffer sql = new StringBuffer();
 			sql.append("select r_status from reservation      ");
 			sql.append("where r_no = ?                        ");
+			
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, rNo);
@@ -70,20 +71,18 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				if (rs.getString(1).equals('0')) {
-					flag = true;
-				} else if (rs.getString(1).equals('1')) {
-					flag = false;
+				int checkStatus = rs.getInt(1);
+				if (checkStatus != 0) {
+					return false;
 				}
 			}
+			return true;
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
 			if (rs != null)
 				rs.close();
 		}
-
-		return flag;
 	}
 
 	// 환불 정보를 등록하다.
@@ -352,6 +351,45 @@ public class ReservationDAO {
 	
 	
 	//총 게시글 수를 구하다.
+	public int selectTotalPost(String mNo) throws Exception {
+		int totalPost = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConn.getConnection();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("select count(*)				");
+			sql.append("		from ( select ROWNUM as rn, rs.*                           																					");
+			sql.append("				from (select res.r_no, res.r_status, to_char(res.r_date, 'YYYY/MM/DD') as r_date, res.card_number,									");
+			sql.append("					  res.approve_number, res.total_price, card.cardco_name, mem.m_id, perf.title,              									");
+			sql.append("					  to_char(sch.s_date, 'YYYY/MM/DD') as s_date, to_char(ord.o_time, 'HH24:MI') as o_time, t.t_name,          										    ");
+			sql.append("					  (select listagg(rseat.seat_no, ',') within group (order by rseat.seat_no ) from reserved_seat rseat where  rseat.r_no = res.r_no) as seat_no        ");
+			sql.append("					   from reservation res, card_company card, member mem,                      																	     	");
+			sql.append("					   orders ord, schedule sch,  performance perf,  theater t                    																			");
+			sql.append("					   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                              ");
+			sql.append("  						   and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                   																    ");
+			sql.append("					   	   and mem.m_no = ?																													");
+			sql.append("					   order by r_no desc ) rs ) res                                     																				    ");		
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, mNo);
+			
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				totalPost = rs.getInt(1);
+			}
+			
+		} finally {
+			if(rs!=null) rs.close();
+			if(pstmt!=null) pstmt.close();
+			if(conn!=null) conn.close();
+		}
+		return totalPost;
+	}
+	
 	public int selectTotalPost() throws Exception {
 		int totalPost = 0;
 		Connection conn = null;
@@ -360,17 +398,25 @@ public class ReservationDAO {
 		try {
 			conn = DBConn.getConnection();
 
-			stmt = conn.createStatement();
-
 			StringBuilder sql = new StringBuilder();
-			sql.append("select count(*)	from reservation");
-			
-			
+			sql.append("select count(*)				");
+			sql.append("		from ( select ROWNUM as rn, rs.*                           																					");
+			sql.append("				from (select res.r_no, res.r_status, to_char(res.r_date, 'YYYY/MM/DD') as r_date, res.card_number,									");
+			sql.append("					  res.approve_number, res.total_price, card.cardco_name, mem.m_id, perf.title,              									");
+			sql.append("					  to_char(sch.s_date, 'YYYY/MM/DD') as s_date, to_char(ord.o_time, 'HH24:MI') as o_time, t.t_name,          										    ");
+			sql.append("					  (select listagg(rseat.seat_no, ',') within group (order by rseat.seat_no ) from reserved_seat rseat where  rseat.r_no = res.r_no) as seat_no        ");
+			sql.append("					   from reservation res, card_company card, member mem,                      																	     	");
+			sql.append("					   orders ord, schedule sch,  performance perf,  theater t                    																			");
+			sql.append("					   where res.o_no = ord.o_no  and ord.s_no = sch.s_no  and sch.t_no = t.t_no  and sch.p_no = perf.p_no                                              ");
+			sql.append("  						   and res.cardco_no = card.cardco_no  and res.m_no = mem.m_no                   																    ");
+			sql.append("					   order by r_no desc ) rs ) res                                     																				    ");		
+
 			rs = stmt.executeQuery(sql.toString());
 
 			if(rs.next()) {
 				totalPost = rs.getInt(1);
 			}
+			
 		} finally {
 			if(rs!=null) rs.close();
 			if(stmt!=null) stmt.close();
@@ -378,6 +424,7 @@ public class ReservationDAO {
 		}
 		return totalPost;
 	}
+	
 	// 검색조건에 해당하는 회원의 예매 내역을 조회한다. (특정회원)
 	public List<TotalInfoVO> selectReservationListByMember(String mNo,	int startRow, int endRow) throws Exception {
 		Connection conn = null;
