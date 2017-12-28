@@ -110,27 +110,30 @@ public class PerformanceService {
 			// ∆Æ∑£¿Ëº«
 			conn.setAutoCommit(false);
 
-			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
-			PosterDAO posterDao = PosterDAO.getInstance();
-			DetailFileDAO detailfileDao = DetailFileDAO.getInstance();
-			ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
-			OrderDAO orderDao = OrderDAO.getInstance();
 			
+			PosterDAO posterDao = PosterDAO.getInstance();			
 			posterDao.deletePosterList(conn, pNo);
-			System.out.println("æ»≥Á11!!!!!!!!!!!");
+		
+			
+			DetailFileDAO detailfileDao = DetailFileDAO.getInstance();
 			detailfileDao.deleteDetailFileList(conn, pNo);
-			System.out.println("æ»≥Á55!!!!!!!!!!!");
+			
+			ScheduleDAO scheduleDao = ScheduleDAO.getInstance();
 			ArrayList<String> sNOs = scheduleDao.selectSchedule(conn, pNo);
-			System.out.println("æ»≥Á22!!!!!!!!!!!");
+		
+			OrderDAO orderDao = OrderDAO.getInstance();
 			for (String sNo : sNOs) {
 				orderDao.deleteOrder(conn, sNo);
 			}
-			System.out.println("æ»≥Á33!!!!!!!!!!!");
+		
 			scheduleDao.deleteSchedule(conn, pNo);
-			performanceDao.deletePerformance(pNo); 
-			System.out.println("æ»≥Á44!!!!!!!!!!!");
+			
+			PerformanceDAO performanceDao = PerformanceDAO.getInstance();
+			performanceDao.deletePerformance(conn, pNo); 
+	
 			
 			conn.commit();
+		
 		} catch (Exception e) {
 			conn.rollback();
 			throw e;
@@ -163,7 +166,7 @@ public class PerformanceService {
 						orderDao.deleteOrder(conn, sNo);
 					}
 					scheduleDao.deleteSchedule(conn, pNo);
-					performanceDao.deletePerformance(pNo); 
+					performanceDao.deletePerformance(conn, pNo); 
 				}
 				conn.commit();
 			} catch (Exception e) {

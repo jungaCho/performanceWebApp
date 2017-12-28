@@ -82,7 +82,8 @@ public class PosterDAO {
 			pstmt=conn.prepareStatement(sql.toString());
 			pstmt.setString(1, pNo);
 			
-			pstmt.executeUpdate();
+			int rowCount = pstmt.executeUpdate();
+			System.out.println("rowCount : " + rowCount);
 			
 		} finally {
 			if(pstmt!=null) pstmt.close();

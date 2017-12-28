@@ -17,10 +17,13 @@ public class RemovePerformanceListCommand implements Command {
 			throws IOException, ServletException {
 		ActionForward forward=new ActionForward();
 		try {
-			String[] pNos = req.getParameterValues("checked");
+			String checked = req.getParameter("checked");
 			PerformanceService service=PerformanceService.getInstance();
 			
+			String[] pNos=checked.split(",");
+			
 			service.removePerformanceList(pNos);
+			
 			forward.setPath("/admin_p_selectPerformanceList.do");
 			forward.setRedirect(false);
 			return forward;
