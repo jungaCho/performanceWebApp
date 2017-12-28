@@ -86,8 +86,11 @@ header nav h1 {
 	margin-left: 30px;
 	color: #f25c5c;
 	height:100px;
-	background:#ddd;
+	
+
 }
+
+header nav h1 img{margin-top:10px;}
 
 header nav ul a:hover {
 	color: #ffffff;

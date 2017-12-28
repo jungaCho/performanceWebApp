@@ -11,7 +11,6 @@
 <body>
 	<div class="wrap">
 	<h3>나의 관람내역</h3><br>
-	session : ${not empty sessionScope.member}
 	</div>
 </body>
 </html>
