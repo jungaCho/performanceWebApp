@@ -74,6 +74,7 @@ section article {
 }
 
 header {
+
 	width: 960px;
 	height: 100px;
 	margin-left: auto;
