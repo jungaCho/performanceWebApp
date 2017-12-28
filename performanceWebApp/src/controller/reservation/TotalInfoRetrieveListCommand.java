@@ -30,13 +30,17 @@ public class TotalInfoRetrieveListCommand implements Command {
 		
 		PagingVO paging = new PagingVO();
 		
-		paging.setPostPerpage(5);
+		paging.setPostPerpage(10);
 		paging.setPageBlock(5);
 		paging.setCurrentPage(currentPage);
 		
 		ActionForward forward = new ActionForward();
 		try {
-			paging.setTotalPost(ReservationService.getInstance().selectTotalList());			
+			HttpSession session = req.getSession();
+			MemberVO member = (MemberVO)session.getAttribute("member");
+			String mNo = member.getmNo();
+			
+			paging.setTotalPost(ReservationService.getInstance().selectTotalList(mNo));			
 			
 			int startRow = paging.getStartRow();
 			int endRow = paging.getEndRow();
@@ -44,12 +48,9 @@ public class TotalInfoRetrieveListCommand implements Command {
 			System.out.println("ÃÑ °Ô½Ã±Û ¼ö : " + paging.getTotalPost());
 			System.out.println("ÃÑ ÆäÀÌÁö ¼ö : " + paging.getTotalPage());
 			System.out.println("startPage : " + paging.getStartPage());
+			System.out.println("currentPage : " + paging.getCurrentPage());
 			System.out.println("endPage : " + paging.getEndPage());
 			
-			HttpSession session = req.getSession();
-			MemberVO member = (MemberVO)session.getAttribute("member");
-			String mNo = member.getmNo();
-		
 			List<TotalInfoVO> totalInfos = ReservationService.getInstance().
 												retrieveReservationByMember(startRow, endRow, mNo);
 			
