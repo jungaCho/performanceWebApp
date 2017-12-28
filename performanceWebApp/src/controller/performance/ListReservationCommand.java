@@ -1,9 +1,11 @@
 package controller.performance;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import controller.ActionForward;
 import controller.Command;
 import domain.performance.PerformanceVO;
@@ -46,9 +48,14 @@ public class ListReservationCommand implements Command{
             System.out.printf("startRow : %d, endRow: %d%n", startRow, endRow);
 
 
-            List<PerformanceVO> performance = performanceService.retrievePerformanceList(startRow, endRow);
-
-            req.setAttribute("performance", performance);
+            ArrayList<PerformanceVO> performances = performanceService.retrievePerformanceList(startRow, endRow);
+            
+            /*PerformanceVO performance=performances.get(0);
+            
+            req.setAttribute("performance", performance);*/
+           
+            
+            req.setAttribute("performances", performances);
             req.setAttribute("paging", paging);
 
             forward.setPath("/member_r_layout.jsp?nav=member_r_menu&article=member_r_reservation");

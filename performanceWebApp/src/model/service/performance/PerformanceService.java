@@ -1,3 +1,4 @@
+
 package model.service.performance;
 
 import java.sql.Connection;
@@ -303,7 +304,7 @@ public class PerformanceService {
 	}
 	
 	//공연 정보 리스트를 조회하다 (사용자)
-	public List<PerformanceVO> retrievePerformanceList(int startRow, int endRow) throws Exception {
+	public ArrayList<PerformanceVO> retrievePerformanceList(int startRow, int endRow) throws Exception {
 		PerformanceDAO performanceDao = PerformanceDAO.getInstance();
 		return performanceDao.selectPerformanceList(startRow, endRow);
 	}

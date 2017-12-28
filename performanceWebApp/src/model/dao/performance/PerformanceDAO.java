@@ -766,8 +766,8 @@ public class PerformanceDAO {
 	
 
 	//  공연 정보 리스트를 조회하다(for 예매 페이지).
-	public List<PerformanceVO> selectPerformanceList(int startRow, int endRow) throws Exception {
-		ArrayList<PerformanceVO> performances = new ArrayList<PerformanceVO>();
+	public ArrayList<PerformanceVO> selectPerformanceList(int startRow, int endRow) throws Exception {
+		ArrayList<PerformanceVO> performances=new ArrayList<PerformanceVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -777,7 +777,7 @@ public class PerformanceDAO {
 
 			StringBuffer sql = new StringBuffer();
 			sql.append(
-					"select pos.system_file_name, perf.title, perf.start_date, perf.end_date, perf.price, perf.pno	");
+					"select pos.system_file_name, perf.title, to_char(perf.start_date,'YY/MM/DD'), to_char(perf.end_date,'YY/MM/DD'), perf.price, perf.p_no	");
 			sql.append(
 					"from (select rownum as rn, p.* 									");
 			sql.append(
@@ -799,15 +799,21 @@ public class PerformanceDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				PosterVO poster = new PosterVO();
-				poster.setSystemFileName(rs.getString(1));
-
+			
+				PosterVO poster=new PosterVO();
+				poster.setSystemFileName(rs.getString(1)); 
+				poster.setMainPoster(1);
+				ArrayList<PosterVO> posters=new ArrayList<PosterVO>();
+				posters.add(poster);
+				
 				PerformanceVO performance = new PerformanceVO();
 				performance.setTitle(rs.getString(2));
 				performance.setStartDate(rs.getString(3));
 				performance.setEndDate(rs.getString(4));
 				performance.setPrice(rs.getInt(5));
 				performance.setpNo(rs.getString(6));
+				performance.setPosters(posters); 
+				
 				performances.add(performance);
 			}
 		} finally {

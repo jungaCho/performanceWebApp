@@ -24,7 +24,6 @@
         ,
 
         "endDate" : "${pageScope.sortedMember.endDate }"
-        ,
 
         "production" : "${pageScope.sortedMember.production }"
         ,
