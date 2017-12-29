@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 <title>회원가입</title>
 <style>
+
 	body {
 		background: #ddd;
 	}
