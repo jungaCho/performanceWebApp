@@ -135,7 +135,7 @@
                                   <c:forEach var="poster" items="${pageScope.performance.posters}">
                                          <c:if test="${pageScope.poster.mainPoster == 1}">
                                             <a href="${pageScope.url}"><img
-                                                       src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}"
+                                                       src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}.jpg"
                                                        width="100px" height="150px" id="img"></a>
                                          </c:if>
                                     </c:forEach>     
