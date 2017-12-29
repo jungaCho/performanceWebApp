@@ -30,31 +30,15 @@ public class CanceledReservationCommand implements Command{
 			String rNo = (String)session.getAttribute("rNo");
 			
 			System.out.println("rNo : " + rNo);
-			
-//			ReservationService service = ReservationService.getInstance();
-//			boolean isTrue = service.checkCanceldReservations(rNo);
 
 			int checkCount = 0;
 			
 			if(pwd.equals(member.getmPw())) {
-				boolean isTrue = ReservationService.getInstance().modifyReservation(rNo); 
-				if(isTrue == true) {
-					checkCount = 0;
-					req.setAttribute("checkCount", checkCount);
-					System.out.println("checkCount = " + checkCount);
-					forward.setPath("/zzCancelReservation.jsp");
-					forward.setRedirect(false);
-					return forward;
-				} else {
-					checkCount = 1;
-					req.setAttribute("checkCount", checkCount);
-					System.out.println("checkCount = " + checkCount);
-					forward.setPath("/zzCancelReservation.jsp");
-					forward.setRedirect(false);
-					return forward;
-				}
+				ReservationService.getInstance().modifyReservation(rNo); 
+				checkCount = 0;
+				req.setAttribute("checkCount", checkCount);
 			} else {
-				checkCount = 2;
+				checkCount = 1;
 				req.setAttribute("checkCount", checkCount);
 			}
 			System.out.println("checkCount = " + checkCount);

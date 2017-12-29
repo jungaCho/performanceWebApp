@@ -10,27 +10,88 @@
 
 <style>
 form {
-	padding: 30px;
 	color: gray;
-	width: 600px;
-	height: 550px;
+	width: 900px;
+	height:100%;
 }
-
-button {
-	width: 80px;
-	height: 40px;
-	margin-left: 50px;
-	margin-right: 120px;
-}
-
-#pannel>h2 {
+input{height:20px; margin-top:5px; margin-left:15px;}
+select{height:20px;  margin-top:5px; margin-left:15px;}
+#btn1 {
 	display: inline-block;
-	margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width:65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: blue;
+    border-radius: 5px;
+}
+
+#btn2 {
+	display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width:65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: gray;
+    border-radius: 5px;
+}
+
+#btn3 {
+	display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width:65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: blue;
+    border-radius: 5px;
+}
+
+#btn4 {
+	margin-left:10px;
+	display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width:65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: gray;
+    border-radius: 5px;
+}
+
+h2 {
+	color:#000;
 }
 
 #div1 {
 	margin-bottom: 20px;
 	text-align: left;
+	margin-top:30px;
+	font-size:15px;
+	line-height:30px;
+
 }
 
 #div1>#btn2 {
@@ -39,8 +100,23 @@ button {
 
 #div2 {
 	margin-top: 20px;
-	text-align: center;
+	text-align: left;
+	font-size:15px;
 }
+
+.insertTable th{background: #ddd;
+    width: 120px;
+    font-size: 15px;
+    border-bottom: 1px solid gray;
+    height: 30px;
+    line-height: 30px;}
+    
+.insertTable td{font-size:15px; background:#f0f0f0;border-bottom:1px solid gray;  height: 30px;
+    line-height: 30px; }    
+.content1{overflow:hidden}
+#pannel{font-size: 15px; color: #000;}
+.title{float:left; font-size:15px; color:#000;}
+.wrap{padding:50px;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -119,6 +195,7 @@ button {
 
 </head>
 <body>
+	<div class="wrap">
 	<form method="get" action="${pageContext.request.contextPath}/admin_p_insertSchedule.do" >
 
 		<div id="pannel">
@@ -140,7 +217,7 @@ button {
 			</select><br>
 			공연일자 : <input type="date" id="sDate" name="sDate" size="30"></input><br>
 			공연시간 : <input type="text" id="oTime1" name="oTime1" size="10" placeholder="시간과 분을 붙여"></input>
-					   <input type="text" id="oTime2" name="oTime2" size="10" placeholder="쓰세요ex)1530"></input>
+					   <input type="text" id="oTime2" name="oTime2" size="10" placeholder="쓰세요ex)15:30"></input>
 					 
 			<br> <br>
 			<button type="button" id="btn1">확인</button>
@@ -166,5 +243,6 @@ button {
 		<button type="button" id="btn3">등록</button>
 		<button type="reset" id="btn4">뒤로가기</button>
 	</form>
+	</div>
 </body>
 </html>

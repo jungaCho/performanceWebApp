@@ -28,7 +28,7 @@
 	$(document).ready(function(){
 	
 		
-		$('#table1').on("click", 'button', function(){
+		$('#table1').on("click", '#btn2', function(){
 			var memberNo = $(this).parents("tr:first").attr("id");		
 			window.open("${pageContext.request.contextPath}/retrieveMemberDetail.do?mNo="+memberNo,"회원정보상세조회","width=700, height=600, top=200, left=200");
 		});

@@ -8,32 +8,52 @@
 
 <style>
 form {
-	padding: 30px;
 	color: gray;
 	width: 900px;
-	height: 750px;
+	height:100%;
 }
-
+input{height:30px;}
+select{height:30px;}
 #btn1 {
-	width: 80px;
-	height: 40px;
-	margin-right: 50px;
+	display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width:65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: blue;
+    border-radius: 5px;
 }
 
 #btn2 {
-	width: 80px;
-	height: 40px;
-	margin-right: 50px;
+	display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width:65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: gray;
+    border-radius: 5px;
 }
 
-#pannel>h2 {
-	display: inline-block;
-	margin-right: 10px;
+h2 {
+	color:#000;
 }
 
 #div1 {
 	margin-bottom: 20px;
 	text-align: left;
+	margin-top:30px;
 }
 
 #div1>#btn2 {
@@ -43,7 +63,22 @@ form {
 #div2 {
 	margin-top: 20px;
 	text-align: left;
+	font-size:15px;
 }
+
+.insertTable th{background: #ddd;
+    width: 120px;
+    font-size: 15px;
+    border-bottom: 1px solid gray;
+    height: 30px;
+    line-height: 30px;}
+    
+.insertTable td{font-size:15px; background:#f0f0f0;border-bottom:1px solid gray;  height: 30px;
+    line-height: 30px; }    
+.content1{overflow:hidden}
+#pannel{float:left;font-size: 15px; color: #000;}
+.title{float:left; font-size:15px; color:#000;}
+.wrap{padding:50px;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -60,26 +95,36 @@ form {
 </script>
 </head>
 <body>
+	<div class="wrap">
 	<form action="${pageContext.request.contextPath}/uploadFile"
 		enctype="multipart/form-data" method="post">
-
-		<div id="pannel">
-			<h2><strong>공연 등록</strong></h2><br>
+	<div class="content1">
+		<h2><strong>공연 등록</strong></h2><br>
+		<div id="pannel" >
 			메인포스터:<input type="file" name="mainPoster" size="20"></input><br>
 			부가포스터:<input type="file" name="poster" size="20"></input><br>
 			<input type="file" name="poster" size="20"></input><br>
 			<input type="file" name="poster" size="20"></input><br>
 		</div>
-		<div id="div1">
-			<h3>
+		<div class="title">
+		<h3>
 				공연제목 : <input type="text" name="title" size="20"
-					placeholder="공연 제목을 입력해주세요!" autofocus></input>
-			</h3>
+					placeholder="공연 제목을 입력해주세요!" autofocus style="height:20px;"></input>
+		</h3>
+		<br>
+			<button type="submit" id="btn1">등록</button>
+		<button type="reset" id="btn2">취소</button>
+		</div>
 
-			<table border="1" width=550>
+		</div>
+		<div id="div1">
+			
+			<table width=1000 cellspacing="0" colspacing="0" class="insertTable">
 				<tr>
-					<th colspan='2'>동영상</th>
-					<td colspan='2'><input type="url" name="video" size="40"></input></td>
+					<th>동영상</th>
+					<td><input type="url" name="video" size="40"></input></td>
+					<th style="background:#f0f0f0"></th>
+					<td></td>
 				</tr>
 				<tr>
 					<th>시작일</th>
@@ -123,15 +168,13 @@ form {
 			</table>
 		</div>
 		<br>
-		<button type="submit" id="btn1">등록</button>
-		<button type="reset" id="btn2">취소</button>
-
+	
 		<br>
 
 		<hr width="900" align="center" color="black" size="1">
 
 		<div id="div2">
-			<h2>상세설명</h2>
+			<h2 style="margin-bottom:20px;">상세설명</h2>
 			<input type="file" name="detailFile" size="20"></input><br>
 			<input type="file" name="detailFile" size="20"></input><br>
 			<input type="file" name="detailFile" size="20"></input><br>
@@ -140,5 +183,6 @@ form {
 		</div>
 		<br>
 	</form>
+	</div>
 </body>
 </html>

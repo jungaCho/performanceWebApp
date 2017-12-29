@@ -55,30 +55,28 @@ public class ReservationService {
 		}
 
 	}
-/*
-	public boolean checkCanceldReservations(String rNo) throws Exception {
-		return ReservationDAO.getInstance().checkCanceledReservation(rNo);
-	}*/
+	/*
+	 * public boolean checkCanceldReservations(String rNo) throws Exception { return
+	 * ReservationDAO.getInstance().checkCanceledReservation(rNo); }
+	 */
 
 	// 예매를 취소한다.
-	public boolean modifyReservation(String rNo) throws Exception {
+	public void modifyReservation(String rNo) throws Exception {
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
 			conn.setAutoCommit(false);
-			
+
 			System.out.println("callService");
-			
+
 			ReservationDAO reservationDAO = ReservationDAO.getInstance();
-			boolean isTrue = reservationDAO.checkCanceledReservation(conn, rNo);
-			if(isTrue == true) {
-				reservationDAO.updateReservation(rNo, conn);
-				reservationDAO.deleteReservedSeat(rNo, conn);
-				reservationDAO.insertRefund(conn, rNo);
-				return true;
-			}
-			System.out.println("Service isTrue : " + isTrue);
-			return false;
+
+			reservationDAO.updateReservation(rNo, conn);
+			reservationDAO.deleteReservedSeat(rNo, conn);
+			//reservationDAO.insertRefund(conn, rNo);
+			
+			conn.commit();
+			
 		} catch (Exception e) {
 			conn.rollback();
 			throw e;
@@ -89,8 +87,8 @@ public class ReservationService {
 	}
 
 	// 특정 회원의 예매내역을 조회한다.
-	public List<TotalInfoVO> retrieveReservationByMember(String keyfield, String keyword, 
-															int startRow, int endRow,String mNo) throws Exception {
+	public List<TotalInfoVO> retrieveReservationByMember(String keyfield, String keyword, int startRow, int endRow,
+			String mNo) throws Exception {
 		return ReservationDAO.getInstance().selectReservationListByMember(keyfield, keyword, mNo, startRow, endRow);
 	}
 
@@ -104,8 +102,8 @@ public class ReservationService {
 	}
 
 	// 전체 회원의 예매내역을 조회한다.
-	public List<TotalInfoVO> retrieveReservationByMember(String keyfield, String keyword, 
-															int startRow, int endRow) throws Exception {
+	public List<TotalInfoVO> retrieveReservationByMember(String keyfield, String keyword, int startRow, int endRow)
+			throws Exception {
 		ReservationDAO reservationDAO = ReservationDAO.getInstance();
 		return reservationDAO.selectReservationListByAdmin(keyfield, keyword, startRow, endRow);
 	}
@@ -123,11 +121,11 @@ public class ReservationService {
 	public int selectTotalList() throws Exception {
 		return ReservationDAO.getInstance().selectTotalPost();
 	}
-	
+
 	public int selectTotalPrice(String mNo) throws Exception {
 		return ReservationDAO.getInstance().selectTotalPrice(mNo);
 	}
-	
+
 	public int countReservationSeat(String rNo) throws Exception {
 		return ReservationDAO.getInstance().countReservedSeat(rNo);
 	}

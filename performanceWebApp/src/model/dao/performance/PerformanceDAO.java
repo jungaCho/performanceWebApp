@@ -172,7 +172,9 @@ public class PerformanceDAO {
 				sql.append( "and perf.rn>=? and perf.rn<=? ");
 			
 			} else if (mode.equals("text")) {
-				sql.append("select distinct perf.title,to_char(perf.start_Date, 'YYYY/MM/DD'),to_char(perf.end_Date, 'YYYY/MM/DD'),t.t_Name ");
+
+				sql.append("select distinct perf.title,to_char(perf.start_Date, 'YYYY/MM/DD'),to_char(perf.end_Date, 'YYYY/MM/DD'),t.t_Name,perf.p_no ");
+
 				sql.append("from (select rownum as rn, p.* ");
 				sql.append("from(select * ");
 				sql.append("from performance order by title asc) p) perf , theater t , schedule s ");
@@ -255,7 +257,8 @@ public class PerformanceDAO {
 				performance.setStartDate(rs.getString(2));
 				performance.setEndDate(rs.getString(3));
 				performance.settName(rs.getString(4));
-			
+				performance.setpNo(rs.getString(5));
+				
 				performances.add(performance);
 				}
 			}

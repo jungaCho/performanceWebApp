@@ -68,14 +68,15 @@ public class ReservationDAO {
 			pstmt.setString(1, rNo);
 
 			rs = pstmt.executeQuery();
-
+			boolean isTrue = false;
 			while (rs.next()) {
 				int checkStatus = rs.getInt(1);
 				if (checkStatus == 1) {
-					return true;
+					isTrue = true;
 				}
 			}
-			return false;
+			System.out.println("DAOisTrue : " + isTrue);
+			return isTrue;
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
@@ -132,7 +133,7 @@ public class ReservationDAO {
 			sql.append(
 					"res.approve_number, res.total_price, card.cardco_name, mem.m_no, mem.m_name, perf.title,                  ");
 			sql.append(
-					"to_char(sch.s_date, 'YYYY/MM/DD') as s_date, to_char(ord.o_time, 'HH24:MI') as o_time, t.t_name,               ");
+					"to_char(sch.s_date, 'YYYY/MM/DD') as s_date, ord.o_time, t.t_name,               ");
 			sql.append(
 					"(select listagg(rseat.seat_no, ',') within group (order by rseat.seat_no ) from reserved_seat rseat where  rseat.r_no = res.r_no) as seat_no             ");
 			sql.append("from reservation res, card_company card, member mem,                           ");

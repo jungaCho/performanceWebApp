@@ -62,7 +62,7 @@ public class TotalInfoRetrieveListCommand implements Command {
 			
 			System.out.println("totalInfos : " + totalInfos);
 			
-			forward.setPath("/member_r_layout3.jsp?nav=member_r_menu&article=member_r_reservationInfo");
+			forward.setPath("/member_r_layout.jsp?nav=member_r_menu&article=member_r_reservationInfo");
 			forward.setRedirect(false);
 			return forward;
 		} catch (Exception e) {		
