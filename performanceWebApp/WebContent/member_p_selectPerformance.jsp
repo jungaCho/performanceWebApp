@@ -321,6 +321,87 @@ a {
 			});
 			
 			});
+		
+		//달에 해당하는 공연정보 보여주기.
+		
+		$('div:first').find('ul.monthlist').on("click",function(){
+			
+
+			$.ajax({
+				
+				url: "${pageContext.request.contextPath}/member_r_selectpByview.do"
+				,
+				method : "POST"
+				,
+				dataType: 'json'
+				,
+				data: {
+					
+					
+					startRow: 1,
+					endRow: 10,
+					mode: $('#btnText').val(),
+					keyword: $('#keyword').val(),
+					month: $(this).val()			
+					
+				},
+				
+				success: function(data){
+					
+					 $('#datas').css({
+							
+							width: "800px",
+							height: "700px",
+							
+												
+						});   
+					 
+										
+					 $('#datas').find('tr').remove();
+						
+						var htmlStr = "";
+						
+						 for(var i=0; i<data.length; i++) {
+												
+							
+									
+							htmlStr += "<tr>";
+							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
+							htmlStr += "<th>" +"기간"+ "</th>";
+							htmlStr += "<th>" +"장소"+ "</th>";
+							htmlStr += "<th>" +"예매"+ "</th>";
+							htmlStr += "</tr>";
+							
+							htmlStr += "<tr>";
+							htmlStr += "<td>" + data[i].title +"</td>";
+							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
+							htmlStr += "<td>" + data[i].tName + "</td>";
+							
+						    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+							htmlStr += "</tr>";
+							
+									
+							
+							$(htmlStr).appendTo('#datas');
+							
+							htmlStr = "";
+							 
+							
+						}
+						 
+						  						 
+						
+				}
+				,
+				error: function(jaXHR){
+					alert("error: " + jaXHR.error );
+					
+				}
+				
+			});
+			
+			
+		});
 			
 			
 			
@@ -334,19 +415,19 @@ a {
 <body>
 	
 		<div id="div1">
-			<ul>
-				<li value="month"><a href='#'>1월</a></li>
-				<li value="month"><a href='#'>2월</a></li>
-				<li value="month"><a href='#'>3월</a></li>
-				<li value="month"><a href='#'>4월</a></li>
-				<li value="month"><a href='#'>5월</a></li>
-				<li value="month"><a href='#'>6월</a></li>
-				<li value="month"><a href='#'>7월</a></li>
-				<li value="month"><a href='#'>8월</a></li>
-				<li value="month"><a href='#'>9월</a></li>
-				<li value="month"><a href='#'>10월</a></li>
-				<li value="month"><a href='#'>11월</a></li>
-				<li value="month"><a href='#'>12월</a></li>
+			<ul class="monthlist">
+				<li value="month">1월</li>
+				<li value="month">2월</li>
+				<li value="month">3월</li>
+				<li value="month">4월</li>
+				<li value="month">5월</li>
+				<li value="month">6월</li>
+				<li value="month">7월</li>
+				<li value="month">8월</li>
+				<li value="month">9월</li>
+				<li value="month">10월</li>
+				<li value="month">11월</li>
+				<li value="month">12월</li>
 			</ul>
 		</div>
 		<div id="div2">
