@@ -10,27 +10,42 @@
 <meta charset="utf-8">
 <title>공연 검색</title>
 <style>
-/* form {
-	padding: 30px;
-	background-color: gray;
-	width: 900px;
-	height: 750px;
+h1{color:#000;}
+#body{
+	padding-left:30px;
 }
- */
-body {
-	color: gray;
+#body2{
+	padding-left:30px;
+	overflow:hidden;
 }
-
 #btn1 {
 	width: 70px;
-	height: 30px;
-	margin-right: 10px;
+    height: 30px;
+    margin-right: 10px;
+    font-size: 15px;
+    background: blue;
+    color: white;
+    border-radius: 5px;
 }
 
 #btn2 {
 	width: 70px;
-	height: 30px;
-	margin-right: 10px;
+    height: 30px;
+    margin-right: 10px;
+    font-size: 15px;
+    background: gray;
+    color: white;
+    border-radius: 5px;
+}
+
+#btn3 {
+	width: 70px;
+    height: 30px;
+    margin-right: 10px;
+    font-size: 15px;
+    background: gray;
+    color: white;
+    border-radius: 5px;
 }
 
 #pannel>h2 {
@@ -58,26 +73,44 @@ body {
 }
 
 #div3 {
-	float: left;
 	text-align: center;
 }
 
-a {
-	color: gray;
-}
 
-#page {
-	margin-top: 290px;
-	text-align:center;
+#table {
+	color:black;
+	border: 1px solid;
+	font:15px;
+	width:1100px;
 	font-size:15px;
+	
 }
-
-.wrapper{padding: 0 40px 10px 40px; width:1200px;}
-#table{width:1100px; font-size:15px;}
 tr{height:40px;}
-td{border-bottom:1px solid gray; border-right:1px solid gray;}
-th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00; color:#fff;}
 
+td{font-size:15px; line-height:40px;}
+td a{font-size:15px; line-height:40px; font-weight:100; color:black;}
+#table th{
+	background-color:#FFBB00;
+	font-size:15px;
+	line-height:40px;
+	
+}
+input{height: 30px;
+    font-size: 15px;
+    border: 1px solid #ddd;}
+
+.wrap{padding:50px;}
+
+section article{height:100%; min-height:600px;}
+
+select{font-size: 15px;
+    height: 30px;
+    border: 1px solid #ddd;}
+
+#page{text-align:center; font-size:15px; color:#000;}
+
+#page a{color:#000;font-weight:100;}
+#page a:hover{color:#000; font-weight:100;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -110,14 +143,14 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 </script>
 
 </head>	
-	<div class="wrapper">
+	<div class="wrap">
 	<div id="pannel">
 		<h1>예매관리</h1>
-		
+		<br>
 	<!-- 	<form action="remove.do" method="get"  id="remove"> -->
-			<button type="button" id="btn1">선택삭제</button>
-<!-- 		</form> -->
-		<button type="button" id="btn2">선택해제</button>
+			<!-- <button type="button" id="btn1">선택삭제</button>
+		</form>
+		<button type="button" id="btn2">선택해제</button> -->
 	</div>
 
 
@@ -140,7 +173,7 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 	<input type="hidden" value="${pageScope.totalInfos.rNo }">
 		<table id="table" cellspacing=0>
 			<tr>
-				<th></th>
+<!-- 				<th></th> -->
 				<th style="border-left:1px solid gray">예매번호</th>
 				<th>예매일자</th>
 				<th>공연제목</th>
@@ -155,7 +188,7 @@ th{border-bottom:1px solid gray; border-right:1px solid gray; background:#FFBB00
 			<c:forEach var="totalInfos" items="${requestScope.totalInfos }" varStatus="loop">
 				
 				<tr>
-					<td><input type="checkbox" name="check"  id="checkSelect" value="${pageScope.totalInfos.rNo }"></td>
+					<%-- <td><input type="checkbox" name="check"  id="checkSelect" value="${pageScope.totalInfos.rNo }"></td> --%>
 					<td style="border-left:1px solid gray">${pageScope.totalInfos.rNo }</td>
 					<td>${pageScope.totalInfos.rDate }</td>
 					<td>${pageScope.totalInfos.title }</td>

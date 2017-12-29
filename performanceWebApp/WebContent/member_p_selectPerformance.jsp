@@ -145,6 +145,7 @@ span {
 				$('#datas').css({
 					
 						border: "1px solid black",
+						
 						width: "1200px",
 																
 				});   

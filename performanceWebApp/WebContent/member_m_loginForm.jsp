@@ -8,7 +8,7 @@
 <title>로그인화면</title>
 <link rel="stylesheet" type="text/css" href="css/common.css" />   
 <style>
-.bg{background:url('upload/bg.jpg') no-repeat 100%; height:100%;}
+/* .bg{background:url('upload/bg.jpg') no-repeat 100%; height:100%;} */
 #box {
 	width: 300px;
 	height: 400px;

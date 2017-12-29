@@ -27,7 +27,7 @@ public class AdminSelectMember implements Command {
 			List<MemberVO> memberList = AdminService.getInstance().retrieveMembers();
 			
 			req.setAttribute("memberList",memberList);
-			forward.setPath("/admin_m_layout.jsp?article=admin_m_SelectList");
+			forward.setPath("/admin_m_layout.jsp?nav=admin_menu&article=admin_m_SelectList");
 			forward.setRedirect(false);
 		}catch(Exception e) {
 			req.setAttribute("exception", e);

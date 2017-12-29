@@ -32,7 +32,7 @@ public class DetailPerformanceByMemberCommand implements Command {
 			req.setAttribute("performance", performance);
 			req.setAttribute("detailFiles", detailFiles);
 
-			forward.setPath("/member_p_layout2.jsp?article=member_p_detailPerformance");
+			forward.setPath("/mem_mainTestjsp.jsp?article=member_p_detailPerformance");
 			forward.setRedirect(false);
 			return forward;
 		} catch (Exception e) {

@@ -13,6 +13,9 @@
 
 <title>메인 페이지</title>
    <link rel="stylesheet" type="text/css" href="css/common.css" />   
+<style>
+	
+</style>
 </head>
 <body>
 
