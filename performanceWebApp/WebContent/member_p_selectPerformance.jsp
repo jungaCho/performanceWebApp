@@ -17,7 +17,7 @@ form {
 #div1 {
 	width: 100%;
 	height: 35px;
-	background-color: yellow;
+	background-color: #f25c5c;
 	text-align: center;
 }
 
@@ -64,6 +64,13 @@ a {
 #keyword {margin-le
 	
 }
+span {
+	color: black;
+	font-weight: bolder;
+}
+#datas {
+	color: black;
+}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -102,16 +109,25 @@ a {
 			
 			success: function(data){
 				
-				 $('#datas').css({
-						
+			/* 	$('#datas').find('th').end().find('td').css({
+					border: "1px solid black"
+				});   
+				
+				 */
+				
+				$('#datas').css({
+					
+						border: "1px solid black",
 						width: "800px",
-						height: "700px",
-						
-											
-					});   
+																
+				});   
 				 
-									
-				 $('#datas').find('tr').remove();
+				
+				
+				$('#datas').find('tr').remove();
+				
+				
+					
 					
 					var htmlStr = "";
 					
@@ -143,6 +159,12 @@ a {
 						
 					}
 					 
+
+					 $('#datas th').add('#datas td').css({
+							border: "1px solid black",
+							padding: "20px 0px",
+							width: "300px"
+						}); 
 					  						 
 					
 			}
@@ -186,13 +208,14 @@ a {
 				
 				success: function(data){
 					
-					 $('#datas').css({
-							
+
+					$('#datas').css({
+						
+							border: "1px solid black",
 							width: "800px",
-							height: "700px",
-							
-												
-						});   
+																	
+					});   
+				 
 					 
 										
 					 $('#datas').find('tr').remove();
@@ -226,6 +249,12 @@ a {
 							 
 							
 						}
+						 
+							$('#datas th').add('#datas td').css({
+								border: "1px solid black",
+								padding: "20px 0px",
+								width: "300px"
+							});   
 						 
 						  						 
 						
@@ -268,13 +297,14 @@ a {
 				
 				success: function(data){
 					
-					 $('#datas').css({
-							
+
+					$('#datas').css({
+						
+							border: "1px solid black",
 							width: "800px",
-							height: "700px",
-							
-												
-						});   
+																	
+					});   
+				 
 					 
 										
 					 $('#datas').find('tr').remove();
@@ -308,6 +338,12 @@ a {
 							 
 							
 						}
+						 
+						 $('#datas th').add('#datas td').css({
+								border: "1px solid black",
+								padding: "20px 0px",
+								width: "300px"
+							});   
 						 
 						  						 
 						
@@ -373,12 +409,12 @@ a {
 		
 		<br><br>
 		<div id="div3">
-        	<table id="datas" border="1" width=180>
+        	<table id="datas">
         		<tr>
         			<c:forEach var="poster" items="${requestScope.posters}" varStatus="loop">       			        			
         				<td>
-        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }" width="200" height="200">
-        					<span>${pageScope.poster.title }</span>
+        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }" width="200" height="200"><br>
+        					<span>${pageScope.poster.title }</span><br>
         					<button type="button">예매</button>
         				</td>
         				<c:if test="${loop.count % 3  == 0 }">
