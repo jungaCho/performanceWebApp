@@ -33,18 +33,19 @@ td{width:90px; line-height:40px;}
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		/* if($('#status').val() == 0) {
-			$('#cancelReserved').
-		} */
-		
 		$('#table').on('click', '#detailView', function () {
 			alert("call");
 		});
 		
-		$('#table').on('click','.reservedCancel',function() {
-			var rNo = $('.reservedCancel').attr('id');
-			location.href="${pageContext.request.contextPath}/cancelReservationForm.do?rNo="+rNo;
-		});
+		$('#table').on('click','#cancelReserved',function(event) {
+			if($(this).parents('tr:first').find('#crs').text() != "예매") {
+				alert("이미 예매취소된 내역입니다.");
+	 			return false;
+			} else {
+				var rNo = $(this).parents('tr:first').attr('id');
+				location.href="${pageContext.request.contextPath}/cancelReservationForm.do?rNo="+rNo;
+			} 
+		});		
 		
 		$('#searchBtn').on('click',function() {
 			$.ajax ({
@@ -110,28 +111,29 @@ td{width:90px; line-height:40px;}
 						<th>공연명</th>
 						<th>공연날짜</th>
 						<th>매수</th>
-						<th colspand="3">상태</th>
+						<th>상태</th>
 						<th></th>
 						<th></th>
 					</tr>
 					
 					<c:forEach var="totalInfo" items="${requestScope.totalInfos }" varStatus="loop">
-					<tr id="tr2">
-						<td id="rNo">${pageScope.totalInfo.rNo }</td>
+					<tr id="${pageScope.totalInfo.rNo }">
+						<td>${pageScope.totalInfo.rNo }</td>
 						<td>${pageScope.totalInfo.rDate }</td>
 						<td>${pageScope.totalInfo.title }</td>
 						<td>${pageScope.totalInfo.sDate }</td>
 						<td>${requestScope.seatNo }</td>
 						<td id="status">
 						<c:if test="${pageScope.totalInfo.rStatus == 0}">
-							예매취소
+							<span id="crs">예매취소</span>
 						</c:if>
 						<c:if test="${pageScope.totalInfo.rStatus == 1}">
-							예매
+							<span id="crs">예매</span>
 						</c:if>						
 						</td>
-						<td><button id="detailView" type="submit">상세보기</button></td>
-						<td id="cancelReserved"><a class="reservedCancel" id="${pageScope.totalInfo.rNo }">예약취소</a></td>
+						<td><button id="detailView" type="button">상세보기</button></td>
+						<td><button id="cancelReserved" type='button'>예약취소</button></td>
+						<%-- <td id="cancelReserved"><a class="reservedCancel" id="${pageScope.totalInfo.rNo }">예약취소</a></td> --%>
 					</tr>
 					</c:forEach>
 				</table>
