@@ -44,7 +44,7 @@ public class UploadCardCommand implements Command{
 		String title = req.getParameter("title");
 		
 		ReservationVO reservation = new ReservationVO(cardNumber, totalPrice, cardCoNo,mNo, oNo);
-		
+		req.setAttribute("reservation", reservation);
 			
 		forward.setPath("/member_r_reservationStart4.jsp");
 		forward.setRedirect(false);

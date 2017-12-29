@@ -83,11 +83,11 @@ public class ListPerformanceByMemberCommand implements Command {
 			if (performances != null) {
 				req.setAttribute("performances", performances);
 				req.setAttribute("posters", posters);
-				forward.setPath("/member_p_layout2.jsp?article=member_p_selectPerformance");
+				forward.setPath("/mem_mainTestjsp.jsp?article=member_p_selectPerformance");
 				forward.setRedirect(false);
 
 			} else {
-				forward.setPath("/member_p_layout2.jsp?article=member_m_findId");
+				forward.setPath("/mem_mainTestjsp.jsp?article=member_m_findId");
 				forward.setRedirect(false);
 
 			}

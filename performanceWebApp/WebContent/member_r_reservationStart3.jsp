@@ -90,7 +90,7 @@ input {width:300px;}
 
 </head>
 <body>
-	<!-- 예매페이지 -->
+	
 		<div class="title_bg">결 제 정 보</div>
 		<div class="reservation_padding">
 			<ul>
