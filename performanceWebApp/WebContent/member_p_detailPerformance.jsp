@@ -79,7 +79,7 @@ a {
 
 #detailPerformance th {
 	
-	background-color:#FFBB00;
+	background-color:#e2e2e2;
 	border-left:1px solid gray;
 }
 #btn2{
@@ -87,7 +87,7 @@ a {
 	margin-top:15px;
 }
 #titlee{
-	background-color:#F5A9BC;
+	background-color:#a69bd4;
 }
 
 </style>
@@ -158,9 +158,13 @@ a {
 		<br>
 		<hr id="hr" width="800" align="center" color="black" size="1">
 		<br>
-
+		
 		<div id="div4">
 			<h2>상세설명</h2>
+				<div id="div5">
+					<iframe width="640" height="360" src="${requestScope.performance.video }" 
+					frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+				</div><br><br>
 				<c:forEach var="detailFile" items="${requestScope.detailFiles }" varStatus="loop">
 	 				<c:url var="url" value="/downloadFile" scope="page">
 	 					<c:param name="originalFileName" value="${pageScope.detailFile.originalFileName }" />

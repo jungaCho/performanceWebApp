@@ -171,7 +171,7 @@ a:hover {
 						<dt>
 							<c:forEach var="poster" items="${requestScope.performance.posters}" >
 								<c:if test="${pageScope.poster.mainPoster == 1}">
-									<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}.jpg" 
+									<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
 											width="350px" height="340px" id="img">
 								</c:if>
 							</c:forEach>
