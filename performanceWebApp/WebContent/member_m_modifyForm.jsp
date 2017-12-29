@@ -99,7 +99,7 @@
 			$('#npCheck').on('blur',function(){
 				if($(this).val() == 0 ) {
 					$(this).after("<span>비밀번호 한번더 입력해주세요</span>");
-				} else if($('#pwd').val() != $(this).val()) {
+				} else if($('#newPwd').val() != $(this).val()) {
 					$(this).after("<span id='problem'> 비밀번호가 일치하지 않습니다</span>")
 				}
 			});
@@ -130,7 +130,7 @@
 
 			$('#btn1').click(function() {
 				
-				if( 8 > $('#newPwd').val().length < 12) {
+				if($('#newPwd').val().length <= 8 && $('#newPwd').val().length  >= 12) {
 					alert("비밀번호 양식을 확인해주세요!")	
 					return false;
 				}
