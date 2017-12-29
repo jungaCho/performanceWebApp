@@ -60,7 +60,6 @@ a {
 
 #div3 {
 	text-align: center;
-	margin-bottom:40px;
 }
 
 #keyword {margin-le
@@ -81,6 +80,7 @@ span {
 	margin: auto;
 	
 }
+
 
 .open {    margin-top: 10px;
     -webkit-appearance: button;
@@ -204,7 +204,6 @@ span {
 						
 					}
 					 
-					
 
 					 $('#datas th').add('#datas td').css({
 							border: "1px solid black",
@@ -557,7 +556,7 @@ span {
 		
 		<br><br>
 		<div id="div3">
-        	<table id="datas" cellspacing="0">
+        	<table id="datas">
         		<tr>
         			<c:forEach var="poster" items="${requestScope.posters}" varStatus="loop">     
         					<c:url var="url" value="/member_p_detailPerformance.do" scope="page">
@@ -565,9 +564,9 @@ span {
                              </c:url>  			        			
         				<td>
         					<a href="${pageScope.url}">
-        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.originalFileName }"
+        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }"
         					 width="200" height="200"></a><br>
-        					<span style="color:#000; font-size:15px;">${pageScope.poster.title }</span><br>
+        					<span>${pageScope.poster.title }</span><br>
         					<button class="open" id="${pageScope.poster.pNo }" type="button">예매</button>
         				</td>
         				<c:if test="${loop.count % 4  == 0 }">

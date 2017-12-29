@@ -19,7 +19,7 @@ body, a {
 }
 
 section {
-	width: 960px;
+	width: 100%;
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
@@ -29,7 +29,7 @@ section {
 
 
 footer {
-	width: 960px;
+	width: 100%;
 	height: 100px;
 	margin-left: auto;
 	margin-right: auto;
@@ -55,7 +55,7 @@ section article {
 
 	color: black;
 	width: 100%;
-	height: 100%;
+	height: auto;
 	background-color: #ebebeb;
 	float: left;
 }
@@ -75,7 +75,7 @@ section article {
 
 header {
 
-	width: 960px;
+	width: 100%;
 	height: 100px;
 	margin-left: auto;
 	margin-right: auto;
@@ -97,6 +97,7 @@ header nav h1 {
 	width: 100px;
 	margin-left: 30px;
 	color: #f25c5c;
+	margin-top:-10px;
 }
 
 header nav ul a:hover {
@@ -111,7 +112,9 @@ a:hover {
 	color: #607d8b;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="css/common.css" />   
 </head>
+
 <body>
 	<header>
 		<jsp:include page="member_header.jsp" />
