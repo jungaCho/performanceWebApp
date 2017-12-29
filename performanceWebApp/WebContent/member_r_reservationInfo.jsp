@@ -122,9 +122,9 @@ td{width:90px; line-height:40px;}
 						<td>${pageScope.totalInfo.rDate }</td>
 						<td>${pageScope.totalInfo.title }</td>
 						<td>${pageScope.totalInfo.sDate }</td>
-						<c:forEach var="rSeat" items="${requestScope.rSeats }" varStatus="loop">
+						<%-- <c:forEach var="rSeat" items="${requestScope.rSeats }" varStatus="loop"> --%>
 						<td>예매수</td>
-						</c:forEach>
+						<%-- </c:forEach> --%>
 						<td id="status">
 						<c:if test="${pageScope.totalInfo.rStatus == 0}">
 							<span id="crs">예매취소</span>
