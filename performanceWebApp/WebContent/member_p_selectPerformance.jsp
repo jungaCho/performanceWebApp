@@ -66,7 +66,7 @@ a {
 	
 }
 span {
-	color: black;
+	color:#fff;
 	font-weight: bolder;
 }
 #datas {
@@ -80,6 +80,21 @@ span {
 	margin: auto;
 	
 }
+
+
+.open {    margin-top: 10px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    color: white;
+    background: blue;
+    width: 50px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+    border-radius:5px;
+    font-size: 15px;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -159,17 +174,19 @@ span {
 					
 					var htmlStr = "";
 					
+					htmlStr += "<tr>";
+					htmlStr += "<th>" +"제목"+ "</th>";
+					htmlStr += "<th>" +"기간"+ "</th>";
+					htmlStr += "<th>" +"장소"+ "</th>";
+					htmlStr += "<th>" +"예매"+ "</th>";
+					htmlStr += "</tr>";
+					
+					
 					 for(var i=0; i<data.length; i++) {
 											
 						
 								
-						htmlStr += "<tr>";
-						htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
-						htmlStr += "<th>" +"기간"+ "</th>";
-						htmlStr += "<th>" +"장소"+ "</th>";
-						htmlStr += "<th>" +"예매"+ "</th>";
-						htmlStr += "</tr>";
-						
+				
 						htmlStr += "<tr>";
 						htmlStr += "<td><a id="+data[i].pNo+" >" + data[i].title +"</a></td>";
 						htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
@@ -250,16 +267,18 @@ span {
 						
 						var htmlStr = "";
 						
+						
+						htmlStr += "<tr>";
+						htmlStr += "<th>" +"제목"+ "</th>";
+						htmlStr += "<th>" +"기간"+ "</th>";
+						htmlStr += "<th>" +"장소"+ "</th>";
+						htmlStr += "<th>" +"예매"+ "</th>";
+						htmlStr += "</tr>";
+						
 						 for(var i=0; i<data.length; i++) {
 												
 							
-									
-							htmlStr += "<tr>";
-							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
-							htmlStr += "<th>" +"기간"+ "</th>";
-							htmlStr += "<th>" +"장소"+ "</th>";
-							htmlStr += "<th>" +"예매"+ "</th>";
-							htmlStr += "</tr>";
+							
 							
 							htmlStr += "<tr>";
 							htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
@@ -339,16 +358,18 @@ span {
 						
 						var htmlStr = "";
 						
+						
+						htmlStr += "<tr>";
+						htmlStr += "<th>" +"제목"+ "</th>";
+						htmlStr += "<th>" +"기간"+ "</th>";
+						htmlStr += "<th>" +"장소"+ "</th>";
+						htmlStr += "<th>" +"예매"+ "</th>";
+						htmlStr += "</tr>";
+						
 						 for(var i=0; i<data.length; i++) {
 												
 							
-									
-							htmlStr += "<tr>";
-							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
-							htmlStr += "<th>" +"기간"+ "</th>";
-							htmlStr += "<th>" +"장소"+ "</th>";
-							htmlStr += "<th>" +"예매"+ "</th>";
-							htmlStr += "</tr>";
+						
 							
 							htmlStr += "<tr>";
 							htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
@@ -431,17 +452,17 @@ span {
 		$('#datas').find('tr').remove();
 
 		var htmlStr = "";
-
-		for(var i=0; i<data.length; i++) {
-
-
-
+		
 		htmlStr += "<tr>";
-		htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
+		htmlStr += "<th>" +"제목"+ "</th>";
 		htmlStr += "<th>" +"기간"+ "</th>";
 		htmlStr += "<th>" +"장소"+ "</th>";
 		htmlStr += "<th>" +"예매"+ "</th>";
 		htmlStr += "</tr>";
+		
+
+		for(var i=0; i<data.length; i++) {
+
 
 		htmlStr += "<tr>";
 		htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";

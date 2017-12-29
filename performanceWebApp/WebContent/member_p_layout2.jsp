@@ -71,6 +71,7 @@ section article {
 #loginm {
 	
 	font-weight: none;
+	color:#fff;
 
 }
 

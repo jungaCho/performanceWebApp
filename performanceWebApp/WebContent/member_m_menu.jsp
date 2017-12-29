@@ -6,7 +6,6 @@
 
 <c:url var="url3" value="/withdrawalForm.do" scope="page"/>
 
-
 <ul id="sideMenu">
 	<li>MY PAGE</li><br>
 	<li><a style="color:#a69bd4" href="${pageScope.url2 }">회원정보 조회</a></li>

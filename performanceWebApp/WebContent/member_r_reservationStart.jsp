@@ -153,7 +153,10 @@ a:hover {
 			 var oNo =	 $('#oTime').find('option:selected').val();
 			 var oTime = $('#oTime option:selected').text();
 			 var sDate = $('#sDate option:selected').text();
+			 var fileImg = $('img').attr('src');
+			 
 			 console.log("oNo :" + oNo);
+			 console.log("fileImg : " + fileImg);
 			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart2.do?pNo=${param.pNo}&tNo=${requestScope.performance.tNo}&oNo='+oNo+'&oTime='+oTime+'&title=${requestScope.performance.title}&sDate='+sDate);
 	
 		}); 
