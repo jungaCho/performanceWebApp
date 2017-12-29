@@ -102,7 +102,9 @@ public class ReservationDAO {
 			pstmt.setString(1, rNo);
 			pstmt.setString(2, rNo);
 			pstmt.executeUpdate();
-
+			
+			System.out.println("callRefund");
+			
 		} finally {
 			if (pstmt != null)
 				pstmt.close();
@@ -273,6 +275,8 @@ public class ReservationDAO {
 			pstmt.setString(1, rNo);
 
 			pstmt.executeUpdate();
+			
+			System.out.println("callUpdate");
 
 		} finally {
 			if (pstmt != null)
@@ -296,6 +300,8 @@ public class ReservationDAO {
 			pstmt.setString(1, rNo);
 
 			pstmt.executeUpdate();
+			
+			System.out.println("callDelete");
 
 		} finally {
 			if (pstmt != null)

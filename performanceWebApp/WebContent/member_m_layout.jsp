@@ -96,6 +96,6 @@ a:hover {
 		<nav><jsp:include page="<%=nav%>" /></nav>
 		<article><jsp:include page="<%=article%>" /></article>
 	</section>
-	<footer>Footer</footer>
+	<footer class="footer">서울특별시 금천구 가산디지털1로 186 제이플라츠 304호 | 2팀  | Tel 010 1234 1234  | COPYRIGHT © PNN	 INC. ALL RIGHTS RESERVED.</footer>
 </body>
 </html>

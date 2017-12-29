@@ -21,10 +21,6 @@ form {
 	height: 750px;
 }
 
-div {
-	padding-left: 50px;
-}
-
 #pannel>h2 {
 	display: inline-block;
 	margin-right: 10px;
@@ -33,6 +29,11 @@ div {
 #div1 {
 	margin-bottom: 20px;
 	text-align: left;
+	font-size:20px;
+	float:left;
+	padding-left:40px;
+	line-height:35px;
+
 }
 
 #div1>#btn2 {
@@ -65,33 +66,35 @@ div {
 }
 
 a#remove {
-	display: inline-block;
-	text-align: center;
-	vertical-align: middle;
-	text-decoration: none;
-	font-size: 12px;
-	color: #000;
-	border: 1px solid #000;
-	width: 118px;
-	height: 38px;
-	line-height: 38px;
-	color: gray;
-	background-color: #F8E0F1;
+display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width:65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: blue;
+    border-radius: 5px;
 }
 
 a#modify {
 	display: inline-block;
-	text-align: center;
-	vertical-align: middle;
-	text-decoration: none;
-	font-size: 12px;
-	color: #000;
-	border: 1px solid #000;
-	width: 118px;
-	height: 38px;
-	line-height: 38px;
-	color: gray;
-	background-color: #F8E0F1;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width: 65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: gray;
+    border-radius: 5px;
 }
 
 #poster {
@@ -100,7 +103,13 @@ a#modify {
 	heigth: 80px;
 	width: 40px;
 }
+
+.imgbox{float:left;}
+.wrap{padding:50px;}
 </style>
+<link rel="stylesheet" type="text/css" href="css/common.css" />   
+
+
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
       $(document).ready(function() {
@@ -113,10 +122,12 @@ a#modify {
 
 </head>
 <body>
+	<div class="wrap">
 	<div id="pannel">
 		<h1>공연상세조회</h1>
+		<br>
 	</div>
-	<div>
+	<div class="imgbox">
 		<c:forEach var="poster" items="${requestScope.performance.posters}" >
 			<c:if test="${pageScope.poster.mainPoster == 1}">
 					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
@@ -127,6 +138,27 @@ a#modify {
 								width="50px" height="50px" id="img">
 			</c:if>
 		</c:forEach>
+	</div>
+	
+		<div id="div1">
+		공연번호 : ${requestScope.performance.pNo }
+		<br> 
+		공연제목 : ${requestScope.performance.title }
+		<br><br>
+		<div>
+		<c:url var="removeURL" value="/admin_p_removePerformance.do"
+			scope="page">
+			<c:param name="pNo" value="${requestScope.performance.pNo}" />
+		</c:url>
+		<a id="remove" href="${pageScope.removeURL}">삭제</a>&nbsp;
+
+
+		<c:url var="modifyURL" value="/admin_p_modifyPerformanceForm.do"
+			scope="page">
+			<c:param name="pNo" value="${requestScope.performance.pNo}" />
+		</c:url>
+		<a id="modify" href="${pageScope.modifyURL}">수정</a>&nbsp;
+	</div>
 	</div>
 	
 	<div id="div2">
@@ -150,11 +182,7 @@ a#modify {
 	</div>
 
 
-	<div id="div1">
-		공연번호 : ${requestScope.performance.pNo }
-		<br> <br>
-		공연제목 : ${requestScope.performance.title }
-	</div>
+
 
 	<div id="div3">
 		<table border="1" width=670>
@@ -197,6 +225,7 @@ a#modify {
 		</table>
 		<br> <br>
 	</div>
+	
 	<div id="div4">
 			<table border="1">
 				<c:forEach var="detailFile" items="${requestScope.detailFiles }" varStatus="loop">
@@ -214,19 +243,7 @@ a#modify {
 	
 	<br>
 
-	<div>
-		<c:url var="removeURL" value="/admin_p_removePerformance.do"
-			scope="page">
-			<c:param name="pNo" value="${requestScope.performance.pNo}" />
-		</c:url>
-		<a id="remove" href="${pageScope.removeURL}">삭제</a>&nbsp;
 
-
-		<c:url var="modifyURL" value="/admin_p_modifyPerformanceForm.do"
-			scope="page">
-			<c:param name="pNo" value="${requestScope.performance.pNo}" />
-		</c:url>
-		<a id="modify" href="${pageScope.modifyURL}">수정</a>&nbsp;
 	</div>
 </body>
 </html>

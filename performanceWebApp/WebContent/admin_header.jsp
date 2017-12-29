@@ -26,7 +26,7 @@ $(document).ready(function () {
 	});
 </script>
 <nav>
-	<a href ="${pageScope.urlHome }"><h1>로고</h1></a>
+	<a href ="${pageScope.urlHome }"><h1><img src="upload/logo.png" width=80px height=80px></h1></a>
 	<ul style="float:right; margin-right:30px;">
 		<li id="manage1"><a href="${pageScope.url1 }">회원관리</a></li>
 		<li id="manage3"><a href="${pageScope.url2 }">예매관리</a></li>
