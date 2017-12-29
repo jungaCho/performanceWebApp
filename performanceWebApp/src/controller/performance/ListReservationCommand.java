@@ -58,7 +58,7 @@ public class ListReservationCommand implements Command{
             req.setAttribute("performances", performances);
             req.setAttribute("paging", paging);
 
-            forward.setPath("/member_r_layout.jsp?nav=member_r_menu&article=member_r_reservation");
+            forward.setPath("/mem_mainTestjsp.jsp?nav=member_r_menu&article=member_r_reservation");
             forward.setRedirect(false);
             return forward;
 
