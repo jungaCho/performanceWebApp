@@ -115,11 +115,19 @@ a#modify {
 	heigth: 80px;
 	width: 40px;
 }
+#detail{
+	color:black;
+}
 
 .color{color:#000; margin-left:20px;font-weight:100;}
 .color:hover{color:#000;}
 .imgbox{float:left;}
 .wrap{padding:50px;}
+<<<<<<< HEAD
+.imgbox img{
+	float:left;
+}
+=======
 .content1{float:left; width:1000px;}
 .content2{float:left;}
 .list td{font-size:15px; background:#f0f0f0;border-bottom:1px solid gray;  height: 30px;
@@ -128,6 +136,7 @@ a#modify {
     height: 30px;
     line-height: 30px;}
 .list tr{border-bottom:1px solid #eee;}
+>>>>>>> branch 'master' of https://github.com/jungaCho/performanceWebApp.git
 </style>
 <link rel="stylesheet" type="text/css" href="css/common.css" />   
 
@@ -258,6 +267,7 @@ a#modify {
 					<tr>
 						<td>상세설명${pageScope.loop.count }</td>
 						<td><a class="color" href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
+
 					</tr>
 				</c:forEach>
 			</table>
