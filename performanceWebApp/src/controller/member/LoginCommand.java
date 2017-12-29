@@ -41,18 +41,20 @@ public class LoginCommand implements Command {
 				req.setAttribute("loginSuccess", loginSuccess);
 				forward.setPath("/loginSuccess.jsp");
 				forward.setRedirect(false);
+				return forward;
 			} else if( member.getmNo() != null && member.getWithdrawal().equals("T")) {
 				loginSuccess=1;
 				req.setAttribute("loginSuccess", loginSuccess);
 				forward.setPath("/loginSuccess.jsp");
 				forward.setRedirect(false);
+				return forward;
 			} else {
 				loginSuccess=2;
 				req.setAttribute("loginSuccess", loginSuccess);
 				forward.setPath("/loginSuccess.jsp");
-				forward.setRedirect(false);		
+				forward.setRedirect(false);
+				return forward;
 			}
-			return forward;
 		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");

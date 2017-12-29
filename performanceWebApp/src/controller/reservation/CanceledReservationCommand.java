@@ -41,14 +41,18 @@ public class CanceledReservationCommand implements Command{
 				if(isTrue == true) {
 					checkCount = 0;
 					req.setAttribute("checkCount", checkCount);
+					System.out.println("checkCount = " + checkCount);
+					forward.setPath("/zzCancelReservation.jsp");
+					forward.setRedirect(false);
+					return forward;
 				} else {
 					checkCount = 1;
 					req.setAttribute("checkCount", checkCount);
+					System.out.println("checkCount = " + checkCount);
+					forward.setPath("/zzCancelReservation.jsp");
+					forward.setRedirect(false);
+					return forward;
 				}
-				System.out.println("checkCount = " + checkCount);
-				forward.setPath("/zzCancelReservation.jsp");
-				forward.setRedirect(false);
-				return forward;
 			} else {
 				checkCount = 2;
 				req.setAttribute("checkCount", checkCount);

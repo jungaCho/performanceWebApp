@@ -163,7 +163,6 @@ a:hover {
 </script>
 </head>
 <body>
-	<!-- 예매페이지 -->
 		<div class="title_bg">예 매</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">

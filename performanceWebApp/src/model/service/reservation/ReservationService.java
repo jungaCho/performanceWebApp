@@ -70,7 +70,7 @@ public class ReservationService {
 
 			ReservationDAO reservationDAO = ReservationDAO.getInstance();
 			boolean isTrue = reservationDAO.checkCanceledReservation(conn, rNo);
-			if(isTrue) {
+			if(isTrue == true) {
 				reservationDAO.updateReservation(rNo, conn);
 				reservationDAO.deleteReservedSeat(rNo, conn);
 				reservationDAO.insertRefund(conn, rNo);
