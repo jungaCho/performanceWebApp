@@ -225,6 +225,7 @@ a#modify {
 		</table>
 		<br> <br>
 	</div>
+	
 	<div id="div4">
 			<table border="1">
 				<c:forEach var="detailFile" items="${requestScope.detailFiles }" varStatus="loop">
