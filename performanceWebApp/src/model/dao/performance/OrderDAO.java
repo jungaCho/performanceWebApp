@@ -28,7 +28,7 @@ public class OrderDAO {
 						
 			StringBuffer sql=new StringBuffer();
 			sql.append("insert into orders(o_no, o_time,s_no)    ");
-			sql.append("values('O'||lpad(order_seq.nextVal,5,0) , to_date(?,'HH24:MI') , ?)		");
+			sql.append("values('O'||lpad(order_seq.nextVal,5,0) , ? , ?)		");
 			
 			pstmt=conn.prepareStatement(sql.toString());
 
