@@ -367,7 +367,7 @@ span {
 		
 		//달에 해당하는 공연정보 보여주기.
 
-		$('#div1').find('ul.monthlist').on("click",function(){
+		$('#div1').find('ul.monthlist').find('li').on("click",function(){
 
 
 		$.ajax({
@@ -385,11 +385,18 @@ span {
 		endRow: 10,
 		mode: $('#btnText').val(),
 		keyword: $('#keyword').val(),
-		month: $(this).find('li').val()
+		month: $(this).val()
 
 		},
 
 		success: function(data){
+		
+	
+			if(data.length == 0) {
+				
+ 				alert("해당 월에 조회가능한 공연정보가 없습니다!");
+				
+			}
 
 		$('#datas').css({
 
@@ -435,6 +442,7 @@ span {
 
 
 		}
+		
 		,
 		error: function(jaXHR){
 		alert("error: " + jaXHR.error );
@@ -461,18 +469,18 @@ span {
 	
 		<div id="div1">
 			<ul class="monthlist">
-				<li value="month">1월</li>
-				<li value="month">2월</li>
-				<li value="month">3월</li>
-				<li value="month">4월</li>
-				<li value="month">5월</li>
-				<li value="month">6월</li>
-				<li value="month">7월</li>
-				<li value="month">8월</li>
-				<li value="month">9월</li>
-				<li value="month">10월</li>
-				<li value="month">11월</li>
-				<li value="month">12월</li>
+				<li value="1"><a>1월</a></li>
+				<li value="2"><a>2월</a></li>
+				<li value="3"><a>3월</a></li>
+				<li value="4"><a>4월</a></li>
+				<li value="5"><a>5월</a></li>
+				<li value="6"><a>6월</a></li>
+				<li value="7"><a>7월</a></li>
+				<li value="8"><a>8월</a></li>
+				<li value="9"><a>9월</a></li>
+				<li value="10"><a>10월</a></li>
+				<li value="11"><a>11월</a></li>
+				<li value="12"><a>12월</a></li>
 			</ul>
 		</div>
 		<div id="div2">
