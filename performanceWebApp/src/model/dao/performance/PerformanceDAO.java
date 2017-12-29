@@ -162,25 +162,25 @@ public class PerformanceDAO {
 			String mode = (String) map.get("mode");
 			// 이미지 보기 텍스트 보기
 			if (mode.equals("image")) {
-				sql.append("select perf.title, pos.SYSTEM_FILE_NAME, perf.start_date, perf.end_date ");
+				sql.append("select perf.title, pos.SYSTEM_FILE_NAME, to_char(perf.start_Date,'YYYY/MM/DD'), to_char(perf.end_date, 'YYYY/MM/DD') ");
 				sql.append("from (select rownum as rn, p.* ");
 				sql.append("from(select * ");
 				sql.append("from performance order by title asc) p) perf , poster pos ");
 				sql.append("where perf.p_no = pos.P_NO ");
-				sql.append("and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY') || ? ");
-				sql.append("and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY') || ? ");
+				sql.append("and to_char(sysdate, 'YYYY') || lpad(?, 2, '0')  between to_char(start_date, 'YYYYMM')  and to_char(end_date, 'YYYYMM') ");
 				sql.append("and pos.main_poster = 1 ");
 				sql.append( "and perf.rn>=? and perf.rn<=? ");
 			
 			} else if (mode.equals("text")) {
-				sql.append("select distinct perf.title,perf.start_Date,perf.end_Date,t.t_Name ");
+
+				sql.append("select distinct perf.title,to_char(perf.start_Date, 'YYYY/MM/DD'),to_char(perf.end_Date, 'YYYY/MM/DD'),t.t_Name,perf.p_no ");
+
 				sql.append("from (select rownum as rn, p.* ");
 				sql.append("from(select * ");
 				sql.append("from performance order by title asc) p) perf , theater t , schedule s ");
 				sql.append("where perf.p_no=s.p_no ");
 				sql.append("and s.t_no=t.t_no ");
-				sql.append("and to_char(perf.start_Date,'YYMM')<=to_char(sysdate,'YY')||? ");
-				sql.append("and to_char(perf.end_Date,'YYMM')>=to_char(sysdate,'YY')||? ");
+				sql.append("and to_char(sysdate, 'YYYY') || lpad(?, 2, '0')  between to_char(start_date, 'YYYYMM')  and to_char(end_date, 'YYYYMM') ");
 				sql.append("and perf.rn>=? and perf.rn<=? ");
 			}
 		
@@ -209,13 +209,11 @@ public class PerformanceDAO {
 			String month = (String) map.get("month");
 			if (month != null) {
 				pstmt.setString(1, month);
-				pstmt.setString(2, month);
 		
 			} else {
 				GregorianCalendar today = new GregorianCalendar();
 				month = String.valueOf(today.get(today.MONTH) + 1);
 				pstmt.setString(1, month);
-				pstmt.setString(2, month);
 			}
 		
 			System.out.println("startDate : " + month);
@@ -223,14 +221,14 @@ public class PerformanceDAO {
 		
 			int startRow = (Integer) map.get("startRow");
 			int endRow = (Integer) map.get("endRow");
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 		
 			System.out.println("startRow : " + startRow);
 			System.out.println("endRow : " + endRow);
 		
 			if (keyword != null || (!keyword.equals(""))) {
-				pstmt.setString(5, keyword);
+				pstmt.setString(4, keyword);
 			}
 			System.out.println("keyword : " + keyword);
 		
@@ -259,7 +257,8 @@ public class PerformanceDAO {
 				performance.setStartDate(rs.getString(2));
 				performance.setEndDate(rs.getString(3));
 				performance.settName(rs.getString(4));
-			
+				performance.setpNo(rs.getString(5));
+				
 				performances.add(performance);
 				}
 			}

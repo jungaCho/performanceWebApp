@@ -89,7 +89,9 @@ a {
 #titlee{
 	background-color:#a69bd4;
 }
-
+#div1 img{
+	float:left;
+}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
@@ -112,7 +114,7 @@ a {
 					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
 									width="220" height="270px" id="img">
 				</c:if>
-				<br>
+				<br><br>
 				<c:if test="${pageScope.poster.mainPoster != 1}">
 					<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
 									width="50px" height="50px" id="img">

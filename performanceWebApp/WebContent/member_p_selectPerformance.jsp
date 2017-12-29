@@ -29,6 +29,7 @@ li {
 
 a {
 	text-decoration: none;
+	cursor:pointer;
 }
 
 #div2 {
@@ -71,6 +72,14 @@ span {
 #datas {
 	color: black;
 }
+#datas a{
+	color:black;
+}
+#datas{
+	color: black;
+	margin: auto;
+	
+}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -82,6 +91,11 @@ span {
     	  	window.open(url, "예매확인","width=700, height=600");
         });
 		
+		$('#datas').on("click",'button',function() {
+    	  	var p_no = $(this).attr('id');
+    	  	var url = '${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=' + p_no;
+    	  	window.open(url, "예매확인","width=700, height=600");
+        });
 		
 		$('#btnImage').on("click", function(){
 			
@@ -89,10 +103,17 @@ span {
 			
 		});
 		
+		$('#datas').on("click",'a',function(){
+			var pNo=$(this).attr('id');
+			location.href = "${pageContext.request.contextPath}/member_p_detailPerformance.do?pNo="+pNo;
+		});
+		
+		/* $('#btn2').on("click",function(){
+			location.href = "${pageContext.request.contextPath}/member_p_detailPerformance.do";
+		}); */
 		
 		$('#btnText').on("click",function(){
 		
-			
 		
 		$.ajax({
 			
@@ -124,7 +145,7 @@ span {
 				$('#datas').css({
 					
 						border: "1px solid black",
-						width: "800px",
+						width: "1200px",
 																
 				});   
 				 
@@ -149,11 +170,11 @@ span {
 						htmlStr += "</tr>";
 						
 						htmlStr += "<tr>";
-						htmlStr += "<td>" + data[i].title +"</td>";
+						htmlStr += "<td><a id="+data[i].pNo+" >" + data[i].title +"</a></td>";
 						htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
 						htmlStr += "<td>" + data[i].tName + "</td>";
 						
-					    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+					    htmlStr += "<td>" + "<button type='button' id="+data[i].pNo+">예매하기</button>"+ "</td>";
 						htmlStr += "</tr>";
 						
 								
@@ -218,7 +239,7 @@ span {
 					$('#datas').css({
 						
 							border: "1px solid black",
-							width: "800px",
+							width: "1200px",
 																	
 					});   
 				 
@@ -240,7 +261,7 @@ span {
 							htmlStr += "</tr>";
 							
 							htmlStr += "<tr>";
-							htmlStr += "<td>" + data[i].title +"</td>";
+							htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
 							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
 							htmlStr += "<td>" + data[i].tName + "</td>";
 							
@@ -307,7 +328,7 @@ span {
 					$('#datas').css({
 						
 							border: "1px solid black",
-							width: "800px",
+							width: "1200px",
 																	
 					});   
 				 
@@ -329,7 +350,7 @@ span {
 							htmlStr += "</tr>";
 							
 							htmlStr += "<tr>";
-							htmlStr += "<td>" + data[i].title +"</td>";
+							htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
 							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
 							htmlStr += "<td>" + data[i].tName + "</td>";
 							
@@ -367,7 +388,7 @@ span {
 		
 		//달에 해당하는 공연정보 보여주기.
 
-		$('#div1').find('ul.monthlist').on("click",function(){
+		$('#div1').find('ul.monthlist').find('li').on("click",function(){
 
 
 		$.ajax({
@@ -385,19 +406,25 @@ span {
 		endRow: 10,
 		mode: $('#btnText').val(),
 		keyword: $('#keyword').val(),
-		month: $(this).find('li').val()
+		month: $(this).val()
 
 		},
 
 		success: function(data){
+		
+	
+			if(data.length == 0) {
+				
+ 				alert("해당 월에 조회가능한 공연정보가 없습니다!");
+				
+			}
 
-		$('#datas').css({
-
-		width: "800px",
-		height: "700px",
-
-
-		});
+			$('#datas').css({
+				
+				border: "1px solid black",
+				width: "1200px",
+														
+		});   
 
 
 		$('#datas').find('tr').remove();
@@ -416,7 +443,7 @@ span {
 		htmlStr += "</tr>";
 
 		htmlStr += "<tr>";
-		htmlStr += "<td>" + data[i].title +"</td>";
+		htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
 		htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
 		htmlStr += "<td>" + data[i].tName + "</td>";
 
@@ -431,10 +458,18 @@ span {
 
 
 		}
+		
+		 $('#datas th').add('#datas td').css({
+				border: "1px solid black",
+				padding: "20px 0px",
+				width: "300px"
+			});   
+		 
 
 
 
 		}
+		
 		,
 		error: function(jaXHR){
 		alert("error: " + jaXHR.error );
@@ -461,18 +496,18 @@ span {
 	
 		<div id="div1">
 			<ul class="monthlist">
-				<li value="month">1월</li>
-				<li value="month">2월</li>
-				<li value="month">3월</li>
-				<li value="month">4월</li>
-				<li value="month">5월</li>
-				<li value="month">6월</li>
-				<li value="month">7월</li>
-				<li value="month">8월</li>
-				<li value="month">9월</li>
-				<li value="month">10월</li>
-				<li value="month">11월</li>
-				<li value="month">12월</li>
+				<li value="1"><a>1월</a></li>
+				<li value="2"><a>2월</a></li>
+				<li value="3"><a>3월</a></li>
+				<li value="4"><a>4월</a></li>
+				<li value="5"><a>5월</a></li>
+				<li value="6"><a>6월</a></li>
+				<li value="7"><a>7월</a></li>
+				<li value="8"><a>8월</a></li>
+				<li value="9"><a>9월</a></li>
+				<li value="10"><a>10월</a></li>
+				<li value="11"><a>11월</a></li>
+				<li value="12"><a>12월</a></li>
 			</ul>
 		</div>
 		<div id="div2">
@@ -501,13 +536,18 @@ span {
 		<div id="div3">
         	<table id="datas">
         		<tr>
-        			<c:forEach var="poster" items="${requestScope.posters}" varStatus="loop">       			        			
+        			<c:forEach var="poster" items="${requestScope.posters}" varStatus="loop">     
+        					<c:url var="url" value="/member_p_detailPerformance.do" scope="page">
+                                         <c:param name="pNo" value="${pageScope.poster.pNo }" />
+                             </c:url>  			        			
         				<td>
-        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }" width="200" height="200"><br>
+        					<a href="${pageScope.url}">
+        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }"
+        					 width="200" height="200"></a><br>
         					<span>${pageScope.poster.title }</span><br>
         					<button class="open" id="${pageScope.poster.pNo }" type="button">예매</button>
         				</td>
-        				<c:if test="${loop.count % 3  == 0 }">
+        				<c:if test="${loop.count % 4  == 0 }">
         					</tr><tr>
         				</c:if>
         					        			
