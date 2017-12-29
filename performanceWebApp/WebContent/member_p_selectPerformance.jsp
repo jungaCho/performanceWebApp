@@ -66,7 +66,7 @@ a {
 	
 }
 span {
-	color: black;
+	color:#fff;
 	font-weight: bolder;
 }
 #datas {
@@ -80,10 +80,21 @@ span {
 	margin: auto;
 	
 }
-.open{
-	margin-bottom:10px;
-	background-color:;
-}
+
+
+.open {    margin-top: 10px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    color: white;
+    background: blue;
+    width: 50px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+    border-radius:5px;
+    font-size: 15px;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
