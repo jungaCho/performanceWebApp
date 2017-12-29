@@ -10,6 +10,48 @@
 	color: red;
 	font-size: 12px;
 	}
+	body {
+		background: #ddd;
+	}
+	form {
+		width:500px;
+		height:350px;
+		background-color:#f0f0f0;
+		margin: 0 auto;
+		margin-top:90px;
+	}
+	
+	#box {
+		
+		padding-top: 60px;
+		margin-left: 40px;
+	}
+	
+	#btn1{
+		margin-right:60px;
+	
+	}
+	
+	#btn2 {
+		margin-right:20px;
+	}
+	
+	#btn1, #btn2 {
+		float:right;
+		width:80px;
+		height:30px;
+		margin-top:30px;
+	}
+	
+	span {
+		color: red;
+		font-size: 12px;
+	}
+	
+	#accept {
+		color: green;
+		font-size: 12px;
+	}
 	
 </style>
 <script src = "js/jquery-3.2.1.min.js"></script>
@@ -70,12 +112,12 @@
 <body>
 	<form action="${pageContext.request.contextPath }/findPwd.do" method="POST">
 		<div id="box">
-			아이디와 이름, 이메일을 입력해주세요!<br>
-			ID<br>
+			아이디와 이름, 이메일을 입력해주세요!<br><br>
+			ID :
 			<input type="text" id="id" name="id" value="${sessionScope.findIdSession.mId }" size="30" placeholder="ID를 입력해주세요"/><br>
-			Name<br>
+			Name :
 			<input type="text" id="name" name="name" size="30" placeholder="이름을 입력해주세요"/><br>
-			Email<br>
+			Email :
 			<input type="email" id="email" name="email" size="30" placeholder="이메일을 입력해주세요"/><br>
 			<br>
 			<button id="findPwd" type="submit">임시비밀번호 발송</button>&nbsp;

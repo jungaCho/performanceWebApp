@@ -62,7 +62,7 @@ public class ListReservationByAdminCommand implements Command{
 			System.out.printf("startRow : %d%n", startRow);
 			System.out.printf("endRow : %d%n", endRow);
 			
-			List<TotalInfoVO> totalInfos = reservationService.retrieveReservationByMember(startRow, endRow, keyfield, keyword);
+			List<TotalInfoVO> totalInfos = reservationService.retrieveReservationByMember(keyfield, keyword, startRow, endRow);
 			
 			System.out.printf("totalInfos.size : %d%n", totalInfos.size());
 			

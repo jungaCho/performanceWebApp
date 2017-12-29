@@ -11,6 +11,9 @@
 <head>
 <meta charset="UTF-8">
 <title>2단 Layout</title>
+<<<<<<< HEAD
+   <link rel="stylesheet" type="text/css" href="css/common.css" />  
+=======
 <style>
 body, a {
 	font: 20px '돋움';
@@ -29,7 +32,7 @@ section {
 
 section article {
 	width: 100%;
-	height: 600px;
+	height: 100%;
 	background-color: #ebebeb;
 	float: left;
 }
@@ -115,6 +118,7 @@ a:hover {
 	color: #607d8b;
 }
 </style>
+>>>>>>> refs/remotes/origin/master
 </head>
 <body>
 	<header>

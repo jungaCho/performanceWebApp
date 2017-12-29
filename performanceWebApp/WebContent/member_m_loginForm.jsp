@@ -6,7 +6,9 @@
 <head>
 <meta charset="utf-8" />
 <title>로그인화면</title>
+<link rel="stylesheet" type="text/css" href="css/common.css" />   
 <style>
+.bg{background:url('upload/bg.jpg') no-repeat 100%; height:100%;}
 #box {
 	width: 300px;
 	height: 400px;
@@ -76,6 +78,7 @@ input {
 				,
 				error: function(){
 					alert("error : " + jqXHR.status);
+					return false;
 				}
 			});
 		
@@ -89,6 +92,7 @@ input {
 
 </head>
 <body>
+	<div class="bg">
 
 		<form action="${pageContext.request.contextPath }/login.do" method="POST">
 		<div id="box">
@@ -106,5 +110,6 @@ input {
 		</div>
 		</form>
 
+	</div>
 </body>
 </html>

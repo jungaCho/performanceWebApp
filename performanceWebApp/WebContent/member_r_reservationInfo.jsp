@@ -30,8 +30,9 @@ td{width:90px;}
 			alert("call");
 		});
 		
-		$('#table').on('click','#reservedCancel',function() {
-			location.href="${pageContext.request.contextPath}/cancelReservationForm.do";
+		$('#table').on('click','.reservedCancel',function() {
+			var rNo = $('.reservedCancel').attr('id');
+			location.href="${pageContext.request.contextPath}/cancelReservationForm.do?rNo="+rNo;
 		});
 		
 		$('#searchBtn').on('click',function() {
@@ -49,11 +50,11 @@ td{width:90px;}
 					var htmlStr ="";
 					for(var i=0;i<data.length;i++) {
 						htmlStr += "<tr>";
-						htmlStr += "<td>"+data[i].rNo+"</td>";
+						htmlStr += "<td id='rNo'>"+data[i].rNo+"</td>";
 						htmlStr += "<td>"+data[i].rDate+"</td>";
 						htmlStr += "<td>"+data[i].title+"</td>";
 						htmlStr += "<td>"+data[i].sDate+"</td>";
-						htmlStr += "<td>"+2+"</td>";
+						htmlStr += "<td>"+data[i].seatNo+"</td>";
 						htmlStr += "<td>"+data[i].rStatus+"</td>";
 						htmlStr += "<td><button id='detailView' type='button'>상세보기</button></td>";
 						htmlStr += "<td><button id='reservedCancel' type='button'>예약취소</button></td>";
@@ -64,7 +65,7 @@ td{width:90px;}
 				}
 				,
 				error: function() {
-					alert("error : " + jqXHR.status);
+
 				}
 			});
 		});
@@ -105,15 +106,15 @@ td{width:90px;}
 					</tr>
 					
 					<c:forEach var="totalInfo" items="${requestScope.totalInfos }" varStatus="loop">
-					<tr>
-						<td>${pageScope.totalInfo.rNo }</td>
+					<tr id="tr2">
+						<td id="rNo">${pageScope.totalInfo.rNo }</td>
 						<td>${pageScope.totalInfo.rDate }</td>
 						<td>${pageScope.totalInfo.title }</td>
 						<td>${pageScope.totalInfo.sDate }</td>
-						<td>2</td>
+						<td>${requestScope.seatNo }</td>
 						<td>${pageScope.totalInfo.rStatus }</td>
 						<td><button id="detailView" type="submit">상세보기</button></td>
-						<td><button id="reservedCancel" type="button">예약취소</button></td>
+						<td><a class="reservedCancel" id="${pageScope.totalInfo.rNo }">예약취소</a></td>
 					</tr>
 					</c:forEach>
 				</table>

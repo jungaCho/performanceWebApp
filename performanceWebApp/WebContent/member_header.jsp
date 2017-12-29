@@ -41,8 +41,8 @@
 </script>
 
 <nav>
-	<a href ="${ pageScope.urlHome }"><h1>로고</h1></a>
-	<ul style="float:right; margin-right:30px;">
+	<a href ="${ pageScope.urlHome }"><h1><img src="upload/logo.png" width=80px height=80px></h1></a>
+	<ul style="float:right; margin-right:30px; margin-top:30px;">
 		<li><a href="${pageScope.url1 }">공연정보</a></li>
 		<li><a href="${pageScope.url2 }" id="reservation">예매</a></li>
 		<li><a href="${pageScope.url3 }" id="mypage">마이페이지</a></li>

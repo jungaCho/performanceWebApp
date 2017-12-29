@@ -1,5 +1,5 @@
 <%@ page contentType="text/plain; charset=utf-8"%>
 
 {
-	"success" : 
+	"success": ${requestScope.checkCount }
 }

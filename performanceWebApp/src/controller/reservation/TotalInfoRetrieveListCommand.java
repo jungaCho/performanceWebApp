@@ -34,6 +34,9 @@ public class TotalInfoRetrieveListCommand implements Command {
 		paging.setPageBlock(5);
 		paging.setCurrentPage(currentPage);
 		
+		String keyfield =req.getParameter("keyfield");
+		String keyword = req.getParameter("keyword");
+		
 		ActionForward forward = new ActionForward();
 		try {
 			HttpSession session = req.getSession();
@@ -52,10 +55,12 @@ public class TotalInfoRetrieveListCommand implements Command {
 			System.out.println("endPage : " + paging.getEndPage());
 			
 			List<TotalInfoVO> totalInfos = ReservationService.getInstance().
-												retrieveReservationByMember(startRow, endRow, mNo);
+												retrieveReservationByMember(keyfield, keyword, startRow, endRow, mNo);
 			
 			req.setAttribute("totalInfos",totalInfos);
 			req.setAttribute("paging", paging);
+			
+			System.out.println("totalInfos : " + totalInfos);
 			
 			forward.setPath("/member_r_layout3.jsp?nav=member_r_menu&article=member_r_reservationInfo");
 			forward.setRedirect(false);
@@ -69,3 +74,6 @@ public class TotalInfoRetrieveListCommand implements Command {
 	}
 
 }
+
+
+
