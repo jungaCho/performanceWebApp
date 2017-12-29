@@ -16,12 +16,18 @@ margin-left:50px; margin-right:50px;
 
 }
 
+
+.wrap{padding:50px;}
+
+select{font-size:15px; height:25px;}
+#searchBtn{font-size:15px; height:25px; width:40px;}
+
 table{border:1px solid gray; text-align:center; font-size:12px; margin-top:50px; margin-bottom:15px; width:100%}
-th{background:#FFBB00; color:#000;}
-tr{height:40px;}
-td{width:90px;}
+th{background:#FFBB00; color:#000; line-height:40px;}
+tr{height:40px; line-height:40px;}
+td{width:90px; line-height:40px;}
 .selectbox{float:right; margin-bottom:20px;}
-}
+.page{font-size:15px; text-align:center;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript">
@@ -76,9 +82,8 @@ td{width:90px;}
 </head>
 
 <body>
-	<form>
-		<div class="wrapper">
-			<h3>예매</h3>
+		<div class="wrap">
+			<h3>예매</h3><br>
 			<span style="font-size: 17px;">예매 내역</span> <br>
 		
 			<div class="reservation">
@@ -120,6 +125,8 @@ td{width:90px;}
 				</table>
 				<br>
 				<br>
+				
+				<div class="page">
 
 				<c:if test="${requestScope.paging.prevPage > 0 }">
 					<c:url var="prevUrl" value="/totalInfoRetrieveList.do" scope="page">
@@ -152,9 +159,8 @@ td{width:90px;}
 				<c:if test="${requestScope.paging.endPage == requestScope.paging.totalPage }">
 					[다음]&nbsp;&nbsp;
 				</c:if>
-		
+				</div>
 			</div>
 		</div>
-	</form>
 </body>
 </html>

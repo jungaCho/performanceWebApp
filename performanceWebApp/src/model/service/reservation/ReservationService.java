@@ -65,17 +65,19 @@ public class ReservationService {
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
-
 			conn.setAutoCommit(false);
-
+			
+			System.out.println("callService");
+			
 			ReservationDAO reservationDAO = ReservationDAO.getInstance();
 			boolean isTrue = reservationDAO.checkCanceledReservation(conn, rNo);
-			if(isTrue) {
+			if(isTrue == true) {
 				reservationDAO.updateReservation(rNo, conn);
 				reservationDAO.deleteReservedSeat(rNo, conn);
 				reservationDAO.insertRefund(conn, rNo);
 				return true;
 			}
+			System.out.println("Service isTrue : " + isTrue);
 			return false;
 		} catch (Exception e) {
 			conn.rollback();

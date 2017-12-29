@@ -7,10 +7,12 @@
 <meta charset="utf-8">
 <title>예매</title>
 <style>
+	#page{font-size:15px; text-align:center;}
 	.reservation {
 	       overflow: hidden;
 	       margin-top: 30px;
 	       height: 100%;
+	       margin-bottom:30px;
 	}
 	
 	.reservation>.r_img {
@@ -38,6 +40,10 @@
 	       list-style: none;
 	       font-size: 15px;
 	}
+	
+	li{line-height:35px;}
+	
+	h1{font-size:15px;}
 	
 	.reservation>.r_text>ul>.r_text_date {
 	       margin-top: 15px;
@@ -74,16 +80,30 @@
 		display:inline-block;
 		list-style:none;
 		color:gray;
+		margin-left:30px;
 	}
 	.open{
 		margin-top:10px;
 	 	-webkit-appearance: button;
 	      -moz-appearance: button;
 	      appearance: button;
-	      color:red;
+	      color:white;
+	      background:blue;
+	      width:80px;
+	      height:25px;
+	      line-height:25px;
+	      text-align:center;
 	      cursor:pointer;
+	      font-size:15px;
 
 	}
+	
+	a:hover{color:#fff;}
+	
+	.r_text_date{font-size:15px;}
+	
+
+		.wrap{padding:50px;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
@@ -97,12 +117,13 @@
 </script>
 </head>
 <body>
+	<div class="wrap">
        <div style="margin-left: 50px;">
-              <h3>예매</h3>
+              <h3>예매</h3><br>
               <span style="font-size: 17px;">공연 예매</span> <br>
               <!-- reservation -->
          
-              <div class="reservation">
+             
                      <!-- r_img -->
                     
                            <c:forEach var="performance" items="${requestScope.performances }"
@@ -110,6 +131,7 @@
                                   <c:url var="url" value="/member_p_detailPerformance.do" scope="page">
                                          <c:param name="pNo" value="${pageScope.performance.pNo }" />
                                   </c:url>
+                                   <div class="reservation">
                                   <c:forEach var="poster" items="${pageScope.performance.posters}">
                                          <c:if test="${pageScope.poster.mainPoster == 1}">
                                             <a href="${pageScope.url}"><img
@@ -129,12 +151,12 @@
 			                                  <li class="r_text_button">
 			                                  	<a class="open" id="${pageScope.performance.pNo}">예매하기</a></li>
 			                           </ul><br>
-                                  
+                                   </div>
                            </c:forEach>
                    
                      <!-- r_text -->
                    
-              </div>
+             
            
               <!-- /reservation -->
 
@@ -178,6 +200,6 @@
                 [다음]&nbsp;&nbsp;
         </c:if>
        </form>
-
+	</div>
 </body>
 </html>

@@ -75,7 +75,7 @@ public class OrderDAO {
 					
 
 						StringBuffer sql = new StringBuffer();
-						sql.append("select to_char(o_time,'HH24:MI') ,O_no                    ");
+						sql.append("select o_time,O_no                    ");
 						sql.append("from orders   										 ");
 						sql.append("where S_NO=?  								 ");
 						
