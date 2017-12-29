@@ -14,7 +14,7 @@
   <meta name="Author" content="">
   <meta name="Keywords" content=""> 
   <meta name="Description" content="">
-  <title>2단 Layout</title>
+  <title>회원관리</title>
   <style>
 	body, a {
 		font: 20px '돋움';
@@ -100,15 +100,16 @@
       }
 
   </style>
+  <link rel="stylesheet" type="text/css" href="css/common.css" />   
  </head>
  <body>
 	<header>
 		<jsp:include page="admin_header.jsp" />
 	</header>
-	
 	<section>
 		<article><jsp:include page="admin_m_SelectList.jsp" /></article>
 	</section>
-	<footer>Footer</footer>
+	<footer class="footer">서울특별시 금천구 가산디지털1로 186 제이플라츠 304호 | 2팀  | Tel 010 1234 1234  | COPYRIGHT © PNN	 INC. ALL RIGHTS RESERVED.</footer>
+
  </body>
 </html>

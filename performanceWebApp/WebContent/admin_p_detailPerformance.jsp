@@ -26,6 +26,9 @@ form {
 	margin-right: 10px;
 }
 
+#div1{margin-bottom:50px;}
+
+
 #div1 {
 	margin-bottom: 20px;
 	text-align: left;
@@ -52,12 +55,20 @@ form {
 	display: block;
 	overflow: auto;
 	float: right;;
-	margin-right: 150px;
 	margin-bottom: 20px;
+	margin-top:-50px;
 }
 
+#schedule tr{height:30px; font-size:15px;}
+
+#schedule td{line-height:30px; background:#f0f0f0;}
+
+#schedule th {    background: gray;
+    line-height: 30px;
+    width: 110px;}
 #div3 {
 	text-align: center;
+	padding-top:40px;
 }
 
 #btn1 {
@@ -65,6 +76,7 @@ form {
 	height: 38px;
 }
 
+#div4{margin-bottom:40px;}
 a#remove {
 display: inline-block;
     text-align: center;
@@ -107,11 +119,24 @@ a#modify {
 	color:black;
 }
 
+.color{color:#000; margin-left:20px;font-weight:100;}
+.color:hover{color:#000;}
 .imgbox{float:left;}
 .wrap{padding:50px;}
+<<<<<<< HEAD
 .imgbox img{
 	float:left;
 }
+=======
+.content1{float:left; width:1000px;}
+.content2{float:left;}
+.list td{font-size:15px; background:#f0f0f0;border-bottom:1px solid gray;  height: 30px;
+    line-height: 30px; }
+.list th{background:#ddd;    width: 120px; font-size:15px; border-bottom:1px solid gray;
+    height: 30px;
+    line-height: 30px;}
+.list tr{border-bottom:1px solid #eee;}
+>>>>>>> branch 'master' of https://github.com/jungaCho/performanceWebApp.git
 </style>
 <link rel="stylesheet" type="text/css" href="css/common.css" />   
 
@@ -124,6 +149,7 @@ a#modify {
     		  alert("공연 정보가 삭제되었습니다!!") 	  
     	  });
       });
+
 </script>
 
 </head>
@@ -133,6 +159,7 @@ a#modify {
 		<h1>공연상세조회</h1>
 		<br>
 	</div>
+	<div class="content1">
 	<div class="imgbox">
 		<c:forEach var="poster" items="${requestScope.performance.posters}" >
 			<c:if test="${pageScope.poster.mainPoster == 1}">
@@ -168,7 +195,7 @@ a#modify {
 	</div>
 	
 	<div id="div2">
-		<table id="schedule" border="1">
+		<table id="schedule" cellspacing="0" collspacing="0">
 			<tr>
 				<th>날짜</th>
 				<th>공연&nbsp;시간</th>
@@ -186,12 +213,10 @@ a#modify {
 			</c:forEach>
 		</table>
 	</div>
-
-
-
-
+	</div>
+	<div class="content2">
 	<div id="div3">
-		<table border="1" width=670>
+		<table  width=1000 class="list" cellspacing="0" collspacing="0">
 			<tr>
 				<th>동영상</th>
 				<td>${requestScope.performance.video }</td>
@@ -240,13 +265,14 @@ a#modify {
 	 					<c:param name="systemFileName" value="${pageScope.detailFile.systemFileName }" />
 	 				</c:url>
 					<tr>
-						<td>상세설명${pageScope.loop.count } :</td>
-						<td><a href="${pageScope.url }" id="detail">${pageScope.detailFile.originalFileName }</a></td>
+						<td>상세설명${pageScope.loop.count }</td>
+						<td><a class="color" href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
+
 					</tr>
 				</c:forEach>
 			</table>
 	</div>
-	
+	</div>
 	<br>
 
 

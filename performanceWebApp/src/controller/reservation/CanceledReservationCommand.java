@@ -30,9 +30,6 @@ public class CanceledReservationCommand implements Command{
 			String rNo = (String)session.getAttribute("rNo");
 			
 			System.out.println("rNo : " + rNo);
-			
-//			ReservationService service = ReservationService.getInstance();
-//			boolean isTrue = service.checkCanceldReservations(rNo);
 
 			int checkCount = 0;
 			
@@ -48,14 +45,6 @@ public class CanceledReservationCommand implements Command{
 			forward.setPath("/zzCancelReservation.jsp");
 			forward.setRedirect(false);
 			return forward;
-			/*} else {
-				checkCount = 2;
-				req.setAttribute("checkCount", checkCount);
-			}
-			System.out.println("checkCount = " + checkCount);
-			forward.setPath("/zzCancelReservation.jsp");
-			forward.setRedirect(false);
-			return forward;*/
 		} catch (Exception e) {
 			req.setAttribute("exception", e);
 			forward.setPath("/error.jsp");
