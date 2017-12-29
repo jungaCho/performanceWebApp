@@ -32,6 +32,11 @@ td{width:90px; line-height:40px;}
 <script src="js/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		/* if($('#status').val() == 0) {
+			$('#cancelReserved').
+		} */
+		
 		$('#table').on('click', '#detailView', function () {
 			alert("call");
 		});
@@ -117,9 +122,16 @@ td{width:90px; line-height:40px;}
 						<td>${pageScope.totalInfo.title }</td>
 						<td>${pageScope.totalInfo.sDate }</td>
 						<td>${requestScope.seatNo }</td>
-						<td>${pageScope.totalInfo.rStatus }</td>
+						<td id="status">
+						<c:if test="${pageScope.totalInfo.rStatus == 0}">
+							예매취소
+						</c:if>
+						<c:if test="${pageScope.totalInfo.rStatus == 1}">
+							예매
+						</c:if>						
+						</td>
 						<td><button id="detailView" type="submit">상세보기</button></td>
-						<td><a class="reservedCancel" id="${pageScope.totalInfo.rNo }">예약취소</a></td>
+						<td id="cancelReserved"><a class="reservedCancel" id="${pageScope.totalInfo.rNo }">예약취소</a></td>
 					</tr>
 					</c:forEach>
 				</table>
