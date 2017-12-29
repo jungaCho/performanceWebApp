@@ -79,7 +79,7 @@ a {
 
 #detailPerformance th {
 	
-	background-color:#a69bd4;
+	background-color:#e2e2e2;
 	border-left:1px solid gray;
 }
 #btn2{
