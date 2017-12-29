@@ -80,6 +80,10 @@ span {
 	margin: auto;
 	
 }
+.open{
+	margin-bottom:10px;
+	background-color:;
+}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
