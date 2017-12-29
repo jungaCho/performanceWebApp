@@ -140,7 +140,7 @@ button {
 			</select><br>
 			공연일자 : <input type="date" id="sDate" name="sDate" size="30"></input><br>
 			공연시간 : <input type="text" id="oTime1" name="oTime1" size="10" placeholder="시간과 분을 붙여"></input>
-					   <input type="text" id="oTime2" name="oTime2" size="10" placeholder="쓰세요ex)1530"></input>
+					   <input type="text" id="oTime2" name="oTime2" size="10" placeholder="쓰세요ex)15:30"></input>
 					 
 			<br> <br>
 			<button type="button" id="btn1">확인</button>

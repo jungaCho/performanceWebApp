@@ -29,6 +29,7 @@ li {
 
 a {
 	text-decoration: none;
+	cursor:pointer;
 }
 
 #div2 {
@@ -71,6 +72,12 @@ span {
 #datas {
 	color: black;
 }
+#datas a{
+	color:black;
+}
+#datas{
+	padding-left:30px;
+}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -82,6 +89,11 @@ span {
     	  	window.open(url, "예매확인","width=700, height=600");
         });
 		
+		$('#datas').on("click",'button',function() {
+    	  	var p_no = $(this).attr('id');
+    	  	var url = '${pageContext.request.contextPath}/member_r_reservationStart.do?pNo=' + p_no;
+    	  	window.open(url, "예매확인","width=700, height=600");
+        });
 		
 		$('#btnImage').on("click", function(){
 			
@@ -89,10 +101,17 @@ span {
 			
 		});
 		
+		$('#datas').on("click",'a',function(){
+			var pNo=$(this).attr('id');
+			location.href = "${pageContext.request.contextPath}/member_p_detailPerformance.do?pNo="+pNo;
+		});
+		
+		/* $('#btn2').on("click",function(){
+			location.href = "${pageContext.request.contextPath}/member_p_detailPerformance.do";
+		}); */
 		
 		$('#btnText').on("click",function(){
 		
-			
 		
 		$.ajax({
 			
@@ -149,11 +168,11 @@ span {
 						htmlStr += "</tr>";
 						
 						htmlStr += "<tr>";
-						htmlStr += "<td>" + data[i].title +"</td>";
+						htmlStr += "<td><a id="+data[i].pNo+" >" + data[i].title +"</a></td>";
 						htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
 						htmlStr += "<td>" + data[i].tName + "</td>";
 						
-					    htmlStr += "<td>" + "<button type='submit' id='btn2'>예매하기</button>"+ "</td>";
+					    htmlStr += "<td>" + "<button type='button' id="+data[i].pNo+">예매하기</button>"+ "</td>";
 						htmlStr += "</tr>";
 						
 								
@@ -240,7 +259,7 @@ span {
 							htmlStr += "</tr>";
 							
 							htmlStr += "<tr>";
-							htmlStr += "<td>" + data[i].title +"</td>";
+							htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
 							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
 							htmlStr += "<td>" + data[i].tName + "</td>";
 							
@@ -329,7 +348,7 @@ span {
 							htmlStr += "</tr>";
 							
 							htmlStr += "<tr>";
-							htmlStr += "<td>" + data[i].title +"</td>";
+							htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
 							htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
 							htmlStr += "<td>" + data[i].tName + "</td>";
 							
@@ -416,7 +435,7 @@ span {
 		htmlStr += "</tr>";
 
 		htmlStr += "<tr>";
-		htmlStr += "<td>" + data[i].title +"</td>";
+		htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
 		htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
 		htmlStr += "<td>" + data[i].tName + "</td>";
 
@@ -501,9 +520,14 @@ span {
 		<div id="div3">
         	<table id="datas">
         		<tr>
-        			<c:forEach var="poster" items="${requestScope.posters}" varStatus="loop">       			        			
+        			<c:forEach var="poster" items="${requestScope.posters}" varStatus="loop">     
+        					<c:url var="url" value="/member_p_detailPerformance.do" scope="page">
+                                         <c:param name="pNo" value="${pageScope.poster.pNo }" />
+                             </c:url>  			        			
         				<td>
-        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }" width="200" height="200"><br>
+        					<a href="${pageScope.url}">
+        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }"
+        					 width="200" height="200"></a><br>
         					<span>${pageScope.poster.title }</span><br>
         					<button class="open" id="${pageScope.poster.pNo }" type="button">예매</button>
         				</td>

@@ -103,9 +103,15 @@ a#modify {
 	heigth: 80px;
 	width: 40px;
 }
+#detail{
+	color:black;
+}
 
 .imgbox{float:left;}
 .wrap{padding:50px;}
+.imgbox img{
+	float:left;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="css/common.css" />   
 
@@ -234,8 +240,8 @@ a#modify {
 	 					<c:param name="systemFileName" value="${pageScope.detailFile.systemFileName }" />
 	 				</c:url>
 					<tr>
-						<td>상세설명${pageScope.loop.count }</td>
-						<td><a href="${pageScope.url }">${pageScope.detailFile.originalFileName }</a></td>
+						<td>상세설명${pageScope.loop.count } :</td>
+						<td><a href="${pageScope.url }" id="detail">${pageScope.detailFile.originalFileName }</a></td>
 					</tr>
 				</c:forEach>
 			</table>
