@@ -17,7 +17,7 @@ public class MyPageFormCommand implements Command {
 			throws IOException, ServletException {
 
 		ActionForward forward = new ActionForward();
-		forward.setPath("/member_m_layout.jsp?nav=member_m_menu&article=member_m_myPageMain");
+		forward.setPath("/retrieveMember.do");
 		forward.setRedirect(false);
 		return forward;
 

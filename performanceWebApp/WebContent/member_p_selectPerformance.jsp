@@ -60,7 +60,6 @@ a {
 
 #div3 {
 	text-align: center;
-	margin-bottom:40px;
 }
 
 #keyword {margin-le
@@ -81,6 +80,7 @@ span {
 	margin: auto;
 	
 }
+
 
 .open {    margin-top: 10px;
     -webkit-appearance: button;
@@ -174,17 +174,19 @@ span {
 					
 					var htmlStr = "";
 					
+					htmlStr += "<tr>";
+					htmlStr += "<th>" +"제목"+ "</th>";
+					htmlStr += "<th>" +"기간"+ "</th>";
+					htmlStr += "<th>" +"장소"+ "</th>";
+					htmlStr += "<th>" +"예매"+ "</th>";
+					htmlStr += "</tr>";
+					
+					
 					 for(var i=0; i<data.length; i++) {
 											
 						
 								
-						htmlStr += "<tr>";
-						htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
-						htmlStr += "<th>" +"기간"+ "</th>";
-						htmlStr += "<th>" +"장소"+ "</th>";
-						htmlStr += "<th>" +"예매"+ "</th>";
-						htmlStr += "</tr>";
-						
+				
 						htmlStr += "<tr>";
 						htmlStr += "<td><a id="+data[i].pNo+" >" + data[i].title +"</a></td>";
 						htmlStr += "<td>" + data[i].startDate + " ~ " + data[i].endDate + "</td>";
@@ -202,7 +204,6 @@ span {
 						
 					}
 					 
-					
 
 					 $('#datas th').add('#datas td').css({
 							border: "1px solid black",
@@ -266,16 +267,18 @@ span {
 						
 						var htmlStr = "";
 						
+						
+						htmlStr += "<tr>";
+						htmlStr += "<th>" +"제목"+ "</th>";
+						htmlStr += "<th>" +"기간"+ "</th>";
+						htmlStr += "<th>" +"장소"+ "</th>";
+						htmlStr += "<th>" +"예매"+ "</th>";
+						htmlStr += "</tr>";
+						
 						 for(var i=0; i<data.length; i++) {
 												
 							
-									
-							htmlStr += "<tr>";
-							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
-							htmlStr += "<th>" +"기간"+ "</th>";
-							htmlStr += "<th>" +"장소"+ "</th>";
-							htmlStr += "<th>" +"예매"+ "</th>";
-							htmlStr += "</tr>";
+							
 							
 							htmlStr += "<tr>";
 							htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
@@ -355,16 +358,18 @@ span {
 						
 						var htmlStr = "";
 						
+						
+						htmlStr += "<tr>";
+						htmlStr += "<th>" +"제목"+ "</th>";
+						htmlStr += "<th>" +"기간"+ "</th>";
+						htmlStr += "<th>" +"장소"+ "</th>";
+						htmlStr += "<th>" +"예매"+ "</th>";
+						htmlStr += "</tr>";
+						
 						 for(var i=0; i<data.length; i++) {
 												
 							
-									
-							htmlStr += "<tr>";
-							htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
-							htmlStr += "<th>" +"기간"+ "</th>";
-							htmlStr += "<th>" +"장소"+ "</th>";
-							htmlStr += "<th>" +"예매"+ "</th>";
-							htmlStr += "</tr>";
+						
 							
 							htmlStr += "<tr>";
 							htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
@@ -447,17 +452,17 @@ span {
 		$('#datas').find('tr').remove();
 
 		var htmlStr = "";
-
-		for(var i=0; i<data.length; i++) {
-
-
-
+		
 		htmlStr += "<tr>";
-		htmlStr += "<th id="+ data[i].title + ">" +"제목"+ "</th>";
+		htmlStr += "<th>" +"제목"+ "</th>";
 		htmlStr += "<th>" +"기간"+ "</th>";
 		htmlStr += "<th>" +"장소"+ "</th>";
 		htmlStr += "<th>" +"예매"+ "</th>";
 		htmlStr += "</tr>";
+		
+
+		for(var i=0; i<data.length; i++) {
+
 
 		htmlStr += "<tr>";
 		htmlStr += "<td><a id="+data[i].pNo+">" + data[i].title +"</a></td>";
@@ -551,7 +556,7 @@ span {
 		
 		<br><br>
 		<div id="div3">
-        	<table id="datas" cellspacing="0">
+        	<table id="datas">
         		<tr>
         			<c:forEach var="poster" items="${requestScope.posters}" varStatus="loop">     
         					<c:url var="url" value="/member_p_detailPerformance.do" scope="page">
@@ -561,7 +566,7 @@ span {
         					<a href="${pageScope.url}">
         					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }"
         					 width="200" height="200"></a><br>
-        					<span style="color:#000; font-size:15px;">${pageScope.poster.title }</span><br>
+        					<span>${pageScope.poster.title }</span><br>
         					<button class="open" id="${pageScope.poster.pNo }" type="button">예매</button>
         				</td>
         				<c:if test="${loop.count % 4  == 0 }">

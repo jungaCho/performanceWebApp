@@ -71,8 +71,7 @@ public class ListPerformanceByMemberCommand implements Command {
 					poster.setTitle(performance.getTitle());
 					poster.setpNo(performance.getpNo());
 					if(poster.getMainPoster() == 1) {						
-						posters.add(poster);
-						
+						posters.add(poster);	
 					}
 				}
 			}
