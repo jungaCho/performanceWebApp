@@ -559,7 +559,7 @@ span {
                              </c:url>  			        			
         				<td>
         					<a href="${pageScope.url}">
-        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }"
+        					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.originalFileName }"
         					 width="200" height="200"></a><br>
         					<span style="color:#000; font-size:15px;">${pageScope.poster.title }</span><br>
         					<button class="open" id="${pageScope.poster.pNo }" type="button">예매</button>
