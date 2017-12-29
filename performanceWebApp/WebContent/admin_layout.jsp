@@ -66,7 +66,6 @@ section nav {
 section article {
 	color: black;
 	width: 75%;
-	height: 600px;
 	background-color: #ebebeb;
 	float: left;
 }

@@ -78,11 +78,6 @@
 	text-align: center;
 }
 
-a:hover{
-	color: black;
-	text-decoration: none;
-}
-
 
 #table {
 	color:black;
@@ -115,6 +110,9 @@ select{font-size: 15px;
     border: 1px solid #ddd;}
 
 #page{text-align:center; font-size:15px;}
+
+#page a{color:#000;font-weight:100;}
+#page a:hover{color:#000; font-weight:100;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
