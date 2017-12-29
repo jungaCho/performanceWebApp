@@ -13,6 +13,7 @@ form {
 	color: gray;
 	width: 800px;
 	height: 100%;
+	margin:auto;
 }
 
 li {
@@ -158,11 +159,11 @@ a {
 		</div>
 
 		<br>
-		<hr id="hr" width="800" align="center" color="black" size="1">
+		<hr id="hr" width="800" height="1" align="center" color="black" size="2">
 		<br>
 		
 		<div id="div4">
-			<h2>상세설명</h2>
+			<h2>상세설명</h2><br>
 				<div id="div5">
 					<iframe width="640" height="360" src="${requestScope.performance.video }" 
 					frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
