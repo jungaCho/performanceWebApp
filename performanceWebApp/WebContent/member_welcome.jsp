@@ -7,4 +7,4 @@
 	}
 </style>
 
-<img src="upload/bg2.jpg" width=100% height=100%>
+<img src="upload/bg3.jpg" width=100% height=100%>
