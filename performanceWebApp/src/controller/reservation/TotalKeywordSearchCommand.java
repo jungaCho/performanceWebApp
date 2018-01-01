@@ -32,7 +32,7 @@ public class TotalKeywordSearchCommand implements Command {
 			String mNo = member.getmNo();
 
 			List<TotalInfoVO> totalInfos = ReservationService.getInstance().
-												retrieveReservationByMember(startRow, endRow, keyfield, keyword, mNo);
+												retrieveReservationByMember(keyfield, keyword,startRow, endRow,  mNo);
 			
 			req.setAttribute("totalInfos", totalInfos);
 			forward.setPath("/");
