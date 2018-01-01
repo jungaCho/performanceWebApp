@@ -65,13 +65,10 @@ a {
 #keyword {margin-le
 	
 }
-span {
+/* span {
 	color:#fff;
 	font-weight: bolder;
-}
-#datas {
-	color: black;
-}
+} */
 #datas a{
 	color:black;
 }
@@ -80,7 +77,10 @@ span {
 	margin: auto;
 	
 }
-
+#title{
+	margin-top:20px;
+	color:#061b44;
+}
 
 .open {    margin-top: 10px;
     -webkit-appearance: button;
@@ -567,7 +567,7 @@ span {
            					<a href="${pageScope.url}">
         					<img src="${pageContext.request.contextPath }/upload/${pageScope.poster.systemFileName }"
         					 width="200" height="200"></a><br>
-        					<span>${pageScope.poster.title }</span><br>
+        					<span id="title">${pageScope.poster.title }</span><br>
         					<button class="open" id="${pageScope.poster.pNo }" type="button">예매</button>
         				</td>
         				<c:if test="${loop.count % 4  == 0 }">
