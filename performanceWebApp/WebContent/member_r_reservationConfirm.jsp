@@ -48,7 +48,7 @@ $(document).ready(function(){
 		}
 		
 		$.ajax({
-			url: '${pageContext.request.contextPath}/canceledReservation.do'
+			url: '${pageContext.request.contextPath}/canceledReservation.do?rNo=${sessionScope.totalInfos.rNo}'
 			,
 			method: 'POST'
 			,
@@ -58,14 +58,11 @@ $(document).ready(function(){
 				pwd: $('#pwd').val()
 			}
 			,
-			success: function() {
+			success: function(data) {
 				if(data.success == 0) {
 					alert("예매가 취소되었습니다!!");
 					location.href="${pageContext.request.contextPath}/totalInfoRetrieveList.do"
-				} else if(data.success == 1) {
-					alert("이미 취소된 예매정보입니다!!");
-					return false;
-				} else if(data.success == 2){
+				} else {
 					alert("비밀번호가 일치하지 않습니다!!");
 					return false;
 				}

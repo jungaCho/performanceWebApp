@@ -296,7 +296,7 @@ public class PerformanceDAO {
 					"to_char(performance.end_date,'YYYY-MM-DD'), theater.t_name, viewclass.view_class, performance.running_time,	");
 			sql.append("performancegenre.genre, performance.price, to_char(schedule.s_date,'YYYY/MM/DD'), 	");
 			sql.append(
-					"to_char(orders.o_time,'HH24:MI') ,theater.t_no, 												 ");
+					"orders.o_time,theater.t_no, 												 ");
 			sql.append(
 					"performance.contact_name, performance.CONTACT_NUMBER , performance.video, performance.production, performance.note	, performance.p_no, schedule.s_no, orders.o_no		");
 			sql.append(
@@ -920,6 +920,7 @@ public class PerformanceDAO {
 				PosterVO poster=new PosterVO();
 				poster.setSystemFileName(rs.getString(1)); 
 				poster.setMainPoster(1);
+				poster.setpNo(rs.getString(6));
 				ArrayList<PosterVO> posters=new ArrayList<PosterVO>();
 				posters.add(poster);
 				

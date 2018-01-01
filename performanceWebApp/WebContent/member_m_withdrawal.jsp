@@ -6,38 +6,64 @@
 <title>회원 탈퇴</title>
 <style>
 	
-	form {
-		width:400px;
-		height:600px;
+form {
+		padding : 30px;
 	}
 	
-	div > h3 {
+	span {
+		font-size: 12px;
+	}
+	
+	#pannel > h2 {
+		
 		display: inline-block;
-		margin-right: 5px;
+		margin-right: 10px;
 	}
 	
-	#box {
+	#div1{
+		text-align: left;
+		line-height:35px;
 		margin-top:50px;
-		width:auto;
-		height:100px;	
 	}
 	
-	#box1 {
-		width:40%;
-		height:150px;
-		float:left;
+	#div1 > #btn2 {
+		margin-left: 10px;
 	}
 	
-	#box2 {
-		width:60%;
-		height:150px;
-		float:left;
+	#div2{
+		    margin-top: 20px;
+    text-align: left;
+    line-height: 35px;
+    border-top: 1px solid #5b5b5b;
+    padding-top: 20px;
 	}
 	
-	#box3 > textarea {
-		width:300px;
-		height:200px;
-	}
+	.wrap{padding:50px; font-size:15px;}
+	.content{font-size:15px; overflow:hidden; width:950px; font-size:15px; }
+	#btn1{background:blue;width: 50px;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
+    margin-top: -3px;}
+    
+    
+    #btn2{background:gray;width: 50px;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
+    margin-top: -3px;}
+    
+    input{border:1px solid #5b5b5b; margin-top:5px; margin-left:15px; height:25px; font-size:15px;}
+	
+	h3{float:left;}
+	
+	#box{line-height:35px;}
+	#box1{line-height:35px;}
+	#box2{line-height:35px;}
+	
+	textarea{border: 1px solid #5b5b5b;
+    margin-top: 15px;
+    height: 45px;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -50,6 +76,7 @@
 </script>
 </head>
 <body>
+	<div class="wrap">
 	<form action="${pageContext.request.contextPath }/withdrawal.do" method="POST">
 		<div>
 			<h3>회원탈퇴</h3>&nbsp;
@@ -61,14 +88,13 @@
 			아이디 : ${requestScope.member.mId }님<br>
 		</div>
 		<div id="box1">
-			등급 정보 안내
-			<src image=""/>
+			등급 정보 안내<br>
+			<img src="upload/grade2.png" width=150px height=150px>
 		</div>
 		<div id="box2">
 			${requestScope.member.rank.rName } 회원<br>
-			<br>
-			예매 공연 횟수 :	<br> 
-			총 결제액 : 
+			예매 공연 횟수 : ${requestScope.reservedCount} <br>
+			총 결제액 : ${requestScope.totalPrice }<br>
 		</div>
 
 		<div id="box3">
@@ -77,5 +103,6 @@
 		</div>
 		
 	</form>
+	</div>
 </body>
 </html>

@@ -153,7 +153,10 @@ a:hover {
 			 var oNo =	 $('#oTime').find('option:selected').val();
 			 var oTime = $('#oTime option:selected').text();
 			 var sDate = $('#sDate option:selected').text();
+			 var fileImg = $('img').attr('src');
+			 
 			 console.log("oNo :" + oNo);
+			 console.log("fileImg : " + fileImg);
 			$(location).attr('href', '${pageContext.request.contextPath}/member_r_reservationStart2.do?pNo=${param.pNo}&tNo=${requestScope.performance.tNo}&oNo='+oNo+'&oTime='+oTime+'&title=${requestScope.performance.title}&sDate='+sDate);
 	
 		}); 
@@ -163,7 +166,6 @@ a:hover {
 </script>
 </head>
 <body>
-	<!-- 예매페이지 -->
 		<div class="title_bg">예 매</div>
 		<div class="reservation_padding">
 			<div class="reservation_content01">
@@ -172,7 +174,7 @@ a:hover {
 						<dt>
 							<c:forEach var="poster" items="${requestScope.performance.posters}" >
 								<c:if test="${pageScope.poster.mainPoster == 1}">
-									<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}.jpg" 
+									<img src="${pageContext.request.contextPath}/upload/${pageScope.poster.systemFileName}" 
 											width="350px" height="340px" id="img">
 								</c:if>
 							</c:forEach>

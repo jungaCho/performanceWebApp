@@ -19,10 +19,13 @@
 
 .r_content1>.r_content1_sub2 {
 	float: right;
+	margin-right:70px;
 }
 
 .r_content1_title {
-	padding-top: 50px;
+	padding-top: 70px;
+	margin-left:250px;
+	font-size:30px;
 }
 
 .r_content1_title>dt {
@@ -125,7 +128,8 @@
 				</div>
 				<div class="r_content1_sub2">
 					<dl>
-						<dt class="r_content1_sub2_img">포스터</dt>
+						<dt class="r_content1_sub2_img">
+						<img src="upload/리차드 3세_1.jpg" height="250" width="200"></dt>
 						<dd class="r_content1_sub2_title">${param.title}</dd>
 					</dl>
 				</div>

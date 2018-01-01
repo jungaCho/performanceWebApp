@@ -67,6 +67,7 @@
 	font-size: 15px;
 }
 
+
 .reservation>.r_text>ul>.r_text_button>a:hover {
 	color: #fff;
 }

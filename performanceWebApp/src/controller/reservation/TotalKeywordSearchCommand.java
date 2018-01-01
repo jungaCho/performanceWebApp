@@ -1,4 +1,4 @@
-package controller.reservation;
+/*package controller.reservation;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +32,11 @@ public class TotalKeywordSearchCommand implements Command {
 			String mNo = member.getmNo();
 
 			List<TotalInfoVO> totalInfos = ReservationService.getInstance().
+<<<<<<< HEAD
 												retrieveReservationByMember(keyfield, keyword,startRow, endRow,  mNo);
+=======
+												retrieveReservationByMember(keyfield, keyword,startRow, endRow, mNo);
+>>>>>>> refs/remotes/origin/master
 			
 			req.setAttribute("totalInfos", totalInfos);
 			forward.setPath("/");
@@ -48,3 +52,4 @@ public class TotalKeywordSearchCommand implements Command {
 	
 	
 }
+*/

@@ -6,15 +6,29 @@
 <head>
 <meta charset="utf-8" />
 <title>로그인화면</title>
+<link rel="stylesheet" type="text/css" href="css/common.css" />   
 <style>
+/* .bg{background:url('upload/bg.jpg') no-repeat 100%; height:100%;} */
+
+body {
+		background: #ddd;
+	}
+
+
 #box {
+
 	width: 300px;
 	height: 400px;
-	background-color: yellow;
+	background-color: #f0f0f0;
 	margin: 0 auto; /*박스요소를 수평으로 가운데 정렬해주는 코드 */
 	margin-bottom: 10px; /*아래 여백을 10px로 잡아줌 */
 	padding: 20px; /* 안쪽 여백을 20px로 잡아줌 */
 	text-align : center;
+	color: black;
+}
+
+a{
+	color:black;
 }
 
 button {
@@ -48,6 +62,7 @@ input {
 				alert("아이디를 입력해주세요");
 				return false;
 			}
+			
 			if ($('#pwd').val().trim().length == 0) {
 				alert("비밀번호를 입력해주세요");
 				return false;
@@ -76,6 +91,7 @@ input {
 				,
 				error: function(){
 					alert("error : " + jqXHR.status);
+					return false;
 				}
 			});
 		
@@ -89,11 +105,18 @@ input {
 
 </head>
 <body>
+	<div style="margin-top:150px;">
 
 		<form action="${pageContext.request.contextPath }/login.do" method="POST">
 		<div id="box">
+		
+			<img style="margin-top:-80px;" src="upload/logo.png" width="120px" height="120px"/>
+			<br>
+			<br>
+			<br>
 			아이디 :<br>
-			<input type="text" id="id" name="id" size="20" placeholder="아이디를 입력해주세요"></input><br> 
+			<input type="text" id="id" name="id" size="20" placeholder="아이디를 입력해주세요"></input><br>
+			<br>
 			비밀번호 : <br>
 			<input type="password" id="pwd" name="pwd" size="20" placeholder="비밀번호를 입력해주세요"></input><br>
 			<br>
@@ -106,5 +129,6 @@ input {
 		</div>
 		</form>
 
+	</div>
 </body>
 </html>

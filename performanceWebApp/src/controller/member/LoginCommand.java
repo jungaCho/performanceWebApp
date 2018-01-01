@@ -31,34 +31,29 @@ public class LoginCommand implements Command {
 			System.out.println("탈퇴여부 : " + member.getWithdrawal());
 			
 			int loginSuccess = 0;
-			if (member.getmNo() != null ) {
-				if(member.getWithdrawal().equals("F")) {
-				// 세션영역에 "userID"라는 속성이름으로 아이디를 바인딩한다.
-					HttpSession session = req.getSession();
-					session.setAttribute("member", member);
-	
-					System.out.println("member : " + session.getAttribute("member"));
-					
-					req.setAttribute("loginSuccess", loginSuccess);
-					// 로그인 성공 메인화면으로 이동한다.
-					//forward.setPath("/member_index.jsp");
-					forward.setPath("/loginSuccess.jsp");
-					forward.setRedirect(false); 
-				} else {
-					loginSuccess=1;
-					req.setAttribute("loginSuccess", loginSuccess);
-					//forward.setPath("/loginForm.do");
-					forward.setPath("/loginSuccess.jsp");
-					forward.setRedirect(false);
-				}
+			if (member.getmNo() != null && member.getWithdrawal().equals("F")) {
+				loginSuccess = 0;
+				HttpSession session = req.getSession();
+				session.setAttribute("member", member);
+
+				System.out.println("member : " + session.getAttribute("member"));
+				
+				req.setAttribute("loginSuccess", loginSuccess);
+				forward.setPath("/loginSuccess.jsp");
+				forward.setRedirect(false);
+				return forward;
+			} else if( member.getmNo() != null && member.getWithdrawal().equals("T")) {
+				loginSuccess=1;
+				req.setAttribute("loginSuccess", loginSuccess);
+				forward.setPath("/loginSuccess.jsp");
+				forward.setRedirect(false);
 				return forward;
 			} else {
 				loginSuccess=2;
 				req.setAttribute("loginSuccess", loginSuccess);
-				//forward.setPath("/loginForm.do");
 				forward.setPath("/loginSuccess.jsp");
 				forward.setRedirect(false);
-				return forward;			
+				return forward;
 			}
 		} catch (Exception e) {
 			req.setAttribute("exception", e);

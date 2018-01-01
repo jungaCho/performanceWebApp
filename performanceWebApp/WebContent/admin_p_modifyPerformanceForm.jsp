@@ -11,32 +11,53 @@
 
 <style>
 form {
-	padding: 30px;
 	color: gray;
 	width: 900px;
-	height: 100%;
+	height:100%;
 }
-
+input{height:30px;}
+select{height:30px;}
 #btn1 {
-	width: 80px;
-	height: 40px;
-	margin-right: 50px;
+	display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width:65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: blue;
+    border-radius: 5px;
 }
 
 #btn2 {
-	width: 80px;
-	height: 40px;
-	margin-right: 50px;
+	display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    /* border: 1px solid #000; */
+    width:65px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    background-color: gray;
+    border-radius: 5px;
 }
 
-#pannel>h2 {
-	display: inline-block;
-	margin-right: 10px;
+h2 {
+	color:#000;
 }
 
 #div1 {
 	margin-bottom: 20px;
 	text-align: left;
+	margin-top:30px;
+	float:left;
 }
 
 #div1>#btn2 {
@@ -46,7 +67,22 @@ form {
 #div2 {
 	margin-top: 20px;
 	text-align: left;
+	font-size:15px;
 }
+
+.insertTable th{background: #ddd;
+    width: 120px;
+    font-size: 15px;
+    border-bottom: 1px solid gray;
+    height: 30px;
+    line-height: 30px;}
+    
+.insertTable td{font-size:15px; background:#f0f0f0;border-bottom:1px solid gray;  height: 30px;
+    line-height: 30px; }    
+.content1{overflow:hidden}
+#pannel{float:left;font-size: 15px; color: #000;}
+.title{float:left; font-size:15px; color:#000;}
+.wrap{padding:50px;}
 
 #posterList {
 	float: right;
@@ -61,6 +97,18 @@ a{
 .detailA{
 	color:red;
 }
+
+.detailA:hover{
+	color:red;
+}
+.wrap{padding:50px;}
+
+.listPoster{float: left; font-size:15px;}
+
+.posterA{color: black;
+    font-weight: 100;
+    font-size: 15px;
+}}
 </style>
 
 <script src="js/jquery-3.2.1.min.js"></script>
@@ -97,11 +145,14 @@ a{
 </script>
 </head>
 <body>
+	<div class="wrap">
 	<form action="${pageContext.request.contextPath}/modifyPerformance" enctype="multipart/form-data"
 		 method="post">
 		<input type="hidden" name="removeDetailFile">
 		<input type="hidden" name="removePoster">		
 		<h1>공연 수정</h1>
+		<br>
+		<div class="listPoster">
 		<%-- 업로드 된 포스터 목록 조회 --%>
 		<table id="posterList" border="1">
 			<c:forEach var="poster"
@@ -113,6 +164,7 @@ a{
 				</tr>
 			</c:forEach>
 		</table><br>
+		</div>
 		<div id="pannel">
 			메인포스터<br><input type="file" name="mainPoster" size="20"></input><br>
 			 <input type="hidden" name="no" value="${requestScope.performance.pNo }">
@@ -120,14 +172,17 @@ a{
 				type="file" name="poster" size="20"></input><br> <input
 				type="file" name="poster" size="20"></input><br>
 		</div>
-
-		<div id="div1">
-			<h3>
+		<div class="title">
+		<h3>
 				공연제목 : <input type="text" name="title" size="20"
 					value="${requestScope.performance.title }"></input>
 			</h3>
+				<button type="submit" id="btn1">등록</button>
+		<button type="reset" id="btn2">취소</button>
+		</div>
 
-			<table border="1" width=550>
+		<div id="div1">
+			<table width=1000 cellspacing="0" colspacing="0" class="insertTable">
 				<tr>
 					<th colspan='2'>동영상</th>
 					<td colspan='2'><input type="url" name="video" size="40"
@@ -189,8 +244,7 @@ a{
 			</table>
 		</div>
 		<br>
-		<button type="submit" id="btn1">등록</button>
-		<button type="reset" id="btn2">취소</button>
+
 
 		<br>
 
@@ -218,5 +272,6 @@ a{
 			</c:forEach>
 		</table>
 	</form>
+	</div>
 </body>
 </html>

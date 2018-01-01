@@ -7,14 +7,16 @@
 <meta charset="utf-8">
 <title>회원가입</title>
 <style>
+
 	body {
-		background: green;
+		background: #ddd;
 	}
 	form {
 		width:500px;
 		height:550px;
-		background-color:yellow;
+		background-color:#f0f0f0;
 		margin: 0 auto;
+		margin-top:90px;
 	}
 	
 	#box {

@@ -6,10 +6,8 @@
 <c:url var="url1" value="/member_p_selectPerformance.do" scope="page" />
 
 
-<c:url var="url2" value="/member_r_layout.do" scope="page">
-	<c:param name="nav" value="member_r_menu" />
-	<c:param name="article" value="member_r_reservation" />
-</c:url>
+<c:url var="url2" value="/member_r_layout.do" scope="page" />
+
 
 <c:url var="url3" value="/checkMemberForm.do" scope="page"/>
 
@@ -41,8 +39,8 @@
 </script>
 
 <nav>
-	<a href ="${ pageScope.urlHome }"><h1>로고</h1></a>
-	<ul style="float:right; margin-right:30px;">
+	<a href ="${ pageScope.urlHome }"><h1><img src="upload/logo.png" width=80px height=80px></h1></a>
+	<ul style="float:right; margin-right:30px; margin-top:30px;">
 		<li><a href="${pageScope.url1 }">공연정보</a></li>
 		<li><a href="${pageScope.url2 }" id="reservation">예매</a></li>
 		<li><a href="${pageScope.url3 }" id="mypage">마이페이지</a></li>

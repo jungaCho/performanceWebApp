@@ -16,23 +16,36 @@ margin-left:50px; margin-right:50px;
 
 }
 
+
+.wrap{padding:50px;}
+
+select{font-size:15px; height:25px;}
+#searchBtn{font-size:15px; height:25px; width:40px;}
+
 table{border:1px solid gray; text-align:center; font-size:12px; margin-top:50px; margin-bottom:15px; width:100%}
-th{background:#FFBB00; color:#000;}
-tr{height:40px;}
-td{width:90px;}
+th{background:#FFBB00; color:#000; line-height:40px;}
+tr{height:40px; line-height:40px;}
+td{width:90px; line-height:40px;}
 .selectbox{float:right; margin-bottom:20px;}
-}
+.page{font-size:15px; text-align:center;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript">
 	$(document).ready(function() {
+		
 		$('#table').on('click', '#detailView', function () {
 			alert("call");
 		});
 		
-		$('#table').on('click','#reservedCancel',function() {
-			location.href="${pageContext.request.contextPath}/cancelReservationForm.do";
-		});
+		$('#table').on('click','#cancelReserved',function(event) {
+			if($(this).parents('tr:first').find('#crs').text() != "예매") {
+				alert("이미 예매취소된 내역입니다.");
+	 			return false;
+			} else {
+				var rNo = $(this).parents('tr:first').attr('id');
+				location.href="${pageContext.request.contextPath}/cancelReservationForm.do?rNo="+rNo;
+			} 
+		});		
 		
 		$('#searchBtn').on('click',function() {
 			$.ajax ({
@@ -49,11 +62,11 @@ td{width:90px;}
 					var htmlStr ="";
 					for(var i=0;i<data.length;i++) {
 						htmlStr += "<tr>";
-						htmlStr += "<td>"+data[i].rNo+"</td>";
+						htmlStr += "<td id='rNo'>"+data[i].rNo+"</td>";
 						htmlStr += "<td>"+data[i].rDate+"</td>";
 						htmlStr += "<td>"+data[i].title+"</td>";
 						htmlStr += "<td>"+data[i].sDate+"</td>";
-						htmlStr += "<td>"+2+"</td>";
+						htmlStr += "<td>"+data[i].seatNo+"</td>";
 						htmlStr += "<td>"+data[i].rStatus+"</td>";
 						htmlStr += "<td><button id='detailView' type='button'>상세보기</button></td>";
 						htmlStr += "<td><button id='reservedCancel' type='button'>예약취소</button></td>";
@@ -75,9 +88,8 @@ td{width:90px;}
 </head>
 
 <body>
-	<form>
-		<div class="wrapper">
-			<h3>예매</h3>
+		<div class="wrap">
+			<h3>예매</h3><br>
 			<span style="font-size: 17px;">예매 내역</span> <br>
 		
 			<div class="reservation">
@@ -99,26 +111,38 @@ td{width:90px;}
 						<th>공연명</th>
 						<th>공연날짜</th>
 						<th>매수</th>
-						<th colspand="3">상태</th>
+						<th>상태</th>
 						<th></th>
 						<th></th>
 					</tr>
 					
 					<c:forEach var="totalInfo" items="${requestScope.totalInfos }" varStatus="loop">
-					<tr>
+					<tr id="${pageScope.totalInfo.rNo }">
 						<td>${pageScope.totalInfo.rNo }</td>
 						<td>${pageScope.totalInfo.rDate }</td>
 						<td>${pageScope.totalInfo.title }</td>
 						<td>${pageScope.totalInfo.sDate }</td>
-						<td>2</td>
-						<td>${pageScope.totalInfo.rStatus }</td>
-						<td><button id="detailView" type="submit">상세보기</button></td>
-						<td><button id="reservedCancel" type="button">예약취소</button></td>
+						<%-- <c:forEach var="rSeat" items="${requestScope.rSeats }" varStatus="loop"> --%>
+						<td>예매수</td>
+						<%-- </c:forEach> --%>
+						<td id="status">
+						<c:if test="${pageScope.totalInfo.rStatus == 0}">
+							<span id="crs">예매취소</span>
+						</c:if>
+						<c:if test="${pageScope.totalInfo.rStatus == 1}">
+							<span id="crs">예매</span>
+						</c:if>						
+						</td>
+						<td><button id="detailView" type="button">상세보기</button></td>
+						<td><button id="cancelReserved" type='button'>예약취소</button></td>
+						<%-- <td id="cancelReserved"><a class="reservedCancel" id="${pageScope.totalInfo.rNo }">예약취소</a></td> --%>
 					</tr>
 					</c:forEach>
 				</table>
 				<br>
 				<br>
+				
+				<div class="page">
 
 				<c:if test="${requestScope.paging.prevPage > 0 }">
 					<c:url var="prevUrl" value="/totalInfoRetrieveList.do" scope="page">
@@ -151,9 +175,8 @@ td{width:90px;}
 				<c:if test="${requestScope.paging.endPage == requestScope.paging.totalPage }">
 					[다음]&nbsp;&nbsp;
 				</c:if>
-		
+				</div>
 			</div>
 		</div>
-	</form>
 </body>
 </html>

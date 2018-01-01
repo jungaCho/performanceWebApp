@@ -17,17 +17,36 @@
 }
 #body2{
 	padding-left:30px;
+	overflow:hidden;
 }
 #btn1 {
 	width: 70px;
-	height: 30px;
-	margin-right: 10px;
+    height: 30px;
+    margin-right: 10px;
+    font-size: 15px;
+    background: blue;
+    color: white;
+    border-radius: 5px;
 }
 
 #btn2 {
 	width: 70px;
-	height: 30px;
-	margin-right: 10px;
+    height: 30px;
+    margin-right: 10px;
+    font-size: 15px;
+    background: gray;
+    color: white;
+    border-radius: 5px;
+}
+
+#btn3 {
+	width: 70px;
+    height: 30px;
+    margin-right: 10px;
+    font-size: 15px;
+    background: gray;
+    color: white;
+    border-radius: 5px;
 }
 
 #pannel>h2 {
@@ -59,29 +78,41 @@
 	text-align: center;
 }
 
-a {
-	color: gray;
-	text-decoration: none;
-}
-
-#page {
-	margin-top: 290px;
-	padding-left:30px;
-}
 
 #table {
-	border-collapse:separate;
-	border-spacing:5px;
 	color:black;
 	border: 1px solid;
 	font:15px;
+	width:900px;
+	font-size:15px;
 	
 }
+tr{height:40px;}
+
+td{font-size:15px; line-height:40px;}
+td a{font-size:15px; line-height:40px; font-weight:100; color:black;}
 #table th{
 	background-color:#FFBB00;
-	font:15px;
+	font-size:15px;
+	line-height:40px;
+	
 }
+input{height: 30px;
+    font-size: 15px;
+    border: 1px solid #ddd;}
 
+.wrap{padding:50px;}
+
+section article{height:100%; min-height:600px;}
+
+select{font-size: 15px;
+    height: 30px;
+    border: 1px solid #ddd;}
+
+#page{text-align:center; font-size:15px;}
+
+#page a{color:#000;font-weight:100;}
+#page a:hover{color:#000; font-weight:100;}
 </style>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -144,9 +175,10 @@ a {
 
 </head>
 <body>
+	<div class="wrap">
 	<form id="body">
 	<div id="pannel">
-		<h1>공연 조회</h1>
+		<h1>공연 조회</h1><br>
 		
 		<button type="button" id="btn1">선택삭제</button>
 		<button type="button" id="btn2">선택해제</button>
@@ -169,7 +201,7 @@ a {
 	<div id="div3">
 
 	<input type="hidden" value="${pageScope.performance.pNo }">
-		<table id="table"  width=670  >
+		<table id="table"  cellspacing="0" cellpadding="0">
 			<tr>
 				<th>선택</th>
 				<th>공연번호</th>
@@ -233,7 +265,7 @@ a {
                 [다음]&nbsp;&nbsp;
         </c:if>
 	</form>
-
+	</div>
 
 </body>
 </html>

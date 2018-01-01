@@ -18,7 +18,47 @@
 		color : black;
 	
 	}
+	.wrap{padding:50px;}
 	
+	.table {
+	color:black;
+	border: 1px solid;
+	width:1100px;
+	font-size:15px;
+	margin-top:30px;
+	
+}
+
+select{height:30px; font-size:15px;}
+tr{height:40px;}
+
+td{font-size:15px; line-height:40px;}
+td a{font-size:15px; line-height:40px; font-weight:100; color:black;}
+.table th{
+	background-color:#FFBB00;
+	font-size:15px;
+	line-height:40px;
+	
+}
+input{height: 30px;
+    font-size: 15px;
+    border: 1px solid #ddd;}
+
+#btn3{    width: 70px;
+    height: 30px;
+    margin-right: 10px;
+    font-size: 15px;
+    background: gray;
+    color: white;
+    border-radius: 5px;}
+    
+ #btn1{    width: 100px;
+    height: 30px;
+    margin-right: 10px;
+    font-size: 15px;
+    background: gray;
+    color: white;
+    border-radius: 5px;}   
 
 </style>
 
@@ -28,7 +68,7 @@
 	$(document).ready(function(){
 	
 		
-		$('#table1').on("click", 'button', function(){
+		$('#table1').on("click", '#btn2', function(){
 			var memberNo = $(this).parents("tr:first").attr("id");		
 			window.open("${pageContext.request.contextPath}/retrieveMemberDetail.do?mNo="+memberNo,"회원정보상세조회","width=700, height=600, top=200, left=200");
 		});
@@ -157,8 +197,9 @@
 
 </head>
 <body>
-	
+	<div class="wrap">
 	<h2>회원관리</h2>
+	<br>
 	<form>
 	<select id="view">
 	<option value="m_no">회원번호</option>
@@ -183,7 +224,7 @@
 	
 	<button type="button" id="btn3">검색</button>
 	
-	<table id="table1" border = "1">
+	<table id="table1" border = "1"  class="table" cellspacing=0>
 		
 		<tr>
 		
@@ -201,7 +242,7 @@
 		
 		<c:forEach var="members" items= "${requestScope.memberList }" varStatus="loop">
 		<tr id="${pageScope.members.mNo }" >		
-			<th>${pageScope.members.mNo }</th>
+			<td>${pageScope.members.mNo }</td>
 			<td>${pageScope.members.mName }</td>
 			<td>${pageScope.members.mId }</td>
 			<td>${pageScope.members.mPw }</td>
@@ -215,6 +256,6 @@
 		
 	</table>
 	</form>
-
+</div>
 </body>
 </html>
