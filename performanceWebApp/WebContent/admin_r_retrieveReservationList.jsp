@@ -154,7 +154,7 @@ select{font-size: 15px;
 	</div>
 
 
-	<form id="search">
+<!-- 	<form id="search">
 		<select id="keyfield" name="keyfield">
 			<option value="mName">예매자</option>
 			<option value=rDate>예매일자</option>
@@ -165,7 +165,7 @@ select{font-size: 15px;
 		</select> <input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요">
 		<button id="btn3" type="button">검색</button>
 	</form>
-
+ -->
 	<br>
 	<br>
 	<div id="div3">
